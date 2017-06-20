@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.example.agentzengyu.spacewar"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            def fileName
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                if (variant.buildType.name.equals('release')) {
+                    fileName = "SpaceWar.apk"
+                    //  fileName = "RELEASE${defaultConfig.versionName}.${getTime()}.apk"
+                } else if (variant.buildType.name.equals('debug')) {
+                    //  fileName = "DEBUG${defaultConfig.versionName}.${getTime()}.apk"
+                    fileName = "SpaceWar.apk"
+                }
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+
+        }
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+        disable 'Instantiatable'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
+    testCompile 'junit:junit:4.12'
+}
