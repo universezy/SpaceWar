@@ -4,50 +4,35 @@ package com.example.agentzengyu.spacewar.entity;
  * Created by Agent ZengYu on 2017/6/20.
  */
 
-public class ShopItem {
-    private String Name = "";
-    private String Detail = "";
-    private int Level = 0;
-    private int Fee = 0;
-    private int Image = 0;
+import java.io.Serializable;
 
-    public void setName(String name) {
-        Name = name;
-    }
+/**
+ * 所有商店item的抽象父类，禁止被实例化
+ */
+abstract class ShopItem implements Serializable{
+    public String Name = "";
+    public String Detail = "";
+    public int Level = 0;
+    public int Fee = 0;
+    public int Image = 0;
 
-    public void setDetail(String detail) {
-        Detail = detail;
-    }
+    public abstract void setName(String name);
 
-    public void setLevel(int level) {
-        Level = level;
-    }
+    public abstract void setDetail(String detail);
 
-    public void setFee(int fee) {
-        Fee = fee;
-    }
+    public abstract void setLevel(int level);
 
-    public void setImage(int image) {
-        Image = image;
-    }
+    public abstract void setFee(int fee);
 
-    public String getName() {
-        return Name;
-    }
+    public abstract void setImage(int image);
 
-    public String getDetail() {
-        return Detail;
-    }
+    public abstract String getName();
 
-    public int getLevel() {
-        return Level;
-    }
+    public abstract String getDetail();
 
-    public int getFee() {
-        return Fee;
-    }
+    public abstract int getLevel();
 
-    public int getImage() {
-        return Image;
-    }
+    public abstract int getFee();
+
+    public abstract int getImage();
 }

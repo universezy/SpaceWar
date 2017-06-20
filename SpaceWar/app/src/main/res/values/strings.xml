@@ -4,10 +4,10 @@
     <string name="shop_money">Money</string>
     <string name="shop_upgrade">Upgrade</string>
 
-    <string name="menu_info">Info</string>
-    <string name="menu_game">Play</string>
-    <string name="menu_shop">Buy</string>
-    <string name="menu_setting">Set</string>
+    <string name="menu_main">Information</string>
+    <string name="menu_game">Play Game</string>
+    <string name="menu_shop">Upgrade</string>
+    <string name="menu_setting">Setting</string>
 
     <string name="weapon_power">Power</string>
     <string name="weapon_speed">Speed</string>

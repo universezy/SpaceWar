@@ -19,6 +19,9 @@ import com.example.agentzengyu.spacewar.adapter.MenuAdapter;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.service.SpaceWarService;
 
+/**
+ * 菜单界面
+ */
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
@@ -50,6 +53,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         super.onBackPressed();
     }
 
+    /**
+     * 初始化变量
+     */
     private void initVariable() {
         app = (SpaceWarApp) getApplication();
         manager = new LinearLayoutManager(this) {
@@ -67,6 +73,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new MenuAdapter(this);
     }
 
+    /**
+     * 初始化布局
+     */
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rvMenu);
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
@@ -79,6 +88,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         mBtnRight.setOnClickListener(this);
     }
 
+    /**
+     * 启动服务
+     */
     private void startService() {
         connection = new ServiceConnection() {
             @Override

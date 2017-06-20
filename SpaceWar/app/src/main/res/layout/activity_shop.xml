@@ -21,7 +21,7 @@
             android:text="@string/shop_money" />
 
         <TextView
-            android:id="@+id/ivMoney"
+            android:id="@+id/tvMoney"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"

@@ -7,7 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.agentzengyu.spacewar.R;
 
+/**
+ * 欢迎界面
+ */
 public class WelcomeActivity extends AppCompatActivity {
+    private final String TAG = getClass().getName();
     private Handler handler;
     private Runnable runnable;
 
@@ -16,14 +20,14 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        setVariable();
+        initVariable();
         setAction();
     }
 
     /**
      * 初始化变量
      */
-    private void setVariable() {
+    private void initVariable() {
         handler = new Handler();
         runnable = new Runnable() {
             @Override

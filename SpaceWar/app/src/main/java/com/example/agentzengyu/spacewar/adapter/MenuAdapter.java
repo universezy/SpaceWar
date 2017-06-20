@@ -23,6 +23,9 @@ import com.example.agentzengyu.spacewar.application.Config;
  * Created by Agent ZengYu on 2017/6/20.
  */
 
+/**
+ * 菜单适配器
+ */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> {
     private MenuActivity context;
     private LayoutInflater inflater;
@@ -74,9 +77,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     private void setData() {
         images = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round,R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
-        titles = new String[]{resources.getString(R.string.menu_info),resources.getString(R.string.menu_game), resources.getString(R.string.menu_shop), resources.getString(R.string.menu_setting)};
+        titles = new String[]{resources.getString(R.string.menu_main),resources.getString(R.string.menu_game), resources.getString(R.string.menu_shop), resources.getString(R.string.menu_setting)};
     }
 
+    /**
+     * 菜单布局容器
+     */
     public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mIvMenu;
         private Button mBtnEnter;
@@ -101,7 +107,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             switch (v.getId()) {
                 case R.id.btnEnter:
                     switch ((int) v.getTag()) {
-                        case Config.INFO:
+                        case Config.MAIN:
                             Intent intentInfo = new Intent(context, MainActivity.class);
                             context.startActivity(intentInfo);
                             context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);

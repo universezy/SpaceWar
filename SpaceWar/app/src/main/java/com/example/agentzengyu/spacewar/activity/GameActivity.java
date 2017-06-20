@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import com.example.agentzengyu.spacewar.R;
 
+/**
+ * 游戏主界面
+ */
 public class GameActivity extends AppCompatActivity {
     private final String TAG = getClass().getName();
 
