@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">SpaceWar</string>
+
+    <string name="shop_money">Money</string>
+    <string name="shop_upgrade">Upgrade</string>
+
+    <string name="menu_info">Info</string>
+    <string name="menu_game">Play</string>
+    <string name="menu_shop">Buy</string>
+    <string name="menu_setting">Set</string>
+
+    <string name="weapon_power">Power</string>
+    <string name="weapon_speed">Speed</string>
+    <string name="weapon_range">Range</string>
+    <string name="weapon_nuclear">Nuclear</string>
+
+    <string name="spaceship_life">Life</string>
+    <string name="spaceship_defense">Defense</string>
+    <string name="spaceship_agility">Agility</string>
+    <string name="spaceship_shield">Shield</string>
+
 </resources>

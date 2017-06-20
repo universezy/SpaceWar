@@ -11,19 +11,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.adapter.MenuAdapter;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.service.SpaceWarService;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
+    private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
     protected SpaceWarService.ServiceBinder binder;
     private ServiceConnection connection;
     private LinearLayoutManager manager;
     private MenuAdapter adapter;
     private RecyclerView recyclerView;
+    private Button mBtnLeft, mBtnRight;
+    private int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,17 @@ public class MenuActivity extends AppCompatActivity {
 
     private void initVariable() {
         app = (SpaceWarApp) getApplication();
-        manager = new LinearLayoutManager(this);
+        manager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         adapter = new MenuAdapter(this);
     }
@@ -57,7 +72,11 @@ public class MenuActivity extends AppCompatActivity {
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
-        recyclerView.scrollToPosition(1024);
+        recyclerView.scrollToPosition(position);
+        mBtnLeft = (Button) findViewById(R.id.btnLeft);
+        mBtnLeft.setOnClickListener(this);
+        mBtnRight = (Button) findViewById(R.id.btnRight);
+        mBtnRight.setOnClickListener(this);
     }
 
     private void startService() {
@@ -65,7 +84,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 binder = (SpaceWarService.ServiceBinder) service;  //获取其实例
-                Log.e("Service", "Service has started.");
+                Log.e(SpaceWarService.class.getName(), "Service has started.");
             }
 
             @Override
@@ -74,5 +93,33 @@ public class MenuActivity extends AppCompatActivity {
         };
         Intent intent = new Intent(MenuActivity.this, SpaceWarService.class);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnLeft:
+                if (position > 0) {
+                    position--;
+                    recyclerView.scrollToPosition(position);
+                } else
+                    return;
+                if (position == 0) {
+                    mBtnLeft.setVisibility(View.INVISIBLE);
+                }
+                break;
+            case R.id.btnRight:
+                if (position < 3) {
+                    position++;
+                    recyclerView.scrollToPosition(position);
+                } else
+                    return;
+                if (position == 3) {
+                    mBtnRight.setVisibility(View.INVISIBLE);
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

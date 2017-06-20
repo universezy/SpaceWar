@@ -22,7 +22,6 @@
         <activity
             android:name=".activity.MenuActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activity.GameActivity"
             android:screenOrientation="landscape" />
@@ -31,12 +30,17 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SettingActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="landscape"></activity>
 
         <service
             android:name=".service.SpaceWarService"
             android:enabled="true"
             android:exported="true" />
+
     </application>
 
 </manifest>

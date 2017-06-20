@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.example.agentzengyu.spacewar.R;
 
 public class ShopActivity extends AppCompatActivity {
+    private final String TAG = getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

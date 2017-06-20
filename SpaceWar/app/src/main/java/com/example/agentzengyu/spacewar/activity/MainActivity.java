@@ -5,12 +5,11 @@ import android.os.Bundle;
 
 import com.example.agentzengyu.spacewar.R;
 
-public class SettingActivity extends AppCompatActivity {
-    private final String TAG = getClass().getName();
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_main);
     }
 }
