@@ -9,21 +9,21 @@ import java.io.Serializable;
 /**
  * 所有商店item的父类
  */
-public class ShopItem implements Serializable {
+public class ShopItem implements Serializable{
     private String Name = "";
-    private String Detail = "";
+    private int Detail = 0;
     private int Level = 0;
     private int Fee = 0;
     private int Image = 0;
 
-    protected ShopItem(){
+    public ShopItem(){
     }
 
     public void setName(String name) {
         Name = name;
     }
 
-    public void setDetail(String detail) {
+    public void setDetail(int detail) {
         Detail = detail;
     }
 
@@ -43,7 +43,7 @@ public class ShopItem implements Serializable {
         return Name;
     }
 
-    public String getDetail() {
+    public int getDetail() {
         return Detail;
     }
 

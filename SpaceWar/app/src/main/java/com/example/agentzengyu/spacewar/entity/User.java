@@ -9,80 +9,80 @@ package com.example.agentzengyu.spacewar.entity;
  */
 public class User {
     /********** Spaceship **********/
-    private SpaceshipLife life = null;
-    private SpaceshipDefense defense = null;
-    private SpaceshipAgility agility = null;
-    private SpaceshipShield shield = null;
+    private ShopItem life = null;
+    private ShopItem defense = null;
+    private ShopItem agility = null;
+    private ShopItem shield = null;
 
     /********** Weapon **********/
-    private WeaponPower power = null;
-    private WeaponSpeed speed = null;
-    private WeaponRange range = null;
-    private WeaponNuclear nuclear = null;
+    private ShopItem power = null;
+    private ShopItem speed = null;
+    private ShopItem range = null;
+    private ShopItem nuclear = null;
 
     /********** Spaceship **********/
-    public void setLife(SpaceshipLife life) {
+    public void setLife(ShopItem life) {
         this.life = life;
     }
 
-    public void setDefense(SpaceshipDefense defense) {
+    public void setDefense(ShopItem defense) {
         this.defense = defense;
     }
 
-    public void setAgility(SpaceshipAgility agility) {
+    public void setAgility(ShopItem agility) {
         this.agility = agility;
     }
 
-    public void setShield(SpaceshipShield shield) {
+    public void setShield(ShopItem shield) {
         this.shield = shield;
     }
 
-    public SpaceshipLife getLife() {
+    public ShopItem getLife() {
         return life;
     }
 
-    public SpaceshipDefense getDefense() {
+    public ShopItem getDefense() {
         return defense;
     }
 
-    public SpaceshipAgility getAgility() {
+    public ShopItem getAgility() {
         return agility;
     }
 
-    public SpaceshipShield getShield() {
+    public ShopItem getShield() {
         return shield;
     }
 
     /********** Weapon **********/
-    public void setPower(WeaponPower power) {
+    public void setPower(ShopItem power) {
         this.power = power;
     }
 
-    public void setSpeed(WeaponSpeed speed) {
+    public void setSpeed(ShopItem speed) {
         this.speed = speed;
     }
 
-    public void setRange(WeaponRange range) {
+    public void setRange(ShopItem range) {
         this.range = range;
     }
 
-    public void setNuclear(WeaponNuclear nuclear) {
+    public void setNuclear(ShopItem nuclear) {
         this.nuclear = nuclear;
     }
 
-    public WeaponPower getPower() {
+    public ShopItem getPower() {
         return power;
     }
 
-    public WeaponSpeed getSpeed() {
+    public ShopItem getSpeed() {
         return speed;
     }
 
-    public WeaponRange getRange() {
+    public ShopItem getRange() {
         return range;
     }
 
-    public WeaponNuclear getNuclear() {
+    public ShopItem getNuclear() {
         return nuclear;
     }
 }

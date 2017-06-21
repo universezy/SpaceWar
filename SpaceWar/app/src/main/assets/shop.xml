@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shop>
+    <spaceship>
+        <array-life>
+
+            <life>
+                <name>Default</name>
+                <detail>800</detail>
+                <level>0</level>
+                <fee>0</fee>
+                <image></image>
+            </life>
+
+            <life>
+                <name>Primary</name>
+                <detail>1000</detail>
+                <level>1</level>
+                <fee>500</fee>
+                <image></image>
+            </life>
+
+            <life>
+                <name>Secondary</name>
+                <detail>1200</detail>
+                <level>2</level>
+                <fee>1000</fee>
+                <image></image>
+            </life>
+
+            <life>
+                <name>Advanced</name>
+                <detail>1400</detail>
+                <level>3</level>
+                <fee>1500</fee>
+                <image></image>
+            </life>
+
+            <life>
+                <name>Ultimate</name>
+                <detail>1600</detail>
+                <level>4</level>
+                <fee>2000</fee>
+                <image></image>
+            </life>
+        </array-life>
+
+        <array-defense>
+            <defense>
+                <name>Default</name>
+                <detail>100</detail>
+                <level>0</level>
+                <fee>0</fee>
+                <image></image>
+            </defense>
+
+            <defense>
+                <name>Primary</name>
+                <detail>110</detail>
+                <level>1</level>
+                <fee>500</fee>
+                <image></image>
+            </defense>
+
+            <defense>
+                <name>Secondary</name>
+                <detail>120</detail>
+                <level>2</level>
+                <fee>1000</fee>
+                <image></image>
+            </defense>
+
+            <defense>
+                <name>Advanced</name>
+                <detail>130</detail>
+                <level>3</level>
+                <fee>1500</fee>
+                <image></image>
+            </defense>
+
+            <defense>
+                <name>Ultimate</name>
+                <detail>140</detail>
+                <level>4</level>
+                <fee>2000</fee>
+                <image></image>
+            </defense>
+        </array-defense>
+
+        <array-agility>
+            <agility>
+                <name>Default</name>
+                <detail>100</detail>
+                <level>0</level>
+                <fee>0</fee>
+                <image></image>
+            </agility>
+
+            <agility>
+                <name>Primary</name>
+                <detail>110</detail>
+                <level>1</level>
+                <fee>500</fee>
+                <image></image>
+            </agility>
+
+            <agility>
+                <name>Secondary</name>
+                <detail>120</detail>
+                <level>2</level>
+                <fee>1000</fee>
+                <image></image>
+            </agility>
+
+            <agility>
+                <name>Advanced</name>
+                <detail>130</detail>
+                <level>3</level>
+                <fee>1500</fee>
+                <image></image>
+            </agility>
+
+            <agility>
+                <name>Ultimate</name>
+                <detail>140</detail>
+                <level>4</level>
+                <fee>2000</fee>
+                <image></image>
+            </agility>
+        </array-agility>
+
+        <array-shield>
+            <shield>
+                <name>Default</name>
+                <detail>60</detail>
+                <level>0</level>
+                <fee>0</fee>
+                <image></image>
+            </shield>
+
+            <shield>
+                <name>Primary</name>
+                <detail>55</detail>
+                <level>1</level>
+                <fee>500</fee>
+                <image></image>
+            </shield>
+
+            <shield>
+                <name>Secondary</name>
+                <detail>50</detail>
+                <level>2</level>
+                <fee>1000</fee>
+                <image></image>
+            </shield>
+
+            <shield>
+                <name>Advanced</name>
+                <detail>45</detail>
+                <level>3</level>
+                <fee>1500</fee>
+                <image></image>
+            </shield>
+
+            <shield>
+                <name>Ultimate</name>
+                <detail>40</detail>
+                <level>4</level>
+                <fee>2000</fee>
+                <image></image>
+            </shield>
+        </array-shield>
+    </spaceship>
+
+    <weapon>
+        <array-power>
+            <power>
+                <name>Default</name>
+                <detail>100</detail>
+                <level>0</level>
+                <fee>0</fee>
+                <image></image>
+            </power>
+
+            <power>
+                <name>Primary</name>
+                <detail>120</detail>
+                <level>1</level>
+                <fee>500</fee>
+                <image></image>
+            </power>
+
+            <power>
+                <name>Secondary</name>
+                <detail>140</detail>
+                <level>2</level>
+                <fee>1000</fee>
+                <image></image>
+            </power>
+
+            <power>
+                <name>Advanced</name>
+                <detail>160</detail>
+                <level>3</level>
+                <fee>1500</fee>
+                <image></image>
+            </power>
+
+            <power>
+                <name>Ultimate</name>
+                <detail>180</detail>
+                <level>4</level>
+                <fee>2000</fee>
+                <image></image>
+            </power>
+
+        </array-power>
+
+        <array-speed>
+            <speed>
+                <name>Default</name>
+                <detail>100</detail>
+                <level>0</level>
+                <fee>0</fee>
+                <image></image>
+            </speed>
+
+            <speed>
+                <name>Primary</name>
+                <detail>110</detail>
+                <level>1</level>
+                <fee>500</fee>
+                <image></image>
+            </speed>
+
+            <speed>
+                <name>Secondary</name>
+                <detail>120</detail>
+                <level>2</level>
+                <fee>1000</fee>
+                <image></image>
+            </speed>
+
+            <speed>
+                <name>Advanced</name>
+                <detail>130</detail>
+                <level>3</level>
+                <fee>1500</fee>
+                <image></image>
+            </speed>
+
+            <speed>
+                <name>Ultimate</name>
+                <detail>140</detail>
+                <level>4</level>
+                <fee>2000</fee>
+                <image></image>
+            </speed>
+
+        </array-speed>
+
+        <array-range>
+
+            <range>
+                <name>Default</name>
+                <detail>100</detail>
+                <level>0</level>
+                <fee>0</fee>
+                <image></image>
+            </range>
+
+            <range>
+                <name>Primary</name>
+                <detail>120</detail>
+                <level>1</level>
+                <fee>500</fee>
+                <image></image>
+            </range>
+
+            <range>
+                <name>Secondary</name>
+                <detail>140</detail>
+                <level>2</level>
+                <fee>1000</fee>
+                <image></image>
+            </range>
+
+            <range>
+                <name>Advanced</name>
+                <detail>160</detail>
+                <level>3</level>
+                <fee>1500</fee>
+                <image></image>
+            </range>
+
+            <range>
+                <name>Ultimate</name>
+                <detail>180</detail>
+                <level>4</level>
+                <fee>2000</fee>
+                <image></image>
+            </range>
+
+        </array-range>
+
+        <array-nuclear>
+
+            <nuclear>
+                <name>Default</name>
+                <detail>60</detail>
+                <level>0</level>
+                <fee>0</fee>
+                <image></image>
+            </nuclear>
+
+            <nuclear>
+                <name>Primary</name>
+                <detail>55</detail>
+                <level>1</level>
+                <fee>500</fee>
+                <image></image>
+            </nuclear>
+
+            <nuclear>
+                <name>Secondary</name>
+                <detail>50</detail>
+                <level>2</level>
+                <fee>1000</fee>
+                <image></image>
+            </nuclear>
+
+            <nuclear>
+                <name>Advanced</name>
+                <detail>45</detail>
+                <level>3</level>
+                <fee>1500</fee>
+                <image></image>
+            </nuclear>
+
+            <nuclear>
+                <name>Ultimate</name>
+                <detail>40</detail>
+                <level>4</level>
+                <fee>2000</fee>
+                <image></image>
+            </nuclear>
+        </array-nuclear>
+    </weapon>
+</shop>

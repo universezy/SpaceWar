@@ -5,16 +5,16 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
+import com.example.agentzengyu.spacewar.application.Config;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.BasicData;
-import com.example.agentzengyu.spacewar.entity.SpaceshipAgility;
-import com.example.agentzengyu.spacewar.entity.SpaceshipDefense;
-import com.example.agentzengyu.spacewar.entity.SpaceshipLife;
-import com.example.agentzengyu.spacewar.entity.SpaceshipShield;
-import com.example.agentzengyu.spacewar.entity.WeaponNuclear;
-import com.example.agentzengyu.spacewar.entity.WeaponPower;
-import com.example.agentzengyu.spacewar.entity.WeaponRange;
-import com.example.agentzengyu.spacewar.entity.WeaponSpeed;
+import com.example.agentzengyu.spacewar.util.BasicDataHandler;
+import com.example.agentzengyu.spacewar.util.DataHandlerCallBack;
+import com.example.agentzengyu.spacewar.util.UserDataHandler;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * 太空大战服务
@@ -28,8 +28,8 @@ public class SpaceWarService extends Service {
         super.onCreate();
         app = (SpaceWarApp) getApplication();
         app.setService(this);
-        initUserData();
         initBasicData();
+        initUserData();
     }
 
     @Override
@@ -47,42 +47,87 @@ public class SpaceWarService extends Service {
         super.onDestroy();
     }
 
-    public void initUserData() {
-        //TODO send broadcast
-
-
-        //TODO read file
-        SpaceshipLife life = new SpaceshipLife();
-        SpaceshipDefense defense = new SpaceshipDefense();
-        SpaceshipAgility agility = new SpaceshipAgility();
-        SpaceshipShield shield = new SpaceshipShield();
-        WeaponPower power = new WeaponPower();
-        WeaponSpeed speed = new WeaponSpeed();
-        WeaponRange range = new WeaponRange();
-        WeaponNuclear nuclear = new WeaponNuclear();
-
-
-        app.getUser().setLife(life);
-        app.getUser().setDefense(defense);
-        app.getUser().setAgility(agility);
-        app.getUser().setShield(shield);
-        app.getUser().setPower(power);
-        app.getUser().setSpeed(speed);
-        app.getUser().setRange(range);
-        app.getUser().setNuclear(nuclear);
-    }
-
     public void initBasicData() {
-        //TODO send broadcast
+        BasicDataHandler handler = new BasicDataHandler();
+        try {
+            InputStream inputStream = getResources().getAssets().open(Config.FILE_SHOP);
+            handler.setResource(data, inputStream).read(new DataHandlerCallBack() {
+                @Override
+                public void onStart(String s) {
 
+                }
 
-        //TODO read file
+                @Override
+                public void onSuccess(String s) {
 
+                }
 
+                @Override
+                public void onFailure(String s, Exception e) {
+
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void saveUserData(){
+    public void initUserData() {
+        UserDataHandler handler = new UserDataHandler();
+        File file = new File(getFilesDir(), Config.FILE_USER);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+        handler.setResource(app.getUser(), file).read(new DataHandlerCallBack() {
+            @Override
+            public void onStart(String s) {
 
+            }
+
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFailure(String s, Exception e) {
+
+            }
+        });
+    }
+
+    public void saveUserData() {
+        UserDataHandler handler = new UserDataHandler();
+        File file = new File(getFilesDir(), Config.FILE_USER);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+        handler.setResource(app.getUser(), file).save(new DataHandlerCallBack() {
+            @Override
+            public void onStart(String s) {
+
+            }
+
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFailure(String s, Exception e) {
+
+            }
+        });
     }
 
     public class ServiceBinder extends Binder {

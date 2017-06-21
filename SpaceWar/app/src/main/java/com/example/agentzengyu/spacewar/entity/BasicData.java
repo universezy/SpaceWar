@@ -11,48 +11,49 @@ import java.util.ArrayList;
  */
 public class BasicData {
     /********** Spaceship **********/
-    private ArrayList<SpaceshipLife> lifes = new ArrayList<>();
-    private ArrayList<SpaceshipDefense> defenses = new ArrayList<>();
-    private ArrayList<SpaceshipAgility> agilities = new ArrayList<>();
-    private ArrayList<SpaceshipShield> shields = new ArrayList<>();
+    private ArrayList<ShopItem> lifes = new ArrayList<>();
+    private ArrayList<ShopItem> defenses = new ArrayList<>();
+    private ArrayList<ShopItem> agilities = new ArrayList<>();
+    private ArrayList<ShopItem> shields = new ArrayList<>();
 
     /********** Weapon **********/
-    private ArrayList<WeaponPower> powers = new ArrayList<>();
-    private ArrayList<WeaponSpeed> speeds = new ArrayList<>();
-    private ArrayList<WeaponRange> ranges = new ArrayList<>();
-    private ArrayList<WeaponNuclear> nuclears = new ArrayList<>();
+    private ArrayList<ShopItem> powers = new ArrayList<>();
+    private ArrayList<ShopItem> speeds = new ArrayList<>();
+    private ArrayList<ShopItem> ranges = new ArrayList<>();
+    private ArrayList<ShopItem> nuclears = new ArrayList<>();
 
     /********** Spaceship **********/
-    public ArrayList<SpaceshipLife> getLifes() {
+    public ArrayList<ShopItem> getLifes() {
         return lifes;
     }
 
-    public ArrayList<SpaceshipDefense> getDefenses() {
+    public ArrayList<ShopItem> getDefenses() {
         return defenses;
     }
 
-    public ArrayList<SpaceshipAgility> getAgilities() {
+    public ArrayList<ShopItem> getAgilities() {
         return agilities;
     }
 
-    public ArrayList<SpaceshipShield> getShields() {
+    public ArrayList<ShopItem> getShields() {
         return shields;
     }
 
     /********** Weapon **********/
-    public ArrayList<WeaponPower> getPowers() {
+    public ArrayList<ShopItem> getPowers() {
         return powers;
     }
 
-    public ArrayList<WeaponSpeed> getSpeeds() {
+    public ArrayList<ShopItem> getSpeeds() {
         return speeds;
     }
 
-    public ArrayList<WeaponRange> getRanges() {
+    public ArrayList<ShopItem> getRanges() {
         return ranges;
     }
 
-    public ArrayList<WeaponNuclear> getNuclears() {
+    public ArrayList<ShopItem> getNuclears() {
         return nuclears;
     }
+
 }
