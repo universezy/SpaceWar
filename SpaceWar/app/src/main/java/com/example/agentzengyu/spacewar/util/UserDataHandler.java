@@ -198,7 +198,7 @@ public class UserDataHandler {
                                 }
                                 break;
                             case XmlPullParser.TEXT:
-                                Log.e("BasicDataHandler", xmlPullParser.getText() + "");
+                                Log.e("UserDataHandler", xmlPullParser.getText() + "");
                                 break;
                             case XmlPullParser.END_TAG:
                                 break;

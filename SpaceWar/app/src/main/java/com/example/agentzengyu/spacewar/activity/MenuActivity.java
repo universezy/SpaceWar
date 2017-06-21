@@ -118,6 +118,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 if (position == 0) {
                     mBtnLeft.setVisibility(View.INVISIBLE);
+                } else {
+                    mBtnLeft.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.btnRight:
@@ -128,6 +130,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 if (position == 3) {
                     mBtnRight.setVisibility(View.INVISIBLE);
+                } else {
+                    mBtnLeft.setVisibility(View.VISIBLE);
                 }
                 break;
             default:

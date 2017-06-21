@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.adapter.ShopAdapter;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.fragment.SpaceshipFragment;
 import com.example.agentzengyu.spacewar.fragment.WeaponFragment;

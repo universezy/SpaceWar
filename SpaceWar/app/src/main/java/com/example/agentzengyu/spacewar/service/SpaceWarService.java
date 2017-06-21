@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Config;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
@@ -54,17 +55,17 @@ public class SpaceWarService extends Service {
             handler.setResource(data, inputStream).read(new DataHandlerCallBack() {
                 @Override
                 public void onStart(String s) {
-
+                    Log.e("onStart",s);
                 }
 
                 @Override
                 public void onSuccess(String s) {
-
+                    Log.e("onSuccess",s);
                 }
 
                 @Override
                 public void onFailure(String s, Exception e) {
-
+                    e.printStackTrace();
                 }
             });
         } catch (IOException e) {
@@ -78,27 +79,37 @@ public class SpaceWarService extends Service {
         if (!file.exists()) {
             try {
                 file.createNewFile();
+                app.getUser().setLife(data.getLifes().get(0));
+                app.getUser().setDefense(data.getDefenses().get(0));
+                app.getUser().setAgility(data.getAgilities().get(0));
+                app.getUser().setShield(data.getShields().get(0));
+                app.getUser().setPower(data.getPowers().get(0));
+                app.getUser().setSpeed(data.getSpeeds().get(0));
+                app.getUser().setRange(data.getRanges().get(0));
+                app.getUser().setNuclear(data.getNuclears().get(0));
+                saveUserData();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return;
+        } else {
+            handler.setResource(app.getUser(), file).read(new DataHandlerCallBack() {
+                @Override
+                public void onStart(String s) {
+                    Log.e("onStart",s);
+                }
+
+                @Override
+                public void onSuccess(String s) {
+                    Log.e("onSuccess",s);
+                }
+
+                @Override
+                public void onFailure(String s, Exception e) {
+                    e.printStackTrace();
+                }
+            });
         }
-        handler.setResource(app.getUser(), file).read(new DataHandlerCallBack() {
-            @Override
-            public void onStart(String s) {
-
-            }
-
-            @Override
-            public void onSuccess(String s) {
-
-            }
-
-            @Override
-            public void onFailure(String s, Exception e) {
-
-            }
-        });
     }
 
     public void saveUserData() {
@@ -115,19 +126,23 @@ public class SpaceWarService extends Service {
         handler.setResource(app.getUser(), file).save(new DataHandlerCallBack() {
             @Override
             public void onStart(String s) {
-
+                Log.e("onStart",s);
             }
 
             @Override
             public void onSuccess(String s) {
-
+                Log.e("onSuccess",s);
             }
 
             @Override
             public void onFailure(String s, Exception e) {
-
+                e.printStackTrace();
             }
         });
+    }
+
+    public BasicData getData() {
+        return data;
     }
 
     public class ServiceBinder extends Binder {
