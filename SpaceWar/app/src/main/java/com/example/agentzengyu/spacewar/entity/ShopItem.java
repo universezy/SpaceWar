@@ -7,32 +7,55 @@ package com.example.agentzengyu.spacewar.entity;
 import java.io.Serializable;
 
 /**
- * 所有商店item的抽象父类，禁止被实例化
+ * 所有商店item的父类
  */
-abstract class ShopItem implements Serializable{
-    public String Name = "";
-    public String Detail = "";
-    public int Level = 0;
-    public int Fee = 0;
-    public int Image = 0;
+public class ShopItem implements Serializable {
+    private String Name = "";
+    private String Detail = "";
+    private int Level = 0;
+    private int Fee = 0;
+    private int Image = 0;
 
-    public abstract void setName(String name);
+    protected ShopItem(){
+    }
 
-    public abstract void setDetail(String detail);
+    public void setName(String name) {
+        Name = name;
+    }
 
-    public abstract void setLevel(int level);
+    public void setDetail(String detail) {
+        Detail = detail;
+    }
 
-    public abstract void setFee(int fee);
+    public void setLevel(int level) {
+        Level = level;
+    }
 
-    public abstract void setImage(int image);
+    public void setFee(int fee) {
+        Fee = fee;
+    }
 
-    public abstract String getName();
+    public void setImage(int image) {
+        Image = image;
+    }
 
-    public abstract String getDetail();
+    public String getName() {
+        return Name;
+    }
 
-    public abstract int getLevel();
+    public String getDetail() {
+        return Detail;
+    }
 
-    public abstract int getFee();
+    public int getLevel() {
+        return Level;
+    }
 
-    public abstract int getImage();
+    public int getFee() {
+        return Fee;
+    }
+
+    public int getImage() {
+        return Image;
+    }
 }

@@ -81,6 +81,10 @@ public class SpaceWarService extends Service {
 
     }
 
+    public void saveUserData(){
+
+    }
+
     public class ServiceBinder extends Binder {
     }
 }

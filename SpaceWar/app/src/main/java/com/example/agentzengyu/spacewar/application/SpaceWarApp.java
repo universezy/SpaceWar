@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 
-import com.example.agentzengyu.spacewar.entity.BasicData;
 import com.example.agentzengyu.spacewar.entity.User;
 import com.example.agentzengyu.spacewar.service.SpaceWarService;
 
@@ -16,7 +15,7 @@ import java.util.List;
  */
 
 /**
- * 应用
+ * 应用类，全局管理
  */
 public class SpaceWarApp extends Application {
     private List<Activity> activities = new ArrayList<>();
