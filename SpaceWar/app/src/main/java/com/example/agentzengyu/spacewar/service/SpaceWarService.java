@@ -9,6 +9,7 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.application.Config;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.BasicData;
+import com.example.agentzengyu.spacewar.entity.ShopItem;
 import com.example.agentzengyu.spacewar.util.BasicDataHandler;
 import com.example.agentzengyu.spacewar.util.DataHandlerCallBack;
 import com.example.agentzengyu.spacewar.util.UserDataHandler;
@@ -30,7 +31,6 @@ public class SpaceWarService extends Service {
         app = (SpaceWarApp) getApplication();
         app.setService(this);
         initBasicData();
-        initUserData();
     }
 
     @Override
@@ -55,12 +55,19 @@ public class SpaceWarService extends Service {
             handler.setResource(data, inputStream).read(new DataHandlerCallBack() {
                 @Override
                 public void onStart(String s) {
-                    Log.e("onStart",s);
+                    Log.e("onStart", s);
                 }
 
                 @Override
                 public void onSuccess(String s) {
-                    Log.e("onSuccess",s);
+                    Log.e("onSuccess", s);
+                    for (ShopItem item : data.getLifes()) {
+                        Log.e("getName", item.getName());
+                        Log.e("getDetail", "" + item.getDetail());
+                        Log.e("getFee", "" + item.getFee());
+                        Log.e("getLevel", "" + item.getLevel());
+                    }
+                    initUserData();
                 }
 
                 @Override
@@ -96,12 +103,18 @@ public class SpaceWarService extends Service {
             handler.setResource(app.getUser(), file).read(new DataHandlerCallBack() {
                 @Override
                 public void onStart(String s) {
-                    Log.e("onStart",s);
+                    Log.e("onStart", s);
                 }
 
                 @Override
                 public void onSuccess(String s) {
-                    Log.e("onSuccess",s);
+                    Log.e("onSuccess", s);
+                    for (ShopItem item : data.getLifes()) {
+                        Log.e("getName", item.getName());
+                        Log.e("getDetail", "" + item.getDetail());
+                        Log.e("getFee", "" + item.getFee());
+                        Log.e("getLevel", "" + item.getLevel());
+                    }
                 }
 
                 @Override
@@ -126,12 +139,12 @@ public class SpaceWarService extends Service {
         handler.setResource(app.getUser(), file).save(new DataHandlerCallBack() {
             @Override
             public void onStart(String s) {
-                Log.e("onStart",s);
+                Log.e("onStart", s);
             }
 
             @Override
             public void onSuccess(String s) {
-                Log.e("onSuccess",s);
+                Log.e("onSuccess", s);
             }
 
             @Override

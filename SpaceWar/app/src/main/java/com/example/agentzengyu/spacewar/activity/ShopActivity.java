@@ -42,8 +42,11 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         mTvMoney = (TextView) findViewById(R.id.tvMoney);
         mCivWeapon = (CircleImageView) findViewById(R.id.civWeapon);
+        mCivWeapon.setOnClickListener(this);
         mCivSpaceship = (CircleImageView) findViewById(R.id.civSpaceship);
+        mCivSpaceship.setOnClickListener(this);
         mCivReturn = (CircleImageView) findViewById(R.id.civReturn);
+        mCivReturn.setOnClickListener(this);
     }
 
     /**

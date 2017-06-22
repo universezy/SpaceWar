@@ -48,7 +48,7 @@ public class SpaceshipFragment extends Fragment implements View.OnClickListener 
      */
     private void initVariable() {
         app = (SpaceWarApp) getActivity().getApplication();
-        manager = new LinearLayoutManager(getActivity());
+        manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         adapter = new ShopAdapter(getActivity(), userItem, shopItems);
     }

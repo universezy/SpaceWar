@@ -49,7 +49,7 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
      */
     private void initVariable() {
         app = (SpaceWarApp) getActivity().getApplication();
-        manager = new LinearLayoutManager(getActivity());
+        manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         adapter = new ShopAdapter(getActivity(), userItem,shopItems);
     }
@@ -60,7 +60,7 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
      * @param view
      */
     private void initView(View view) {
-        recyclerView = (RecyclerView) view.findViewById(R.id.rvSpaceship);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rvWeapon);
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);

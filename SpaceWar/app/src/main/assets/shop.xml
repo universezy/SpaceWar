@@ -2,13 +2,12 @@
 <shop>
     <spaceship>
         <array-life>
-
             <life>
                 <name>Default</name>
                 <detail>800</detail>
                 <level>0</level>
                 <fee>0</fee>
-                <image></image>
+                <image>0</image>
             </life>
 
             <life>
@@ -16,7 +15,7 @@
                 <detail>1000</detail>
                 <level>1</level>
                 <fee>500</fee>
-                <image></image>
+                <image>0</image>
             </life>
 
             <life>
@@ -24,7 +23,7 @@
                 <detail>1200</detail>
                 <level>2</level>
                 <fee>1000</fee>
-                <image></image>
+                <image>0</image>
             </life>
 
             <life>
@@ -32,15 +31,14 @@
                 <detail>1400</detail>
                 <level>3</level>
                 <fee>1500</fee>
-                <image></image>
+                <image>0</image>
             </life>
-
             <life>
                 <name>Ultimate</name>
                 <detail>1600</detail>
                 <level>4</level>
                 <fee>2000</fee>
-                <image></image>
+                <image>0</image>
             </life>
         </array-life>
 
@@ -50,7 +48,7 @@
                 <detail>100</detail>
                 <level>0</level>
                 <fee>0</fee>
-                <image></image>
+                <image>0</image>
             </defense>
 
             <defense>
@@ -58,7 +56,7 @@
                 <detail>110</detail>
                 <level>1</level>
                 <fee>500</fee>
-                <image></image>
+                <image>0</image>
             </defense>
 
             <defense>
@@ -66,7 +64,7 @@
                 <detail>120</detail>
                 <level>2</level>
                 <fee>1000</fee>
-                <image></image>
+                <image>0</image>
             </defense>
 
             <defense>
@@ -74,7 +72,7 @@
                 <detail>130</detail>
                 <level>3</level>
                 <fee>1500</fee>
-                <image></image>
+                <image>0</image>
             </defense>
 
             <defense>
@@ -82,7 +80,7 @@
                 <detail>140</detail>
                 <level>4</level>
                 <fee>2000</fee>
-                <image></image>
+                <image>0</image>
             </defense>
         </array-defense>
 
@@ -92,7 +90,7 @@
                 <detail>100</detail>
                 <level>0</level>
                 <fee>0</fee>
-                <image></image>
+                <image>0</image>
             </agility>
 
             <agility>
@@ -100,7 +98,7 @@
                 <detail>110</detail>
                 <level>1</level>
                 <fee>500</fee>
-                <image></image>
+                <image>0</image>
             </agility>
 
             <agility>
@@ -108,7 +106,7 @@
                 <detail>120</detail>
                 <level>2</level>
                 <fee>1000</fee>
-                <image></image>
+                <image>0</image>
             </agility>
 
             <agility>
@@ -116,7 +114,7 @@
                 <detail>130</detail>
                 <level>3</level>
                 <fee>1500</fee>
-                <image></image>
+                <image>0</image>
             </agility>
 
             <agility>
@@ -124,7 +122,7 @@
                 <detail>140</detail>
                 <level>4</level>
                 <fee>2000</fee>
-                <image></image>
+                <image>0</image>
             </agility>
         </array-agility>
 
@@ -134,7 +132,7 @@
                 <detail>60</detail>
                 <level>0</level>
                 <fee>0</fee>
-                <image></image>
+                <image>0</image>
             </shield>
 
             <shield>
@@ -142,7 +140,7 @@
                 <detail>55</detail>
                 <level>1</level>
                 <fee>500</fee>
-                <image></image>
+                <image>0</image>
             </shield>
 
             <shield>
@@ -150,7 +148,7 @@
                 <detail>50</detail>
                 <level>2</level>
                 <fee>1000</fee>
-                <image></image>
+                <image>0</image>
             </shield>
 
             <shield>
@@ -158,7 +156,7 @@
                 <detail>45</detail>
                 <level>3</level>
                 <fee>1500</fee>
-                <image></image>
+                <image>0</image>
             </shield>
 
             <shield>
@@ -166,7 +164,7 @@
                 <detail>40</detail>
                 <level>4</level>
                 <fee>2000</fee>
-                <image></image>
+                <image>0</image>
             </shield>
         </array-shield>
     </spaceship>
@@ -178,7 +176,7 @@
                 <detail>100</detail>
                 <level>0</level>
                 <fee>0</fee>
-                <image></image>
+                <image>0</image>
             </power>
 
             <power>
@@ -186,7 +184,7 @@
                 <detail>120</detail>
                 <level>1</level>
                 <fee>500</fee>
-                <image></image>
+                <image>0</image>
             </power>
 
             <power>
@@ -194,7 +192,7 @@
                 <detail>140</detail>
                 <level>2</level>
                 <fee>1000</fee>
-                <image></image>
+                <image>0</image>
             </power>
 
             <power>
@@ -202,7 +200,7 @@
                 <detail>160</detail>
                 <level>3</level>
                 <fee>1500</fee>
-                <image></image>
+                <image>0</image>
             </power>
 
             <power>
@@ -210,7 +208,7 @@
                 <detail>180</detail>
                 <level>4</level>
                 <fee>2000</fee>
-                <image></image>
+                <image>0</image>
             </power>
 
         </array-power>
@@ -221,7 +219,7 @@
                 <detail>100</detail>
                 <level>0</level>
                 <fee>0</fee>
-                <image></image>
+                <image>0</image>
             </speed>
 
             <speed>
@@ -229,7 +227,7 @@
                 <detail>110</detail>
                 <level>1</level>
                 <fee>500</fee>
-                <image></image>
+                <image>0</image>
             </speed>
 
             <speed>
@@ -237,7 +235,7 @@
                 <detail>120</detail>
                 <level>2</level>
                 <fee>1000</fee>
-                <image></image>
+                <image>0</image>
             </speed>
 
             <speed>
@@ -245,7 +243,7 @@
                 <detail>130</detail>
                 <level>3</level>
                 <fee>1500</fee>
-                <image></image>
+                <image>0</image>
             </speed>
 
             <speed>
@@ -253,7 +251,7 @@
                 <detail>140</detail>
                 <level>4</level>
                 <fee>2000</fee>
-                <image></image>
+                <image>0</image>
             </speed>
 
         </array-speed>
@@ -265,7 +263,7 @@
                 <detail>100</detail>
                 <level>0</level>
                 <fee>0</fee>
-                <image></image>
+                <image>0</image>
             </range>
 
             <range>
@@ -273,7 +271,7 @@
                 <detail>120</detail>
                 <level>1</level>
                 <fee>500</fee>
-                <image></image>
+                <image>0</image>
             </range>
 
             <range>
@@ -281,7 +279,7 @@
                 <detail>140</detail>
                 <level>2</level>
                 <fee>1000</fee>
-                <image></image>
+                <image>0</image>
             </range>
 
             <range>
@@ -289,7 +287,7 @@
                 <detail>160</detail>
                 <level>3</level>
                 <fee>1500</fee>
-                <image></image>
+                <image>0</image>
             </range>
 
             <range>
@@ -297,7 +295,7 @@
                 <detail>180</detail>
                 <level>4</level>
                 <fee>2000</fee>
-                <image></image>
+                <image>0</image>
             </range>
 
         </array-range>
@@ -309,7 +307,7 @@
                 <detail>60</detail>
                 <level>0</level>
                 <fee>0</fee>
-                <image></image>
+                <image>0</image>
             </nuclear>
 
             <nuclear>
@@ -317,7 +315,7 @@
                 <detail>55</detail>
                 <level>1</level>
                 <fee>500</fee>
-                <image></image>
+                <image>0</image>
             </nuclear>
 
             <nuclear>
@@ -325,7 +323,7 @@
                 <detail>50</detail>
                 <level>2</level>
                 <fee>1000</fee>
-                <image></image>
+                <image>0</image>
             </nuclear>
 
             <nuclear>
@@ -333,7 +331,7 @@
                 <detail>45</detail>
                 <level>3</level>
                 <fee>1500</fee>
-                <image></image>
+                <image>0</image>
             </nuclear>
 
             <nuclear>
@@ -341,7 +339,7 @@
                 <detail>40</detail>
                 <level>4</level>
                 <fee>2000</fee>
-                <image></image>
+                <image>0</image>
             </nuclear>
         </array-nuclear>
     </weapon>

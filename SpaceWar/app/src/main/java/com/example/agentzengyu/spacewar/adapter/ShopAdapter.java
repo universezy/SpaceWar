@@ -2,6 +2,7 @@ package com.example.agentzengyu.spacewar.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
     private SpaceWarApp app = null;
     private Activity context;
     private LayoutInflater inflater;
-    private ArrayList<ShopItem> userItem = new ArrayList<>();
-    private ArrayList<ShopItem> shopItems = new ArrayList<>();
+    private ArrayList<ShopItem> userItem = null;
+    private ArrayList<ShopItem> shopItems = null;
 
     public ShopAdapter(Activity context, ArrayList<ShopItem> userItem, ArrayList<ShopItem> shopItems) {
         this.context = context;
@@ -48,7 +49,12 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
     @Override
     public void onBindViewHolder(ShopViewHolder holder, int position) {
         if (userItem.size() == 1) {
-            holder.getmIvCurrent().setImageResource(userItem.get(0).getImage());
+//            holder.getmIvCurrent().setImageResource(userItem.get(0).getImage());
+            holder.getmIvCurrent().setImageResource(R.mipmap.ic_launcher_round);
+            Log.e("getName ","              "+userItem.get(0).getName());
+            Log.e("name ","              "+userItem.get(0).getLevel());
+            Log.e("name ","              "+userItem.get(0).getDetail());
+
             holder.getmTvCurrentName().setText(userItem.get(0).getName());
             holder.getmTvCurrentLevel().setText(String.valueOf(userItem.get(0).getLevel()));
             holder.getmTvCurrentDetail().setText(String.valueOf(userItem.get(0).getDetail()));
@@ -60,7 +66,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
                 holder.getmBtnUpgrade().setClickable(false);
             }
         }
-        holder.getmIvUpgraded().setImageResource(shopItems.get(position).getImage());
+//        holder.getmIvUpgraded().setImageResource(shopItems.get(position).getImage());
+        holder.getmIvUpgraded().setImageResource(R.mipmap.ic_launcher_round);
         holder.getmTvUpgradedName().setText(shopItems.get(position).getName());
         holder.getmTvUpgradedLevel().setText(String.valueOf(shopItems.get(position).getLevel()));
         holder.getmTvUpgradedDetail().setText(String.valueOf(shopItems.get(0).getDetail()));

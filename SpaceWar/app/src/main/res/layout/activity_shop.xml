@@ -28,7 +28,7 @@
             android:gravity="center"
             android:text="$10000" />
 
-        <android.support.v4.widget.CircleImageView
+        <com.example.agentzengyu.spacewar.view.CircleImageView
             android:id="@+id/civWeapon"
             android:layout_width="80dp"
             android:layout_height="0dp"
@@ -38,7 +38,7 @@
             app:border_overlay="false"
             app:border_width="5dp" />
 
-        <android.support.v4.widget.CircleImageView
+        <com.example.agentzengyu.spacewar.view.CircleImageView
             android:id="@+id/civSpaceship"
             android:layout_width="80dp"
             android:layout_height="0dp"
@@ -48,7 +48,7 @@
             app:border_overlay="false"
             app:border_width="5dp" />
 
-        <android.support.v4.widget.CircleImageView
+        <com.example.agentzengyu.spacewar.view.CircleImageView
             android:id="@+id/civReturn"
             android:layout_width="80dp"
             android:layout_height="0dp"

@@ -41,18 +41,18 @@ public class BasicDataHandler {
         return this;
     }
 
-    public BasicDataHandler setResource(BasicData data,InputStream inputStream){
+    public BasicDataHandler setResource(BasicData data, InputStream inputStream) {
         this.data = data;
         this.inputStream = inputStream;
         return this;
     }
 
-//    /**
-//     * 存档
-//     *
-//     * @param callBack 消息回调
-//     * @return
-//     */
+    /**
+     * 存档
+     *
+     * @param callBack 消息回调
+     * @return
+     */
 //    private void save(final DataHandlerCallBack callBack) {
 //        new Thread(new Runnable() {
 //            @Override
@@ -154,7 +154,7 @@ public class BasicDataHandler {
 //    private void setAttributes(XmlSerializer xmlSerializer, ShopItem item) {
 //        try {
 //            xmlSerializer.attribute(null, Config.TAG_NAME, item.getName());
-//            xmlSerializer.attribute(null, Config.TAG_DETAIL, item.getDetail());
+//            xmlSerializer.attribute(null, Config.TAG_DETAIL, ""+item.getDetail());
 //            xmlSerializer.attribute(null, Config.TAG_LEVEL, "" + item.getLevel());
 //            xmlSerializer.attribute(null, Config.TAG_FEE, "" + item.getFee());
 //            xmlSerializer.attribute(null, Config.TAG_IMAGE, "" + item.getImage());
@@ -165,6 +165,7 @@ public class BasicDataHandler {
 
     /**
      * 读档
+     *
      * @param callBack 消息回调
      */
     public void read(final DataHandlerCallBack callBack) {
@@ -182,31 +183,32 @@ public class BasicDataHandler {
                                 break;
                             case XmlPullParser.START_TAG:
                                 String tagName = xmlPullParser.getName();
+                                Log.e("tagName", tagName);
                                 ShopItem item = new ShopItem();
                                 switch (tagName) {
                                     case Config.TAG_LIFE:
-                                        getAttributes(xmlPullParser, data.getLifes(), item);
+                                        getAttributes(xmlPullParser, data.getLifes(), item, tagName);
                                         break;
                                     case Config.TAG_DEFENSE:
-                                        getAttributes(xmlPullParser, data.getDefenses(), item);
+                                        getAttributes(xmlPullParser, data.getDefenses(), item, tagName);
                                         break;
                                     case Config.TAG_AGILITY:
-                                        getAttributes(xmlPullParser, data.getAgilities(), item);
+                                        getAttributes(xmlPullParser, data.getAgilities(), item, tagName);
                                         break;
                                     case Config.TAG_SHIELD:
-                                        getAttributes(xmlPullParser, data.getShields(), item);
+                                        getAttributes(xmlPullParser, data.getShields(), item, tagName);
                                         break;
                                     case Config.TAG_POWER:
-                                        getAttributes(xmlPullParser, data.getPowers(), item);
+                                        getAttributes(xmlPullParser, data.getPowers(), item, tagName);
                                         break;
                                     case Config.TAG_SPEED:
-                                        getAttributes(xmlPullParser, data.getSpeeds(), item);
+                                        getAttributes(xmlPullParser, data.getSpeeds(), item, tagName);
                                         break;
                                     case Config.TAG_RANGE:
-                                        getAttributes(xmlPullParser, data.getRanges(), item);
+                                        getAttributes(xmlPullParser, data.getRanges(), item, tagName);
                                         break;
                                     case Config.TAG_NUCLEAR:
-                                        getAttributes(xmlPullParser, data.getNuclears(), item);
+                                        getAttributes(xmlPullParser, data.getNuclears(), item, tagName);
                                         break;
                                     default:
                                         break;
@@ -241,30 +243,42 @@ public class BasicDataHandler {
      * @param items         item数组
      * @param item          item对象
      */
-    private void getAttributes(XmlPullParser xmlPullParser, ArrayList<ShopItem> items, ShopItem item) {
-        for (int i = 0; i < xmlPullParser.getAttributeCount(); i++) {
-            String attributeName = xmlPullParser.getAttributeName(i);
-            String attributeValue = xmlPullParser.getAttributeValue(i);
-            switch (attributeName) {
-                case Config.TAG_NAME:
-                    item.setName(attributeValue);
-                    break;
-                case Config.TAG_DETAIL:
-                    item.setDetail(Integer.parseInt(attributeValue));
-                    break;
-                case Config.TAG_LEVEL:
-                    item.setLevel(Integer.parseInt(attributeValue));
-                    break;
-                case Config.TAG_FEE:
-                    item.setFee(Integer.parseInt(attributeValue));
-                    break;
-                case Config.TAG_IMAGE:
-                    item.setImage(Integer.parseInt(attributeValue));
-                    break;
-                default:
-                    break;
+    private void getAttributes(XmlPullParser xmlPullParser, ArrayList<ShopItem> items, ShopItem item, String endTagName) {
+        try {
+            xmlPullParser.next();
+            String tagName;
+            while (!endTagName.equals((tagName = xmlPullParser.getName()))) {
+                Log.e("tagName", tagName + "  ");
+                String value = xmlPullParser.nextText();
+                Log.e("value", value);
+                if (!"".equals(value)) {
+                    switch (tagName) {
+                        case Config.TAG_NAME:
+                            item.setName(value);
+                            break;
+                        case Config.TAG_DETAIL:
+                            item.setDetail(Integer.parseInt(value));
+                            break;
+                        case Config.TAG_LEVEL:
+                            item.setLevel(Integer.parseInt(value));
+                            break;
+                        case Config.TAG_FEE:
+                            item.setFee(Integer.parseInt(value));
+                            break;
+                        case Config.TAG_IMAGE:
+                            item.setImage(Integer.parseInt(value));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                xmlPullParser.next();
             }
+            items.add(item);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
         }
-        items.add(item);
     }
 }

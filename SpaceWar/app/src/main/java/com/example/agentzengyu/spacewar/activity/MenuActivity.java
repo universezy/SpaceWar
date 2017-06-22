@@ -40,6 +40,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         initVariable();
         initView();
         startService();
+        setButtonVisible();
     }
 
     @Override
@@ -92,6 +93,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
      * 启动服务
      */
     private void startService() {
+        if (app.getService() != null) return;
         connection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
@@ -107,6 +109,19 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
 
+    private void setButtonVisible() {
+        if (position == 0) {
+            mBtnLeft.setVisibility(View.INVISIBLE);
+            mBtnRight.setVisibility(View.VISIBLE);
+        } else if (position == 3) {
+            mBtnLeft.setVisibility(View.VISIBLE);
+            mBtnRight.setVisibility(View.INVISIBLE);
+        } else {
+            mBtnRight.setVisibility(View.VISIBLE);
+            mBtnLeft.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -116,11 +131,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                     recyclerView.scrollToPosition(position);
                 } else
                     return;
-                if (position == 0) {
-                    mBtnLeft.setVisibility(View.INVISIBLE);
-                } else {
-                    mBtnLeft.setVisibility(View.VISIBLE);
-                }
+                setButtonVisible();
                 break;
             case R.id.btnRight:
                 if (position < 3) {
@@ -128,11 +139,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                     recyclerView.scrollToPosition(position);
                 } else
                     return;
-                if (position == 3) {
-                    mBtnRight.setVisibility(View.INVISIBLE);
-                } else {
-                    mBtnLeft.setVisibility(View.VISIBLE);
-                }
+                setButtonVisible();
                 break;
             default:
                 break;

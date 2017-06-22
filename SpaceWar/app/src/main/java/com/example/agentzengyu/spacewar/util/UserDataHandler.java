@@ -1,6 +1,5 @@
 package com.example.agentzengyu.spacewar.util;
 
-import android.util.Log;
 import android.util.Xml;
 
 import com.example.agentzengyu.spacewar.application.Config;
@@ -198,7 +197,7 @@ public class UserDataHandler {
                                 }
                                 break;
                             case XmlPullParser.TEXT:
-                                Log.e("UserDataHandler", xmlPullParser.getText() + "");
+//                                Log.e("UserDataHandler", xmlPullParser.getText() + "");
                                 break;
                             case XmlPullParser.END_TAG:
                                 break;
