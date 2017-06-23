@@ -11,12 +11,14 @@ import android.widget.Button;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.adapter.MenuAdapter;
+import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 
 /**
  * 菜单界面
  */
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getName();
+    private SpaceWarApp app = null;
     private LinearLayoutManager manager;
     private MenuAdapter adapter;
     private RecyclerView mRvMenu;
@@ -26,7 +28,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_memu);
         initVariable();
         initView();
@@ -36,6 +38,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        app.getService().stopSelf();
     }
 
     @Override
@@ -47,6 +50,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化变量
      */
     private void initVariable() {
+        app = (SpaceWarApp) getApplication();
         manager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollHorizontally() {

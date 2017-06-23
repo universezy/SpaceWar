@@ -34,6 +34,7 @@ public class SpaceWarApp extends Application {
     public void onTerminate() {
         super.onTerminate();
         this.service.stopSelf();
+        Log.e("SpaceWarApp","Application has destroyed.");
     }
 
     public PlayerData getPlayerData() {

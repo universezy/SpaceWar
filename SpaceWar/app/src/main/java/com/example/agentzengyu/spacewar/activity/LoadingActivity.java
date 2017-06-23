@@ -99,7 +99,6 @@ public class LoadingActivity extends AppCompatActivity {
                     mPbBasic.setProgress(progressBasic);
                     if (progressBasic == 100) {
                         mTvBasic.setText(getResources().getString(R.string.loading_basic));
-                        mPbBasic.setBackgroundColor(Color.parseColor("#ffd700"));
                     }
                     break;
                 case Config.STATE_PLAYER:
@@ -111,7 +110,6 @@ public class LoadingActivity extends AppCompatActivity {
                     mPbPlayer.setProgress(progressPlayer);
                     if (progressPlayer == 100) {
                         mTvPlayer.setText(getResources().getString(R.string.loading_player));
-                        mPbPlayer.setBackgroundColor(Color.parseColor("#ffd700"));
                         handler.postDelayed(runnable, 800);
                     }
                     break;
