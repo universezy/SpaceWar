@@ -31,15 +31,19 @@
         <activity
             android:name=".activity.SettingActivity"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+
+        <activity android:name=".activity.LoadingActivity"
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".service.SpaceWarService"
             android:enabled="true"
             android:exported="true" />
+
+        <receiver android:name=".activity.LoadingActivity$LoadingReceiver"/>
 
     </application>
 

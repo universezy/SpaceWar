@@ -3,6 +3,7 @@ package com.example.agentzengyu.spacewar.application;
 import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.example.agentzengyu.spacewar.entity.PlayerData;
 import com.example.agentzengyu.spacewar.service.SpaceWarService;
@@ -26,6 +27,13 @@ public class SpaceWarApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.e("SpaceWarApp","Application has started.");
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        this.service.stopSelf();
     }
 
     public PlayerData getPlayerData() {

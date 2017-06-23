@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
@@ -26,14 +27,14 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     private TextView mTvMoney;
     private CircleImageView mCivWeapon, mCivShip, mCivReturn;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_shop);
-        initView();
         initFragment();
         initVariable();
+        initView();
     }
 
     /**
@@ -41,6 +42,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initView() {
         mTvMoney = (TextView) findViewById(R.id.tvMoney);
+        mTvMoney.setText("$" + app.getPlayerData().getMoney());
         mCivWeapon = (CircleImageView) findViewById(R.id.civWeapon);
         mCivWeapon.setOnClickListener(this);
         mCivShip = (CircleImageView) findViewById(R.id.civShip);

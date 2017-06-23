@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">SpaceWar</string>
 
+    <string name="loading_basic">Loading basic data successful.</string>
+    <string name="loading_player">Loading player data successful.</string>
+
     <string name="shop_money">Money</string>
     <string name="shop_upgrade">Upgrade</string>
 

@@ -1,10 +1,11 @@
-package com.example.agentzengyu.spacewar.util;
+package com.example.agentzengyu.spacewar.handler;
 
 import android.util.Xml;
 
 import com.example.agentzengyu.spacewar.application.Config;
 import com.example.agentzengyu.spacewar.entity.BasicData;
 import com.example.agentzengyu.spacewar.entity.ShopItem;
+import com.example.agentzengyu.spacewar.others.DataHandlerCallBack;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 /**
  * 基础数据处理类
  */
-public class BasicDataHandler {
+public class BasicHandler {
     private BasicData data = null;
     private File file = null;
     private InputStream inputStream = null;
@@ -34,7 +35,7 @@ public class BasicDataHandler {
      * @param file 文件
      * @return
      */
-    private BasicDataHandler setResource(BasicData data, File file) {
+    private BasicHandler setResource(BasicData data, File file) {
         this.data = data;
         this.file = file;
         return this;
@@ -47,7 +48,7 @@ public class BasicDataHandler {
      * @param inputStream 输入流
      * @return
      */
-    public BasicDataHandler setResource(BasicData data, InputStream inputStream) {
+    public BasicHandler setResource(BasicData data, InputStream inputStream) {
         this.data = data;
         this.inputStream = inputStream;
         return this;
@@ -71,7 +72,7 @@ public class BasicDataHandler {
 //                    xmlSerializer.startTag(null, Config.TAG_SHOP);
 //
 //                    //战舰库开始
-//                    xmlSerializer.startTag(null, Config.SHIP);
+//                    xmlSerializer.startTag(null, Config.TAG_SHIP);
 //
 //                    //生命库
 //                    for (ShopItem life : data.getLives()) {
@@ -102,7 +103,7 @@ public class BasicDataHandler {
 //                    }
 //
 //                    //战舰库结束
-//                    xmlSerializer.endTag(null, Config.SHIP);
+//                    xmlSerializer.endTag(null, Config.TAG_SHIP);
 //
 //                    //武器库开始
 //                    xmlSerializer.startTag(null, Config.TAG_WEAPON);
@@ -182,37 +183,38 @@ public class BasicDataHandler {
                     XmlPullParser xmlPullParser = Xml.newPullParser();
                     xmlPullParser.setInput(inputStream, "utf-8");
                     int eventType = xmlPullParser.getEventType();
+                    int count = 0;
                     while (eventType != XmlPullParser.END_DOCUMENT) {
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
                                 callBack.onStart("Start to read basic data:");
                                 break;
                             case XmlPullParser.START_TAG:
-                                String tagName = xmlPullParser.getName();
-                                switch (tagName) {
+                                String startName = xmlPullParser.getName();
+                                switch (startName) {
                                     case Config.TAG_LIFE:
-                                        getAttributes(xmlPullParser, data.getLives(), tagName);
+                                        getAttributes(xmlPullParser, data.getLives(), startName);
                                         break;
                                     case Config.TAG_DEFENSE:
-                                        getAttributes(xmlPullParser, data.getDefenses(), tagName);
+                                        getAttributes(xmlPullParser, data.getDefenses(), startName);
                                         break;
                                     case Config.TAG_AGILITY:
-                                        getAttributes(xmlPullParser, data.getAgilities(), tagName);
+                                        getAttributes(xmlPullParser, data.getAgilities(), startName);
                                         break;
                                     case Config.TAG_SHIELD:
-                                        getAttributes(xmlPullParser, data.getShields(), tagName);
+                                        getAttributes(xmlPullParser, data.getShields(), startName);
                                         break;
                                     case Config.TAG_POWER:
-                                        getAttributes(xmlPullParser, data.getPowers(), tagName);
+                                        getAttributes(xmlPullParser, data.getPowers(), startName);
                                         break;
                                     case Config.TAG_SPEED:
-                                        getAttributes(xmlPullParser, data.getSpeeds(), tagName);
+                                        getAttributes(xmlPullParser, data.getSpeeds(), startName);
                                         break;
                                     case Config.TAG_RANGE:
-                                        getAttributes(xmlPullParser, data.getRanges(), tagName);
+                                        getAttributes(xmlPullParser, data.getRanges(), startName);
                                         break;
                                     case Config.TAG_BOMB:
-                                        getAttributes(xmlPullParser, data.getBombs(), tagName);
+                                        getAttributes(xmlPullParser, data.getBombs(), startName);
                                         break;
                                     default:
                                         break;
@@ -221,6 +223,35 @@ public class BasicDataHandler {
                             case XmlPullParser.TEXT:
                                 break;
                             case XmlPullParser.END_TAG:
+                                String endName = xmlPullParser.getName();
+                                switch (endName) {
+                                    case Config.ARRAY_LIFE:
+                                        callBack.onProcess(++count);
+                                        break;
+                                    case Config.ARRAY_DEFENSE:
+                                        callBack.onProcess(++count);
+                                        break;
+                                    case Config.ARRAY_AGILITY:
+                                        callBack.onProcess(++count);
+                                        break;
+                                    case Config.ARRAY_SHIELD:
+                                        callBack.onProcess(++count);
+                                        break;
+                                    case Config.ARRAY_POWER:
+                                        callBack.onProcess(++count);
+                                        break;
+                                    case Config.ARRAY_SPEED:
+                                        callBack.onProcess(++count);
+                                        break;
+                                    case Config.ARRAY_RANGE:
+                                        callBack.onProcess(++count);
+                                        break;
+                                    case Config.ARRAY_BOMB:
+                                        callBack.onProcess(++count);
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 break;
                             default:
                                 break;
@@ -247,6 +278,11 @@ public class BasicDataHandler {
      * @param endTagName    结束标志
      */
     private void getAttributes(XmlPullParser xmlPullParser, ArrayList<ShopItem> items, String endTagName) {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         try {
             String tagName = "";
             while (!endTagName.equals(tagName)) {

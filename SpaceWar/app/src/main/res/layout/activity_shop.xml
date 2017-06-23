@@ -62,6 +62,7 @@
 
     <FrameLayout
         android:id="@+id/flContainer"
+        android:background="@mipmap/ic_launcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp">
