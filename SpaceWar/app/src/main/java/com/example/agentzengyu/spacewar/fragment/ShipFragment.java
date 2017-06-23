@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * 商店战舰界面
  */
-public class SpaceshipFragment extends Fragment implements View.OnClickListener {
+public class ShipFragment extends Fragment implements View.OnClickListener {
     private SpaceWarApp app = null;
     private LinearLayoutManager manager;
     private ShopAdapter adapter;
@@ -30,13 +30,14 @@ public class SpaceshipFragment extends Fragment implements View.OnClickListener 
     private ArrayList<ShopItem> shopItems = new ArrayList<>();
     private int currentPosition = 1;
 
-    public SpaceshipFragment() {
+    public ShipFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_spaceship, null);
+        app = (SpaceWarApp) getActivity().getApplication();
         initVariable();
         initView(view);
         shift(0);
@@ -75,24 +76,30 @@ public class SpaceshipFragment extends Fragment implements View.OnClickListener 
         mIvShield.setOnClickListener(this);
     }
 
+    /**
+     * 切换商品类型
+     *
+     * @param position 类型下标
+     */
     private void shift(int position) {
         if (position == currentPosition) return;
+        userItem.clear();
         shopItems.clear();
         switch (position) {
             case 0:
-                userItem.add(app.getUser().getLife());
-                shopItems.addAll(app.getService().getData().getLifes());
+                userItem.add(app.getPlayerData().getLife());
+                shopItems.addAll(app.getService().getData().getLives());
                 break;
             case 1:
-                userItem.add(app.getUser().getDefense());
+                userItem.add(app.getPlayerData().getDefense());
                 shopItems.addAll(app.getService().getData().getDefenses());
                 break;
             case 2:
-                userItem.add(app.getUser().getAgility());
+                userItem.add(app.getPlayerData().getAgility());
                 shopItems.addAll(app.getService().getData().getAgilities());
                 break;
             case 3:
-                userItem.add(app.getUser().getShield());
+                userItem.add(app.getPlayerData().getShield());
                 shopItems.addAll(app.getService().getData().getShields());
                 break;
             default:
@@ -100,6 +107,7 @@ public class SpaceshipFragment extends Fragment implements View.OnClickListener 
         }
         adapter.notifyDataSetChanged();
         currentPosition = position;
+        recyclerView.scrollToPosition(0);
     }
 
     @Override

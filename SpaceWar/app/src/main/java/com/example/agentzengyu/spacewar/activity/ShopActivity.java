@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.fragment.SpaceshipFragment;
+import com.example.agentzengyu.spacewar.fragment.ShipFragment;
 import com.example.agentzengyu.spacewar.fragment.WeaponFragment;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 
@@ -21,10 +21,10 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     private SpaceWarApp app = null;
     private FragmentManager fragmentManager;
     private WeaponFragment weaponFragment;
-    private SpaceshipFragment spaceshipFragment;
+    private ShipFragment shipFragment;
 
     private TextView mTvMoney;
-    private CircleImageView mCivWeapon, mCivSpaceship, mCivReturn;
+    private CircleImageView mCivWeapon, mCivShip, mCivReturn;
 
 
     @Override
@@ -43,8 +43,8 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         mTvMoney = (TextView) findViewById(R.id.tvMoney);
         mCivWeapon = (CircleImageView) findViewById(R.id.civWeapon);
         mCivWeapon.setOnClickListener(this);
-        mCivSpaceship = (CircleImageView) findViewById(R.id.civSpaceship);
-        mCivSpaceship.setOnClickListener(this);
+        mCivShip = (CircleImageView) findViewById(R.id.civShip);
+        mCivShip.setOnClickListener(this);
         mCivReturn = (CircleImageView) findViewById(R.id.civReturn);
         mCivReturn.setOnClickListener(this);
     }
@@ -53,7 +53,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化碎片
      */
     private void initFragment() {
-        spaceshipFragment = new SpaceshipFragment();
+        shipFragment = new ShipFragment();
         weaponFragment = new WeaponFragment();
     }
 
@@ -73,8 +73,8 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
                 transaction.replace(R.id.flContainer, weaponFragment);
                 transaction.commit();
                 break;
-            case R.id.civSpaceship:
-                transaction.replace(R.id.flContainer, spaceshipFragment);
+            case R.id.civShip:
+                transaction.replace(R.id.flContainer, shipFragment);
                 transaction.commit();
                 break;
             case R.id.civReturn:

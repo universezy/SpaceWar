@@ -2,345 +2,69 @@
 <shop>
     <spaceship>
         <array-life>
-            <life>
-                <name>Default</name>
-                <detail>800</detail>
-                <level>0</level>
-                <fee>0</fee>
-                <image>0</image>
-            </life>
-
-            <life>
-                <name>Primary</name>
-                <detail>1000</detail>
-                <level>1</level>
-                <fee>500</fee>
-                <image>0</image>
-            </life>
-
-            <life>
-                <name>Secondary</name>
-                <detail>1200</detail>
-                <level>2</level>
-                <fee>1000</fee>
-                <image>0</image>
-            </life>
-
-            <life>
-                <name>Advanced</name>
-                <detail>1400</detail>
-                <level>3</level>
-                <fee>1500</fee>
-                <image>0</image>
-            </life>
-            <life>
-                <name>Ultimate</name>
-                <detail>1600</detail>
-                <level>4</level>
-                <fee>2000</fee>
-                <image>0</image>
-            </life>
+            <life name="Default" fee="0" image="0" level="0" value="800" />
+            <life name="Primary" fee="500" image="0" level="1" value="1000" />
+            <life name="Secondary" fee="1000" image="0" level="2" value="1200" />
+            <life name="Advanced" fee="1500" image="0" level="3" value="1400" />
+            <life name="Ultimate" fee="2000" image="0" level="4" value="1600" />
         </array-life>
 
         <array-defense>
-            <defense>
-                <name>Default</name>
-                <detail>100</detail>
-                <level>0</level>
-                <fee>0</fee>
-                <image>0</image>
-            </defense>
-
-            <defense>
-                <name>Primary</name>
-                <detail>110</detail>
-                <level>1</level>
-                <fee>500</fee>
-                <image>0</image>
-            </defense>
-
-            <defense>
-                <name>Secondary</name>
-                <detail>120</detail>
-                <level>2</level>
-                <fee>1000</fee>
-                <image>0</image>
-            </defense>
-
-            <defense>
-                <name>Advanced</name>
-                <detail>130</detail>
-                <level>3</level>
-                <fee>1500</fee>
-                <image>0</image>
-            </defense>
-
-            <defense>
-                <name>Ultimate</name>
-                <detail>140</detail>
-                <level>4</level>
-                <fee>2000</fee>
-                <image>0</image>
-            </defense>
+            <defense name="Default" fee="0" image="0" level="0" value="100" />
+            <defense name="Primary" fee="500" image="0" level="1" value="110" />
+            <defense name="Secondary" fee="1000" image="0" level="2" value="120" />
+            <defense name="Advanced" fee="1500" image="0" level="3" value="130" />
+            <defense name="Ultimate" fee="2000" image="0" level="4" value="140" />
         </array-defense>
 
         <array-agility>
-            <agility>
-                <name>Default</name>
-                <detail>100</detail>
-                <level>0</level>
-                <fee>0</fee>
-                <image>0</image>
-            </agility>
-
-            <agility>
-                <name>Primary</name>
-                <detail>110</detail>
-                <level>1</level>
-                <fee>500</fee>
-                <image>0</image>
-            </agility>
-
-            <agility>
-                <name>Secondary</name>
-                <detail>120</detail>
-                <level>2</level>
-                <fee>1000</fee>
-                <image>0</image>
-            </agility>
-
-            <agility>
-                <name>Advanced</name>
-                <detail>130</detail>
-                <level>3</level>
-                <fee>1500</fee>
-                <image>0</image>
-            </agility>
-
-            <agility>
-                <name>Ultimate</name>
-                <detail>140</detail>
-                <level>4</level>
-                <fee>2000</fee>
-                <image>0</image>
-            </agility>
+            <agility name="Default" fee="0" image="0" level="0" value="100" />
+            <agility name="Primary" fee="500" image="0" level="1" value="110" />
+            <agility name="Secondary" fee="1000" image="0" level="2" value="120" />
+            <agility name="Advanced" fee="1500" image="0" level="3" value="130" />
+            <agility name="Ultimate" fee="2000" image="0" level="4" value="140" />
         </array-agility>
 
         <array-shield>
-            <shield>
-                <name>Default</name>
-                <detail>60</detail>
-                <level>0</level>
-                <fee>0</fee>
-                <image>0</image>
-            </shield>
-
-            <shield>
-                <name>Primary</name>
-                <detail>55</detail>
-                <level>1</level>
-                <fee>500</fee>
-                <image>0</image>
-            </shield>
-
-            <shield>
-                <name>Secondary</name>
-                <detail>50</detail>
-                <level>2</level>
-                <fee>1000</fee>
-                <image>0</image>
-            </shield>
-
-            <shield>
-                <name>Advanced</name>
-                <detail>45</detail>
-                <level>3</level>
-                <fee>1500</fee>
-                <image>0</image>
-            </shield>
-
-            <shield>
-                <name>Ultimate</name>
-                <detail>40</detail>
-                <level>4</level>
-                <fee>2000</fee>
-                <image>0</image>
-            </shield>
+            <shield name="Default" fee="0" image="0" level="0" value="60" />
+            <shield name="Primary" fee="500" image="0" level="1" value="55" />
+            <shield name="Secondary" fee="1000" image="0" level="2" value="50" />
+            <shield name="Advanced" fee="1500" image="0" level="3" value="45" />
+            <shield name="Ultimate" fee="2000" image="0" level="4" value="40" />
         </array-shield>
     </spaceship>
 
     <weapon>
         <array-power>
-            <power>
-                <name>Default</name>
-                <detail>100</detail>
-                <level>0</level>
-                <fee>0</fee>
-                <image>0</image>
-            </power>
-
-            <power>
-                <name>Primary</name>
-                <detail>120</detail>
-                <level>1</level>
-                <fee>500</fee>
-                <image>0</image>
-            </power>
-
-            <power>
-                <name>Secondary</name>
-                <detail>140</detail>
-                <level>2</level>
-                <fee>1000</fee>
-                <image>0</image>
-            </power>
-
-            <power>
-                <name>Advanced</name>
-                <detail>160</detail>
-                <level>3</level>
-                <fee>1500</fee>
-                <image>0</image>
-            </power>
-
-            <power>
-                <name>Ultimate</name>
-                <detail>180</detail>
-                <level>4</level>
-                <fee>2000</fee>
-                <image>0</image>
-            </power>
-
+            <power name="Default" fee="0" image="0" level="0" value="100" />
+            <power name="Primary" fee="500" image="0" level="1" value="120" />
+            <power name="Secondary" fee="1000" image="0" level="2" value="140" />
+            <power name="Advanced" fee="1500" image="0" level="3" value="160" />
+            <power name="Ultimate" fee="2000" image="0" level="4" value="180" />
         </array-power>
 
         <array-speed>
-            <speed>
-                <name>Default</name>
-                <detail>100</detail>
-                <level>0</level>
-                <fee>0</fee>
-                <image>0</image>
-            </speed>
-
-            <speed>
-                <name>Primary</name>
-                <detail>110</detail>
-                <level>1</level>
-                <fee>500</fee>
-                <image>0</image>
-            </speed>
-
-            <speed>
-                <name>Secondary</name>
-                <detail>120</detail>
-                <level>2</level>
-                <fee>1000</fee>
-                <image>0</image>
-            </speed>
-
-            <speed>
-                <name>Advanced</name>
-                <detail>130</detail>
-                <level>3</level>
-                <fee>1500</fee>
-                <image>0</image>
-            </speed>
-
-            <speed>
-                <name>Ultimate</name>
-                <detail>140</detail>
-                <level>4</level>
-                <fee>2000</fee>
-                <image>0</image>
-            </speed>
-
+            <speed name="Default" fee="0" image="0" level="0" value="100" />
+            <speed name="Primary" fee="500" image="0" level="1" value="110" />
+            <speed name="Secondary" fee="1000" image="0" level="2" value="120" />
+            <speed name="Advanced" fee="1500" image="0" level="3" value="130" />
+            <speed name="Ultimate" fee="2000" image="0" level="4" value="140" />
         </array-speed>
 
         <array-range>
-
-            <range>
-                <name>Default</name>
-                <detail>100</detail>
-                <level>0</level>
-                <fee>0</fee>
-                <image>0</image>
-            </range>
-
-            <range>
-                <name>Primary</name>
-                <detail>120</detail>
-                <level>1</level>
-                <fee>500</fee>
-                <image>0</image>
-            </range>
-
-            <range>
-                <name>Secondary</name>
-                <detail>140</detail>
-                <level>2</level>
-                <fee>1000</fee>
-                <image>0</image>
-            </range>
-
-            <range>
-                <name>Advanced</name>
-                <detail>160</detail>
-                <level>3</level>
-                <fee>1500</fee>
-                <image>0</image>
-            </range>
-
-            <range>
-                <name>Ultimate</name>
-                <detail>180</detail>
-                <level>4</level>
-                <fee>2000</fee>
-                <image>0</image>
-            </range>
-
+            <range name="Default" fee="0" image="0" level="0" value="100" />
+            <range name="Primary" fee="500" image="0" level="1" value="120" />
+            <range name="Secondary" fee="1000" image="0" level="2" value="140" />
+            <range name="Advanced" fee="1500" image="0" level="3" value="160" />
+            <range name="Ultimate" fee="2000" image="0" level="4" value="180" />
         </array-range>
 
-        <array-nuclear>
-
-            <nuclear>
-                <name>Default</name>
-                <detail>60</detail>
-                <level>0</level>
-                <fee>0</fee>
-                <image>0</image>
-            </nuclear>
-
-            <nuclear>
-                <name>Primary</name>
-                <detail>55</detail>
-                <level>1</level>
-                <fee>500</fee>
-                <image>0</image>
-            </nuclear>
-
-            <nuclear>
-                <name>Secondary</name>
-                <detail>50</detail>
-                <level>2</level>
-                <fee>1000</fee>
-                <image>0</image>
-            </nuclear>
-
-            <nuclear>
-                <name>Advanced</name>
-                <detail>45</detail>
-                <level>3</level>
-                <fee>1500</fee>
-                <image>0</image>
-            </nuclear>
-
-            <nuclear>
-                <name>Ultimate</name>
-                <detail>40</detail>
-                <level>4</level>
-                <fee>2000</fee>
-                <image>0</image>
-            </nuclear>
-        </array-nuclear>
+        <array-bomb>
+            <bomb name="Default" fee="0" image="0" level="0" value="60" />
+            <bomb name="Primary" fee="500" image="0" level="1" value="55" />
+            <bomb name="Secondary" fee="1000" image="0" level="2" value="50" />
+            <bomb name="Advanced" fee="1500" image="0" level="3" value="45" />
+            <bomb name="Ultimate" fee="2000" image="0" level="4" value="40" />
+        </array-bomb>
     </weapon>
 </shop>

@@ -3,8 +3,8 @@ package com.example.agentzengyu.spacewar.util;
 import android.util.Xml;
 
 import com.example.agentzengyu.spacewar.application.Config;
+import com.example.agentzengyu.spacewar.entity.PlayerData;
 import com.example.agentzengyu.spacewar.entity.ShopItem;
-import com.example.agentzengyu.spacewar.entity.User;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -22,21 +22,21 @@ import java.io.IOException;
 
 
 /**
- * 用户数据处理类
+ * 玩家数据处理类
  */
-public class UserDataHandler {
-    private User user = null;
+public class PlayerDataHandler {
+    private PlayerData playerData = null;
     private File file = null;
 
     /**
      * 设置处理的数据参数
      *
-     * @param user 用户对象
+     * @param playerData 玩家数据对象
      * @param file 文件
      * @return
      */
-    public UserDataHandler setResource(User user, File file) {
-        this.user = user;
+    public PlayerDataHandler setResource(PlayerData playerData, File file) {
+        this.playerData = playerData;
         this.file = file;
         return this;
     }
@@ -56,70 +56,70 @@ public class UserDataHandler {
                     XmlSerializer xmlSerializer = Xml.newSerializer();
                     xmlSerializer.setOutput(fos, "utf-8");
                     xmlSerializer.startDocument("utf-8", true);
-                    callBack.onStart("Start to save user data:");
-                    xmlSerializer.startTag(null, Config.TAG_USER);
+                    callBack.onStart("Start to save playerData data:");
+                    xmlSerializer.startTag(null, Config.TAG_PLAYER);
 
                     //战舰开始
-                    xmlSerializer.startTag(null, Config.TAG_SPACESHIP);
+                    xmlSerializer.startTag(null, Config.SHIP);
 
                     //生命
                     xmlSerializer.startTag(null, Config.TAG_LIFE);
-                    setAttributes(xmlSerializer, user.getLife());
+                    setAttributes(xmlSerializer, playerData.getLife());
                     xmlSerializer.endTag(null, Config.TAG_LIFE);
 
                     //防御
                     xmlSerializer.startTag(null, Config.TAG_DEFENSE);
-                    setAttributes(xmlSerializer, user.getDefense());
+                    setAttributes(xmlSerializer, playerData.getDefense());
                     xmlSerializer.endTag(null, Config.TAG_DEFENSE);
 
                     //敏捷
                     xmlSerializer.startTag(null, Config.TAG_AGILITY);
-                    setAttributes(xmlSerializer, user.getAgility());
+                    setAttributes(xmlSerializer, playerData.getAgility());
                     xmlSerializer.endTag(null, Config.TAG_AGILITY);
 
                     //护盾
                     xmlSerializer.startTag(null, Config.TAG_SHIELD);
-                    setAttributes(xmlSerializer, user.getShield());
+                    setAttributes(xmlSerializer, playerData.getShield());
                     xmlSerializer.endTag(null, Config.TAG_SHIELD);
 
                     //战舰结束
-                    xmlSerializer.endTag(null, Config.TAG_SPACESHIP);
+                    xmlSerializer.endTag(null, Config.SHIP);
 
                     //武器开始
                     xmlSerializer.startTag(null, Config.TAG_WEAPON);
 
                     //力量
                     xmlSerializer.startTag(null, Config.TAG_POWER);
-                    setAttributes(xmlSerializer, user.getPower());
+                    setAttributes(xmlSerializer, playerData.getPower());
                     xmlSerializer.endTag(null, Config.TAG_POWER);
 
                     //速度
                     xmlSerializer.startTag(null, Config.TAG_SPEED);
-                    setAttributes(xmlSerializer, user.getSpeed());
+                    setAttributes(xmlSerializer, playerData.getSpeed());
                     xmlSerializer.endTag(null, Config.TAG_SPEED);
 
                     //范围
                     xmlSerializer.startTag(null, Config.TAG_RANGE);
-                    setAttributes(xmlSerializer, user.getRange());
+                    setAttributes(xmlSerializer, playerData.getRange());
                     xmlSerializer.endTag(null, Config.TAG_RANGE);
 
                     //核弹
-                    xmlSerializer.startTag(null, Config.TAG_NUCLEAR);
-                    setAttributes(xmlSerializer, user.getNuclear());
-                    xmlSerializer.endTag(null, Config.TAG_NUCLEAR);
+                    xmlSerializer.startTag(null, Config.TAG_BOMB);
+                    setAttributes(xmlSerializer, playerData.getBomb());
+                    xmlSerializer.endTag(null, Config.TAG_BOMB);
 
                     //武器结束
                     xmlSerializer.endTag(null, Config.TAG_WEAPON);
 
-                    xmlSerializer.endTag(null, Config.TAG_SHOP);
+                    xmlSerializer.endTag(null, Config.TAG_PLAYER);
 
                     xmlSerializer.endDocument();
                     fos.close();
-                    callBack.onSuccess("Save user data successful.");
+                    callBack.onSuccess("Save playerData data successful.");
                 } catch (FileNotFoundException e) {
-                    callBack.onFailure("Save user data abortively.", e);
+                    callBack.onFailure("Save playerData data abortively.", e);
                 } catch (IOException e) {
-                    callBack.onFailure("Save user data abortively.", e);
+                    callBack.onFailure("Save playerData data abortively.", e);
                 }
             }
         }).start();
@@ -129,12 +129,12 @@ public class UserDataHandler {
      * 存档时设置属性
      *
      * @param xmlSerializer 解析器对象
-     * @param item          存档item
+     * @param item          存档商品
      */
     private void setAttributes(XmlSerializer xmlSerializer, ShopItem item) {
         try {
             xmlSerializer.attribute(null, Config.TAG_NAME, item.getName());
-            xmlSerializer.attribute(null, Config.TAG_DETAIL, "" + item.getDetail());
+            xmlSerializer.attribute(null, Config.TAG_VALUE, "" + item.getValue());
             xmlSerializer.attribute(null, Config.TAG_LEVEL, "" + item.getLevel());
             xmlSerializer.attribute(null, Config.TAG_FEE, "" + item.getFee());
             xmlSerializer.attribute(null, Config.TAG_IMAGE, "" + item.getImage());
@@ -161,43 +161,58 @@ public class UserDataHandler {
                     while (eventType != XmlPullParser.END_DOCUMENT) {
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
-                                callBack.onStart("Start to read user data:");
+                                callBack.onStart("Start to read playerData data:");
                                 break;
                             case XmlPullParser.START_TAG:
                                 String tagName = xmlPullParser.getName();
-                                ShopItem item = new ShopItem();
-                                getAttributes(xmlPullParser, item);
+                                ShopItem item;
                                 switch (tagName) {
                                     case Config.TAG_LIFE:
-                                        user.setLife(item);
+                                        item = new ShopItem();
+                                        getAttributes(xmlPullParser, item);
+                                        playerData.setLife(item);
                                         break;
                                     case Config.TAG_DEFENSE:
-                                        user.setDefense(item);
+                                        item = new ShopItem();
+                                        getAttributes(xmlPullParser, item);
+                                        playerData.setDefense(item);
                                         break;
                                     case Config.TAG_AGILITY:
-                                        user.setAgility(item);
+                                        item = new ShopItem();
+                                        getAttributes(xmlPullParser, item);
+                                        playerData.setAgility(item);
                                         break;
                                     case Config.TAG_SHIELD:
-                                        user.setShield(item);
+                                        item = new ShopItem();
+                                        getAttributes(xmlPullParser, item);
+                                        playerData.setShield(item);
                                         break;
                                     case Config.TAG_POWER:
-                                        user.setPower(item);
+                                        item = new ShopItem();
+                                        getAttributes(xmlPullParser, item);
+                                        playerData.setPower(item);
                                         break;
                                     case Config.TAG_SPEED:
-                                        user.setSpeed(item);
+                                        item = new ShopItem();
+                                        getAttributes(xmlPullParser, item);
+                                        playerData.setSpeed(item);
                                         break;
                                     case Config.TAG_RANGE:
-                                        user.setRange(item);
+                                        item = new ShopItem();
+                                        getAttributes(xmlPullParser, item);
+                                        playerData.setRange(item);
                                         break;
-                                    case Config.TAG_NUCLEAR:
-                                        user.setNuclear(item);
+                                    case Config.TAG_BOMB:
+                                        item = new ShopItem();
+                                        getAttributes(xmlPullParser, item);
+                                        playerData.setBomb(item);
                                         break;
                                     default:
                                         break;
                                 }
                                 break;
                             case XmlPullParser.TEXT:
-//                                Log.e("UserDataHandler", xmlPullParser.getText() + "");
+//                                Log.e("PlayerDataHandler", xmlPullParser.getText() + "");
                                 break;
                             case XmlPullParser.END_TAG:
                                 break;
@@ -206,13 +221,13 @@ public class UserDataHandler {
                         }
                         eventType = xmlPullParser.next();
                     }
-                    callBack.onSuccess("Read user data successful.");
+                    callBack.onSuccess("Read playerData data successful.");
                 } catch (FileNotFoundException e) {
-                    callBack.onFailure("Read user data abortively.", e);
+                    callBack.onFailure("Read playerData data abortively.", e);
                 } catch (XmlPullParserException e) {
-                    callBack.onFailure("Read user data abortively.", e);
+                    callBack.onFailure("Read playerData data abortively.", e);
                 } catch (IOException e) {
-                    callBack.onFailure("Read user data abortively.", e);
+                    callBack.onFailure("Read playerData data abortively.", e);
                 }
             }
         }).start();
@@ -222,9 +237,8 @@ public class UserDataHandler {
      * 读档时获取属性
      *
      * @param xmlPullParser 解析器
-     * @param item          item对象
+     * @param item          商品对象
      */
-
     private void getAttributes(XmlPullParser xmlPullParser, ShopItem item) {
         for (int i = 0; i < xmlPullParser.getAttributeCount(); i++) {
             String attributeName = xmlPullParser.getAttributeName(i);
@@ -233,8 +247,8 @@ public class UserDataHandler {
                 case Config.TAG_NAME:
                     item.setName(attributeValue);
                     break;
-                case Config.TAG_DETAIL:
-                    item.setDetail(Integer.parseInt(attributeValue));
+                case Config.TAG_VALUE:
+                    item.setValue(Integer.parseInt(attributeValue));
                     break;
                 case Config.TAG_LEVEL:
                     item.setLevel(Integer.parseInt(attributeValue));

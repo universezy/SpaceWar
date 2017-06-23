@@ -7,11 +7,11 @@ package com.example.agentzengyu.spacewar.entity;
 import java.io.Serializable;
 
 /**
- * 所有商店item的父类
+ * 商品类
  */
 public class ShopItem implements Serializable{
     private String Name = "";
-    private int Detail = 0;
+    private int Value = 0;
     private int Level = 0;
     private int Fee = 0;
     private int Image = 0;
@@ -23,8 +23,8 @@ public class ShopItem implements Serializable{
         Name = name;
     }
 
-    public void setDetail(int detail) {
-        Detail = detail;
+    public void setValue(int value) {
+        Value = value;
     }
 
     public void setLevel(int level) {
@@ -43,8 +43,8 @@ public class ShopItem implements Serializable{
         return Name;
     }
 
-    public int getDetail() {
-        return Detail;
+    public int getValue() {
+        return Value;
     }
 
     public int getLevel() {

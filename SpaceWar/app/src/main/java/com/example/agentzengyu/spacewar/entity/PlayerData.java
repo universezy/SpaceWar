@@ -7,7 +7,7 @@ package com.example.agentzengyu.spacewar.entity;
 /**
  * 玩家对象
  */
-public class User {
+public class PlayerData {
     /********** Spaceship **********/
     private ShopItem life = null;
     private ShopItem defense = null;
@@ -18,7 +18,9 @@ public class User {
     private ShopItem power = null;
     private ShopItem speed = null;
     private ShopItem range = null;
-    private ShopItem nuclear = null;
+    private ShopItem bomb = null;
+
+    private int money = 0;
 
     /********** Spaceship **********/
     public void setLife(ShopItem life) {
@@ -66,8 +68,8 @@ public class User {
         this.range = range;
     }
 
-    public void setNuclear(ShopItem nuclear) {
-        this.nuclear = nuclear;
+    public void setBomb(ShopItem bomb) {
+        this.bomb = bomb;
     }
 
     public ShopItem getPower() {
@@ -82,7 +84,15 @@ public class User {
         return range;
     }
 
-    public ShopItem getNuclear() {
-        return nuclear;
+    public ShopItem getBomb() {
+        return bomb;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
     }
 }

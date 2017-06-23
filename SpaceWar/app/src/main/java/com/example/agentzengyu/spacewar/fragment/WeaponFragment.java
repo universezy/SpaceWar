@@ -51,7 +51,7 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
         app = (SpaceWarApp) getActivity().getApplication();
         manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        adapter = new ShopAdapter(getActivity(), userItem,shopItems);
+        adapter = new ShopAdapter(getActivity(), userItem, shopItems);
     }
 
     /**
@@ -76,27 +76,38 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
         mIvNuclear.setOnClickListener(this);
     }
 
+    /**
+     * 切换商品类型
+     *
+     * @param position 类型下标
+     */
     private void shift(int position) {
         if (position == currentPosition) return;
+        userItem.clear();
         shopItems.clear();
         switch (position) {
             case 0:
+                userItem.add(app.getPlayerData().getPower());
                 shopItems.addAll(app.getService().getData().getPowers());
                 break;
             case 1:
+                userItem.add(app.getPlayerData().getSpeed());
                 shopItems.addAll(app.getService().getData().getSpeeds());
                 break;
             case 2:
+                userItem.add(app.getPlayerData().getRange());
                 shopItems.addAll(app.getService().getData().getRanges());
                 break;
             case 3:
-                shopItems.addAll(app.getService().getData().getNuclears());
+                userItem.add(app.getPlayerData().getBomb());
+                shopItems.addAll(app.getService().getData().getBombs());
                 break;
             default:
                 break;
         }
         adapter.notifyDataSetChanged();
         currentPosition = position;
+        recyclerView.scrollToPosition(0);
     }
 
     @Override

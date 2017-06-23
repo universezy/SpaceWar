@@ -9,10 +9,9 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.application.Config;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.BasicData;
-import com.example.agentzengyu.spacewar.entity.ShopItem;
 import com.example.agentzengyu.spacewar.util.BasicDataHandler;
 import com.example.agentzengyu.spacewar.util.DataHandlerCallBack;
-import com.example.agentzengyu.spacewar.util.UserDataHandler;
+import com.example.agentzengyu.spacewar.util.PlayerDataHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +47,9 @@ public class SpaceWarService extends Service {
         super.onDestroy();
     }
 
+    /**
+     * 初始化基础数据
+     */
     public void initBasicData() {
         BasicDataHandler handler = new BasicDataHandler();
         try {
@@ -61,13 +63,7 @@ public class SpaceWarService extends Service {
                 @Override
                 public void onSuccess(String s) {
                     Log.e("onSuccess", s);
-                    for (ShopItem item : data.getLifes()) {
-                        Log.e("getName", item.getName());
-                        Log.e("getDetail", "" + item.getDetail());
-                        Log.e("getFee", "" + item.getFee());
-                        Log.e("getLevel", "" + item.getLevel());
-                    }
-                    initUserData();
+                    initPlayerData();
                 }
 
                 @Override
@@ -80,27 +76,30 @@ public class SpaceWarService extends Service {
         }
     }
 
-    public void initUserData() {
-        UserDataHandler handler = new UserDataHandler();
-        File file = new File(getFilesDir(), Config.FILE_USER);
+    /**
+     * 初始化玩家数据
+     */
+    public void initPlayerData() {
+        PlayerDataHandler handler = new PlayerDataHandler();
+        File file = new File(getFilesDir(), Config.FILE_PLAYER);
         if (!file.exists()) {
             try {
                 file.createNewFile();
-                app.getUser().setLife(data.getLifes().get(0));
-                app.getUser().setDefense(data.getDefenses().get(0));
-                app.getUser().setAgility(data.getAgilities().get(0));
-                app.getUser().setShield(data.getShields().get(0));
-                app.getUser().setPower(data.getPowers().get(0));
-                app.getUser().setSpeed(data.getSpeeds().get(0));
-                app.getUser().setRange(data.getRanges().get(0));
-                app.getUser().setNuclear(data.getNuclears().get(0));
-                saveUserData();
+                app.getPlayerData().setLife(data.getLives().get(0));
+                app.getPlayerData().setDefense(data.getDefenses().get(0));
+                app.getPlayerData().setAgility(data.getAgilities().get(0));
+                app.getPlayerData().setShield(data.getShields().get(0));
+                app.getPlayerData().setPower(data.getPowers().get(0));
+                app.getPlayerData().setSpeed(data.getSpeeds().get(0));
+                app.getPlayerData().setRange(data.getRanges().get(0));
+                app.getPlayerData().setBomb(data.getBombs().get(0));
+                savePlayerData();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return;
         } else {
-            handler.setResource(app.getUser(), file).read(new DataHandlerCallBack() {
+            handler.setResource(app.getPlayerData(), file).read(new DataHandlerCallBack() {
                 @Override
                 public void onStart(String s) {
                     Log.e("onStart", s);
@@ -109,12 +108,6 @@ public class SpaceWarService extends Service {
                 @Override
                 public void onSuccess(String s) {
                     Log.e("onSuccess", s);
-                    for (ShopItem item : data.getLifes()) {
-                        Log.e("getName", item.getName());
-                        Log.e("getDetail", "" + item.getDetail());
-                        Log.e("getFee", "" + item.getFee());
-                        Log.e("getLevel", "" + item.getLevel());
-                    }
                 }
 
                 @Override
@@ -125,9 +118,12 @@ public class SpaceWarService extends Service {
         }
     }
 
-    public void saveUserData() {
-        UserDataHandler handler = new UserDataHandler();
-        File file = new File(getFilesDir(), Config.FILE_USER);
+    /**
+     * 保存玩家数据
+     */
+    public void savePlayerData() {
+        PlayerDataHandler handler = new PlayerDataHandler();
+        File file = new File(getFilesDir(), Config.FILE_PLAYER);
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -136,7 +132,7 @@ public class SpaceWarService extends Service {
             }
             return;
         }
-        handler.setResource(app.getUser(), file).save(new DataHandlerCallBack() {
+        handler.setResource(app.getPlayerData(), file).save(new DataHandlerCallBack() {
             @Override
             public void onStart(String s) {
                 Log.e("onStart", s);
@@ -154,10 +150,18 @@ public class SpaceWarService extends Service {
         });
     }
 
+    /**
+     * 获得基础数据
+     *
+     * @return
+     */
     public BasicData getData() {
         return data;
     }
 
+    /**
+     * 服务绑定类
+     */
     public class ServiceBinder extends Binder {
     }
 }

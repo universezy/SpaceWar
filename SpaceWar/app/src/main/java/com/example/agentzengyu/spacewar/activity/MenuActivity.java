@@ -109,6 +109,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
 
+    /**
+     * 设置按钮可见性
+     */
     private void setButtonVisible() {
         if (position == 0) {
             mBtnLeft.setVisibility(View.INVISIBLE);

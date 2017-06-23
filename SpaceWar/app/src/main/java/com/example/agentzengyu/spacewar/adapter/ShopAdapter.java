@@ -2,7 +2,6 @@ package com.example.agentzengyu.spacewar.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
     private LayoutInflater inflater;
     private ArrayList<ShopItem> userItem = null;
     private ArrayList<ShopItem> shopItems = null;
+    private int[] upgrade = null;
 
     public ShopAdapter(Activity context, ArrayList<ShopItem> userItem, ArrayList<ShopItem> shopItems) {
         this.context = context;
@@ -49,20 +49,16 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
     @Override
     public void onBindViewHolder(ShopViewHolder holder, int position) {
         if (userItem.size() == 1) {
-//            holder.getmIvCurrent().setImageResource(userItem.get(0).getImage());
-            holder.getmIvCurrent().setImageResource(R.mipmap.ic_launcher_round);
-            Log.e("getName ","              "+userItem.get(0).getName());
-            Log.e("name ","              "+userItem.get(0).getLevel());
-            Log.e("name ","              "+userItem.get(0).getDetail());
-
-            holder.getmTvCurrentName().setText(userItem.get(0).getName());
-            holder.getmTvCurrentLevel().setText(String.valueOf(userItem.get(0).getLevel()));
-            holder.getmTvCurrentDetail().setText(String.valueOf(userItem.get(0).getDetail()));
-            if (userItem.get(0).getLevel()<shopItems.get(position).getLevel()){
-                holder.getmIvUpgrad().setImageResource(R.mipmap.ic_launcher_round);
+//            holder.getmIvPlayer().setImageResource(userItem.get(0).getImage());
+            holder.getmIvPlayer().setImageResource(R.mipmap.ic_launcher_round);
+            holder.getmTvPlayerName().setText(userItem.get(0).getName());
+            holder.getmTvPlayerLevel().setText(String.valueOf(userItem.get(0).getLevel()));
+            holder.getmTvPlayerValue().setText(String.valueOf(userItem.get(0).getValue()));
+            if (userItem.get(0).getLevel() < shopItems.get(position).getLevel()) {
+                holder.getmIvUpgrade().setImageResource(upgrade[0]);
                 holder.getmBtnUpgrade().setClickable(true);
-            }else{
-                holder.getmIvUpgrad().setImageResource(R.mipmap.ic_launcher);
+            } else {
+                holder.getmIvUpgrade().setImageResource(upgrade[1]);
                 holder.getmBtnUpgrade().setClickable(false);
             }
         }
@@ -70,8 +66,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         holder.getmIvUpgraded().setImageResource(R.mipmap.ic_launcher_round);
         holder.getmTvUpgradedName().setText(shopItems.get(position).getName());
         holder.getmTvUpgradedLevel().setText(String.valueOf(shopItems.get(position).getLevel()));
-        holder.getmTvUpgradedDetail().setText(String.valueOf(shopItems.get(0).getDetail()));
-
+        holder.getmTvUpgradedValue().setText(String.valueOf(shopItems.get(position).getValue()));
         holder.getmTvUpgradedFee().setText(String.valueOf(shopItems.get(position).getFee()));
     }
 
@@ -80,34 +75,37 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
         return shopItems.size();
     }
 
+    /**
+     * 设置数据
+     */
     private void setData() {
-
+        upgrade = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher};
     }
 
     /**
      * 商店布局容器
      */
     public class ShopViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView mIvCurrent, mIvUpgraded, mIvUpgrad;
+        private ImageView mIvPlayer, mIvUpgraded, mIvUpgrade;
         private TextView mTvUpgradedFee;
-        private TextView mTvCurrentLevel, mTvCurrentName, mTvCurrentDetail;
-        private TextView mTvUpgradedLevel, mTvUpgradedName, mTvUpgradedDetail;
+        private TextView mTvPlayerLevel, mTvPlayerName, mTvPlayerValue;
+        private TextView mTvUpgradedLevel, mTvUpgradedName, mTvUpgradedValue;
         private Button mBtnUpgrade;
 
         public ShopViewHolder(View itemView) {
             super(itemView);
             mTvUpgradedFee = (TextView) itemView.findViewById(R.id.tvUpgradedFee);
-            mIvUpgrad = (ImageView) itemView.findViewById(R.id.ivUpgrade);
+            mIvUpgrade = (ImageView) itemView.findViewById(R.id.ivUpgrade);
 
-            mIvCurrent = (ImageView) itemView.findViewById(R.id.ivCurrent);
-            mTvCurrentLevel = (TextView) itemView.findViewById(R.id.tvCurrentLevel);
-            mTvCurrentName = (TextView) itemView.findViewById(R.id.tvCurrentName);
-            mTvCurrentDetail = (TextView) itemView.findViewById(R.id.tvCurrentDetail);
+            mIvPlayer = (ImageView) itemView.findViewById(R.id.ivPlayer);
+            mTvPlayerLevel = (TextView) itemView.findViewById(R.id.tvPlayerLevel);
+            mTvPlayerName = (TextView) itemView.findViewById(R.id.tvPlayerName);
+            mTvPlayerValue = (TextView) itemView.findViewById(R.id.tvPlayerValue);
 
             mIvUpgraded = (ImageView) itemView.findViewById(R.id.ivUpgraded);
             mTvUpgradedLevel = (TextView) itemView.findViewById(R.id.tvUpgradedLevel);
             mTvUpgradedName = (TextView) itemView.findViewById(R.id.tvUpgradedName);
-            mTvUpgradedDetail = (TextView) itemView.findViewById(R.id.tvUpgradedDetail);
+            mTvUpgradedValue = (TextView) itemView.findViewById(R.id.tvUpgradedValue);
 
             mBtnUpgrade = (Button) itemView.findViewById(R.id.btnUpgrade);
             mBtnUpgrade.setOnClickListener(this);
@@ -117,24 +115,24 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
             return mTvUpgradedFee;
         }
 
-        public ImageView getmIvUpgrad() {
-            return mIvUpgrad;
+        public ImageView getmIvUpgrade() {
+            return mIvUpgrade;
         }
 
-        public ImageView getmIvCurrent() {
-            return mIvCurrent;
+        public ImageView getmIvPlayer() {
+            return mIvPlayer;
         }
 
-        public TextView getmTvCurrentLevel() {
-            return mTvCurrentLevel;
+        public TextView getmTvPlayerLevel() {
+            return mTvPlayerLevel;
         }
 
-        public TextView getmTvCurrentName() {
-            return mTvCurrentName;
+        public TextView getmTvPlayerName() {
+            return mTvPlayerName;
         }
 
-        public TextView getmTvCurrentDetail() {
-            return mTvCurrentDetail;
+        public TextView getmTvPlayerValue() {
+            return mTvPlayerValue;
         }
 
         public ImageView getmIvUpgraded() {
@@ -149,8 +147,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
             return mTvUpgradedName;
         }
 
-        public TextView getmTvUpgradedDetail() {
-            return mTvUpgradedDetail;
+        public TextView getmTvUpgradedValue() {
+            return mTvUpgradedValue;
         }
 
         public Button getmBtnUpgrade() {

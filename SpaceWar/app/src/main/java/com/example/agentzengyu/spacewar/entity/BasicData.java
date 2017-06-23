@@ -10,21 +10,21 @@ import java.util.ArrayList;
  * 基础数据类
  */
 public class BasicData {
-    /********** Spaceship **********/
-    private ArrayList<ShopItem> lifes = new ArrayList<>();
+    /********** Spaceship initialize **********/
+    private ArrayList<ShopItem> lives = new ArrayList<>();
     private ArrayList<ShopItem> defenses = new ArrayList<>();
     private ArrayList<ShopItem> agilities = new ArrayList<>();
     private ArrayList<ShopItem> shields = new ArrayList<>();
 
-    /********** Weapon **********/
+    /********** Weapon initialize **********/
     private ArrayList<ShopItem> powers = new ArrayList<>();
     private ArrayList<ShopItem> speeds = new ArrayList<>();
     private ArrayList<ShopItem> ranges = new ArrayList<>();
-    private ArrayList<ShopItem> nuclears = new ArrayList<>();
+    private ArrayList<ShopItem> bombs = new ArrayList<>();
 
-    /********** Spaceship **********/
-    public ArrayList<ShopItem> getLifes() {
-        return lifes;
+    /********** Spaceship getter **********/
+    public ArrayList<ShopItem> getLives() {
+        return lives;
     }
 
     public ArrayList<ShopItem> getDefenses() {
@@ -39,7 +39,7 @@ public class BasicData {
         return shields;
     }
 
-    /********** Weapon **********/
+    /********** Weapon getter **********/
     public ArrayList<ShopItem> getPowers() {
         return powers;
     }
@@ -52,8 +52,8 @@ public class BasicData {
         return ranges;
     }
 
-    public ArrayList<ShopItem> getNuclears() {
-        return nuclears;
+    public ArrayList<ShopItem> getBombs() {
+        return bombs;
     }
 
 }

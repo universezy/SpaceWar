@@ -15,14 +15,14 @@ public class Config {
     public final static int SETTING = 3;
 
     //存档分类
-    public final static String TAG_USER = "user";
+    public final static String TAG_PLAYER = "player";
     public final static String TAG_SHOP = "shop";
-    public final static String TAG_SPACESHIP = "spaceship";
+    public final static String SHIP = "ship";
     public final static String TAG_WEAPON = "weapon";
 
     //存档item属性
     public final static String TAG_NAME = "name";
-    public final static String TAG_DETAIL = "detail";
+    public final static String TAG_VALUE = "value";
     public final static String TAG_LEVEL = "level";
     public final static String TAG_FEE = "fee";
     public final static String TAG_IMAGE = "image";
@@ -35,9 +35,9 @@ public class Config {
     public final static String TAG_POWER = "power";
     public final static String TAG_SPEED = "speed";
     public final static String TAG_RANGE = "range";
-    public final static String TAG_NUCLEAR = "nuclear";
+    public final static String TAG_BOMB = "bomb";
 
     //存档文件名
-    public final static String FILE_USER = "user.xml";
+    public final static String FILE_PLAYER = "player.xml";
     public final static String FILE_SHOP = "shop.xml";
 }
