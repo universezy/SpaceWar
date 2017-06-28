@@ -56,7 +56,9 @@
         <initService
             android:name=".initService.EnemyService"
             android:enabled="true"
-            android:exported="true"></initService>
+            android:exported="true" />
+
+        <activity android:name=".activity.MapActivity"></activity>
     </application>
 
 </manifest>

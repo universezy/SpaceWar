@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.activity.GameActivity;
 import com.example.agentzengyu.spacewar.activity.MainActivity;
+import com.example.agentzengyu.spacewar.activity.MapActivity;
 import com.example.agentzengyu.spacewar.activity.MenuActivity;
 import com.example.agentzengyu.spacewar.activity.SettingActivity;
 import com.example.agentzengyu.spacewar.activity.ShopActivity;
@@ -116,8 +116,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                             context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                             break;
                         case Constant.Menu.GAME:
-                            Intent intentGame = new Intent(context, GameActivity.class);
-                            context.startActivity(intentGame);
+                            Intent intentMap = new Intent(context, MapActivity.class);
+                            context.startActivity(intentMap);
                             context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                             break;
                         case Constant.Menu.SHOP:

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 太空大战服务
+ * 初始化服务
  */
 public class InitService extends Service {
     private SpaceWarApp app = null;

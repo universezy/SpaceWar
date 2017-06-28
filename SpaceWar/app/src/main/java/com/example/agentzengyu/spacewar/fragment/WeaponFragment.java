@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.adapter.ShopAdapter;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 import java.util.ArrayList;
 

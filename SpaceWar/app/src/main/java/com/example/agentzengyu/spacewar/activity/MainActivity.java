@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 
 /**
@@ -135,8 +135,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showDetail(app.getPlayerData().getBomb());
                 break;
             case R.id.btnPlay:
-                Intent intentGame = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intentGame);
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
                 overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                 break;
             default:

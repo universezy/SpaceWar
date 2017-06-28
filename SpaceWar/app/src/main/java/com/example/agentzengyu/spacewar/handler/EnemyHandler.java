@@ -1,7 +1,7 @@
 package com.example.agentzengyu.spacewar.handler;
 
-import com.example.agentzengyu.spacewar.entity.Data;
-import com.example.agentzengyu.spacewar.entity.EnemyData;
+import com.example.agentzengyu.spacewar.entity.set.Data;
+import com.example.agentzengyu.spacewar.entity.set.EnemyData;
 import com.example.agentzengyu.spacewar.others.HandlerCallBack;
 
 import java.io.File;

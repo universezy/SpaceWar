@@ -1,4 +1,6 @@
-package com.example.agentzengyu.spacewar.entity;
+package com.example.agentzengyu.spacewar.entity.set;
+
+import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 import java.util.ArrayList;
 

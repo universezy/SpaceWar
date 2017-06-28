@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 import java.util.ArrayList;
 

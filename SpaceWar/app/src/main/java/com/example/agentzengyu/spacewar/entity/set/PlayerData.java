@@ -1,8 +1,10 @@
-package com.example.agentzengyu.spacewar.entity;
+package com.example.agentzengyu.spacewar.entity.set;
 
 /**
  * Created by Agent ZengYu on 2017/6/20.
  */
+
+import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 /**
  * 玩家数据类

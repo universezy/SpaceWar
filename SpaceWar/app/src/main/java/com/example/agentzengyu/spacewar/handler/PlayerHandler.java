@@ -3,10 +3,10 @@ package com.example.agentzengyu.spacewar.handler;
 import android.util.Xml;
 
 import com.example.agentzengyu.spacewar.application.Constant;
-import com.example.agentzengyu.spacewar.entity.Data;
-import com.example.agentzengyu.spacewar.entity.PlayerData;
-import com.example.agentzengyu.spacewar.entity.ShopData;
-import com.example.agentzengyu.spacewar.entity.ShopItem;
+import com.example.agentzengyu.spacewar.entity.set.Data;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.set.ShopData;
+import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 import com.example.agentzengyu.spacewar.others.HandlerCallBack;
 
 import org.xmlpull.v1.XmlPullParser;

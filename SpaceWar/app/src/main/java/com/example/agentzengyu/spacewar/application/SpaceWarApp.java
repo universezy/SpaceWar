@@ -3,8 +3,8 @@ package com.example.agentzengyu.spacewar.application;
 import android.app.Application;
 import android.util.Log;
 
-import com.example.agentzengyu.spacewar.entity.PlayerData;
-import com.example.agentzengyu.spacewar.entity.ShopData;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.set.ShopData;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.service.InitService;
 
