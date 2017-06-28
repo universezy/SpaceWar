@@ -7,9 +7,9 @@ import java.util.ArrayList;
  */
 
 /**
- * 基础数据类
+ * 商店数据类
  */
-public class BasicData {
+public class ShopData {
     /********** Spaceship initialize **********/
     private ArrayList<ShopItem> lives = new ArrayList<>();
     private ArrayList<ShopItem> defenses = new ArrayList<>();

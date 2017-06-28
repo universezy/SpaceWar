@@ -3,7 +3,7 @@ package com.example.agentzengyu.spacewar.handler;
 import android.util.Xml;
 
 import com.example.agentzengyu.spacewar.application.Config;
-import com.example.agentzengyu.spacewar.entity.BasicData;
+import com.example.agentzengyu.spacewar.entity.ShopData;
 import com.example.agentzengyu.spacewar.entity.ShopItem;
 import com.example.agentzengyu.spacewar.others.DataHandlerCallBack;
 
@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * 基础数据处理类
  */
 public class BasicHandler {
-    private BasicData data = null;
+    private ShopData data = null;
     private File file = null;
     private InputStream inputStream = null;
 
@@ -35,7 +35,7 @@ public class BasicHandler {
      * @param file 文件
      * @return
      */
-    private BasicHandler setResource(BasicData data, File file) {
+    private BasicHandler setResource(ShopData data, File file) {
         this.data = data;
         this.file = file;
         return this;
@@ -48,7 +48,7 @@ public class BasicHandler {
      * @param inputStream 输入流
      * @return
      */
-    public BasicHandler setResource(BasicData data, InputStream inputStream) {
+    public BasicHandler setResource(ShopData data, InputStream inputStream) {
         this.data = data;
         this.inputStream = inputStream;
         return this;
@@ -192,28 +192,28 @@ public class BasicHandler {
                             case XmlPullParser.START_TAG:
                                 String startName = xmlPullParser.getName();
                                 switch (startName) {
-                                    case Config.TAG_LIFE:
+                                    case Config.Basic.Item.LIFE:
                                         getAttributes(xmlPullParser, data.getLives(), startName);
                                         break;
-                                    case Config.TAG_DEFENSE:
+                                    case Config.Basic.Item.DEFENSE:
                                         getAttributes(xmlPullParser, data.getDefenses(), startName);
                                         break;
-                                    case Config.TAG_AGILITY:
+                                    case Config.Basic.Item.AGILITY:
                                         getAttributes(xmlPullParser, data.getAgilities(), startName);
                                         break;
-                                    case Config.TAG_SHIELD:
+                                    case Config.Basic.Item.SHIELD:
                                         getAttributes(xmlPullParser, data.getShields(), startName);
                                         break;
-                                    case Config.TAG_POWER:
+                                    case Config.Basic.Item.POWER:
                                         getAttributes(xmlPullParser, data.getPowers(), startName);
                                         break;
-                                    case Config.TAG_SPEED:
+                                    case Config.Basic.Item.SPEED:
                                         getAttributes(xmlPullParser, data.getSpeeds(), startName);
                                         break;
-                                    case Config.TAG_RANGE:
+                                    case Config.Basic.Item.RANGE:
                                         getAttributes(xmlPullParser, data.getRanges(), startName);
                                         break;
-                                    case Config.TAG_BOMB:
+                                    case Config.Basic.Item.BOMB:
                                         getAttributes(xmlPullParser, data.getBombs(), startName);
                                         break;
                                     default:
@@ -225,28 +225,28 @@ public class BasicHandler {
                             case XmlPullParser.END_TAG:
                                 String endName = xmlPullParser.getName();
                                 switch (endName) {
-                                    case Config.ARRAY_LIFE:
+                                    case Config.Basic.Array.LIFE:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.ARRAY_DEFENSE:
+                                    case Config.Basic.Array.DEFENSE:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.ARRAY_AGILITY:
+                                    case Config.Basic.Array.AGILITY:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.ARRAY_SHIELD:
+                                    case Config.Basic.Array.SHIELD:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.ARRAY_POWER:
+                                    case Config.Basic.Array.POWER:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.ARRAY_SPEED:
+                                    case Config.Basic.Array.SPEED:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.ARRAY_RANGE:
+                                    case Config.Basic.Array.RANGE:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.ARRAY_BOMB:
+                                    case Config.Basic.Array.BOMB:
                                         callBack.onProcess(++count);
                                         break;
                                     default:
@@ -291,19 +291,19 @@ public class BasicHandler {
                     String name = xmlPullParser.getAttributeName(i);
                     String value = xmlPullParser.getAttributeValue(i);
                     switch (name) {
-                        case Config.TAG_NAME:
+                        case Config.Basic.Attribution.NAME:
                             item.setName(value);
                             break;
-                        case Config.TAG_VALUE:
+                        case Config.Basic.Attribution.VALUE:
                             item.setValue(Integer.parseInt(value));
                             break;
-                        case Config.TAG_LEVEL:
+                        case Config.Basic.Attribution.LEVEL:
                             item.setLevel(Integer.parseInt(value));
                             break;
-                        case Config.TAG_FEE:
+                        case Config.Basic.Attribution.FEE:
                             item.setFee(Integer.parseInt(value));
                             break;
-                        case Config.TAG_IMAGE:
+                        case Config.Basic.Attribution.IMAGE:
                             item.setImage(Integer.parseInt(value));
                             break;
                         default:

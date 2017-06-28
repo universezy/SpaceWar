@@ -1,5 +1,6 @@
 package com.example.agentzengyu.spacewar.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -132,6 +133,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.civBomb:
                 showDetail(app.getPlayerData().getBomb());
+                break;
+            case R.id.btnPlay:
+                Intent intentGame = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(intentGame);
+                overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                 break;
             default:
                 break;

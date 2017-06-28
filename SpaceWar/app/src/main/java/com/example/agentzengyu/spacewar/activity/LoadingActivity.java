@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +60,7 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private void initVariable() {
         receiver = new LoadingReceiver();
-        IntentFilter filter = new IntentFilter(Config.STATE_LOADING);
+        IntentFilter filter = new IntentFilter(Config.BroadCast.LOADING);
         registerReceiver(receiver, filter);
         handler = new Handler();
         runnable = new Runnable() {
@@ -86,11 +85,11 @@ public class LoadingActivity extends AppCompatActivity {
    public class LoadingReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String state = intent.getStringExtra(Config.STATE);
+            String state = intent.getStringExtra(Config.BroadCast.STATE);
             Log.e("state", state);
             switch (state) {
-                case Config.STATE_BASIC:
-                    int progressBasic = intent.getIntExtra(Config.PROGRESS, 0);
+                case Config.Status.SHOP:
+                    int progressBasic = intent.getIntExtra(Config.Status.PROGRESS, 0);
                     if (progressBasic==-1){
                         Toast.makeText(LoadingActivity.this,"Basic data file damaged. Please reinstall application",Toast.LENGTH_SHORT);
                         finish();
@@ -101,8 +100,8 @@ public class LoadingActivity extends AppCompatActivity {
                         mTvBasic.setText(getResources().getString(R.string.loading_basic));
                     }
                     break;
-                case Config.STATE_PLAYER:
-                    int progressPlayer = intent.getIntExtra(Config.PROGRESS, 0);
+                case Config.Status.PLAYER:
+                    int progressPlayer = intent.getIntExtra(Config.Status.PROGRESS, 0);
                     if (progressPlayer==-1){
                         Toast.makeText(LoadingActivity.this,"Player data file damaged. Please reinstall application",Toast.LENGTH_SHORT);
                         return;
