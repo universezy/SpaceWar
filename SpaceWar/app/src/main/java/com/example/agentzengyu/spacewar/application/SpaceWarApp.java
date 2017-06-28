@@ -4,7 +4,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.example.agentzengyu.spacewar.entity.PlayerData;
-import com.example.agentzengyu.spacewar.service.SpaceWarService;
+import com.example.agentzengyu.spacewar.entity.ShopData;
+import com.example.agentzengyu.spacewar.service.GameService;
+import com.example.agentzengyu.spacewar.service.InitService;
 
 /**
  * Created by Agent ZengYu on 2017/6/20.
@@ -14,99 +16,44 @@ import com.example.agentzengyu.spacewar.service.SpaceWarService;
  * 应用类，全局管理
  */
 public class SpaceWarApp extends Application {
-//    private List<Activity> activities = new ArrayList<>();
-//    private List<Fragment> fragments = new ArrayList<>();
-    private SpaceWarService service = null;
+    private InitService initService = null;
+    private GameService gameService = null;
     private PlayerData playerData = new PlayerData();
+    private ShopData shopData = new ShopData();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("SpaceWarApp","onCreate.");
+        Log.e("SpaceWarApp", "onCreate.");
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        this.service.stopSelf();
-        Log.e("SpaceWarApp","onTerminate.");
+        Log.e("SpaceWarApp", "onTerminate.");
+        if (initService != null) {
+            initService.stopSelf();
+        }
+        if (gameService != null) {
+            gameService.stopSelf();
+        }
     }
 
     public PlayerData getPlayerData() {
         return playerData;
     }
 
-//    /**
-//     * 添加活动
-//     *
-//     * @param activity
-//     */
-//    public void addActivity(Activity activity) {
-//        if (!activities.contains(activity)) {
-//            activities.add(activity);
-//        }
-//    }
-//
-//    /**
-//     * 销毁活动
-//     *
-//     * @param activity
-//     */
-//    public void removeAtivity(Activity activity) {
-//        if (activities.contains(activity)) {
-//            activity.finish();
-//            activities.remove(activity);
-//        }
-//    }
-//
-//    /**
-//     * 获取活动对象
-//     *
-//     * @param activityClass
-//     * @return
-//     */
-//    public Activity getActivity(Class activityClass) {
-//        for (Activity activity : activities) {
-//            if (activity.getClass().equals(activityClass)) {
-//                return activity;
-//            }
-//        }
-//        return null;
-//    }
-//
-//    /**
-//     * 添加碎片
-//     *
-//     * @param fragment
-//     */
-//    public void addFragment(Fragment fragment) {
-//        if (!fragments.contains(fragment)) {
-//            fragments.add(fragment);
-//        }
-//    }
-//
-//    /**
-//     * 获取碎片对象
-//     *
-//     * @param fragmentClass
-//     * @return
-//     */
-//    public Fragment getFragment(Class fragmentClass) {
-//        for (Fragment fragment : fragments) {
-//            if (fragment.getClass().equals(fragmentClass)) {
-//                return fragment;
-//            }
-//        }
-//        return null;
-//    }
+    public ShopData getShopData() {
+        return shopData;
+    }
 
     /**
      * 设置服务
      *
-     * @param service
+     * @param initService
      */
-    public void setService(SpaceWarService service) {
-        this.service = service;
+    public void setInitService(InitService initService) {
+        this.initService = initService;
     }
 
     /**
@@ -114,7 +61,25 @@ public class SpaceWarApp extends Application {
      *
      * @return
      */
-    public SpaceWarService getService() {
-        return service;
+    public InitService getInitService() {
+        return initService;
+    }
+
+    /**
+     * 设置服务
+     *
+     * @param gameService
+     */
+    public void setGameService(GameService gameService) {
+        this.gameService = gameService;
+    }
+
+    /**
+     * 获取服务对象
+     *
+     * @return
+     */
+    public GameService getGameService() {
+        return gameService;
     }
 }

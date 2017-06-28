@@ -5,9 +5,9 @@ package com.example.agentzengyu.spacewar.entity;
  */
 
 /**
- * 玩家对象
+ * 玩家数据类
  */
-public class PlayerData {
+public class PlayerData extends Data{
     /********** Spaceship **********/
     private ShopItem life = null;
     private ShopItem defense = null;

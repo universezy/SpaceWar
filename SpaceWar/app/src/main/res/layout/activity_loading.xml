@@ -16,39 +16,22 @@
         android:src="@mipmap/ic_launcher" />
 
     <ProgressBar
-        android:id="@+id/pbBasic"
+        android:id="@+id/pbLoad"
         style="@style/StyleProgressBarMini"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shape_progressbar_bg"
         android:max="100"
         android:progress="0" />
 
     <TextView
-        android:id="@+id/tvBasic"
+        android:id="@+id/tvLoad"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
+        android:textSize="15sp"
         android:text="Loading basic data..." />
-
-    <ProgressBar
-        android:id="@+id/pbPlayer"
-        style="@style/StyleProgressBarMini"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape_progressbar_bg"
-        android:max="100"
-        android:progress="0" />
-
-    <TextView
-        android:id="@+id/tvPlayer"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Loading player data..." />
 
 </LinearLayout>

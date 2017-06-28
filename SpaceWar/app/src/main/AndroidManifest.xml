@@ -34,17 +34,29 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="landscape" />
-
-        <activity android:name=".activity.LoadingActivity"
+        <activity
+            android:name=".activity.LoadingActivity"
             android:screenOrientation="landscape" />
 
-        <service
-            android:name=".service.SpaceWarService"
+        <initService
+            android:name=".initService.InitService"
             android:enabled="true"
             android:exported="true" />
 
-        <receiver android:name=".activity.LoadingActivity$LoadingReceiver"/>
+        <receiver android:name=".activity.LoadingActivity$LoadingReceiver" />
 
+        <initService
+            android:name=".initService.PlayerService"
+            android:enabled="true"
+            android:exported="true" />
+        <initService
+            android:name=".initService.MapService"
+            android:enabled="true"
+            android:exported="true" />
+        <initService
+            android:name=".initService.EnemyService"
+            android:enabled="true"
+            android:exported="true"></initService>
     </application>
 
 </manifest>

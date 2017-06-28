@@ -15,14 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.application.Config;
-import com.example.agentzengyu.spacewar.service.SpaceWarService;
+import com.example.agentzengyu.spacewar.application.Constant;
+import com.example.agentzengyu.spacewar.service.InitService;
 
 
 public class LoadingActivity extends AppCompatActivity {
     private ImageView mIvLogo;
-    private ProgressBar mPbBasic, mPbPlayer;
-    private TextView mTvBasic, mTvPlayer;
+    private ProgressBar mPbLoad;
+    private TextView mTvLoad;
 
     private LoadingReceiver receiver;
     private Handler handler;
@@ -49,10 +49,8 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private void initView() {
         mIvLogo = (ImageView) findViewById(R.id.ivLogo);
-        mPbBasic = (ProgressBar) findViewById(R.id.pbBasic);
-        mPbPlayer = (ProgressBar) findViewById(R.id.pbPlayer);
-        mTvBasic = (TextView) findViewById(R.id.tvBasic);
-        mTvPlayer = (TextView) findViewById(R.id.tvPlayer);
+        mPbLoad = (ProgressBar) findViewById(R.id.pbLoad);
+        mTvLoad = (TextView) findViewById(R.id.tvLoad);
     }
 
     /**
@@ -60,7 +58,7 @@ public class LoadingActivity extends AppCompatActivity {
      */
     private void initVariable() {
         receiver = new LoadingReceiver();
-        IntentFilter filter = new IntentFilter(Config.BroadCast.LOADING);
+        IntentFilter filter = new IntentFilter(Constant.BroadCast.LOADING);
         registerReceiver(receiver, filter);
         handler = new Handler();
         runnable = new Runnable() {
@@ -78,37 +76,49 @@ public class LoadingActivity extends AppCompatActivity {
      * 启动服务
      */
     private void startService() {
-        Intent intent = new Intent(LoadingActivity.this, SpaceWarService.class);
+        Intent intent = new Intent(LoadingActivity.this, InitService.class);
         startService(intent);
     }
 
    public class LoadingReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String state = intent.getStringExtra(Config.BroadCast.STATE);
+            String state = intent.getStringExtra(Constant.BroadCast.STATE);
             Log.e("state", state);
+            int progress = intent.getIntExtra(Constant.Status.PROGRESS, 0);
+            if (progress==-1){
+                Toast.makeText(LoadingActivity.this,"Resource file damaged. Initializing player data.",Toast.LENGTH_SHORT);
+                finish();
+                return;
+            }
             switch (state) {
-                case Config.Status.SHOP:
-                    int progressBasic = intent.getIntExtra(Config.Status.PROGRESS, 0);
-                    if (progressBasic==-1){
-                        Toast.makeText(LoadingActivity.this,"Basic data file damaged. Please reinstall application",Toast.LENGTH_SHORT);
-                        finish();
-                        return;
-                    }
-                    mPbBasic.setProgress(progressBasic);
-                    if (progressBasic == 100) {
-                        mTvBasic.setText(getResources().getString(R.string.loading_basic));
+                case Constant.Status.SHOP:
+                    mTvLoad.setText(getResources().getString(R.string.loading_shop));
+                    mPbLoad.setProgress(progress);
+                    if (progress == 100) {
+                        mTvLoad.setText(getResources().getString(R.string.loaded_shop));
                     }
                     break;
-                case Config.Status.PLAYER:
-                    int progressPlayer = intent.getIntExtra(Config.Status.PROGRESS, 0);
-                    if (progressPlayer==-1){
-                        Toast.makeText(LoadingActivity.this,"Player data file damaged. Please reinstall application",Toast.LENGTH_SHORT);
-                        return;
+                case Constant.Status.PLAYER:
+                    mTvLoad.setText(getResources().getString(R.string.loading_player));
+                    mPbLoad.setProgress(progress);
+                    if (progress == 100) {
+                        mTvLoad.setText(getResources().getString(R.string.loaded_player));
+                        handler.postDelayed(runnable, 800);
                     }
-                    mPbPlayer.setProgress(progressPlayer);
-                    if (progressPlayer == 100) {
-                        mTvPlayer.setText(getResources().getString(R.string.loading_player));
+                    break;
+                case Constant.Status.MAP:
+                    mTvLoad.setText(getResources().getString(R.string.loading_map));
+                    mPbLoad.setProgress(progress);
+                    if (progress == 100) {
+                        mTvLoad.setText(getResources().getString(R.string.loaded_map));
+                    }
+                    break;
+                case Constant.Status.ENEMY:
+                    mTvLoad.setText(getResources().getString(R.string.loading_enemy));
+                    mPbLoad.setProgress(progress);
+                    if (progress == 100) {
+                        mTvLoad.setText(getResources().getString(R.string.loaded_enemy));
                         handler.postDelayed(runnable, 800);
                     }
                     break;

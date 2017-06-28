@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * 商店数据类
  */
-public class ShopData {
+public class ShopData extends Data{
     /********** Spaceship initialize **********/
     private ArrayList<ShopItem> lives = new ArrayList<>();
     private ArrayList<ShopItem> defenses = new ArrayList<>();

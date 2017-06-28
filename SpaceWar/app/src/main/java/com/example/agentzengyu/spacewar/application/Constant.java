@@ -5,9 +5,9 @@ package com.example.agentzengyu.spacewar.application;
  */
 
 /**
- * 配置参数类
+ * 常量类
  */
-public class Config {
+public class Constant {
     //广播
     public static class BroadCast{
         public final static String STATE = "STATE";
@@ -35,12 +35,16 @@ public class Config {
     public static class Status {
         //进度
         public final static String PROGRESS = "PROGRESS";
+        //损坏
+        public final static String DESTROY = "DESTROY";
         //商店
         public final static String SHOP = "SHOP";
         //玩家
         public final static String PLAYER = "PLAYER";
-        //损坏
-        public final static String DESTROY = "DESTROY";
+        //地图
+        public final static String MAP = "MAP";
+        //敌人
+        public final static String ENEMY = "ENEMY";
     }
 
     //基础数据存档
@@ -98,6 +102,5 @@ public class Config {
     public static class Enemy {
 
     }
-
 
 }

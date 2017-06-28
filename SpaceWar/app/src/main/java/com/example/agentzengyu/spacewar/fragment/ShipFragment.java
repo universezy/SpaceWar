@@ -88,19 +88,19 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
         switch (position) {
             case 0:
                 userItem.add(app.getPlayerData().getLife());
-                shopItems.addAll(app.getService().getData().getLives());
+                shopItems.addAll(app.getShopData().getLives());
                 break;
             case 1:
                 userItem.add(app.getPlayerData().getDefense());
-                shopItems.addAll(app.getService().getData().getDefenses());
+                shopItems.addAll(app.getShopData().getDefenses());
                 break;
             case 2:
                 userItem.add(app.getPlayerData().getAgility());
-                shopItems.addAll(app.getService().getData().getAgilities());
+                shopItems.addAll(app.getShopData().getAgilities());
                 break;
             case 3:
                 userItem.add(app.getPlayerData().getShield());
-                shopItems.addAll(app.getService().getData().getShields());
+                shopItems.addAll(app.getShopData().getShields());
                 break;
             default:
                 break;

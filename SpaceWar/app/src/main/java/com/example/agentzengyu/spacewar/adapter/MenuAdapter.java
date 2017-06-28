@@ -17,7 +17,7 @@ import com.example.agentzengyu.spacewar.activity.MainActivity;
 import com.example.agentzengyu.spacewar.activity.MenuActivity;
 import com.example.agentzengyu.spacewar.activity.SettingActivity;
 import com.example.agentzengyu.spacewar.activity.ShopActivity;
-import com.example.agentzengyu.spacewar.application.Config;
+import com.example.agentzengyu.spacewar.application.Constant;
 
 /**
  * Created by Agent ZengYu on 2017/6/20.
@@ -110,22 +110,22 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             switch (v.getId()) {
                 case R.id.btnEnter:
                     switch ((int) v.getTag()) {
-                        case Config.Menu.MAIN:
+                        case Constant.Menu.MAIN:
                             Intent intentMain = new Intent(context, MainActivity.class);
                             context.startActivity(intentMain);
                             context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                             break;
-                        case Config.Menu.GAME:
+                        case Constant.Menu.GAME:
                             Intent intentGame = new Intent(context, GameActivity.class);
                             context.startActivity(intentGame);
                             context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                             break;
-                        case Config.Menu.SHOP:
+                        case Constant.Menu.SHOP:
                             Intent intentShop = new Intent(context, ShopActivity.class);
                             context.startActivity(intentShop);
                             context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                             break;
-                        case Config.Menu.SETTING:
+                        case Constant.Menu.SETTING:
                             Intent intentSetting = new Intent(context, SettingActivity.class);
                             context.startActivity(intentSetting);
                             context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);

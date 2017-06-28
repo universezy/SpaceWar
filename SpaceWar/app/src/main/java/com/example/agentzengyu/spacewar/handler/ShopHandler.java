@@ -2,10 +2,11 @@ package com.example.agentzengyu.spacewar.handler;
 
 import android.util.Xml;
 
-import com.example.agentzengyu.spacewar.application.Config;
+import com.example.agentzengyu.spacewar.application.Constant;
+import com.example.agentzengyu.spacewar.entity.Data;
 import com.example.agentzengyu.spacewar.entity.ShopData;
 import com.example.agentzengyu.spacewar.entity.ShopItem;
-import com.example.agentzengyu.spacewar.others.DataHandlerCallBack;
+import com.example.agentzengyu.spacewar.others.HandlerCallBack;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -21,37 +22,14 @@ import java.util.ArrayList;
  */
 
 /**
- * 基础数据处理类
+ * 商店数据处理类
  */
-public class BasicHandler {
-    private ShopData data = null;
-    private File file = null;
-    private InputStream inputStream = null;
+public class ShopHandler extends DataHandler {
+    private ShopData shopData = null;
 
-    /**
-     * 设置处理的数据参数
-     *
-     * @param data 基础数据对象
-     * @param file 文件
-     * @return
-     */
-    private BasicHandler setResource(ShopData data, File file) {
-        this.data = data;
-        this.file = file;
-        return this;
-    }
-
-    /**
-     * 设置处理的数据参数
-     *
-     * @param data        基础数据对象
-     * @param inputStream 输入流
-     * @return
-     */
-    public BasicHandler setResource(ShopData data, InputStream inputStream) {
-        this.data = data;
-        this.inputStream = inputStream;
-        return this;
+    public ShopHandler(Data data, File file, InputStream inputStream) {
+        super(data, file, inputStream);
+        this.shopData = (ShopData) data;
     }
 
     /**
@@ -60,7 +38,7 @@ public class BasicHandler {
      * @param callBack 消息回调
      * @return
      */
-//    private void save(final DataHandlerCallBack callBack) {
+//    private void save(final HandlerCallBack callBack) {
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -69,77 +47,77 @@ public class BasicHandler {
 //                    XmlSerializer xmlSerializer = Xml.newSerializer();
 //                    xmlSerializer.setOutput(fos, "utf-8");
 //                    xmlSerializer.startDocument("utf-8", true);
-//                    xmlSerializer.startTag(null, Config.TAG_SHOP);
+//                    xmlSerializer.startTag(null, Constant.TAG_SHOP);
 //
 //                    //战舰库开始
-//                    xmlSerializer.startTag(null, Config.TAG_SHIP);
+//                    xmlSerializer.startTag(null, Constant.TAG_SHIP);
 //
 //                    //生命库
 //                    for (ShopItem life : data.getLives()) {
-//                        xmlSerializer.startTag(null, Config.TAG_LIFE);
+//                        xmlSerializer.startTag(null, Constant.TAG_LIFE);
 //                        setAttributes(xmlSerializer, life);
-//                        xmlSerializer.endTag(null, Config.TAG_LIFE);
+//                        xmlSerializer.endTag(null, Constant.TAG_LIFE);
 //                    }
 //
 //                    //防御库
 //                    for (ShopItem defense : data.getDefenses()) {
-//                        xmlSerializer.startTag(null, Config.TAG_DEFENSE);
+//                        xmlSerializer.startTag(null, Constant.TAG_DEFENSE);
 //                        setAttributes(xmlSerializer, defense);
-//                        xmlSerializer.endTag(null, Config.TAG_DEFENSE);
+//                        xmlSerializer.endTag(null, Constant.TAG_DEFENSE);
 //                    }
 //
 //                    //敏捷库
 //                    for (ShopItem agility : data.getAgilities()) {
-//                        xmlSerializer.startTag(null, Config.TAG_AGILITY);
+//                        xmlSerializer.startTag(null, Constant.TAG_AGILITY);
 //                        setAttributes(xmlSerializer, agility);
-//                        xmlSerializer.endTag(null, Config.TAG_AGILITY);
+//                        xmlSerializer.endTag(null, Constant.TAG_AGILITY);
 //                    }
 //
 //                    //护盾库
 //                    for (ShopItem shield : data.getShields()) {
-//                        xmlSerializer.startTag(null, Config.TAG_SHIELD);
+//                        xmlSerializer.startTag(null, Constant.TAG_SHIELD);
 //                        setAttributes(xmlSerializer, shield);
-//                        xmlSerializer.endTag(null, Config.TAG_SHIELD);
+//                        xmlSerializer.endTag(null, Constant.TAG_SHIELD);
 //                    }
 //
 //                    //战舰库结束
-//                    xmlSerializer.endTag(null, Config.TAG_SHIP);
+//                    xmlSerializer.endTag(null, Constant.TAG_SHIP);
 //
 //                    //武器库开始
-//                    xmlSerializer.startTag(null, Config.TAG_WEAPON);
+//                    xmlSerializer.startTag(null, Constant.TAG_WEAPON);
 //
 //                    //力量库
 //                    for (ShopItem power : data.getPowers()) {
-//                        xmlSerializer.startTag(null, Config.TAG_POWER);
+//                        xmlSerializer.startTag(null, Constant.TAG_POWER);
 //                        setAttributes(xmlSerializer, power);
-//                        xmlSerializer.endTag(null, Config.TAG_POWER);
+//                        xmlSerializer.endTag(null, Constant.TAG_POWER);
 //                    }
 //
 //                    //速度库
 //                    for (ShopItem speed : data.getSpeeds()) {
-//                        xmlSerializer.startTag(null, Config.TAG_SPEED);
+//                        xmlSerializer.startTag(null, Constant.TAG_SPEED);
 //                        setAttributes(xmlSerializer, speed);
-//                        xmlSerializer.endTag(null, Config.TAG_SPEED);
+//                        xmlSerializer.endTag(null, Constant.TAG_SPEED);
 //                    }
 //
 //                    //范围库
 //                    for (ShopItem range : data.getRanges()) {
-//                        xmlSerializer.startTag(null, Config.TAG_RANGE);
+//                        xmlSerializer.startTag(null, Constant.TAG_RANGE);
 //                        setAttributes(xmlSerializer, range);
-//                        xmlSerializer.endTag(null, Config.TAG_RANGE);
+//                        xmlSerializer.endTag(null, Constant.TAG_RANGE);
 //                    }
 //
 //                    //核弹库
 //                    for (ShopItem nuclear : data.getBombs()) {
-//                        xmlSerializer.startTag(null, Config.TAG_BOMB);
+//                        xmlSerializer.startTag(null, Constant.TAG_BOMB);
 //                        setAttributes(xmlSerializer, nuclear);
-//                        xmlSerializer.endTag(null, Config.TAG_BOMB);
+//                        xmlSerializer.endTag(null, Constant.TAG_BOMB);
 //                    }
 //
 //                    //武器库结束
-//                    xmlSerializer.endTag(null, Config.TAG_WEAPON);
+//                    xmlSerializer.endTag(null, Constant.TAG_WEAPON);
 //
-//                    xmlSerializer.endTag(null, Config.TAG_SHOP);
+//                    xmlSerializer.endTag(null, Constant.TAG_SHOP);
 //
 //                    xmlSerializer.endDocument();
 //                    fos.close();
@@ -160,11 +138,11 @@ public class BasicHandler {
 //     */
 //    private void setAttributes(XmlSerializer xmlSerializer, ShopItem item) {
 //        try {
-//            xmlSerializer.attribute(null, Config.TAG_NAME, item.getName());
-//            xmlSerializer.attribute(null, Config.TAG_VALUE, ""+item.getValue());
-//            xmlSerializer.attribute(null, Config.TAG_LEVEL, "" + item.getLevel());
-//            xmlSerializer.attribute(null, Config.TAG_FEE, "" + item.getFee());
-//            xmlSerializer.attribute(null, Config.TAG_IMAGE, "" + item.getImage());
+//            xmlSerializer.attribute(null, Constant.TAG_NAME, item.getName());
+//            xmlSerializer.attribute(null, Constant.TAG_VALUE, ""+item.getValue());
+//            xmlSerializer.attribute(null, Constant.TAG_LEVEL, "" + item.getLevel());
+//            xmlSerializer.attribute(null, Constant.TAG_FEE, "" + item.getFee());
+//            xmlSerializer.attribute(null, Constant.TAG_IMAGE, "" + item.getImage());
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
@@ -175,7 +153,7 @@ public class BasicHandler {
      *
      * @param callBack 消息回调
      */
-    public void read(final DataHandlerCallBack callBack) {
+    public void read(final HandlerCallBack callBack) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -187,34 +165,34 @@ public class BasicHandler {
                     while (eventType != XmlPullParser.END_DOCUMENT) {
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
-                                callBack.onStart("Start to read basic data:");
+                                callBack.onStart("Start to read shop data:");
                                 break;
                             case XmlPullParser.START_TAG:
                                 String startName = xmlPullParser.getName();
                                 switch (startName) {
-                                    case Config.Basic.Item.LIFE:
-                                        getAttributes(xmlPullParser, data.getLives(), startName);
+                                    case Constant.Basic.Item.LIFE:
+                                        getAttributes(xmlPullParser, shopData.getLives(), startName);
                                         break;
-                                    case Config.Basic.Item.DEFENSE:
-                                        getAttributes(xmlPullParser, data.getDefenses(), startName);
+                                    case Constant.Basic.Item.DEFENSE:
+                                        getAttributes(xmlPullParser, shopData.getDefenses(), startName);
                                         break;
-                                    case Config.Basic.Item.AGILITY:
-                                        getAttributes(xmlPullParser, data.getAgilities(), startName);
+                                    case Constant.Basic.Item.AGILITY:
+                                        getAttributes(xmlPullParser, shopData.getAgilities(), startName);
                                         break;
-                                    case Config.Basic.Item.SHIELD:
-                                        getAttributes(xmlPullParser, data.getShields(), startName);
+                                    case Constant.Basic.Item.SHIELD:
+                                        getAttributes(xmlPullParser, shopData.getShields(), startName);
                                         break;
-                                    case Config.Basic.Item.POWER:
-                                        getAttributes(xmlPullParser, data.getPowers(), startName);
+                                    case Constant.Basic.Item.POWER:
+                                        getAttributes(xmlPullParser, shopData.getPowers(), startName);
                                         break;
-                                    case Config.Basic.Item.SPEED:
-                                        getAttributes(xmlPullParser, data.getSpeeds(), startName);
+                                    case Constant.Basic.Item.SPEED:
+                                        getAttributes(xmlPullParser, shopData.getSpeeds(), startName);
                                         break;
-                                    case Config.Basic.Item.RANGE:
-                                        getAttributes(xmlPullParser, data.getRanges(), startName);
+                                    case Constant.Basic.Item.RANGE:
+                                        getAttributes(xmlPullParser, shopData.getRanges(), startName);
                                         break;
-                                    case Config.Basic.Item.BOMB:
-                                        getAttributes(xmlPullParser, data.getBombs(), startName);
+                                    case Constant.Basic.Item.BOMB:
+                                        getAttributes(xmlPullParser, shopData.getBombs(), startName);
                                         break;
                                     default:
                                         break;
@@ -225,28 +203,28 @@ public class BasicHandler {
                             case XmlPullParser.END_TAG:
                                 String endName = xmlPullParser.getName();
                                 switch (endName) {
-                                    case Config.Basic.Array.LIFE:
+                                    case Constant.Basic.Array.LIFE:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.Basic.Array.DEFENSE:
+                                    case Constant.Basic.Array.DEFENSE:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.Basic.Array.AGILITY:
+                                    case Constant.Basic.Array.AGILITY:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.Basic.Array.SHIELD:
+                                    case Constant.Basic.Array.SHIELD:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.Basic.Array.POWER:
+                                    case Constant.Basic.Array.POWER:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.Basic.Array.SPEED:
+                                    case Constant.Basic.Array.SPEED:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.Basic.Array.RANGE:
+                                    case Constant.Basic.Array.RANGE:
                                         callBack.onProcess(++count);
                                         break;
-                                    case Config.Basic.Array.BOMB:
+                                    case Constant.Basic.Array.BOMB:
                                         callBack.onProcess(++count);
                                         break;
                                     default:
@@ -258,13 +236,13 @@ public class BasicHandler {
                         }
                         eventType = xmlPullParser.next();
                     }
-                    callBack.onSuccess("Read basic data successful.");
+                    callBack.onSuccess("Read shop data successful.");
                 } catch (FileNotFoundException e) {
-                    callBack.onFailure("Read basic data abortively.", e);
+                    callBack.onFailure("Read shop data abortively.", e);
                 } catch (XmlPullParserException e) {
-                    callBack.onFailure("Read basic data abortively.", e);
+                    callBack.onFailure("Read shop data abortively.", e);
                 } catch (IOException e) {
-                    callBack.onFailure("Read basic data abortively.", e);
+                    callBack.onFailure("Read shop data abortively.", e);
                 }
             }
         }).start();
@@ -291,19 +269,19 @@ public class BasicHandler {
                     String name = xmlPullParser.getAttributeName(i);
                     String value = xmlPullParser.getAttributeValue(i);
                     switch (name) {
-                        case Config.Basic.Attribution.NAME:
+                        case Constant.Basic.Attribution.NAME:
                             item.setName(value);
                             break;
-                        case Config.Basic.Attribution.VALUE:
+                        case Constant.Basic.Attribution.VALUE:
                             item.setValue(Integer.parseInt(value));
                             break;
-                        case Config.Basic.Attribution.LEVEL:
+                        case Constant.Basic.Attribution.LEVEL:
                             item.setLevel(Integer.parseInt(value));
                             break;
-                        case Config.Basic.Attribution.FEE:
+                        case Constant.Basic.Attribution.FEE:
                             item.setFee(Integer.parseInt(value));
                             break;
-                        case Config.Basic.Attribution.IMAGE:
+                        case Constant.Basic.Attribution.IMAGE:
                             item.setImage(Integer.parseInt(value));
                             break;
                         default:

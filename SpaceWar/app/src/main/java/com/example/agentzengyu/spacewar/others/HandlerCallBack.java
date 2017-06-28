@@ -7,7 +7,7 @@ package com.example.agentzengyu.spacewar.others;
 /**
  * 数据处理类回调接口
  */
-public interface DataHandlerCallBack {
+public interface HandlerCallBack {
     void onStart(String message);
 
     void onProcess(int progress);

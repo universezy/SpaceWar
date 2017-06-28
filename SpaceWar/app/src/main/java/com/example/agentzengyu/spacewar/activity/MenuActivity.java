@@ -38,7 +38,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        app.getService().stopSelf();
+        app.getInitService().stopSelf();
     }
 
     @Override

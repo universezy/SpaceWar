@@ -88,19 +88,19 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
         switch (position) {
             case 0:
                 userItem.add(app.getPlayerData().getPower());
-                shopItems.addAll(app.getService().getData().getPowers());
+                shopItems.addAll(app.getShopData().getPowers());
                 break;
             case 1:
                 userItem.add(app.getPlayerData().getSpeed());
-                shopItems.addAll(app.getService().getData().getSpeeds());
+                shopItems.addAll(app.getShopData().getSpeeds());
                 break;
             case 2:
                 userItem.add(app.getPlayerData().getRange());
-                shopItems.addAll(app.getService().getData().getRanges());
+                shopItems.addAll(app.getShopData().getRanges());
                 break;
             case 3:
                 userItem.add(app.getPlayerData().getBomb());
-                shopItems.addAll(app.getService().getData().getBombs());
+                shopItems.addAll(app.getShopData().getBombs());
                 break;
             default:
                 break;
