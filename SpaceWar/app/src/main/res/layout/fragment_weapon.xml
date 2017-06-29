@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.example.agentzengyu.spacewar.fragment.WeaponFragment">
+    tools:activity="com.example.agentzengyu.spacewar.fragment.WeaponFragment">
 
     <LinearLayout
         android:layout_width="80dp"

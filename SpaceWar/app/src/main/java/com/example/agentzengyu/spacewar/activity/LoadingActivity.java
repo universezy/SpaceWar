@@ -91,6 +91,7 @@ public class LoadingActivity extends AppCompatActivity {
                 finish();
                 return;
             }
+            Log.e("LoadingReceiver",state);
             switch (state) {
                 case Constant.Status.SHOP:
                     mTvLoad.setText(getResources().getString(R.string.loading_shop));

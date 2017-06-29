@@ -3,6 +3,8 @@ package com.example.agentzengyu.spacewar.application;
 import android.app.Application;
 import android.util.Log;
 
+import com.example.agentzengyu.spacewar.entity.set.EnemyData;
+import com.example.agentzengyu.spacewar.entity.set.MapData;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.set.ShopData;
 import com.example.agentzengyu.spacewar.service.GameService;
@@ -18,8 +20,10 @@ import com.example.agentzengyu.spacewar.service.InitService;
 public class SpaceWarApp extends Application {
     private InitService initService = null;
     private GameService gameService = null;
-    private PlayerData playerData = new PlayerData();
     private ShopData shopData = new ShopData();
+    private PlayerData playerData = new PlayerData();
+    private MapData mapData = new MapData();
+    private EnemyData enemyData = new EnemyData();
 
     @Override
     public void onCreate() {
@@ -39,12 +43,20 @@ public class SpaceWarApp extends Application {
         }
     }
 
+    public ShopData getShopData() {
+        return shopData;
+    }
+
     public PlayerData getPlayerData() {
         return playerData;
     }
 
-    public ShopData getShopData() {
-        return shopData;
+    public MapData getMapData() {
+        return mapData;
+    }
+
+    public EnemyData getEnemyData() {
+        return enemyData;
     }
 
     /**

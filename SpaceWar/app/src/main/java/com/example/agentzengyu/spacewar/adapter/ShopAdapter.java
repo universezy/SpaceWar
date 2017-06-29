@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 import java.util.ArrayList;
@@ -23,18 +22,14 @@ import java.util.ArrayList;
  * 商店适配器
  */
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder> {
-    private SpaceWarApp app = null;
-    private Activity context;
     private LayoutInflater inflater;
     private ArrayList<ShopItem> userItem = null;
     private ArrayList<ShopItem> shopItems = null;
     private int[] upgrade = null;
 
     public ShopAdapter(Activity context, ArrayList<ShopItem> userItem, ArrayList<ShopItem> shopItems) {
-        this.context = context;
         this.userItem = userItem;
         this.shopItems = shopItems;
-        app = (SpaceWarApp) context.getApplication();
         inflater = LayoutInflater.from(context);
         setData();
     }

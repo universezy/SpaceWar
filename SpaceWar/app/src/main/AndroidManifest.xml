@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.agentzengyu.spacewar">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".application.SpaceWarApp"
         android:allowBackup="true"
@@ -19,46 +22,49 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.MenuActivity"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.GameActivity"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.ShopActivity"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.SettingActivity"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.LoadingActivity"
             android:screenOrientation="landscape" />
 
-        <initService
-            android:name=".initService.InitService"
+        <activity
+            android:name=".activity.MapActivity"
+            android:screenOrientation="landscape" />
+
+        <service
+            android:name=".service.InitService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".service.GameService"
             android:enabled="true"
             android:exported="true" />
 
         <receiver android:name=".activity.LoadingActivity$LoadingReceiver" />
 
-        <initService
-            android:name=".initService.PlayerService"
-            android:enabled="true"
-            android:exported="true" />
-        <initService
-            android:name=".initService.MapService"
-            android:enabled="true"
-            android:exported="true" />
-        <initService
-            android:name=".initService.EnemyService"
-            android:enabled="true"
-            android:exported="true" />
+        <receiver android:name=".activity.GameActivity$GameReceiver"/>
 
-        <activity android:name=".activity.MapActivity"></activity>
     </application>
 
 </manifest>

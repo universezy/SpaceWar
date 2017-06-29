@@ -29,4 +29,11 @@
     <string name="spaceship_agility">Agility</string>
     <string name="spaceship_shield">Shield</string>
 
+    <string name="map_one">One</string>
+    <string name="map_two">Two</string>
+    <string name="map_three">Three</string>
+    <string name="map_four">Four</string>
+    <string name="map_five">Five</string>
+    <string name="map_six">Six</string>
+
 </resources>

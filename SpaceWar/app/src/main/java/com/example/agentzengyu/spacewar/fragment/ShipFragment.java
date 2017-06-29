@@ -37,7 +37,6 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_spaceship, null);
-        app = (SpaceWarApp) getActivity().getApplication();
         initVariable();
         initView(view);
         shift(0);

@@ -63,19 +63,19 @@ public class InitService extends Service {
                 @Override
                 public void onProcess(int progress) {
                     Log.e("onProcess", "" + progress);
-                    Intent intentBasic = new Intent(Constant.BroadCast.LOADING);
-                    intentBasic.putExtra(Constant.BroadCast.STATE, Constant.Status.PROGRESS);
-                    intentBasic.putExtra(Constant.Status.PROGRESS, progress * 10);
-                    sendBroadcast(intentBasic);
+                    Intent intent = new Intent(Constant.BroadCast.LOADING);
+                    intent.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
+                    intent.putExtra(Constant.Status.PROGRESS, progress * 10);
+                    sendBroadcast(intent);
                 }
 
                 @Override
                 public void onSuccess(String result) {
                     Log.e("onSuccess", result);
-                    Intent intentBasic = new Intent(Constant.BroadCast.LOADING);
-                    intentBasic.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
-                    intentBasic.putExtra(Constant.Status.PROGRESS, 100);
-                    sendBroadcast(intentBasic);
+                    Intent intent = new Intent(Constant.BroadCast.LOADING);
+                    intent.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
+                    intent.putExtra(Constant.Status.PROGRESS, 100);
+                    sendBroadcast(intent);
                     initPlayerData();
                 }
 
@@ -83,10 +83,10 @@ public class InitService extends Service {
                 public void onFailure(String result, Exception e) {
                     Log.e("onFailure", result);
                     if (Constant.Status.DESTROY.equals(result)) {
-                        Intent intentBasic = new Intent(Constant.BroadCast.LOADING);
-                        intentBasic.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
-                        intentBasic.putExtra(Constant.Status.PROGRESS, -1);
-                        sendBroadcast(intentBasic);
+                        Intent intent = new Intent(Constant.BroadCast.LOADING);
+                        intent.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
+                        intent.putExtra(Constant.Status.PROGRESS, -1);
+                        sendBroadcast(intent);
                     }
                     if (e != null)
                         e.printStackTrace();
@@ -115,19 +115,19 @@ public class InitService extends Service {
                     @Override
                     public void onProcess(int progress) {
                         Log.e("onProcess", "" + progress);
-                        Intent intentPlayer = new Intent(Constant.BroadCast.LOADING);
-                        intentPlayer.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                        intentPlayer.putExtra(Constant.Status.PROGRESS, progress * 10);
-                        sendBroadcast(intentPlayer);
+                        Intent intent = new Intent(Constant.BroadCast.LOADING);
+                        intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
+                        intent.putExtra(Constant.Status.PROGRESS, progress * 10);
+                        sendBroadcast(intent);
                     }
 
                     @Override
                     public void onSuccess(String result) {
                         Log.e("onSuccess", result);
-                        Intent intentPlayer = new Intent(Constant.BroadCast.LOADING);
-                        intentPlayer.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                        intentPlayer.putExtra(Constant.Status.PROGRESS, 100);
-                        sendBroadcast(intentPlayer);
+                        Intent intent = new Intent(Constant.BroadCast.LOADING);
+                        intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
+                        intent.putExtra(Constant.Status.PROGRESS, 100);
+                        sendBroadcast(intent);
                         savePlayerData(true);
                     }
 
@@ -135,10 +135,10 @@ public class InitService extends Service {
                     public void onFailure(String result, Exception e) {
                         Log.e("onFailure", result);
                         if (Constant.Status.DESTROY.equals(result)) {
-                            Intent intentPlayer = new Intent(Constant.BroadCast.LOADING);
-                            intentPlayer.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                            intentPlayer.putExtra(Constant.Status.PROGRESS, -1);
-                            sendBroadcast(intentPlayer);
+                            Intent intent = new Intent(Constant.BroadCast.LOADING);
+                            intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
+                            intent.putExtra(Constant.Status.PROGRESS, -1);
+                            sendBroadcast(intent);
                             file.delete();
                             try {
                                 Thread.sleep(2000);
@@ -165,29 +165,29 @@ public class InitService extends Service {
                 @Override
                 public void onProcess(int progress) {
                     Log.e("onProcess", "" + progress);
-                    Intent intentPlayer = new Intent(Constant.BroadCast.LOADING);
-                    intentPlayer.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                    intentPlayer.putExtra(Constant.Status.PROGRESS, progress * 10);
-                    sendBroadcast(intentPlayer);
+                    Intent intent = new Intent(Constant.BroadCast.LOADING);
+                    intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
+                    intent.putExtra(Constant.Status.PROGRESS, progress * 10);
+                    sendBroadcast(intent);
                 }
 
                 @Override
                 public void onSuccess(String result) {
                     Log.e("onSuccess", result);
-                    Intent intentPlayer = new Intent(Constant.BroadCast.LOADING);
-                    intentPlayer.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                    intentPlayer.putExtra(Constant.Status.PROGRESS, 100);
-                    sendBroadcast(intentPlayer);
+                    Intent intent = new Intent(Constant.BroadCast.LOADING);
+                    intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
+                    intent.putExtra(Constant.Status.PROGRESS, 100);
+                    sendBroadcast(intent);
                 }
 
                 @Override
                 public void onFailure(String result, Exception e) {
                     Log.e("onFailure", result);
                     if (Constant.Status.DESTROY.equals(result)) {
-                        Intent intentPlayer = new Intent(Constant.BroadCast.LOADING);
-                        intentPlayer.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                        intentPlayer.putExtra(Constant.Status.PROGRESS, -1);
-                        sendBroadcast(intentPlayer);
+                        Intent intent = new Intent(Constant.BroadCast.LOADING);
+                        intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
+                        intent.putExtra(Constant.Status.PROGRESS, -1);
+                        sendBroadcast(intent);
                         file.delete();
                         try {
                             Thread.sleep(2000);

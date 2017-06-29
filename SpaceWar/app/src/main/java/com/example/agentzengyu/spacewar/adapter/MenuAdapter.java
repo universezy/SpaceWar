@@ -27,16 +27,16 @@ import com.example.agentzengyu.spacewar.application.Constant;
  * 菜单适配器
  */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> {
-    private MenuActivity context;
+    private MenuActivity activity;
     private LayoutInflater inflater;
     private Resources resources;
     private int[] images;
     private String[] titles;
 
-    public MenuAdapter(MenuActivity context) {
-        this.context = context;
-        inflater = LayoutInflater.from(context);
-        resources = context.getResources();
+    public MenuAdapter(MenuActivity activity) {
+        this.activity = activity;
+        inflater = LayoutInflater.from(activity);
+        resources = activity.getResources();
         setData();
     }
 
@@ -111,24 +111,24 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                 case R.id.btnEnter:
                     switch ((int) v.getTag()) {
                         case Constant.Menu.MAIN:
-                            Intent intentMain = new Intent(context, MainActivity.class);
-                            context.startActivity(intentMain);
-                            context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
+                            Intent intentMain = new Intent(activity, MainActivity.class);
+                            activity.startActivity(intentMain);
+                            activity.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                             break;
                         case Constant.Menu.GAME:
-                            Intent intentMap = new Intent(context, MapActivity.class);
-                            context.startActivity(intentMap);
-                            context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
+                            Intent intentMap = new Intent(activity, MapActivity.class);
+                            activity.startActivity(intentMap);
+                            activity.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                             break;
                         case Constant.Menu.SHOP:
-                            Intent intentShop = new Intent(context, ShopActivity.class);
-                            context.startActivity(intentShop);
-                            context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
+                            Intent intentShop = new Intent(activity, ShopActivity.class);
+                            activity.startActivity(intentShop);
+                            activity.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                             break;
                         case Constant.Menu.SETTING:
-                            Intent intentSetting = new Intent(context, SettingActivity.class);
-                            context.startActivity(intentSetting);
-                            context.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
+                            Intent intentSetting = new Intent(activity, SettingActivity.class);
+                            activity.startActivity(intentSetting);
+                            activity.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                             break;
                         default:
                             break;
