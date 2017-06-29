@@ -9,7 +9,7 @@ package com.example.agentzengyu.spacewar.application;
  */
 public class Constant {
     //广播
-    public static class BroadCast{
+    public static class BroadCast {
         public final static String STATE = "STATE";
         public final static String LOADING = "LOADING";
         public final static String GAME = "GAME";
@@ -21,6 +21,13 @@ public class Constant {
         public final static int GAME = 1;
         public final static int SHOP = 2;
         public final static int SETTING = 3;
+    }
+
+    //更新视图
+    public static class UpdateView {
+        public final static String MAP = "MAP";
+        public final static String PLAYER = "PLAYER";
+        public final static String ENEMY = "ENEMY";
     }
 
     //存档文件名

@@ -17,23 +17,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            def fileName
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                if (variant.buildType.name.equals('release')) {
-                    fileName = "SpaceWar.apk"
-                    //  fileName = "RELEASE${defaultConfig.versionName}.${getTime()}.apk"
-                } else if (variant.buildType.name.equals('debug')) {
-                    //  fileName = "DEBUG${defaultConfig.versionName}.${getTime()}.apk"
-                    fileName = "SpaceWar.apk"
-                }
-                output.outputFile = new File(outputFile.parent, fileName)
-            }
-
-        }
-    }
+//    applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            def outputFile = output.outputFile
+//            def fileName
+//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                if (variant.buildType.name.equals('release')) {
+//                    fileName = "SpaceWar.apk"
+//                    //  fileName = "RELEASE${defaultConfig.versionName}.${getTime()}.apk"
+//                } else if (variant.buildType.name.equals('debug')) {
+//                    //  fileName = "DEBUG${defaultConfig.versionName}.${getTime()}.apk"
+//                    fileName = "SpaceWar.apk"
+//                }
+//                output.outputFile = new File(outputFile.parent, fileName)
+//            }
+//
+//        }
+//    }
     lintOptions {
         abortOnError false
         checkReleaseBuilds false

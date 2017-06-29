@@ -2,9 +2,11 @@ package com.example.agentzengyu.spacewar.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.engine.IEngine;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
@@ -17,7 +19,9 @@ public class GameService extends Service implements IEngine {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
     private SpaceWarEngine engine = null;
-    private Thread MapThread = null;
+    private Handler mapHandler = new Handler();
+    private Runnable mapRunnable = null;
+    private boolean mapRunning = true;
 
     @Override
     public void onCreate() {
@@ -50,12 +54,19 @@ public class GameService extends Service implements IEngine {
     private void initVariable() {
         app = (SpaceWarApp) getApplication();
         app.setGameService(this);
-        MapThread = new Thread(new Runnable() {
+        mapRunnable = new Runnable() {
             @Override
             public void run() {
+                if (mapRunning) {
+                    
 
+                    Intent intent = new Intent(Constant.BroadCast.GAME);
+                    intent.putExtra(Constant.BroadCast.STATE,Constant.UpdateView.MAP);
+
+                    mapHandler.postDelayed(mapRunnable,100);
+                }
             }
-        });
+        };
     }
 
     /**
@@ -73,7 +84,7 @@ public class GameService extends Service implements IEngine {
      */
     public void startGame(MapItem mapItem) {
         engine.loadMirror(app.getPlayerData(), mapItem.getEnemys());
-        MapThread.start();
+        mapHandler.postDelayed(mapRunnable, 100);
         engine.onStart();
     }
 
@@ -81,7 +92,7 @@ public class GameService extends Service implements IEngine {
      * 暂停游戏
      */
     public void pauseGame() {
-        MapThread.suspend();
+        mapRunning = false;
         engine.onPause();
     }
 
@@ -89,7 +100,7 @@ public class GameService extends Service implements IEngine {
      * 继续游戏
      */
     public void continueGame() {
-        MapThread.resume();
+        mapRunning = true;
         engine.onContinue();
     }
 
@@ -97,7 +108,8 @@ public class GameService extends Service implements IEngine {
      * 停止游戏
      */
     public void stopGame() {
-        MapThread.stop();
+        mapRunning = false;
+        mapHandler.removeCallbacks(mapRunnable);
         engine.onStop();
     }
 
