@@ -5,7 +5,7 @@ package com.example.agentzengyu.spacewar.entity.set;
  */
 
 /**
- * 抽象数据父类
+ * 抽象库
  */
-public abstract class Data {
+public abstract class AbstractLibrary {
 }

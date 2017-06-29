@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">SpaceWar</string>
 
-    <string name="loading_shop">Loading shop data......</string>
-    <string name="loading_player">Loading player data......</string>
-    <string name="loading_map">Loading map data......</string>
-    <string name="loading_enemy">Loading enemy data......</string>
+    <string name="loading_shop">Loading shop abstractLibrary......</string>
+    <string name="loading_player">Loading player abstractLibrary......</string>
+    <string name="loading_map">Loading map abstractLibrary......</string>
+    <string name="loading_enemy">Loading enemy abstractLibrary......</string>
 
-    <string name="loaded_shop">Loading shop data successful.</string>
-    <string name="loaded_player">Loading player data successful.</string>
+    <string name="loaded_shop">Loading shop abstractLibrary successful.</string>
+    <string name="loaded_player">Loading player abstractLibrary successful.</string>
     <string name="loaded_map">Loading shop map successful.</string>
-    <string name="loaded_enemy">Loading enemy data successful.</string>
+    <string name="loaded_enemy">Loading enemy abstractLibrary successful.</string>
 
     <string name="shop_money">Money</string>
     <string name="shop_upgrade">Upgrade</string>

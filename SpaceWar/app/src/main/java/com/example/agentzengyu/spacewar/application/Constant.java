@@ -5,14 +5,14 @@ package com.example.agentzengyu.spacewar.application;
  */
 
 /**
- * 常量类
+ * 常量
  */
 public class Constant {
     //广播
     public static class BroadCast{
         public final static String STATE = "STATE";
-        public final static String LOADING = "STATE";
-        public final static String GAME = "STATE";
+        public final static String LOADING = "LOADING";
+        public final static String GAME = "GAME";
     }
 
     //菜单

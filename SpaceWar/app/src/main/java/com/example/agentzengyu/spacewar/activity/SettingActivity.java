@@ -10,7 +10,6 @@ import com.example.agentzengyu.spacewar.R;
  * 设置界面
  */
 public class SettingActivity extends AppCompatActivity {
-    private final String TAG = getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

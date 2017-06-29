@@ -7,9 +7,9 @@ import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.handler.PlayerHandler;
-import com.example.agentzengyu.spacewar.handler.ShopHandler;
-import com.example.agentzengyu.spacewar.others.HandlerCallBack;
+import com.example.agentzengyu.spacewar.loader.ILoader;
+import com.example.agentzengyu.spacewar.loader.PlayerLoader;
+import com.example.agentzengyu.spacewar.loader.ShopLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,12 +19,13 @@ import java.io.InputStream;
  * 初始化服务
  */
 public class InitService extends Service {
+    private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("InitService", "onCreate.");
+        Log.e(TAG, "onCreate.");
         app = (SpaceWarApp) getApplication();
         app.setInitService(this);
         initShopData();
@@ -32,7 +33,7 @@ public class InitService extends Service {
 
     @Override
     public void onStart(Intent intent, int startId) {
-        Log.e("InitService", "onStart.");
+        Log.e(TAG, "onStart.");
         super.onStart(intent, startId);
     }
 
@@ -43,7 +44,7 @@ public class InitService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.e("InitService", "onDestroy.");
+        Log.e(TAG, "onDestroy.");
         super.onDestroy();
     }
 
@@ -53,8 +54,8 @@ public class InitService extends Service {
     public void initShopData() {
         try {
             InputStream inputStream = getResources().getAssets().open(Constant.FileName.SHOP);
-            ShopHandler handler = new ShopHandler(app.getShopData(), null, inputStream);
-            handler.read(new HandlerCallBack() {
+            ShopLoader handler = new ShopLoader(app.getShopLibrary(), null, inputStream);
+            handler.read(new ILoader() {
                 @Override
                 public void onStart(String message) {
                     Log.e("onStart", message);
@@ -102,11 +103,11 @@ public class InitService extends Service {
      */
     public void initPlayerData() {
         final File file = new File(getFilesDir(), Constant.FileName.PLAYER);
-        PlayerHandler handler = new PlayerHandler(app.getPlayerData(), file, null);
+        PlayerLoader handler = new PlayerLoader(app.getPlayerData(), file, null);
         if (!file.exists()) {
             try {
                 file.createNewFile();
-                handler.init(new HandlerCallBack() {
+                handler.init(new ILoader() {
                     @Override
                     public void onStart(String message) {
                         Log.e("onStart", message);
@@ -150,13 +151,13 @@ public class InitService extends Service {
                         if (e != null)
                             e.printStackTrace();
                     }
-                }, app.getShopData());
+                }, app.getShopLibrary());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return;
         } else {
-            handler.read(new HandlerCallBack() {
+            handler.read(new ILoader() {
                 @Override
                 public void onStart(String message) {
                     Log.e("onStart", message);
@@ -178,6 +179,7 @@ public class InitService extends Service {
                     intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
                     intent.putExtra(Constant.Status.PROGRESS, 100);
                     sendBroadcast(intent);
+                    initMapData();
                 }
 
                 @Override
@@ -216,8 +218,8 @@ public class InitService extends Service {
             }
             return;
         }
-        PlayerHandler handler = new PlayerHandler(app.getPlayerData(), file, null);
-        handler.save(new HandlerCallBack() {
+        PlayerLoader handler = new PlayerLoader(app.getPlayerData(), file, null);
+        handler.save(new ILoader() {
             @Override
             public void onStart(String message) {
                 Log.e("onStart", message);

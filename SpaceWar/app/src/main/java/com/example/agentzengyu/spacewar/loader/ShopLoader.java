@@ -1,12 +1,11 @@
-package com.example.agentzengyu.spacewar.handler;
+package com.example.agentzengyu.spacewar.loader;
 
 import android.util.Xml;
 
 import com.example.agentzengyu.spacewar.application.Constant;
-import com.example.agentzengyu.spacewar.entity.set.Data;
-import com.example.agentzengyu.spacewar.entity.set.ShopData;
+import com.example.agentzengyu.spacewar.entity.set.AbstractLibrary;
+import com.example.agentzengyu.spacewar.entity.set.ShopLibrary;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
-import com.example.agentzengyu.spacewar.others.HandlerCallBack;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -22,14 +21,14 @@ import java.util.ArrayList;
  */
 
 /**
- * 商店数据处理类
+ * 商品加载器
  */
-public class ShopHandler extends DataHandler {
-    private ShopData shopData = null;
+public class ShopLoader extends AbstractLoader {
+    private ShopLibrary shopLibrary = null;
 
-    public ShopHandler(Data data, File file, InputStream inputStream) {
-        super(data, file, inputStream);
-        this.shopData = (ShopData) data;
+    public ShopLoader(AbstractLibrary abstractLibrary, File file, InputStream inputStream) {
+        super(abstractLibrary, file, inputStream);
+        this.shopLibrary = (ShopLibrary) abstractLibrary;
     }
 
     /**
@@ -38,7 +37,7 @@ public class ShopHandler extends DataHandler {
      * @param callBack 消息回调
      * @return
      */
-//    private void save(final HandlerCallBack callBack) {
+//    private void save(final ILoader callBack) {
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -153,7 +152,7 @@ public class ShopHandler extends DataHandler {
      *
      * @param callBack 消息回调
      */
-    public void read(final HandlerCallBack callBack) {
+    public void read(final ILoader callBack) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -171,28 +170,28 @@ public class ShopHandler extends DataHandler {
                                 String startName = xmlPullParser.getName();
                                 switch (startName) {
                                     case Constant.Basic.Item.LIFE:
-                                        getAttributes(xmlPullParser, shopData.getLives(), startName);
+                                        getAttributes(xmlPullParser, shopLibrary.getLives(), startName);
                                         break;
                                     case Constant.Basic.Item.DEFENSE:
-                                        getAttributes(xmlPullParser, shopData.getDefenses(), startName);
+                                        getAttributes(xmlPullParser, shopLibrary.getDefenses(), startName);
                                         break;
                                     case Constant.Basic.Item.AGILITY:
-                                        getAttributes(xmlPullParser, shopData.getAgilities(), startName);
+                                        getAttributes(xmlPullParser, shopLibrary.getAgilities(), startName);
                                         break;
                                     case Constant.Basic.Item.SHIELD:
-                                        getAttributes(xmlPullParser, shopData.getShields(), startName);
+                                        getAttributes(xmlPullParser, shopLibrary.getShields(), startName);
                                         break;
                                     case Constant.Basic.Item.POWER:
-                                        getAttributes(xmlPullParser, shopData.getPowers(), startName);
+                                        getAttributes(xmlPullParser, shopLibrary.getPowers(), startName);
                                         break;
                                     case Constant.Basic.Item.SPEED:
-                                        getAttributes(xmlPullParser, shopData.getSpeeds(), startName);
+                                        getAttributes(xmlPullParser, shopLibrary.getSpeeds(), startName);
                                         break;
                                     case Constant.Basic.Item.RANGE:
-                                        getAttributes(xmlPullParser, shopData.getRanges(), startName);
+                                        getAttributes(xmlPullParser, shopLibrary.getRanges(), startName);
                                         break;
                                     case Constant.Basic.Item.BOMB:
-                                        getAttributes(xmlPullParser, shopData.getBombs(), startName);
+                                        getAttributes(xmlPullParser, shopLibrary.getBombs(), startName);
                                         break;
                                     default:
                                         break;

@@ -1,5 +1,6 @@
 package com.example.agentzengyu.spacewar.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,17 +13,19 @@ import android.widget.Button;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.adapter.MenuAdapter;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
+import com.example.agentzengyu.spacewar.service.GameService;
 
 /**
  * 菜单界面
  */
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
-    private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
     private LinearLayoutManager manager;
     private MenuAdapter adapter;
+
     private RecyclerView mRvMenu;
     private Button mBtnLeft, mBtnRight;
+
     private int position = 0;
 
     @Override
@@ -33,12 +36,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         initVariable();
         initView();
         setButtonVisible();
+        startService();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        app.getInitService().stopSelf();
+        app.destroyGameService();
     }
 
     @Override
@@ -95,6 +99,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             mBtnRight.setVisibility(View.VISIBLE);
             mBtnLeft.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * 启动服务
+     */
+    private void startService() {
+        Intent intent = new Intent(MenuActivity.this, GameService.class);
+        startService(intent);
     }
 
     @Override

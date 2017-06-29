@@ -12,7 +12,6 @@ import com.example.agentzengyu.spacewar.R;
  * 欢迎界面
  */
 public class WelcomeActivity extends AppCompatActivity {
-    private final String TAG = getClass().getName();
     private Handler handler;
     private Runnable runnable;
 

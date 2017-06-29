@@ -16,14 +16,18 @@ import android.widget.Toast;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
+import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.service.InitService;
 
-
+/**
+ * 加载页面
+ */
 public class LoadingActivity extends AppCompatActivity {
     private ImageView mIvLogo;
     private ProgressBar mPbLoad;
     private TextView mTvLoad;
 
+    private SpaceWarApp app = null;
     private LoadingReceiver receiver;
     private Handler handler;
     private Runnable runnable;
@@ -41,6 +45,7 @@ public class LoadingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        app.destroyInitService();
         unregisterReceiver(receiver);
     }
 
@@ -57,6 +62,7 @@ public class LoadingActivity extends AppCompatActivity {
      * 初始化变量
      */
     private void initVariable() {
+        app = (SpaceWarApp) getApplication();
         receiver = new LoadingReceiver();
         IntentFilter filter = new IntentFilter(Constant.BroadCast.LOADING);
         registerReceiver(receiver, filter);

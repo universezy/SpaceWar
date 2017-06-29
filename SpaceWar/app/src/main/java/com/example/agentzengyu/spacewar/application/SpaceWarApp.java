@@ -3,10 +3,10 @@ package com.example.agentzengyu.spacewar.application;
 import android.app.Application;
 import android.util.Log;
 
-import com.example.agentzengyu.spacewar.entity.set.EnemyData;
-import com.example.agentzengyu.spacewar.entity.set.MapData;
+import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
+import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.set.ShopData;
+import com.example.agentzengyu.spacewar.entity.set.ShopLibrary;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.service.InitService;
 
@@ -20,10 +20,10 @@ import com.example.agentzengyu.spacewar.service.InitService;
 public class SpaceWarApp extends Application {
     private InitService initService = null;
     private GameService gameService = null;
-    private ShopData shopData = new ShopData();
+    private ShopLibrary shopLibrary = new ShopLibrary();
     private PlayerData playerData = new PlayerData();
-    private MapData mapData = new MapData();
-    private EnemyData enemyData = new EnemyData();
+    private MapLibrary mapLibrary = new MapLibrary();
+    private EnemyLibrary enemyLibrary = new EnemyLibrary();
 
     @Override
     public void onCreate() {
@@ -43,24 +43,24 @@ public class SpaceWarApp extends Application {
         }
     }
 
-    public ShopData getShopData() {
-        return shopData;
+    public ShopLibrary getShopLibrary() {
+        return shopLibrary;
     }
 
     public PlayerData getPlayerData() {
         return playerData;
     }
 
-    public MapData getMapData() {
-        return mapData;
+    public MapLibrary getMapLibrary() {
+        return mapLibrary;
     }
 
-    public EnemyData getEnemyData() {
-        return enemyData;
+    public EnemyLibrary getEnemyLibrary() {
+        return enemyLibrary;
     }
 
     /**
-     * 设置服务
+     * 设置初始化服务
      *
      * @param initService
      */
@@ -69,7 +69,7 @@ public class SpaceWarApp extends Application {
     }
 
     /**
-     * 获取服务对象
+     * 获取初始化服务对象
      *
      * @return
      */
@@ -78,7 +78,15 @@ public class SpaceWarApp extends Application {
     }
 
     /**
-     * 设置服务
+     * 销毁初始化服务
+     */
+    public void destroyInitService(){
+        this.initService.stopSelf();
+        this.initService = null;
+    }
+
+    /**
+     * 设置游戏服务
      *
      * @param gameService
      */
@@ -87,11 +95,19 @@ public class SpaceWarApp extends Application {
     }
 
     /**
-     * 获取服务对象
+     * 获取游戏服务对象
      *
      * @return
      */
     public GameService getGameService() {
         return gameService;
+    }
+
+    /**
+     * 销毁初始化服务
+     */
+    public void destroyGameService(){
+        this.gameService.stopSelf();
+        this.gameService = null;
     }
 }

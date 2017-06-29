@@ -6,10 +6,12 @@ package com.example.agentzengyu.spacewar.entity.set;
 
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
+import java.io.Serializable;
+
 /**
- * 玩家数据类
+ * 玩家数据
  */
-public class PlayerData extends Data{
+public class PlayerData  extends AbstractLibrary implements Serializable {
     /********** Spaceship **********/
     private ShopItem life = null;
     private ShopItem defense = null;

@@ -32,6 +32,6 @@
         android:layout_marginTop="15dp"
         android:gravity="center"
         android:textSize="15sp"
-        android:text="Loading basic data..." />
+        android:text="Loading basic abstractLibrary..." />
 
 </LinearLayout>

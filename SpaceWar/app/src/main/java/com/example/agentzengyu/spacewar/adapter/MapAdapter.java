@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.activity.GameActivity;
 import com.example.agentzengyu.spacewar.activity.MapActivity;
-import com.example.agentzengyu.spacewar.entity.set.MapData;
+import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
 
 /**
  * Created by Agent ZengYu on 2017/6/29.
@@ -23,9 +23,9 @@ import com.example.agentzengyu.spacewar.entity.set.MapData;
 public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
     private MapActivity activity;
     private LayoutInflater inflater;
-    private MapData data = null;
+    private MapLibrary data = null;
 
-    public MapAdapter(MapActivity activity, MapData data) {
+    public MapAdapter(MapActivity activity, MapLibrary data) {
         this.activity = activity;
         this.inflater = LayoutInflater.from(activity);
         this.data = data;

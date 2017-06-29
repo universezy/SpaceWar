@@ -6,17 +6,14 @@ package com.example.agentzengyu.spacewar.entity.set;
 
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * 地图数据类
+ * 地图库
  */
-public class MapData extends Data{
+public class MapLibrary extends AbstractLibrary implements Serializable {
     private ArrayList<MapItem> maps = new ArrayList<>();
-
-    public void setMaps(ArrayList<MapItem> maps) {
-        this.maps = maps;
-    }
 
     public ArrayList<MapItem> getMaps() {
         return maps;

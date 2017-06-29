@@ -22,7 +22,6 @@ import com.example.agentzengyu.spacewar.view.CircleImageView;
  * 玩家信息界面
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
 
     private TextView mTvMoney;

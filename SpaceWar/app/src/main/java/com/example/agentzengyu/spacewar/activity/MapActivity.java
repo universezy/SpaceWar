@@ -15,7 +15,6 @@ import com.example.agentzengyu.spacewar.application.SpaceWarApp;
  * 地图选择界面
  */
 public class MapActivity extends AppCompatActivity {
-    private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
     private LinearLayoutManager manager;
     private MapAdapter adapter;
@@ -37,7 +36,7 @@ public class MapActivity extends AppCompatActivity {
         app = (SpaceWarApp) getApplication();
         manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        adapter = new MapAdapter(this, app.getMapData());
+        adapter = new MapAdapter(this, app.getMapLibrary());
     }
 
     /**

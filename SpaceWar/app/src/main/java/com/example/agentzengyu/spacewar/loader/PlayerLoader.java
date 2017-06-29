@@ -1,13 +1,12 @@
-package com.example.agentzengyu.spacewar.handler;
+package com.example.agentzengyu.spacewar.loader;
 
 import android.util.Xml;
 
 import com.example.agentzengyu.spacewar.application.Constant;
-import com.example.agentzengyu.spacewar.entity.set.Data;
+import com.example.agentzengyu.spacewar.entity.set.AbstractLibrary;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.set.ShopData;
+import com.example.agentzengyu.spacewar.entity.set.ShopLibrary;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
-import com.example.agentzengyu.spacewar.others.HandlerCallBack;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -25,14 +24,14 @@ import java.io.InputStream;
  */
 
 /**
- * 玩家数据处理类
+ * 玩家加载器
  */
-public class PlayerHandler extends DataHandler{
+public class PlayerLoader extends AbstractLoader {
     private PlayerData playerData = null;
 
-    public PlayerHandler(Data data, File file, InputStream inputStream) {
-        super(data,file, inputStream);
-        this.playerData = (PlayerData) data;
+    public PlayerLoader(AbstractLibrary abstractLibrary, File file, InputStream inputStream) {
+        super(abstractLibrary,file, inputStream);
+        this.playerData = (PlayerData) abstractLibrary;
     }
 
     /**
@@ -41,7 +40,7 @@ public class PlayerHandler extends DataHandler{
      * @param callBack 消息回调
      * @return
      */
-    public void save(final HandlerCallBack callBack) {
+    public void save(final ILoader callBack) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -154,7 +153,7 @@ public class PlayerHandler extends DataHandler{
      * @param callBack 消息回调
      * @param data     商店数据
      */
-    public void init(final HandlerCallBack callBack, final ShopData data) {
+    public void init(final ILoader callBack, final ShopLibrary data) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -202,7 +201,7 @@ public class PlayerHandler extends DataHandler{
      * @param callBack 消息回调
      * @return
      */
-    public void read(final HandlerCallBack callBack) {
+    public void read(final ILoader callBack) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -274,7 +273,7 @@ public class PlayerHandler extends DataHandler{
                                 }
                                 break;
                             case XmlPullParser.TEXT:
-//                                Log.e("PlayerHandler", xmlPullParser.getText() + "");
+//                                Log.e("PlayerLoader", xmlPullParser.getText() + "");
                                 break;
                             case XmlPullParser.END_TAG:
                                 String endName = xmlPullParser.getName();

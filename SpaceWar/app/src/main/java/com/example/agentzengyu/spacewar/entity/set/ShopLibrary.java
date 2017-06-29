@@ -2,6 +2,7 @@ package com.example.agentzengyu.spacewar.entity.set;
 
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,9 +10,9 @@ import java.util.ArrayList;
  */
 
 /**
- * 商店数据类
+ * 商品库
  */
-public class ShopData extends Data{
+public class ShopLibrary extends AbstractLibrary implements Serializable{
     /********** Spaceship initialize **********/
     private ArrayList<ShopItem> lives = new ArrayList<>();
     private ArrayList<ShopItem> defenses = new ArrayList<>();
