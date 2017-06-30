@@ -12,7 +12,9 @@ public class Constant {
     public static class BroadCast {
         public final static String STATE = "STATE";
         public final static String LOADING = "LOADING";
-        public final static String GAME = "GAME";
+        public final static String MAP = "MAP";
+        public final static String PLAYER = "PLAYER";
+        public final static String ENEMY = "ENEMY";
     }
 
     //菜单
@@ -21,13 +23,6 @@ public class Constant {
         public final static int GAME = 1;
         public final static int SHOP = 2;
         public final static int SETTING = 3;
-    }
-
-    //更新视图
-    public static class UpdateView {
-        public final static String MAP = "MAP";
-        public final static String PLAYER = "PLAYER";
-        public final static String ENEMY = "ENEMY";
     }
 
     //存档文件名

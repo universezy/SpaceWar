@@ -12,6 +12,7 @@ import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.activity.GameActivity;
 import com.example.agentzengyu.spacewar.activity.MapActivity;
 import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
+import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
 /**
  * Created by Agent ZengYu on 2017/6/29.
@@ -41,6 +42,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
     @Override
     public void onBindViewHolder(MapViewHolder holder, int position) {
         holder.getLlMap().setBackgroundResource(this.data.getMaps().get(position).getImage());
+        holder.getLlMap().setTag(data.getMaps().get(position));
         holder.getTvName().setText(this.data.getMaps().get(position).getName());
     }
 
@@ -60,10 +62,11 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
             super(itemView);
             mLlMap = (LinearLayout) itemView.findViewById(R.id.llMap);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            mLlMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(activity, GameActivity.class);
+                    intent.putExtra("MapItem", (MapItem) mLlMap.getTag());
                     activity.startActivity(intent);
                 }
             });

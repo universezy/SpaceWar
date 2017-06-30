@@ -1,7 +1,10 @@
 package com.example.agentzengyu.spacewar.engine;
 
+import android.os.Handler;
+
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.EnemyItem;
+import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,16 +20,25 @@ import java.util.ArrayList;
 /**
  * 游戏引擎
  */
-public class SpaceWarEngine implements IStatus{
+public class SpaceWarEngine implements IStatus {
     private static SpaceWarEngine instance = null;
     private IEngine engine = null;
+    private Handler mapHandler = new Handler();
+    private Runnable mapRunnable = null;
 
     //数据镜像
     private PlayerData playerMirror = null;
-    private ArrayList<EnemyItem> enemysMirror  =null;
+    private ArrayList<EnemyItem> enemyMirror = null;
+    private ArrayList mapMirror = null;
 
     private SpaceWarEngine() {
-
+        mapRunnable = new Runnable() {
+            @Override
+            public void run() {
+                updateMap();
+                mapHandler.postDelayed(mapRunnable, 100);
+            }
+        };
     }
 
     /**
@@ -57,9 +69,23 @@ public class SpaceWarEngine implements IStatus{
     }
 
     /**
-     * 加载镜像，每一个回合前必须调用
+     * 加载资源
+     *
+     * @param playerSource 玩家资源
+     * @param mapItem      地图对象
      */
-    public void loadMirror(PlayerData playerSource, ArrayList<EnemyItem> enemys) {
+    public void loadSource(PlayerData playerSource, MapItem mapItem) {
+        loadMirror(playerSource, mapItem.getEnemys(), mapItem.getMapSource());
+    }
+
+    /**
+     * * 加载镜像
+     *
+     * @param playerSource 玩家资源
+     * @param enemySource  敌人
+     * @param mapSource    地图资源
+     */
+    private void loadMirror(PlayerData playerSource, ArrayList<EnemyItem> enemySource, ArrayList mapSource) {
         playerMirror = null;
         playerMirror = (PlayerData) createMirror(playerSource);
         engine.notifyInitMsg("Loading player data successful.");
@@ -68,8 +94,16 @@ public class SpaceWarEngine implements IStatus{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        enemysMirror = null;
-        enemysMirror = (ArrayList<EnemyItem>) createMirror(enemys);
+        enemyMirror = null;
+        enemyMirror = (ArrayList<EnemyItem>) createMirror(enemySource);
+        engine.notifyInitMsg("Loading enemy data successful.");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mapMirror = null;
+        mapMirror = (ArrayList) createMirror(mapSource);
         engine.notifyInitMsg("Loading map data successful.");
         try {
             Thread.sleep(500);
@@ -107,10 +141,17 @@ public class SpaceWarEngine implements IStatus{
         return mirror;
     }
 
+    /**
+     * 更新地图
+     */
+    private void updateMap(/**/) {
+        //TODO
+        engine.updateMap(/**/);
+    }
 
     @Override
     public void onStart() {
-
+        mapHandler.postDelayed(mapRunnable, 100);
     }
 
     @Override
@@ -125,6 +166,6 @@ public class SpaceWarEngine implements IStatus{
 
     @Override
     public void onStop() {
-
+        mapHandler.removeCallbacks(mapRunnable);
     }
 }

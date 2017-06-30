@@ -14,7 +14,8 @@ public class MapItem implements Serializable {
     private ArrayList<EnemyItem> enemys  =new ArrayList<>();
     private String Name = "";
     private int Image = 0;
-    // add a source for map
+    // add a mapSource for map
+    private ArrayList mapSource = new ArrayList<>();
 
     public MapItem(){
 
@@ -30,6 +31,10 @@ public class MapItem implements Serializable {
 
     public ArrayList<EnemyItem> getEnemys() {
         return enemys;
+    }
+
+    public ArrayList getMapSource() {
+        return mapSource;
     }
 
     public String getName() {

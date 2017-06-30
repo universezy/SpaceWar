@@ -33,7 +33,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private CircleImageView mCivShield, mCivBomb, mCivShot;
 
     private SpaceWarApp app = null;
-    private GameReceiver receiver;
+    private MapReceiver mapReceiver;
+    private PlayerReceiver playerReceiver;
+    private EnemyReceiver enemyReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
+        unregisterReceiver(mapReceiver);
+        unregisterReceiver(playerReceiver);
+        unregisterReceiver(enemyReceiver);
     }
 
     /**
@@ -76,9 +80,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initVariable() {
         app = (SpaceWarApp) getApplication();
-        receiver = new GameReceiver();
-        IntentFilter filter = new IntentFilter(Constant.BroadCast.GAME);
-        registerReceiver(receiver, filter);
+        mapReceiver = new MapReceiver();
+        playerReceiver = new PlayerReceiver();
+        enemyReceiver = new EnemyReceiver();
+        IntentFilter mapFilter = new IntentFilter(Constant.BroadCast.MAP);
+        registerReceiver(mapReceiver, mapFilter);
+        IntentFilter playerFilter = new IntentFilter(Constant.BroadCast.PLAYER);
+        registerReceiver(playerReceiver, playerFilter);
+        IntentFilter enemyFilter = new IntentFilter(Constant.BroadCast.ENEMY);
+        registerReceiver(enemyReceiver, enemyFilter);
     }
 
     /**
@@ -111,8 +121,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //游戏广播接收器
-    public class GameReceiver extends BroadcastReceiver {
+    //地图接收器
+    public class MapReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String state = intent.getStringExtra(Constant.BroadCast.STATE);
+            Log.e(TAG, state);
+            switch (state) {
+
+            }
+        }
+    }
+
+    //玩家接收器
+    public class PlayerReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String state = intent.getStringExtra(Constant.BroadCast.STATE);
+            Log.e(TAG, state);
+            switch (state) {
+
+            }
+        }
+    }
+
+    //敌人接收器
+    public class EnemyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
