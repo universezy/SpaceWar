@@ -57,7 +57,7 @@ public class GameService extends Service implements IEngine {
      */
     private void initEngine() {
         if (engine == null) {
-            engine = SpaceWarEngine.getInstance();
+            engine = SpaceWarEngine.getInstance(app.getApplicationContext());
         }
         engine.initMsgCallBack(this);
     }
@@ -102,20 +102,53 @@ public class GameService extends Service implements IEngine {
     }
 
     @Override
+    public void initMap() {
+
+    }
+
+    @Override
+    public void initEnemy() {
+
+    }
+
+    @Override
+    public void initPlayer() {
+        Intent intent = new Intent(Constant.Game.Type.PLAYER);
+        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.AGILITY);
+        intent.putExtra(Constant.Game.Player.AGILITY, app.getPlayerData().getAgility());
+        sendBroadcast(intent);
+    }
+
+    @Override
     public void updateMap() {
-        Intent intent = new Intent(Constant.BroadCast.MAP);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.BroadCast.MAP);
+        Intent intent = new Intent(Constant.Game.Type.MAP);
+        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.MAP);
         //TODO
         sendBroadcast(intent);
     }
 
     @Override
     public void updateEnemy() {
-
+        Intent intent = new Intent(Constant.Game.Type.ENEMY);
+        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.ENEMY);
+        //TODO
+        sendBroadcast(intent);
     }
 
     @Override
-    public void updatePlayer() {
-
+    public void updatePlayer(String direction, String shieldStatus, boolean destroy) {
+        Intent intent = new Intent(Constant.Game.Type.PLAYER);
+        if (Constant.Game.Player.LEFT.equals(direction) ||
+                Constant.Game.Player.RIGHT.equals(direction) ||
+                Constant.Game.Player.TOP.equals(direction) ||
+                Constant.Game.Player.BOTTOM.equals(direction)) {
+            intent.putExtra(Constant.BroadCast.STATE, direction);
+        } else if (Constant.Game.Player.SHIELD_OPEN.equals(shieldStatus) ||
+                Constant.Game.Player.SHIELD_CLOSE.equals(shieldStatus)) {
+            intent.putExtra(Constant.BroadCast.STATE, shieldStatus);
+        } else if (destroy) {
+            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.DESTROY);
+        }
+        sendBroadcast(intent);
     }
 }

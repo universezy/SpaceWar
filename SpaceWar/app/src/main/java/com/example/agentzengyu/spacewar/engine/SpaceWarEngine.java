@@ -1,5 +1,6 @@
 package com.example.agentzengyu.spacewar.engine;
 
+import android.content.Context;
 import android.os.Handler;
 
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
@@ -23,15 +24,20 @@ import java.util.ArrayList;
 public class SpaceWarEngine implements IStatus {
     private static SpaceWarEngine instance = null;
     private IEngine engine = null;
+    private Context context = null;
     private Handler mapHandler = new Handler();
     private Runnable mapRunnable = null;
+    private MusicPlayer musicPlayer = null;
 
     //数据镜像
     private PlayerData playerMirror = null;
-    private ArrayList<EnemyItem> enemyMirror = null;
+    private ArrayList<EnemyItem> enemysMirror = null;
     private ArrayList mapMirror = null;
 
-    private SpaceWarEngine() {
+    /**
+     * 私有构造初始化变量
+     */
+    private SpaceWarEngine(Context context) {
         mapRunnable = new Runnable() {
             @Override
             public void run() {
@@ -39,18 +45,19 @@ public class SpaceWarEngine implements IStatus {
                 mapHandler.postDelayed(mapRunnable, 100);
             }
         };
+        musicPlayer = MusicPlayer.getInstance(context);
     }
 
     /**
      * 单例模式只允许一个引擎实例存在
      *
-     * @return
+     * @return 引擎实例
      */
-    public static SpaceWarEngine getInstance() {
+    public static SpaceWarEngine getInstance(Context context) {
         if (instance == null) {
             synchronized (SpaceWarEngine.class) {
                 if (instance == null) {
-                    instance = new SpaceWarEngine();
+                    instance = new SpaceWarEngine(context);
                 }
             }
         }
@@ -76,13 +83,14 @@ public class SpaceWarEngine implements IStatus {
      */
     public void loadSource(PlayerData playerSource, MapItem mapItem) {
         loadMirror(playerSource, mapItem.getEnemys(), mapItem.getMapSource());
+        loadMusic(mapItem.getMusic());
     }
 
     /**
      * * 加载镜像
      *
      * @param playerSource 玩家资源
-     * @param enemySource  敌人
+     * @param enemySource  敌人资源
      * @param mapSource    地图资源
      */
     private void loadMirror(PlayerData playerSource, ArrayList<EnemyItem> enemySource, ArrayList mapSource) {
@@ -94,8 +102,8 @@ public class SpaceWarEngine implements IStatus {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        enemyMirror = null;
-        enemyMirror = (ArrayList<EnemyItem>) createMirror(enemySource);
+        enemysMirror = null;
+        enemysMirror = (ArrayList<EnemyItem>) createMirror(enemySource);
         engine.notifyInitMsg("Loading enemy data successful.");
         try {
             Thread.sleep(500);
@@ -142,6 +150,15 @@ public class SpaceWarEngine implements IStatus {
     }
 
     /**
+     * 加载音乐
+     *
+     * @param musicSource
+     */
+    private void loadMusic(int musicSource) {
+        musicPlayer.init(musicSource);
+    }
+
+    /**
      * 更新地图
      */
     private void updateMap(/**/) {
@@ -152,6 +169,7 @@ public class SpaceWarEngine implements IStatus {
     @Override
     public void onStart() {
         mapHandler.postDelayed(mapRunnable, 100);
+        musicPlayer.onStart();
     }
 
     @Override

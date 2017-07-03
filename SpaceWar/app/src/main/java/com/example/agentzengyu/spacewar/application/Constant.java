@@ -12,9 +12,40 @@ public class Constant {
     public static class BroadCast {
         public final static String STATE = "STATE";
         public final static String LOADING = "LOADING";
-        public final static String MAP = "MAP";
-        public final static String PLAYER = "PLAYER";
-        public final static String ENEMY = "ENEMY";
+
+    }
+
+    //游戏
+    public static class Game{
+
+        //类型
+        public static class Type{
+            public final static String MAP = "MAP";
+            public final static String PLAYER = "Player";
+            public final static String ENEMY = "ENEMY";
+        }
+
+        //地图
+        public static class Map{
+
+        }
+
+        //玩家
+        public static class Player {
+            public final static String LEFT = "LEFT";
+            public final static String RIGHT = "RIGHT";
+            public final static String TOP = "TOP";
+            public final static String BOTTOM = "BOTTOM";
+            public final static String AGILITY ="AGILITY";
+            public final static String SHIELD_OPEN = "SHIELD_OPEN";
+            public final static String SHIELD_CLOSE = "SHIELD_CLOSE";
+            public final static String DESTROY= "DESTROY";
+        }
+
+        //敌人
+        public static class Enemy{
+
+        }
     }
 
     //菜单
@@ -42,7 +73,7 @@ public class Constant {
         //商店
         public final static String SHOP = "SHOP";
         //玩家
-        public final static String PLAYER = "PLAYER";
+        public final static String PLAYER = "Player";
         //地图
         public final static String MAP = "MAP";
         //敌人

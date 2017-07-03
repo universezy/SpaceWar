@@ -83,11 +83,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mapReceiver = new MapReceiver();
         playerReceiver = new PlayerReceiver();
         enemyReceiver = new EnemyReceiver();
-        IntentFilter mapFilter = new IntentFilter(Constant.BroadCast.MAP);
+        IntentFilter mapFilter = new IntentFilter(Constant.Game.Type.MAP);
         registerReceiver(mapReceiver, mapFilter);
-        IntentFilter playerFilter = new IntentFilter(Constant.BroadCast.PLAYER);
+        IntentFilter playerFilter = new IntentFilter(Constant.Game.Type.PLAYER);
         registerReceiver(playerReceiver, playerFilter);
-        IntentFilter enemyFilter = new IntentFilter(Constant.BroadCast.ENEMY);
+        IntentFilter enemyFilter = new IntentFilter(Constant.Game.Type.ENEMY);
         registerReceiver(enemyReceiver, enemyFilter);
     }
 
@@ -140,7 +140,35 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
             Log.e(TAG, state);
             switch (state) {
-
+                case Constant.Game.Player.AGILITY:
+                    int agility= intent.getIntExtra(Constant.Game.Player.AGILITY, 100);
+                    playerView.setAgility(agility);
+                    break;
+                case Constant.Game.Player.LEFT:
+                    playerView.onLeft();
+                    break;
+                case Constant.Game.Player.RIGHT:
+                    playerView.onRight();
+                    break;
+                case Constant.Game.Player.TOP:
+                    playerView.onTop();
+                    break;
+                case Constant.Game.Player.BOTTOM:
+                    playerView.onBottom();
+                    break;
+                case Constant.Game.Player.SHIELD_OPEN:
+                    boolean open = intent.getBooleanExtra(Constant.Game.Player.SHIELD_OPEN, false);
+                    playerView.shield(open);
+                    break;
+                case Constant.Game.Player.SHIELD_CLOSE:
+                    boolean close = intent.getBooleanExtra(Constant.Game.Player.SHIELD_CLOSE, false);
+                    playerView.shield(close);
+                    break;
+                case Constant.Game.Player.DESTROY:
+                    playerView.destroy();
+                    break;
+                default:
+                    break;
             }
         }
     }

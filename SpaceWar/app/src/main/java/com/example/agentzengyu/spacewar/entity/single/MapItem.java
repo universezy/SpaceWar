@@ -12,8 +12,9 @@ import java.util.ArrayList;
  */
 public class MapItem implements Serializable {
     private ArrayList<EnemyItem> enemys  =new ArrayList<>();
-    private String Name = "";
-    private int Image = 0;
+    private String name = "";
+    private int image = 0;
+    private int music = 0;
     // add a mapSource for map
     private ArrayList mapSource = new ArrayList<>();
 
@@ -22,11 +23,15 @@ public class MapItem implements Serializable {
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public void setImage(int image) {
-        Image = image;
+        this.image = image;
+    }
+
+    public void setMusic(int music) {
+        this.music = music;
     }
 
     public ArrayList<EnemyItem> getEnemys() {
@@ -38,10 +43,14 @@ public class MapItem implements Serializable {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public int getImage() {
-        return Image;
+        return image;
+    }
+
+    public int getMusic() {
+        return music;
     }
 }

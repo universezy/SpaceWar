@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 玩家数据
  */
 public class PlayerData  extends AbstractLibrary implements Serializable {
-    /********** Spaceship **********/
+    /********** Ship **********/
     private ShopItem life = null;
     private ShopItem defense = null;
     private ShopItem agility = null;
@@ -26,7 +26,7 @@ public class PlayerData  extends AbstractLibrary implements Serializable {
 
     private int money = 0;
 
-    /********** Spaceship **********/
+    /********** Ship **********/
     public void setLife(ShopItem life) {
         this.life = life;
     }
