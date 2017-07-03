@@ -24,8 +24,8 @@ public class InitService extends Service {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         Log.e(TAG, "onCreate.");
+        super.onCreate();
         app = (SpaceWarApp) getApplication();
         app.setInitService(this);
         initShopData();

@@ -21,8 +21,8 @@ public class GameService extends Service implements IEngine {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         Log.e(TAG, "onCreate.");
+        super.onCreate();
         initVariable();
         initEngine();
     }
@@ -42,12 +42,15 @@ public class GameService extends Service implements IEngine {
     public void onDestroy() {
         Log.e(TAG, "onDestroy.");
         super.onDestroy();
+        stopGame();
+        engine = null;
     }
 
     /**
      * 初始化变量
      */
     private void initVariable() {
+        Log.e(TAG, "initVariable.");
         app = (SpaceWarApp) getApplication();
         app.setGameService(this);
     }
@@ -56,6 +59,7 @@ public class GameService extends Service implements IEngine {
      * 初始化游戏引擎
      */
     private void initEngine() {
+        Log.e(TAG, "initEngine.");
         if (engine == null) {
             engine = SpaceWarEngine.getInstance(app.getApplicationContext());
         }
@@ -66,7 +70,11 @@ public class GameService extends Service implements IEngine {
      * 启动游戏
      */
     public void startGame(MapItem mapItem) {
-        engine.loadSource(app.getPlayerData(), mapItem);
+        Log.e(TAG, "startGame.");
+        engine.prepare(app.getPlayerData(), mapItem);
+        initMap();
+        initEnemy();
+        initPlayer();
         engine.onStart();
     }
 
@@ -103,16 +111,19 @@ public class GameService extends Service implements IEngine {
 
     @Override
     public void initMap() {
+        Log.e(TAG, "initMap.");
 
     }
 
     @Override
     public void initEnemy() {
+        Log.e(TAG, "initEnemy.");
 
     }
 
     @Override
     public void initPlayer() {
+        Log.e(TAG, "initPlayer.");
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.AGILITY);
         intent.putExtra(Constant.Game.Player.AGILITY, app.getPlayerData().getAgility());
@@ -121,22 +132,25 @@ public class GameService extends Service implements IEngine {
 
     @Override
     public void updateMap() {
+        Log.e(TAG, "updateMap.");
         Intent intent = new Intent(Constant.Game.Type.MAP);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.MAP);
         //TODO
-        sendBroadcast(intent);
+//        sendBroadcast(intent);
     }
 
     @Override
     public void updateEnemy() {
+        Log.e(TAG, "updateEnemy.");
         Intent intent = new Intent(Constant.Game.Type.ENEMY);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.ENEMY);
         //TODO
-        sendBroadcast(intent);
+//        sendBroadcast(intent);
     }
 
     @Override
     public void updatePlayer(String direction, String shieldStatus, boolean destroy) {
+        Log.e(TAG, "updatePlayer.");
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
         if (Constant.Game.Player.LEFT.equals(direction) ||
                 Constant.Game.Player.RIGHT.equals(direction) ||

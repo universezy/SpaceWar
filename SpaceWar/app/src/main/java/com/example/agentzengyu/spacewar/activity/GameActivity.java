@@ -46,6 +46,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         initVariable();
         startGame(mapItem);
+
     }
 
     @Override
@@ -100,8 +101,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mTvLife.setText("" + app.getPlayerData().getLife().getValue());
         mTvShield.setText("" + app.getPlayerData().getShield().getValue());
         mTvBomb.setText("" + app.getPlayerData().getBomb().getValue());
-        mTvMap.setText(mapItem.getName());
+//        if (mapItem != null) {
+//            mTvMap.setText(mapItem.getName());
         app.getGameService().startGame(mapItem);
+//        } else {
+
+//        }
     }
 
     @Override
@@ -138,10 +143,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            Log.e(TAG, state);
+            Log.e(TAG, ">>> " + state);
             switch (state) {
                 case Constant.Game.Player.AGILITY:
-                    int agility= intent.getIntExtra(Constant.Game.Player.AGILITY, 100);
+                    int agility = intent.getIntExtra(Constant.Game.Player.AGILITY, 100);
                     playerView.setAgility(agility);
                     break;
                 case Constant.Game.Player.LEFT:

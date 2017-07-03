@@ -91,6 +91,7 @@ public class PlayerView extends View {
      * 左移
      */
     public void onLeft() {
+        if (playerX == 0) return;
         playerX -= agility / SCALE;
         if (playerY < 0) {
             playerX = 0;
@@ -102,6 +103,7 @@ public class PlayerView extends View {
      * 右移
      */
     public void onRight() {
+        if (playerX == screenWidth - bitmap.getWidth()) return;
         playerX += agility / SCALE;
         if (playerX + bitmap.getWidth() > screenWidth) {
             playerX = screenWidth - bitmap.getWidth();
@@ -113,6 +115,7 @@ public class PlayerView extends View {
      * 上移
      */
     public void onTop() {
+        if (playerY == 0) return;
         playerY -= agility / SCALE;
         if (playerY < 0) {
             playerY = 0;
@@ -124,6 +127,7 @@ public class PlayerView extends View {
      * 下移
      */
     public void onBottom() {
+        if (playerY == screenHeight - bitmap.getHeight()) return;
         playerY += agility / SCALE;
         if (playerY + bitmap.getHeight() > screenHeight) {
             playerY = screenHeight - bitmap.getHeight();

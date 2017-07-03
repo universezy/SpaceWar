@@ -39,8 +39,9 @@ public class MusicPlayer {
      * 初始化
      *
      * @param musicSource 音乐资源
+     * @return 提示信息
      */
-    public void init(int musicSource) {
+    public String init(int musicSource) {
         this.musicSource = musicSource;
         mediaPlayer = MediaPlayer.create(context, musicSource);
         mediaPlayer.reset();
@@ -50,6 +51,7 @@ public class MusicPlayer {
                 onStart();
             }
         });
+        return "Loading music successful.";
     }
 
     /**

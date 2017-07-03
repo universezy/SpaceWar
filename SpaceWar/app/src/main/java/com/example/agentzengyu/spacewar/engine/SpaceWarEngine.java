@@ -1,7 +1,12 @@
 package com.example.agentzengyu.spacewar.engine;
 
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.EnemyItem;
@@ -21,28 +26,52 @@ import java.util.ArrayList;
 /**
  * 游戏引擎
  */
-public class SpaceWarEngine implements IStatus {
+public class SpaceWarEngine implements IStatus, SensorEventListener {
+    private static String TAG = "";
     private static SpaceWarEngine instance = null;
+    //引擎接口
     private IEngine engine = null;
     private Context context = null;
+    //传感器管理
+    private SensorManager sensorManager = null;
+    //传感器
+    private Sensor sensor = null;
+    //地图处理器
     private Handler mapHandler = new Handler();
+    //玩家处理器
+    private Handler playerHandler = new Handler();
+    //地图子线程
     private Runnable mapRunnable = null;
+    //玩家子线程
+    private Runnable playerRunnable = null;
+    //音乐播放器
     private MusicPlayer musicPlayer = null;
 
     //数据镜像
     private PlayerData playerMirror = null;
     private ArrayList<EnemyItem> enemysMirror = null;
     private ArrayList mapMirror = null;
+    //重力传感器坐标
+    private float GX = 0, GY = 0, GZ = 0;
 
     /**
      * 私有构造初始化变量
      */
     private SpaceWarEngine(Context context) {
+        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mapRunnable = new Runnable() {
             @Override
             public void run() {
                 updateMap();
                 mapHandler.postDelayed(mapRunnable, 100);
+            }
+        };
+        playerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                updatePlayer();
+                playerHandler.postDelayed(playerRunnable, 1000);
             }
         };
         musicPlayer = MusicPlayer.getInstance(context);
@@ -61,6 +90,7 @@ public class SpaceWarEngine implements IStatus {
                 }
             }
         }
+        TAG = instance.getClass().getName();
         return instance;
     }
 
@@ -81,13 +111,14 @@ public class SpaceWarEngine implements IStatus {
      * @param playerSource 玩家资源
      * @param mapItem      地图对象
      */
-    public void loadSource(PlayerData playerSource, MapItem mapItem) {
-        loadMirror(playerSource, mapItem.getEnemys(), mapItem.getMapSource());
-        loadMusic(mapItem.getMusic());
+    public void prepare(PlayerData playerSource, MapItem mapItem) {
+//        loadMirror(playerSource, mapItem.getEnemys(), mapItem.getMapSource());
+//        loadMusic(mapItem.getMusic());
+        initGravitySensorCoord();
     }
 
     /**
-     * * 加载镜像
+     * 加载镜像
      *
      * @param playerSource 玩家资源
      * @param enemySource  敌人资源
@@ -141,9 +172,7 @@ public class SpaceWarEngine implements IStatus {
             byteArrayInputStream.close();
             objectOutputStream.close();
             byteArrayOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return mirror;
@@ -152,10 +181,20 @@ public class SpaceWarEngine implements IStatus {
     /**
      * 加载音乐
      *
-     * @param musicSource
+     * @param musicSource 音乐资源
      */
     private void loadMusic(int musicSource) {
-        musicPlayer.init(musicSource);
+        String msg = musicPlayer.init(musicSource);
+        engine.notifyInitMsg(msg);
+    }
+
+    /**
+     * 初始化重力感应器坐标
+     */
+    private void initGravitySensorCoord() {
+        while (!isPrepared(GX, GY, GZ)) {
+            engine.notifyInitMsg("Please slant the screen with an angle of 45 degrees on the horizontal.");
+        }
     }
 
     /**
@@ -166,24 +205,85 @@ public class SpaceWarEngine implements IStatus {
         engine.updateMap(/**/);
     }
 
+    /**
+     * 更新玩家
+     */
+    private void updatePlayer() {
+        String direction = null;
+        String shieldStatus = null;
+        boolean destroy = false;
+
+        engine.updatePlayer(direction, shieldStatus, destroy);
+    }
+
+    /**
+     * 设备坐标是否合适
+     *
+     * @param gx 传入的x坐标
+     * @param gy 传入的y坐标
+     * @param gz 传入的z坐标
+     * @return
+     */
+    private boolean isPrepared(float gx, float gy, float gz) {
+        long startTime = System.currentTimeMillis();
+        if (gz < 0) return false;
+        if (gy < -1 || gy > 1) return false;
+        if (gx < 3 || gx > 7) return false;
+        long endTime = System.currentTimeMillis();
+        long deltaTime = endTime - startTime;
+        float deltaX = GX - gx;
+        float deltaY = GY - gy;
+        float deltaZ = GZ - gz;
+        if (deltaX * 1000 / deltaTime < 1 &&
+                deltaY * 1000 / deltaTime < 1 &&
+                deltaZ * 1000 / deltaTime < 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public void onStart() {
-        mapHandler.postDelayed(mapRunnable, 100);
-        musicPlayer.onStart();
+        Log.e(TAG, "onStart.");
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);//SensorManager.SENSOR_DELAY_GAME
+//        mapHandler.postDelayed(mapRunnable, 100);
+//        playerHandler.postDelayed(playerRunnable, 1000);
+//        musicPlayer.onStart();
     }
 
     @Override
     public void onPause() {
+        Log.e(TAG, "onPause.");
 
     }
 
     @Override
     public void onContinue() {
+        Log.e(TAG, "onContinue.");
 
     }
 
     @Override
     public void onStop() {
+        Log.e(TAG, "onStop.");
+        sensorManager.unregisterListener(this);
         mapHandler.removeCallbacks(mapRunnable);
+        playerHandler.removeCallbacks(playerRunnable);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        GX = event.values[SensorManager.DATA_X];
+        GY = event.values[SensorManager.DATA_Y];
+        GZ = event.values[SensorManager.DATA_Z];
+        Log.e(TAG, "GX>>> " + GX);
+        Log.e(TAG, "GY>>> " + GY);
+        Log.e(TAG, "GZ>>> " + GZ);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }
