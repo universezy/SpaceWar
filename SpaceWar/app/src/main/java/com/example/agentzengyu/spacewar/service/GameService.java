@@ -7,24 +7,24 @@ import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.engine.IEngine;
+import com.example.agentzengyu.spacewar.engine.IGameCallBack;
+import com.example.agentzengyu.spacewar.engine.IGameToDo;
+import com.example.agentzengyu.spacewar.engine.IMessageCallBack;
+import com.example.agentzengyu.spacewar.engine.IStatusToDo;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
-import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
-import java.util.ArrayList;
-
 /**
- * 游戏服务
+ * 游戏服务，用于转发UI和引擎之间的消息
  */
-public class GameService extends Service implements IEngine {
+public class GameService extends Service implements IStatusToDo, IGameToDo, IMessageCallBack, IGameCallBack {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
     private SpaceWarEngine engine = null;
 
     @Override
     public void onCreate() {
-        Log.e(TAG, "onCreate.");
+        Log.e(TAG, "onCreate");
         super.onCreate();
         initVariable();
         initEngine();
@@ -32,7 +32,7 @@ public class GameService extends Service implements IEngine {
 
     @Override
     public void onStart(Intent intent, int startId) {
-        Log.e(TAG, "onStart.");
+        Log.e(TAG, "onStart");
         super.onStart(intent, startId);
     }
 
@@ -43,9 +43,9 @@ public class GameService extends Service implements IEngine {
 
     @Override
     public void onDestroy() {
-        Log.e(TAG, "onDestroy.");
+        Log.e(TAG, "onDestroy");
         super.onDestroy();
-        stopGame();
+        onStop();
         engine = null;
     }
 
@@ -53,7 +53,7 @@ public class GameService extends Service implements IEngine {
      * 初始化变量
      */
     private void initVariable() {
-        Log.e(TAG, "initVariable.");
+        Log.e(TAG, "initVariable");
         app = (SpaceWarApp) getApplication();
         app.setGameService(this);
     }
@@ -62,51 +62,58 @@ public class GameService extends Service implements IEngine {
      * 初始化游戏引擎
      */
     private void initEngine() {
-        Log.e(TAG, "initEngine.");
+        Log.e(TAG, "initEngine");
         if (engine == null) {
             engine = SpaceWarEngine.getInstance(app.getApplicationContext());
         }
-        engine.initMsgCallBack(this);
+        engine.initEngineCallBack(this, this);
     }
 
-    /**
-     * 启动游戏
-     */
-    public void startGame(MapItem mapItem) {
-        Log.e(TAG, "startGame.");
-        initMap();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        engine.prepare(app.getPlayerData(), mapItem);
+    /********************************* IStatusToDo *********************************/
+
+    @Override
+    public void onPrepare(MapItem mapItem) {
+        engine.onPrepare(mapItem);
     }
 
-    /**
-     * 暂停游戏
-     */
-    public void pauseGame() {
+    @Override
+    public void onStart() {
+        engine.onStart();
+    }
+
+    @Override
+    public void onPause() {
         engine.onPause();
     }
 
-    /**
-     * 继续游戏
-     */
-    public void continueGame() {
+    @Override
+    public void onContinue() {
         engine.onContinue();
     }
 
-    /**
-     * 停止游戏
-     */
-    public void stopGame() {
+    @Override
+    public void onStop() {
         engine.onStop();
     }
 
-    public void shotEnemy(float x, float y) {
-        engine.shotEnemy(x, y);
+    /********************************* IGameToDo *********************************/
+
+    @Override
+    public void shotEnemy() {
+        engine.shotEnemy();
     }
+
+    @Override
+    public void openShield() {
+        engine.openShield();
+    }
+
+    @Override
+    public void launchBomb() {
+        engine.launchBomb();
+    }
+
+    /********************************* IMessageCallBack *********************************/
 
     @Override
     public void notifyInitMsg(String message, boolean status) {
@@ -123,33 +130,11 @@ public class GameService extends Service implements IEngine {
         Log.e(TAG, message);
     }
 
-    @Override
-    public void initMap() {
-        Log.e(TAG, "initMap.");
-
-    }
-
-    @Override
-    public void initEnemy(ArrayList<Bullet> bulletsEnemy) {
-        Log.e(TAG, "initEnemy.");
-        Intent intent = new Intent(Constant.Game.Type.ENEMY);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.BULLET);
-        intent.putExtra(Constant.Game.Type.BULLET, bulletsEnemy);
-        sendBroadcast(intent);
-    }
-
-    @Override
-    public void initPlayer(ArrayList<Bullet> bulletsPlayer) {
-        Log.e(TAG, "initPlayer.");
-        Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.BULLET);
-        intent.putExtra(Constant.Game.Type.BULLET, bulletsPlayer);
-        sendBroadcast(intent);
-    }
+    /********************************* IGameCallBack *********************************/
 
     @Override
     public void updateMap() {
-        Log.e(TAG, "updateMap.");
+        Log.e(TAG, "updateMap");
         Intent intent = new Intent(Constant.Game.Type.MAP);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.MAP);
         //TODO
@@ -158,7 +143,7 @@ public class GameService extends Service implements IEngine {
 
     @Override
     public void updateEnemy() {
-        Log.e(TAG, "updateEnemy.");
+        Log.e(TAG, "updateEnemy");
         Intent intent = new Intent(Constant.Game.Type.ENEMY);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.ENEMY);
         //TODO
@@ -166,29 +151,27 @@ public class GameService extends Service implements IEngine {
     }
 
     @Override
-    public void updatePlayer(String directionX, String directionY, String shieldStatus, boolean destroy) {
-        Log.e(TAG, "updatePlayer.");
-        if (Constant.Game.Player.SHIELD_OPEN.equals(shieldStatus) ||
-                Constant.Game.Player.SHIELD_CLOSE.equals(shieldStatus)) {
-            Intent intent = new Intent(Constant.Game.Type.PLAYER);
-            intent.putExtra(Constant.BroadCast.STATE, shieldStatus);
-            sendBroadcast(intent);
-        } else if (destroy) {
-            Intent intent = new Intent(Constant.Game.Type.PLAYER);
-            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.DESTROY);
-            sendBroadcast(intent);
-        }
-        if (Constant.Game.Player.LEFT.equals(directionY) ||
-                Constant.Game.Player.RIGHT.equals(directionY)) {
-            Intent intent = new Intent(Constant.Game.Type.PLAYER);
-            intent.putExtra(Constant.BroadCast.STATE, directionY);
-            sendBroadcast(intent);
-        }
-        if (Constant.Game.Player.TOP.equals(directionX) ||
-                Constant.Game.Player.BOTTOM.equals(directionX)) {
-            Intent intent = new Intent(Constant.Game.Type.PLAYER);
-            intent.putExtra(Constant.BroadCast.STATE, directionX);
-            sendBroadcast(intent);
-        }
+    public void updatePlayer(float x, float y) {
+        Log.e(TAG, "updatePlayer");
+        Intent intent = new Intent(Constant.Game.Type.PLAYER);
+        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.LOCATION);
+        intent.putExtra(Constant.Game.Player.X, x);
+        intent.putExtra(Constant.Game.Player.Y, y);
+        sendBroadcast(intent);
+    }
+
+    @Override
+    public void setShield(boolean open) {
+        Log.e(TAG, "setShield");
+    }
+
+    @Override
+    public void updateBomb(float x, float y) {
+        Log.e(TAG, "updateBomb");
+    }
+
+    @Override
+    public void destroyPlayer() {
+        Log.e(TAG, "destroyPlayer");
     }
 }

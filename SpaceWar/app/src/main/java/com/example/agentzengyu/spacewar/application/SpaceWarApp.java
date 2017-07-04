@@ -35,12 +35,8 @@ public class SpaceWarApp extends Application {
     public void onTerminate() {
         super.onTerminate();
         Log.e("SpaceWarApp", "onTerminate.");
-        if (initService != null) {
-            initService.stopSelf();
-        }
-        if (gameService != null) {
-            gameService.stopSelf();
-        }
+        destroyInitService();
+        destroyGameService();
     }
 
     public ShopLibrary getShopLibrary() {
@@ -81,8 +77,10 @@ public class SpaceWarApp extends Application {
      * 销毁初始化服务
      */
     public void destroyInitService(){
-        this.initService.stopSelf();
-        this.initService = null;
+        if (initService!=null){
+            initService.stopSelf();
+            initService = null;
+        }
     }
 
     /**
@@ -107,7 +105,9 @@ public class SpaceWarApp extends Application {
      * 销毁初始化服务
      */
     public void destroyGameService(){
-        this.gameService.stopSelf();
-        this.gameService = null;
+        if (gameService!=null){
+            gameService.stopSelf();
+           gameService = null;
+        }
     }
 }

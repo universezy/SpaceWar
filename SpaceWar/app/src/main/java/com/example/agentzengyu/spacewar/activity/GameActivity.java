@@ -16,15 +16,12 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 import com.example.agentzengyu.spacewar.view.EnemyView;
 import com.example.agentzengyu.spacewar.view.MapView;
 import com.example.agentzengyu.spacewar.view.PlayerView;
-
-import java.util.ArrayList;
 
 /**
  * 游戏主界面
@@ -54,9 +51,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
-        MapItem mapItem = (MapItem) getIntent().getSerializableExtra("MapItem");
+//        MapItem mapItem = (MapItem) getIntent().getSerializableExtra("MapItem");
         initView();
         initVariable();
+        MapItem mapItem = new MapItem();
         startGame(mapItem);
     }
 
@@ -66,7 +64,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         unregisterReceiver(mapReceiver);
         unregisterReceiver(playerReceiver);
         unregisterReceiver(enemyReceiver);
-        service.stopGame();
+        service.onStop();
     }
 
     /**
@@ -89,7 +87,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mCivShot.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         shot = true;
                         break;
@@ -110,7 +108,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void initVariable() {
         app = (SpaceWarApp) getApplication();
         service = app.getGameService();
-        playerView.setAgility(app.getPlayerData().getAgility().getValue());
         mapReceiver = new MapReceiver();
         playerReceiver = new PlayerReceiver();
         enemyReceiver = new EnemyReceiver();
@@ -130,7 +127,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 if (shot) {
-                    service.shotEnemy(playerView.getX(), playerView.getY());
+                    service.shotEnemy();
                     handlerBullet.postDelayed(runnableBullet, 500);
                 }
             }
@@ -142,13 +139,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @param mapItem 地图
      */
-    private void startGame(MapItem mapItem) {
+    private void startGame(final MapItem mapItem) {
         mTvLife.setText("" + app.getPlayerData().getLife().getValue());
         mTvShield.setText("" + app.getPlayerData().getShield().getValue());
         mTvBomb.setText("" + app.getPlayerData().getBomb().getValue());
 //        if (mapItem != null) {
 //            mTvMap.setText(mapItem.getName());
-        service.startGame(mapItem);
+        handlerNotify.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                service.onPrepare(mapItem);
+            }
+        }, 1000);
 //        } else {
 
 //        }
@@ -158,10 +160,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.civShield:
-
+                service.openShield();
                 break;
             case R.id.civBomb:
-
+                service.launchBomb();
                 break;
             default:
                 break;
@@ -195,22 +197,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         handlerNotify.postDelayed(runnableNotify, 1000);
                     }
                     break;
-                case Constant.Game.Type.BULLET:
-                    ArrayList<Bullet> bullets = (ArrayList<Bullet>) intent.getSerializableExtra(Constant.Game.Type.BULLET);
-                    playerView.setBullets(bullets);
-                    handlerBullet.postDelayed(runnableBullet,500);
-                    break;
-                case Constant.Game.Player.LEFT:
-                    playerView.onLeft();
-                    break;
-                case Constant.Game.Player.RIGHT:
-                    playerView.onRight();
-                    break;
-                case Constant.Game.Player.TOP:
-                    playerView.onTop();
-                    break;
-                case Constant.Game.Player.BOTTOM:
-                    playerView.onBottom();
+                case Constant.Game.Player.LOCATION:
+                    float x = intent.getFloatExtra(Constant.Game.Player.X, 0);
+                    float y = intent.getFloatExtra(Constant.Game.Player.Y, 0);
+                    playerView.setLocation(x, y);
                     break;
                 case Constant.Game.Player.SHIELD_OPEN:
                     boolean open = intent.getBooleanExtra(Constant.Game.Player.SHIELD_OPEN, false);
@@ -236,10 +226,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
             Log.e("EnemyReceiver", state);
             switch (state) {
-                case Constant.Game.Type.BULLET:
-                    ArrayList<Bullet> bullets = (ArrayList<Bullet>) intent.getSerializableExtra(Constant.Game.Type.BULLET);
-                    enemyView.setBullets(bullets);
-                    break;
+
                 default:
                     break;
             }

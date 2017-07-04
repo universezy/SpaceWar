@@ -25,7 +25,6 @@ public class Constant {
             public final static String ENEMY = "ENEMY";
             public final static String NOTIFY = "NOTIFY";
             public final static String STATUS = "STATUS";
-            public final static String BULLET = "BULLET";
         }
 
         //地图
@@ -35,11 +34,9 @@ public class Constant {
 
         //玩家
         public static class Player {
-            public final static String LEFT = "LEFT";
-            public final static String RIGHT = "RIGHT";
-            public final static String TOP = "TOP";
-            public final static String BOTTOM = "BOTTOM";
-            public final static String AGILITY ="AGILITY";
+            public final static String LOCATION = "LOCATION";
+            public final static String X = "X";
+            public final static String Y = "Y";
             public final static String SHIELD_OPEN = "SHIELD_OPEN";
             public final static String SHIELD_CLOSE = "SHIELD_CLOSE";
             public final static String DESTROY= "DESTROY";

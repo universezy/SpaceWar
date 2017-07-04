@@ -11,17 +11,12 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.entity.single.Bullet;
-
-import java.util.ArrayList;
 
 /**
  * Created by Agent ZengYu on 2017/6/29.
  */
 
 public class PlayerView extends View {
-    private int agility = 100;
-    private final static int SCALE = 8;
     private int shieldColor = Color.parseColor("#30000099");
     private Paint paintShip, paintShield;
     private Bitmap bitmap;
@@ -29,11 +24,13 @@ public class PlayerView extends View {
     private float screenHeight = 0;
     private float bitmapWidth = 0;
     private float bitmapHeight = 0;
+    private float moveWidth = 0;
+    private float moveHeight = 0;
     private float radius = 0;
-    private float playerX = -1;
-    private float playerY = -1;
+    private float playerX = 500;
+    private float playerY = 1000;
     private boolean openShield = false;
-    private ArrayList<Bullet> bullets =null;
+    private boolean init = false;
 
     public PlayerView(Context context) {
         super(context);
@@ -54,18 +51,24 @@ public class PlayerView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        screenWidth = getWidth();
-        screenHeight = getHeight();
-
-        if (playerX == -1 && playerY == -1) {
-            playerX = (screenWidth - bitmapWidth) / 2;
-            playerY = screenHeight - bitmapHeight;
+        if (!init) {
+            screenWidth = getWidth();
+            screenHeight = getHeight();
+            moveWidth = screenWidth;
+            moveHeight = screenHeight - bitmapHeight;
+            playerY = moveHeight;
+            init = true;
         }
-        canvas.drawBitmap(bitmap, playerX, playerY, paintShip);
+
+        float x = playerX * moveWidth / 1000 - bitmapWidth / 2;
+        float y = playerY * moveHeight / 1000;
+        canvas.drawBitmap(bitmap, x, y, paintShip);
 
         if (openShield) {
             paintShield.setColor(shieldColor);
-            canvas.drawCircle(playerX + bitmapWidth / 2, playerY + bitmapHeight / 2, radius, paintShield);
+            float cx = playerX * moveWidth / 1000;
+            float cy = playerY * moveHeight / 1000 + bitmapHeight / 2;
+            canvas.drawCircle(cx, cy, radius, paintShield);
         }
     }
 
@@ -83,59 +86,14 @@ public class PlayerView extends View {
     }
 
     /**
-     * 设置敏捷值
+     * 设置玩家位置
      *
-     * @param agility 敏捷值
+     * @param X
+     * @param Y
      */
-    public void setAgility(int agility) {
-        this.agility = agility;
-    }
-
-    /**
-     * 左移
-     */
-    public void onLeft() {
-        if (playerX == 0) return;
-        playerX -= agility / SCALE;
-        if (playerX < 0) {
-            playerX = 0;
-        }
-        invalidate();
-    }
-
-    /**
-     * 右移
-     */
-    public void onRight() {
-        if (playerX == screenWidth - bitmap.getWidth()) return;
-        playerX += agility / SCALE;
-        if (playerX + bitmap.getWidth() > screenWidth) {
-            playerX = screenWidth - bitmap.getWidth();
-        }
-        invalidate();
-    }
-
-    /**
-     * 上移
-     */
-    public void onTop() {
-        if (playerY == 0) return;
-        playerY -= agility / SCALE;
-        if (playerY < 0) {
-            playerY = 0;
-        }
-        invalidate();
-    }
-
-    /**
-     * 下移
-     */
-    public void onBottom() {
-        if (playerY == screenHeight - bitmap.getHeight()) return;
-        playerY += agility / SCALE;
-        if (playerY + bitmap.getHeight() > screenHeight) {
-            playerY = screenHeight - bitmap.getHeight();
-        }
+    public void setLocation(float X, float Y) {
+        this.playerX = X;
+        this.playerY = Y;
         invalidate();
     }
 
@@ -146,6 +104,7 @@ public class PlayerView extends View {
      */
     public void shield(boolean open) {
         openShield = open;
+        invalidate();
     }
 
     /**
@@ -156,28 +115,4 @@ public class PlayerView extends View {
         bitmap = BitmapFactory.decodeResource(getResources(), destroyId);
         invalidate();
     }
-
-    public void setBullets(ArrayList<Bullet> bullets) {
-        this.bullets = bullets;
-    }
-
-    /**
-     * 获取玩家X坐标
-     *
-     * @return
-     */
-    public float getPlayerX() {
-        return playerX;
-    }
-
-    /**
-     * 获取玩家Y坐标
-     *
-     * @return
-     */
-    public float getPlayerY() {
-        return playerY;
-    }
-
-
 }

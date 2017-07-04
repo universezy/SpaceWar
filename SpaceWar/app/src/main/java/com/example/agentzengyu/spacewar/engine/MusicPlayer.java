@@ -16,7 +16,6 @@ public class MusicPlayer {
     private MediaPlayer mediaPlayer = null;
     private Context context = null;
     private Vibrator vibrator = null;
-    private int musicSource = 0;
     private long[] pattern = {100, 200};
 
     private MusicPlayer(Context context) {
@@ -42,7 +41,6 @@ public class MusicPlayer {
      * @return 提示信息
      */
     public String init(int musicSource) {
-        this.musicSource = musicSource;
         mediaPlayer = MediaPlayer.create(context, musicSource);
         mediaPlayer.reset();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

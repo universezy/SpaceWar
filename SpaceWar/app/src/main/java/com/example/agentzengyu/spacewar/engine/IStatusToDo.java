@@ -4,10 +4,17 @@ package com.example.agentzengyu.spacewar.engine;
  * Created by Agent ZengYu on 2017/6/29.
  */
 
+import com.example.agentzengyu.spacewar.entity.single.MapItem;
+
 /**
  * 状态接口
  */
-public interface IStatus {
+public interface IStatusToDo {
+    /**
+     * 准备
+     */
+    void onPrepare(MapItem mapItem);
+
     /**
      * 开始
      */

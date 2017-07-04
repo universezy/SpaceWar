@@ -36,8 +36,4 @@ public class EnemyView extends View {
 
 
     }
-
-    public void setBullets(ArrayList<Bullet> bullets) {
-        this.bullets = bullets;
-    }
 }

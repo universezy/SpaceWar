@@ -8,17 +8,12 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.agentzengyu.spacewar.application.Constant;
+import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.EnemyItem;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -28,12 +23,15 @@ import java.util.ArrayList;
 /**
  * 游戏引擎
  */
-public class SpaceWarEngine implements IStatus, SensorEventListener {
+public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListener {
     private static String TAG = "";
+    //引擎实例
     private static SpaceWarEngine instance = null;
-    //引擎接口
-    private IEngine engine = null;
-    private Context context = null;
+    private SpaceWarApp app = null;
+    //消息接口
+    private IMessageCallBack iMessageCallBack = null;
+    //游戏接口
+    private IGameCallBack iGameCallBack = null;
     //传感器管理
     private SensorManager sensorManager = null;
     //传感器
@@ -57,7 +55,9 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     private ArrayList<EnemyItem> enemysMirror = null;
     private ArrayList mapMirror = null;
     //玩家子弹速度
-    private int playerSpeed = 0;
+    private float playerSpeed = 0;
+    //玩家移动速度
+    private float playerAgility = 0;
     //实时重力传感器坐标
     private float GX = 0, GY = 0, GZ = 0;
     //初始重力传感器坐标
@@ -66,15 +66,19 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     private boolean init = false;
     //开始监听重力传感器
     private boolean listen = false;
+    //玩家坐标
+    private float playerX = 500, playerY = 1000;
+    //移动值比例
+    private final static int SCALE = 20;
     //子弹数组
     private ArrayList<Bullet> bulletsPlayer = new ArrayList<>();
     private ArrayList<Bullet> bulletsEnemy = new ArrayList<>();
-
 
     /**
      * 私有构造初始化变量
      */
     private SpaceWarEngine(Context context) {
+        app = (SpaceWarApp) context.getApplicationContext();
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mapRunnable = new Runnable() {
@@ -121,26 +125,15 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     /**
      * 初始化消息回调
      *
-     * @param engine 引擎接口
+     * @param iMessageCallBack 引擎接口
      */
-    public void initMsgCallBack(IEngine engine) {
-        if (this.engine == null) {
-            this.engine = engine;
+    public void initEngineCallBack(IMessageCallBack iMessageCallBack, IGameCallBack iGameCallBack) {
+        if (this.iMessageCallBack == null) {
+            this.iMessageCallBack = iMessageCallBack;
         }
-    }
-
-    /**
-     * 加载资源
-     *
-     * @param playerSource 玩家资源
-     * @param mapItem      地图对象
-     */
-    public void prepare(PlayerData playerSource, MapItem mapItem) {
-        Log.e(TAG, "prepare.");
-//        loadMirror(playerSource, mapItem.getEnemys(), mapItem.getMapSource());
-//        loadMusic(mapItem.getMusic());
-        initGravitySensorCoord();
-        bindViewSource();
+        if (this.iGameCallBack == null) {
+            this.iGameCallBack = iGameCallBack;
+        }
     }
 
     /**
@@ -151,59 +144,34 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
      * @param mapSource    地图资源
      */
     private void loadMirror(PlayerData playerSource, ArrayList<EnemyItem> enemySource, ArrayList mapSource) {
-        Log.e(TAG, "loadMirror.");
+        Log.e(TAG, "loadMirror");
+        MirrorCreator creator = new MirrorCreator();
         playerMirror = null;
-        playerMirror = (PlayerData) createMirror(playerSource);
+        playerMirror = (PlayerData) creator.create(playerSource);
         playerSpeed = playerMirror.getSpeed().getValue();
-        engine.notifyInitMsg("Loading player data successful.", false);
+        playerAgility = playerMirror.getAgility().getValue();
+        iMessageCallBack.notifyInitMsg("Loading player data successful.", false);
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         enemysMirror = null;
-        enemysMirror = (ArrayList<EnemyItem>) createMirror(enemySource);
-        engine.notifyInitMsg("Loading enemy data successful.", false);
+        enemysMirror = (ArrayList<EnemyItem>) creator.create(enemySource);
+        iMessageCallBack.notifyInitMsg("Loading enemy data successful.", false);
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         mapMirror = null;
-        mapMirror = (ArrayList) createMirror(mapSource);
-        engine.notifyInitMsg("Loading map data successful.", false);
+        mapMirror = (ArrayList) creator.create(mapSource);
+        iMessageCallBack.notifyInitMsg("Loading map data successful.", false);
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 创建镜像
-     *
-     * @param source 数据源
-     * @return 镜像
-     */
-    private Object createMirror(Object source) {
-        Object mirror = null;
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-            objectOutputStream.writeObject(source);
-
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-            mirror = objectInputStream.readObject();
-
-            objectInputStream.close();
-            byteArrayInputStream.close();
-            objectOutputStream.close();
-            byteArrayOutputStream.close();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return mirror;
     }
 
     /**
@@ -211,17 +179,17 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
      *
      * @param musicSource 音乐资源
      */
-    private void loadMusic(int musicSource) {
-        Log.e(TAG, "loadMusic.");
+    private void loadMusic(final int musicSource) {
+        Log.e(TAG, "loadMusic");
         String msg = musicPlayer.init(musicSource);
-        engine.notifyInitMsg(msg, false);
+        iMessageCallBack.notifyInitMsg(msg, false);
     }
 
     /**
      * 初始化重力感应器坐标
      */
     private void initGravitySensorCoord() {
-        Log.e(TAG, "initGravitySensorCoord.");
+        Log.e(TAG, "initGravitySensorCoord");
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
         init = true;
     }
@@ -230,71 +198,65 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
      * 更新地图
      */
     private void updateMapLocation(/**/) {
-        Log.e(TAG, "updateMapLocation.");
+        Log.e(TAG, "updateMapLocation");
         //TODO
-        engine.updateMap(/**/);
     }
 
     /**
      * 更新玩家
      */
-    private void updatePlayerLocation() {
-        Log.e(TAG, "updatePlayerLocation.");
-        String directionX = null;
-        String directionY = null;
-        String shieldStatus = null;
-        boolean destroy = false;
-        if (GX - SX > 0.5) {
-            directionX = Constant.Game.Player.BOTTOM;
-        } else if (SX - GX > 0.5) {
-            directionX = Constant.Game.Player.TOP;
+    private void updatePlayerLocation(float X, float Y) {
+        Log.e(TAG, "updatePlayerLocation");
+        if (X - SX > 0.5) {        //下
+            if (playerY != 1000) {
+                playerY += playerAgility / SCALE;
+                if (playerY > 1000) playerY = 1000;
+            }
+        } else if (SX - X > 0.5) { //上
+            if (playerY != 0) {
+                playerY -= playerAgility / SCALE;
+                if (playerY < 0) playerY = 0;
+            }
         }
-        if (GY - SY > 0.5) {
-            directionY = Constant.Game.Player.RIGHT;
-        } else if (SY - GY > 0.5) {
-            directionY = Constant.Game.Player.LEFT;
+        if (Y - SY > 0.5) {        //右
+            if (playerX != 1000) {
+                playerX += playerAgility / SCALE;
+                if (playerX > 1000) playerX = 1000;
+            }
+        } else if (SY - Y > 0.5) { //左
+            if (playerX != 0) {
+                playerX -= playerAgility / SCALE;
+                if (playerX < 0) playerX = 0;
+            }
         }
-        engine.updatePlayer(directionX, directionY, shieldStatus, destroy);
+        iGameCallBack.updatePlayer(playerX, playerY);
     }
 
     /**
      * 更新玩家子弹坐标
      */
     private void updatePlayerBullets() {
-        synchronized (bulletsPlayer) {
-            for (Bullet bullet : bulletsPlayer) {
-                bullet.setY(bullet.getY() - 5 * bullet.getSpeed());
-                if (bullet.getY() + bullet.getRadius() <= 0) {
-                    bulletsPlayer.remove(bullet);
-                }
-            }
-        }
+        Log.e(TAG, "updatePlayerBullets");
+        //TODO
     }
 
     /**
      * 更新敌人子弹坐标
      */
     private void updateEnemyBullets() {
-        synchronized (bulletsEnemy) {
-            for (Bullet bullet : bulletsEnemy) {
-                bullet.setY(bullet.getY() + 5 * bullet.getSpeed());
-                if (bullet.getY() + bullet.getRadius() <= 0) {
-                    bulletsEnemy.remove(bullet);
-                }
-            }
-        }
+        Log.e(TAG, "updateEnemyBullets");
     }
 
     /**
-     * 设备坐标是否合适
+     * 初始化坐标
      *
      * @param gx 传入的x坐标
      * @param gy 传入的y坐标
      * @param gz 传入的z坐标
      */
-    private void isPrepared(float gx, float gy, float gz) {
-        if (gz > 0 && gx > 4.5 && gx < 5.5 && gy > -0.5 && gy < 0.5) {
-            engine.notifyInitMsg("Initializing gravity sensor successful.", true);
+    private void initCoord(float gx, float gy, float gz) {
+        if (gz > 0 && gx > 5.5 && gx < 6.5 && gy > -0.5 && gy < 0.5) {
+            iMessageCallBack.notifyInitMsg("Initializing gravity sensor successful.", true);
             init = false;
             SX = gx;
             SY = gy;
@@ -307,57 +269,7 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
             onStart();
             return;
         }
-        engine.notifyInitMsg("Please slant the screen with an angle of 45 degrees on the horizontal.", false);
-    }
-
-    /**
-     * 绑定视图资源
-     */
-    public void bindViewSource() {
-        engine.initPlayer(this.bulletsPlayer);
-        engine.initEnemy(this.bulletsEnemy);
-    }
-
-    public void shotEnemy(float x, float y) {
-        Bullet bullet = new Bullet(x, y, playerMirror.getRange().getValue(), playerMirror.getSpeed().getValue());
-        bulletsPlayer.add(bullet);
-    }
-
-    public void shotPlayer(float x, float y) {
-
-    }
-
-    @Override
-    public void onStart() {
-        Log.e(TAG, "onStart.");
-//        musicPlayer.onStart();
-//        mapHandler.postDelayed(mapRunnable, 100);
-        playerHandler.postDelayed(playerRunnable, 200);
-        enemyHandler.postDelayed(enemyRunnable, 200);
-        listen = true;
-    }
-
-    @Override
-    public void onPause() {
-        Log.e(TAG, "onPause.");
-
-    }
-
-    @Override
-    public void onContinue() {
-        Log.e(TAG, "onContinue.");
-
-    }
-
-    @Override
-    public void onStop() {
-        Log.e(TAG, "onStop.");
-        listen = false;
-        sensorManager.unregisterListener(this);
-//        musicPlayer.onStop();
-        mapHandler.removeCallbacks(mapRunnable);
-        playerHandler.removeCallbacks(playerRunnable);
-        enemyHandler.removeCallbacks(enemyRunnable);
+        iMessageCallBack.notifyInitMsg("Please slant the screen with an angle of 45 degrees on the horizontal.", false);
     }
 
     @Override
@@ -368,18 +280,82 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
         GX = event.values[SensorManager.DATA_X];
         GY = event.values[SensorManager.DATA_Y];
         GZ = event.values[SensorManager.DATA_Z];
-        Log.e(TAG, "GX>>> " + GX);
-        Log.e(TAG, "GY>>> " + GY);
         if (init) {
-            isPrepared(gx, gy, gz);
+            initCoord(gx, gy, gz);
         }
-        if (listen) {
-            updatePlayerLocation();
+        if (listen && GZ > 0) {
+            updatePlayerLocation(GX, GY);
         }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    /********************************* IStatusToDo *********************************/
+
+    @Override
+    public void onPrepare(final MapItem mapItem) {
+        Log.e(TAG, "onPrepare");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                loadMirror(app.getPlayerData(), mapItem.getEnemys(), mapItem.getMapSource());
+                loadMusic(mapItem.getMusic());
+                initGravitySensorCoord();
+            }
+        }
+        ).start();
+    }
+
+    @Override
+    public void onStart() {
+        Log.e(TAG, "onStart");
+//        musicPlayer.onStart();
+//        mapHandler.postDelayed(mapRunnable, 100);
+//        playerHandler.postDelayed(playerRunnable, 200);
+//        enemyHandler.postDelayed(enemyRunnable, 200);
+        listen = true;
+    }
+
+    @Override
+    public void onPause() {
+        Log.e(TAG, "onPause");
+
+    }
+
+    @Override
+    public void onContinue() {
+        Log.e(TAG, "onContinue");
+
+    }
+
+    @Override
+    public void onStop() {
+        Log.e(TAG, "onStop");
+        listen = false;
+        sensorManager.unregisterListener(this);
+//        musicPlayer.onStop();
+//        mapHandler.removeCallbacks(mapRunnable);
+        playerHandler.removeCallbacks(playerRunnable);
+        enemyHandler.removeCallbacks(enemyRunnable);
+    }
+
+    /********************************* IGameToDo *********************************/
+
+    @Override
+    public void shotEnemy() {
+        Log.e(TAG, "shotEnemy");
+    }
+
+    @Override
+    public void openShield() {
+        Log.e(TAG, "openShield");
+    }
+
+    @Override
+    public void launchBomb() {
+        Log.e(TAG, "launchBomb");
     }
 }

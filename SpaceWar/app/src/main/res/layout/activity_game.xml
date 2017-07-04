@@ -111,7 +111,8 @@
         android:id="@+id/tvNotify"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:gravity="center" />
+        android:background="#cc050505"
+        android:gravity="center"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
