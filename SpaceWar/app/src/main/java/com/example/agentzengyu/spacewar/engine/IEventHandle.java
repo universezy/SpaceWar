@@ -4,7 +4,10 @@ package com.example.agentzengyu.spacewar.engine;
  * Created by Agent ZengYu on 2017/7/4.
  */
 
-public interface IGameToDo {
+/**
+ * 游戏操作接口
+ */
+public interface IEventHandle {
     /**
      * 射击敌人
      */
@@ -16,7 +19,7 @@ public interface IGameToDo {
     void openShield();
 
     /**
-     * 开启护盾
+     * 发射炸弹
      */
     void launchBomb();
 }

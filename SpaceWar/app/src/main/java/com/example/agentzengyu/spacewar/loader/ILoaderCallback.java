@@ -5,9 +5,9 @@ package com.example.agentzengyu.spacewar.loader;
  */
 
 /**
- * 加载器回调接口
+ * 加载器回调
  */
-public interface ILoader {
+public interface ILoaderCallback {
     /**
      * 开始
      *

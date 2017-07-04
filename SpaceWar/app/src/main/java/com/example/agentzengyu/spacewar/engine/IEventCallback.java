@@ -4,7 +4,10 @@ package com.example.agentzengyu.spacewar.engine;
  * Created by Agent ZengYu on 2017/7/4.
  */
 
-public interface IGameCallBack {
+/**
+ * 游戏内容回调
+ */
+public interface IEventCallback {
     /**
      * 更新地图
      */

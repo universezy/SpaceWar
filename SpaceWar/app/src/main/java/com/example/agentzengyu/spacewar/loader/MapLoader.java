@@ -22,7 +22,7 @@ public class MapLoader extends AbstractLoader {
     }
 
     @Override
-    public void read(ILoader callBack) {
+    public void read(ILoaderCallback iLoaderCallback) {
         new Thread(new Runnable() {
             @Override
             public void run() {

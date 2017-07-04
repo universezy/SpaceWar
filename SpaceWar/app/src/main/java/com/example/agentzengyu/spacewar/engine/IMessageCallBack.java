@@ -5,11 +5,11 @@ package com.example.agentzengyu.spacewar.engine;
  */
 
 /**
- * 引擎接口
+ * 游戏消息回调
  */
-public interface IMessageCallBack {
+public interface IMessageCallback {
     /**
-     * 通知初始化信息
+     * 通知初始化消息
      *
      * @param message 消息
      * @param status  状态
@@ -17,9 +17,9 @@ public interface IMessageCallBack {
     void notifyInitMsg(String message, boolean status);
 
     /**
-     * 通知进度信息
+     * 通知进度消息
      *
-     * @param message
+     * @param message 消息
      */
     void notifyProgressMsg(String message);
 

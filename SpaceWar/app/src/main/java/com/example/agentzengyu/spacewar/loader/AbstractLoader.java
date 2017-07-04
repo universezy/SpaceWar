@@ -10,7 +10,7 @@ import java.io.InputStream;
  */
 
 /**
- * 抽象加载器父类
+ * 加载器抽象父类
  */
 public abstract class AbstractLoader {
     protected File file = null;
@@ -21,5 +21,5 @@ public abstract class AbstractLoader {
         this.inputStream = inputStream;
     }
 
-    abstract public void read(ILoader callBack);
+    abstract public void read(ILoaderCallback iLoaderCallback);
 }

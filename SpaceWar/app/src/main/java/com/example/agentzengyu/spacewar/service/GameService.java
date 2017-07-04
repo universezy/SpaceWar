@@ -7,17 +7,17 @@ import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.engine.IGameCallBack;
-import com.example.agentzengyu.spacewar.engine.IGameToDo;
-import com.example.agentzengyu.spacewar.engine.IMessageCallBack;
-import com.example.agentzengyu.spacewar.engine.IStatusToDo;
+import com.example.agentzengyu.spacewar.engine.IEventCallback;
+import com.example.agentzengyu.spacewar.engine.IEventHandle;
+import com.example.agentzengyu.spacewar.engine.IMessageCallback;
+import com.example.agentzengyu.spacewar.engine.IStatusHandle;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
 /**
  * 游戏服务，用于转发UI和引擎之间的消息
  */
-public class GameService extends Service implements IStatusToDo, IGameToDo, IMessageCallBack, IGameCallBack {
+public class GameService extends Service implements IStatusHandle, IEventHandle, IMessageCallback, IEventCallback {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
     private SpaceWarEngine engine = null;
@@ -69,8 +69,7 @@ public class GameService extends Service implements IStatusToDo, IGameToDo, IMes
         engine.initEngineCallBack(this, this);
     }
 
-    /********************************* IStatusToDo *********************************/
-
+    /********************************* IStatusHandle *********************************/
     @Override
     public void onPrepare(MapItem mapItem) {
         engine.onPrepare(mapItem);
@@ -96,8 +95,7 @@ public class GameService extends Service implements IStatusToDo, IGameToDo, IMes
         engine.onStop();
     }
 
-    /********************************* IGameToDo *********************************/
-
+    /********************************* IEventHandle *********************************/
     @Override
     public void shotEnemy() {
         engine.shotEnemy();
@@ -113,8 +111,7 @@ public class GameService extends Service implements IStatusToDo, IGameToDo, IMes
         engine.launchBomb();
     }
 
-    /********************************* IMessageCallBack *********************************/
-
+    /********************************* IMessageCallback *********************************/
     @Override
     public void notifyInitMsg(String message, boolean status) {
         Log.e(TAG, message);
@@ -130,8 +127,7 @@ public class GameService extends Service implements IStatusToDo, IGameToDo, IMes
         Log.e(TAG, message);
     }
 
-    /********************************* IGameCallBack *********************************/
-
+    /********************************* IEventCallback *********************************/
     @Override
     public void updateMap() {
         Log.e(TAG, "updateMap");

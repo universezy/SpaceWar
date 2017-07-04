@@ -37,7 +37,7 @@ public class ShopLoader extends AbstractLoader {
      * @param callBack 消息回调
      * @return
      */
-//    private void save(final ILoader callBack) {
+//    private void save(final ILoaderCallback callBack) {
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -150,9 +150,9 @@ public class ShopLoader extends AbstractLoader {
     /**
      * 读档
      *
-     * @param callBack 消息回调
+     * @param iLoaderCallback 消息回调
      */
-    public void read(final ILoader callBack) {
+    public void read(final ILoaderCallback iLoaderCallback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -164,7 +164,7 @@ public class ShopLoader extends AbstractLoader {
                     while (eventType != XmlPullParser.END_DOCUMENT) {
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
-                                callBack.onStart("Start to read shop data:");
+                                iLoaderCallback.onStart("Start to read shop data:");
                                 break;
                             case XmlPullParser.START_TAG:
                                 String startName = xmlPullParser.getName();
@@ -203,28 +203,28 @@ public class ShopLoader extends AbstractLoader {
                                 String endName = xmlPullParser.getName();
                                 switch (endName) {
                                     case Constant.Basic.Array.LIFE:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Array.DEFENSE:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Array.AGILITY:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Array.SHIELD:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Array.POWER:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Array.SPEED:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Array.RANGE:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Array.BOMB:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     default:
                                         break;
@@ -235,13 +235,13 @@ public class ShopLoader extends AbstractLoader {
                         }
                         eventType = xmlPullParser.next();
                     }
-                    callBack.onSuccess("Read shop data successful.");
+                    iLoaderCallback.onSuccess("Read shop data successful.");
                 } catch (FileNotFoundException e) {
-                    callBack.onFailure("Read shop data abortively.", e);
+                    iLoaderCallback.onFailure("Read shop data abortively.", e);
                 } catch (XmlPullParserException e) {
-                    callBack.onFailure("Read shop data abortively.", e);
+                    iLoaderCallback.onFailure("Read shop data abortively.", e);
                 } catch (IOException e) {
-                    callBack.onFailure("Read shop data abortively.", e);
+                    iLoaderCallback.onFailure("Read shop data abortively.", e);
                 }
             }
         }).start();

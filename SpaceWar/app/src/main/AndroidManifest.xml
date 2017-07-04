@@ -52,7 +52,7 @@
             android:screenOrientation="landscape" />
 
         <service
-            android:name=".service.InitService"
+            android:name=".service.LoaderService"
             android:enabled="true"
             android:exported="true" />
 

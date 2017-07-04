@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.service.InitService;
+import com.example.agentzengyu.spacewar.service.LoaderService;
 
 /**
  * 加载页面
@@ -45,7 +45,6 @@ public class LoadingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        app.destroyInitService();
         unregisterReceiver(receiver);
     }
 
@@ -82,7 +81,7 @@ public class LoadingActivity extends AppCompatActivity {
      * 启动服务
      */
     private void startService() {
-        Intent intent = new Intent(LoadingActivity.this, InitService.class);
+        Intent intent = new Intent(LoadingActivity.this, LoaderService.class);
         startService(intent);
     }
 

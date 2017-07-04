@@ -7,9 +7,9 @@ package com.example.agentzengyu.spacewar.engine;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
 /**
- * 状态接口
+ * 状态操作接口
  */
-public interface IStatusToDo {
+public interface IStatusHandle {
     /**
      * 准备
      */

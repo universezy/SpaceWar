@@ -30,7 +30,7 @@ public class PlayerLoader extends AbstractLoader {
     private PlayerData playerData = null;
 
     public PlayerLoader(AbstractLibrary abstractLibrary, File file, InputStream inputStream) {
-        super(abstractLibrary,file, inputStream);
+        super(abstractLibrary, file, inputStream);
         this.playerData = (PlayerData) abstractLibrary;
     }
 
@@ -40,7 +40,7 @@ public class PlayerLoader extends AbstractLoader {
      * @param callBack 消息回调
      * @return
      */
-    public void save(final ILoader callBack) {
+    public void save(final ILoaderCallback callBack) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -153,7 +153,7 @@ public class PlayerLoader extends AbstractLoader {
      * @param callBack 消息回调
      * @param data     商店数据
      */
-    public void init(final ILoader callBack, final ShopLibrary data) {
+    public void init(final ILoaderCallback callBack, final ShopLibrary data) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -198,10 +198,10 @@ public class PlayerLoader extends AbstractLoader {
     /**
      * 读档
      *
-     * @param callBack 消息回调
+     * @param iLoaderCallback 消息回调
      * @return
      */
-    public void read(final ILoader callBack) {
+    public void read(final ILoaderCallback iLoaderCallback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -215,7 +215,7 @@ public class PlayerLoader extends AbstractLoader {
                     while (eventType != XmlPullParser.END_DOCUMENT) {
                         switch (eventType) {
                             case XmlPullParser.START_DOCUMENT:
-                                callBack.onStart("Start to read player data:");
+                                iLoaderCallback.onStart("Start to read player data:");
                                 break;
                             case XmlPullParser.START_TAG:
                                 String startName = xmlPullParser.getName();
@@ -279,32 +279,32 @@ public class PlayerLoader extends AbstractLoader {
                                 String endName = xmlPullParser.getName();
                                 switch (endName) {
                                     case Constant.Basic.Item.LIFE:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Item.DEFENSE:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Item.AGILITY:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Item.SHIELD:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Item.POWER:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Item.SPEED:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Item.RANGE:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Item.BOMB:
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Type.MONEY:
                                         playerData.setMoney(Integer.parseInt(xmlPullParser.getAttributeValue(0)));
-                                        callBack.onProcess(++count);
+                                        iLoaderCallback.onProcess(++count);
                                         break;
                                     default:
                                         break;
@@ -316,16 +316,16 @@ public class PlayerLoader extends AbstractLoader {
                         eventType = xmlPullParser.next();
                     }
                     if (success) {
-                        callBack.onSuccess("Read player data successful.");
+                        iLoaderCallback.onSuccess("Read player data successful.");
                     } else {
-                        callBack.onFailure(Constant.Status.DESTROY, null);
+                        iLoaderCallback.onFailure(Constant.Status.DESTROY, null);
                     }
                 } catch (FileNotFoundException e) {
-                    callBack.onFailure("Read player data abortively.", e);
+                    iLoaderCallback.onFailure("Read player data abortively.", e);
                 } catch (XmlPullParserException e) {
-                    callBack.onFailure("Read player data abortively.", e);
+                    iLoaderCallback.onFailure("Read player data abortively.", e);
                 } catch (IOException e) {
-                    callBack.onFailure("Read player data abortively.", e);
+                    iLoaderCallback.onFailure("Read player data abortively.", e);
                 }
             }
         }).start();

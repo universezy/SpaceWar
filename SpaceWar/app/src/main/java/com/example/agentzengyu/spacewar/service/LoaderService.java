@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.loader.ILoader;
+import com.example.agentzengyu.spacewar.loader.ILoaderCallback;
 import com.example.agentzengyu.spacewar.loader.PlayerLoader;
 import com.example.agentzengyu.spacewar.loader.ShopLoader;
 
@@ -18,7 +18,7 @@ import java.io.InputStream;
 /**
  * 初始化服务
  */
-public class InitService extends Service {
+public class LoaderService extends Service {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
 
@@ -27,7 +27,7 @@ public class InitService extends Service {
         Log.e(TAG, "onCreate.");
         super.onCreate();
         app = (SpaceWarApp) getApplication();
-        app.setInitService(this);
+        app.setLoaderService(this);
         initShopData();
     }
 
@@ -55,7 +55,7 @@ public class InitService extends Service {
         try {
             InputStream inputStream = getResources().getAssets().open(Constant.FileName.SHOP);
             ShopLoader handler = new ShopLoader(app.getShopLibrary(), null, inputStream);
-            handler.read(new ILoader() {
+            handler.read(new ILoaderCallback() {
                 @Override
                 public void onStart(String message) {
                     Log.e("onStart", message);
@@ -107,7 +107,7 @@ public class InitService extends Service {
         if (!file.exists()) {
             try {
                 file.createNewFile();
-                handler.init(new ILoader() {
+                handler.init(new ILoaderCallback() {
                     @Override
                     public void onStart(String message) {
                         Log.e("onStart", message);
@@ -157,7 +157,7 @@ public class InitService extends Service {
             }
             return;
         } else {
-            handler.read(new ILoader() {
+            handler.read(new ILoaderCallback() {
                 @Override
                 public void onStart(String message) {
                     Log.e("onStart", message);
@@ -219,7 +219,7 @@ public class InitService extends Service {
             return;
         }
         PlayerLoader handler = new PlayerLoader(app.getPlayerData(), file, null);
-        handler.save(new ILoader() {
+        handler.save(new ILoaderCallback() {
             @Override
             public void onStart(String message) {
                 Log.e("onStart", message);

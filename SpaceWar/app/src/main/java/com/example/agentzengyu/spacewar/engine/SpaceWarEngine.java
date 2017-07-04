@@ -23,15 +23,15 @@ import java.util.ArrayList;
 /**
  * 游戏引擎
  */
-public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListener {
+public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventListener {
     private static String TAG = "";
     //引擎实例
     private static SpaceWarEngine instance = null;
     private SpaceWarApp app = null;
     //消息接口
-    private IMessageCallBack iMessageCallBack = null;
+    private IMessageCallback iMessageCallback = null;
     //游戏接口
-    private IGameCallBack iGameCallBack = null;
+    private IEventCallback iEventCallback = null;
     //传感器管理
     private SensorManager sensorManager = null;
     //传感器
@@ -61,11 +61,11 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
     //实时重力传感器坐标
     private float GX = 0, GY = 0, GZ = 0;
     //初始重力传感器坐标
-    private float SX = 0, SY = 0, SZ = 0;
+    private float SX = 0, SY = 0;
     //开始初始化重力传感器
-    private boolean init = false;
+    private boolean initGravitySensor = false;
     //开始监听重力传感器
-    private boolean listen = false;
+    private boolean listenGravitySensor = false;
     //玩家坐标
     private float playerX = 500, playerY = 1000;
     //移动值比例
@@ -108,6 +108,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
     /**
      * 单例模式只允许一个引擎实例存在
      *
+     * @param context 上下文
      * @return 引擎实例
      */
     public static SpaceWarEngine getInstance(Context context) {
@@ -123,16 +124,17 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
     }
 
     /**
-     * 初始化消息回调
+     * 初始化引擎回调
      *
-     * @param iMessageCallBack 引擎接口
+     * @param iMessageCallback 消息回调
+     * @param iEventCallback   游戏回调
      */
-    public void initEngineCallBack(IMessageCallBack iMessageCallBack, IGameCallBack iGameCallBack) {
-        if (this.iMessageCallBack == null) {
-            this.iMessageCallBack = iMessageCallBack;
+    public void initEngineCallBack(IMessageCallback iMessageCallback, IEventCallback iEventCallback) {
+        if (this.iMessageCallback == null) {
+            this.iMessageCallback = iMessageCallback;
         }
-        if (this.iGameCallBack == null) {
-            this.iGameCallBack = iGameCallBack;
+        if (this.iEventCallback == null) {
+            this.iEventCallback = iEventCallback;
         }
     }
 
@@ -150,7 +152,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
         playerMirror = (PlayerData) creator.create(playerSource);
         playerSpeed = playerMirror.getSpeed().getValue();
         playerAgility = playerMirror.getAgility().getValue();
-        iMessageCallBack.notifyInitMsg("Loading player data successful.", false);
+        iMessageCallback.notifyInitMsg("Loading player data successful.", false);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -158,7 +160,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
         }
         enemysMirror = null;
         enemysMirror = (ArrayList<EnemyItem>) creator.create(enemySource);
-        iMessageCallBack.notifyInitMsg("Loading enemy data successful.", false);
+        iMessageCallback.notifyInitMsg("Loading enemy data successful.", false);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -166,7 +168,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
         }
         mapMirror = null;
         mapMirror = (ArrayList) creator.create(mapSource);
-        iMessageCallBack.notifyInitMsg("Loading map data successful.", false);
+        iMessageCallback.notifyInitMsg("Loading map data successful.", false);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -182,7 +184,12 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
     private void loadMusic(final int musicSource) {
         Log.e(TAG, "loadMusic");
         String msg = musicPlayer.init(musicSource);
-        iMessageCallBack.notifyInitMsg(msg, false);
+        iMessageCallback.notifyInitMsg(msg, false);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -191,7 +198,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
     private void initGravitySensorCoord() {
         Log.e(TAG, "initGravitySensorCoord");
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
-        init = true;
+        initGravitySensor = true;
     }
 
     /**
@@ -206,7 +213,8 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
      * 更新玩家
      */
     private void updatePlayerLocation(float X, float Y) {
-        Log.e(TAG, "updatePlayerLocation");
+//        Log.e(TAG, "updatePlayerLocation");
+        //TODO upgrade
         if (X - SX > 0.5) {        //下
             if (playerY != 1000) {
                 playerY += playerAgility / SCALE;
@@ -229,7 +237,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
                 if (playerX < 0) playerX = 0;
             }
         }
-        iGameCallBack.updatePlayer(playerX, playerY);
+        iEventCallback.updatePlayer(playerX, playerY);
     }
 
     /**
@@ -255,12 +263,12 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
      * @param gz 传入的z坐标
      */
     private void initCoord(float gx, float gy, float gz) {
-        if (gz > 0 && gx > 5.5 && gx < 6.5 && gy > -0.5 && gy < 0.5) {
-            iMessageCallBack.notifyInitMsg("Initializing gravity sensor successful.", true);
-            init = false;
+        //standard: x=6.0, y=0.0, offset=0.5
+        if (gz > 0.0 && gx > 5.5 && gx < 6.5 && gy > -0.5 && gy < 0.5) {
+            iMessageCallback.notifyInitMsg("Initializing gravity sensor successful.", true);
+            initGravitySensor = false;
             SX = gx;
             SY = gy;
-            SZ = gz;
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -269,7 +277,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
             onStart();
             return;
         }
-        iMessageCallBack.notifyInitMsg("Please slant the screen with an angle of 45 degrees on the horizontal.", false);
+        iMessageCallback.notifyInitMsg("Please slant the screen with an angle about 45 degrees on the horizontal.", false);
     }
 
     @Override
@@ -280,10 +288,10 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
         GX = event.values[SensorManager.DATA_X];
         GY = event.values[SensorManager.DATA_Y];
         GZ = event.values[SensorManager.DATA_Z];
-        if (init) {
+        if (initGravitySensor) {
             initCoord(gx, gy, gz);
         }
-        if (listen && GZ > 0) {
+        if (listenGravitySensor && GZ > 0) {
             updatePlayerLocation(GX, GY);
         }
     }
@@ -293,8 +301,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
 
     }
 
-    /********************************* IStatusToDo *********************************/
-
+    /********************************* IStatusHandle *********************************/
     @Override
     public void onPrepare(final MapItem mapItem) {
         Log.e(TAG, "onPrepare");
@@ -316,7 +323,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
 //        mapHandler.postDelayed(mapRunnable, 100);
 //        playerHandler.postDelayed(playerRunnable, 200);
 //        enemyHandler.postDelayed(enemyRunnable, 200);
-        listen = true;
+        listenGravitySensor = true;
     }
 
     @Override
@@ -334,7 +341,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
     @Override
     public void onStop() {
         Log.e(TAG, "onStop");
-        listen = false;
+        listenGravitySensor = false;
         sensorManager.unregisterListener(this);
 //        musicPlayer.onStop();
 //        mapHandler.removeCallbacks(mapRunnable);
@@ -342,8 +349,7 @@ public class SpaceWarEngine implements IStatusToDo, IGameToDo, SensorEventListen
         enemyHandler.removeCallbacks(enemyRunnable);
     }
 
-    /********************************* IGameToDo *********************************/
-
+    /********************************* IEventHandle *********************************/
     @Override
     public void shotEnemy() {
         Log.e(TAG, "shotEnemy");

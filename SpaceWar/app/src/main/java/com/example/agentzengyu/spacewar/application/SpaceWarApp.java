@@ -8,7 +8,7 @@ import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.set.ShopLibrary;
 import com.example.agentzengyu.spacewar.service.GameService;
-import com.example.agentzengyu.spacewar.service.InitService;
+import com.example.agentzengyu.spacewar.service.LoaderService;
 
 /**
  * Created by Agent ZengYu on 2017/6/20.
@@ -18,7 +18,7 @@ import com.example.agentzengyu.spacewar.service.InitService;
  * 应用类，全局管理
  */
 public class SpaceWarApp extends Application {
-    private InitService initService = null;
+    private LoaderService loaderService = null;
     private GameService gameService = null;
     private ShopLibrary shopLibrary = new ShopLibrary();
     private PlayerData playerData = new PlayerData();
@@ -58,10 +58,10 @@ public class SpaceWarApp extends Application {
     /**
      * 设置初始化服务
      *
-     * @param initService
+     * @param loaderService
      */
-    public void setInitService(InitService initService) {
-        this.initService = initService;
+    public void setLoaderService(LoaderService loaderService) {
+        this.loaderService = loaderService;
     }
 
     /**
@@ -69,17 +69,17 @@ public class SpaceWarApp extends Application {
      *
      * @return
      */
-    public InitService getInitService() {
-        return initService;
+    public LoaderService getLoaderService() {
+        return loaderService;
     }
 
     /**
      * 销毁初始化服务
      */
     public void destroyInitService(){
-        if (initService!=null){
-            initService.stopSelf();
-            initService = null;
+        if (loaderService !=null){
+            loaderService.stopSelf();
+            loaderService = null;
         }
     }
 

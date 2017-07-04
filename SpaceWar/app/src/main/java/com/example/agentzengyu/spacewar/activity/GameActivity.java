@@ -187,7 +187,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            Log.e("PlayerReceiver", ">>> " + state);
+//            Log.e("PlayerReceiver", ">>> " + state);
             switch (state) {
                 case Constant.Game.Type.NOTIFY:
                     String msg = intent.getStringExtra(Constant.Game.Type.NOTIFY);
