@@ -71,11 +71,15 @@ public class GameService extends Service implements IEngine {
      */
     public void startGame(MapItem mapItem) {
         Log.e(TAG, "startGame.");
-        engine.prepare(app.getPlayerData(), mapItem);
         initMap();
         initEnemy();
         initPlayer();
-        engine.onStart();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        engine.prepare(app.getPlayerData(), mapItem);
     }
 
     /**
@@ -100,8 +104,13 @@ public class GameService extends Service implements IEngine {
     }
 
     @Override
-    public void notifyInitMsg(String message) {
+    public void notifyInitMsg(String message, boolean status) {
         Log.e(TAG, message);
+        Intent intent = new Intent(Constant.Game.Type.PLAYER);
+        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.NOTIFY);
+        intent.putExtra(Constant.Game.Type.NOTIFY, message);
+        intent.putExtra(Constant.Game.Type.STATUS, status);
+        sendBroadcast(intent);
     }
 
     @Override
@@ -149,20 +158,29 @@ public class GameService extends Service implements IEngine {
     }
 
     @Override
-    public void updatePlayer(String direction, String shieldStatus, boolean destroy) {
+    public void updatePlayer(String directionX, String directionY, String shieldStatus, boolean destroy) {
         Log.e(TAG, "updatePlayer.");
-        Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        if (Constant.Game.Player.LEFT.equals(direction) ||
-                Constant.Game.Player.RIGHT.equals(direction) ||
-                Constant.Game.Player.TOP.equals(direction) ||
-                Constant.Game.Player.BOTTOM.equals(direction)) {
-            intent.putExtra(Constant.BroadCast.STATE, direction);
-        } else if (Constant.Game.Player.SHIELD_OPEN.equals(shieldStatus) ||
+        if (Constant.Game.Player.SHIELD_OPEN.equals(shieldStatus) ||
                 Constant.Game.Player.SHIELD_CLOSE.equals(shieldStatus)) {
+            Intent intent = new Intent(Constant.Game.Type.PLAYER);
             intent.putExtra(Constant.BroadCast.STATE, shieldStatus);
+            sendBroadcast(intent);
         } else if (destroy) {
+            Intent intent = new Intent(Constant.Game.Type.PLAYER);
             intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.DESTROY);
+            sendBroadcast(intent);
         }
-        sendBroadcast(intent);
+        if (Constant.Game.Player.LEFT.equals(directionY) ||
+                Constant.Game.Player.RIGHT.equals(directionY)) {
+            Intent intent = new Intent(Constant.Game.Type.PLAYER);
+            intent.putExtra(Constant.BroadCast.STATE, directionY);
+            sendBroadcast(intent);
+        }
+        if (Constant.Game.Player.TOP.equals(directionX) ||
+                Constant.Game.Player.BOTTOM.equals(directionX)) {
+            Intent intent = new Intent(Constant.Game.Type.PLAYER);
+            intent.putExtra(Constant.BroadCast.STATE, directionX);
+            sendBroadcast(intent);
+        }
     }
 }

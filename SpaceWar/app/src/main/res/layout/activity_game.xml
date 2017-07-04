@@ -107,4 +107,11 @@
         app:border_overlay="false"
         app:border_width="5dp" />
 
+    <TextView
+        android:id="@+id/tvNotify"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:gravity="center" />
+
 </RelativeLayout>

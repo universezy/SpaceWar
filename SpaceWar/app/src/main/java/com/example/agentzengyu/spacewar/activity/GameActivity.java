@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -29,13 +30,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private MapView mapView;
     private PlayerView playerView;
     private EnemyView enemyView;
-    private TextView mTvLife, mTvShield, mTvBomb, mTvMap;
+    private TextView mTvLife, mTvShield, mTvBomb, mTvMap, mTvNotify;
     private CircleImageView mCivShield, mCivBomb, mCivShot;
 
     private SpaceWarApp app = null;
     private MapReceiver mapReceiver;
     private PlayerReceiver playerReceiver;
     private EnemyReceiver enemyReceiver;
+    private Handler handler = new Handler();
+    private Runnable runnable = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         initVariable();
         startGame(mapItem);
-
     }
 
     @Override
@@ -55,6 +57,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         unregisterReceiver(mapReceiver);
         unregisterReceiver(playerReceiver);
         unregisterReceiver(enemyReceiver);
+        app.getGameService().stopGame();
     }
 
     /**
@@ -68,6 +71,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mTvShield = (TextView) findViewById(R.id.tvShield);
         mTvBomb = (TextView) findViewById(R.id.tvBomb);
         mTvMap = (TextView) findViewById(R.id.tvMap);
+        mTvNotify = (TextView) findViewById(R.id.tvNotify);
         mCivShield = (CircleImageView) findViewById(R.id.civShield);
         mCivShield.setOnClickListener(this);
         mCivBomb = (CircleImageView) findViewById(R.id.civBomb);
@@ -90,6 +94,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         registerReceiver(playerReceiver, playerFilter);
         IntentFilter enemyFilter = new IntentFilter(Constant.Game.Type.ENEMY);
         registerReceiver(enemyReceiver, enemyFilter);
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                mTvNotify.setVisibility(View.GONE);
+            }
+        };
     }
 
     /**
@@ -145,6 +155,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
             Log.e(TAG, ">>> " + state);
             switch (state) {
+                case Constant.Game.Type.NOTIFY:
+                    String msg = intent.getStringExtra(Constant.Game.Type.NOTIFY);
+                    boolean status = intent.getBooleanExtra(Constant.Game.Type.STATUS, false);
+                    mTvNotify.setText("" + msg);
+                    if (status) {
+                        handler.postDelayed(runnable, 1000);
+                    }
+                    break;
                 case Constant.Game.Player.AGILITY:
                     int agility = intent.getIntExtra(Constant.Game.Player.AGILITY, 100);
                     playerView.setAgility(agility);

@@ -18,7 +18,7 @@ import com.example.agentzengyu.spacewar.R;
 
 public class PlayerView extends View {
     private int agility = 100;
-    private final static int SCALE = 15;
+    private final static int SCALE = 5;
     private int shieldColor = Color.parseColor("#30000099");
     private Paint paintShip, paintShield;
     private Bitmap bitmap;
@@ -93,7 +93,7 @@ public class PlayerView extends View {
     public void onLeft() {
         if (playerX == 0) return;
         playerX -= agility / SCALE;
-        if (playerY < 0) {
+        if (playerX < 0) {
             playerX = 0;
         }
         invalidate();

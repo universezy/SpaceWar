@@ -11,9 +11,10 @@ public interface IEngine {
     /**
      * 通知初始化信息
      *
-     * @param message
+     * @param message 消息
+     * @param status  状态
      */
-    void notifyInitMsg(String message);
+    void notifyInitMsg(String message, boolean status);
 
     /**
      * 通知进度信息
@@ -50,9 +51,10 @@ public interface IEngine {
     /**
      * 更新玩家
      *
-     * @param direction    移动方向
+     * @param directionX   X轴移动方向
+     * @param directionY   Y轴移动方向
      * @param shieldStatus 护盾状态
      * @param destroy      破坏
      */
-    void updatePlayer(String direction, String shieldStatus, boolean destroy);
+    void updatePlayer(String directionX, String directionY, String shieldStatus, boolean destroy);
 }
