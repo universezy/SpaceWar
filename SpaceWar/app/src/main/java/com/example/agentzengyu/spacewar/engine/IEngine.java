@@ -4,6 +4,10 @@ package com.example.agentzengyu.spacewar.engine;
  * Created by Agent ZengYu on 2017/6/29.
  */
 
+import com.example.agentzengyu.spacewar.entity.single.Bullet;
+
+import java.util.ArrayList;
+
 /**
  * 引擎接口
  */
@@ -31,12 +35,12 @@ public interface IEngine {
     /**
      * 初始化敌人
      */
-    void initEnemy();
+    void initEnemy(ArrayList<Bullet> bulletsEnemy);
 
     /**
      * 初始化玩家
      */
-    void initPlayer();
+    void initPlayer(ArrayList<Bullet> bulletsPlayer);
 
     /**
      * 更新地图

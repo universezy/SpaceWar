@@ -6,11 +6,18 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.agentzengyu.spacewar.entity.single.Bullet;
+
+import java.util.ArrayList;
+
 /**
  * Created by Agent ZengYu on 2017/6/29.
  */
 
 public class EnemyView extends View {
+    private ArrayList<Bullet> bullets = null;
+
+
     public EnemyView(Context context) {
         super(context);
     }
@@ -26,5 +33,11 @@ public class EnemyView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+
+    }
+
+    public void setBullets(ArrayList<Bullet> bullets) {
+        this.bullets = bullets;
     }
 }

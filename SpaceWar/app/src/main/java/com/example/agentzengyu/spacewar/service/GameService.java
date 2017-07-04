@@ -9,7 +9,10 @@ import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.engine.IEngine;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
+import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
+
+import java.util.ArrayList;
 
 /**
  * 游戏服务
@@ -72,8 +75,6 @@ public class GameService extends Service implements IEngine {
     public void startGame(MapItem mapItem) {
         Log.e(TAG, "startGame.");
         initMap();
-        initEnemy();
-        initPlayer();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -103,6 +104,10 @@ public class GameService extends Service implements IEngine {
         engine.onStop();
     }
 
+    public void shotEnemy(float x, float y) {
+        engine.shotEnemy(x, y);
+    }
+
     @Override
     public void notifyInitMsg(String message, boolean status) {
         Log.e(TAG, message);
@@ -125,17 +130,20 @@ public class GameService extends Service implements IEngine {
     }
 
     @Override
-    public void initEnemy() {
+    public void initEnemy(ArrayList<Bullet> bulletsEnemy) {
         Log.e(TAG, "initEnemy.");
-
+        Intent intent = new Intent(Constant.Game.Type.ENEMY);
+        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.BULLET);
+        intent.putExtra(Constant.Game.Type.BULLET, bulletsEnemy);
+        sendBroadcast(intent);
     }
 
     @Override
-    public void initPlayer() {
+    public void initPlayer(ArrayList<Bullet> bulletsPlayer) {
         Log.e(TAG, "initPlayer.");
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.AGILITY);
-        intent.putExtra(Constant.Game.Player.AGILITY, app.getPlayerData().getAgility());
+        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.BULLET);
+        intent.putExtra(Constant.Game.Type.BULLET, bulletsPlayer);
         sendBroadcast(intent);
     }
 

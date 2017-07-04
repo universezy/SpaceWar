@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.EnemyItem;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
@@ -43,11 +44,20 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     private Runnable mapRunnable = null;
     //音乐播放器
     private MusicPlayer musicPlayer = null;
-
+    //玩家子弹处理器
+    private Handler playerHandler = new Handler();
+    //玩家子弹子线程
+    private Runnable playerRunnable = null;
+    //敌人子弹处理器
+    private Handler enemyHandler = new Handler();
+    //敌人子弹子线程
+    private Runnable enemyRunnable = null;
     //数据镜像
     private PlayerData playerMirror = null;
     private ArrayList<EnemyItem> enemysMirror = null;
     private ArrayList mapMirror = null;
+    //玩家子弹速度
+    private int playerSpeed = 0;
     //实时重力传感器坐标
     private float GX = 0, GY = 0, GZ = 0;
     //初始重力传感器坐标
@@ -56,6 +66,10 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     private boolean init = false;
     //开始监听重力传感器
     private boolean listen = false;
+    //子弹数组
+    private ArrayList<Bullet> bulletsPlayer = new ArrayList<>();
+    private ArrayList<Bullet> bulletsEnemy = new ArrayList<>();
+
 
     /**
      * 私有构造初始化变量
@@ -66,8 +80,22 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
         mapRunnable = new Runnable() {
             @Override
             public void run() {
-                updateMap();
+                updateMapLocation();
                 mapHandler.postDelayed(mapRunnable, 100);
+            }
+        };
+        playerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                updatePlayerBullets();
+                playerHandler.postDelayed(playerRunnable, 200);
+            }
+        };
+        enemyRunnable = new Runnable() {
+            @Override
+            public void run() {
+                updateEnemyBullets();
+                enemyHandler.postDelayed(enemyRunnable, 200);
             }
         };
         musicPlayer = MusicPlayer.getInstance(context);
@@ -112,6 +140,7 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
 //        loadMirror(playerSource, mapItem.getEnemys(), mapItem.getMapSource());
 //        loadMusic(mapItem.getMusic());
         initGravitySensorCoord();
+        bindViewSource();
     }
 
     /**
@@ -125,6 +154,7 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
         Log.e(TAG, "loadMirror.");
         playerMirror = null;
         playerMirror = (PlayerData) createMirror(playerSource);
+        playerSpeed = playerMirror.getSpeed().getValue();
         engine.notifyInitMsg("Loading player data successful.", false);
         try {
             Thread.sleep(500);
@@ -199,8 +229,8 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     /**
      * 更新地图
      */
-    private void updateMap(/**/) {
-        Log.e(TAG, "updateMap.");
+    private void updateMapLocation(/**/) {
+        Log.e(TAG, "updateMapLocation.");
         //TODO
         engine.updateMap(/**/);
     }
@@ -208,8 +238,8 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     /**
      * 更新玩家
      */
-    private void updatePlayer() {
-        Log.e(TAG, "updatePlayer.");
+    private void updatePlayerLocation() {
+        Log.e(TAG, "updatePlayerLocation.");
         String directionX = null;
         String directionY = null;
         String shieldStatus = null;
@@ -228,12 +258,39 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     }
 
     /**
+     * 更新玩家子弹坐标
+     */
+    private void updatePlayerBullets() {
+        synchronized (bulletsPlayer) {
+            for (Bullet bullet : bulletsPlayer) {
+                bullet.setY(bullet.getY() - 5 * bullet.getSpeed());
+                if (bullet.getY() + bullet.getRadius() <= 0) {
+                    bulletsPlayer.remove(bullet);
+                }
+            }
+        }
+    }
+
+    /**
+     * 更新敌人子弹坐标
+     */
+    private void updateEnemyBullets() {
+        synchronized (bulletsEnemy) {
+            for (Bullet bullet : bulletsEnemy) {
+                bullet.setY(bullet.getY() + 5 * bullet.getSpeed());
+                if (bullet.getY() + bullet.getRadius() <= 0) {
+                    bulletsEnemy.remove(bullet);
+                }
+            }
+        }
+    }
+
+    /**
      * 设备坐标是否合适
      *
      * @param gx 传入的x坐标
      * @param gy 传入的y坐标
      * @param gz 传入的z坐标
-     * @return
      */
     private void isPrepared(float gx, float gy, float gz) {
         if (gz > 0 && gx > 4.5 && gx < 5.5 && gy > -0.5 && gy < 0.5) {
@@ -253,11 +310,30 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
         engine.notifyInitMsg("Please slant the screen with an angle of 45 degrees on the horizontal.", false);
     }
 
+    /**
+     * 绑定视图资源
+     */
+    public void bindViewSource() {
+        engine.initPlayer(this.bulletsPlayer);
+        engine.initEnemy(this.bulletsEnemy);
+    }
+
+    public void shotEnemy(float x, float y) {
+        Bullet bullet = new Bullet(x, y, playerMirror.getRange().getValue(), playerMirror.getSpeed().getValue());
+        bulletsPlayer.add(bullet);
+    }
+
+    public void shotPlayer(float x, float y) {
+
+    }
+
     @Override
     public void onStart() {
         Log.e(TAG, "onStart.");
-//        mapHandler.postDelayed(mapRunnable, 100);
 //        musicPlayer.onStart();
+//        mapHandler.postDelayed(mapRunnable, 100);
+        playerHandler.postDelayed(playerRunnable, 200);
+        enemyHandler.postDelayed(enemyRunnable, 200);
         listen = true;
     }
 
@@ -276,9 +352,12 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     @Override
     public void onStop() {
         Log.e(TAG, "onStop.");
-        sensorManager.unregisterListener(this);
-        mapHandler.removeCallbacks(mapRunnable);
         listen = false;
+        sensorManager.unregisterListener(this);
+//        musicPlayer.onStop();
+        mapHandler.removeCallbacks(mapRunnable);
+        playerHandler.removeCallbacks(playerRunnable);
+        enemyHandler.removeCallbacks(enemyRunnable);
     }
 
     @Override
@@ -295,7 +374,7 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
             isPrepared(gx, gy, gz);
         }
         if (listen) {
-            updatePlayer();
+            updatePlayerLocation();
         }
     }
 

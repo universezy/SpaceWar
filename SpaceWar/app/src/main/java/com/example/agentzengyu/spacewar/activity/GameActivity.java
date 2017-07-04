@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -15,11 +16,15 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
+import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
+import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 import com.example.agentzengyu.spacewar.view.EnemyView;
 import com.example.agentzengyu.spacewar.view.MapView;
 import com.example.agentzengyu.spacewar.view.PlayerView;
+
+import java.util.ArrayList;
 
 /**
  * 游戏主界面
@@ -34,11 +39,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private CircleImageView mCivShield, mCivBomb, mCivShot;
 
     private SpaceWarApp app = null;
+    private GameService service = null;
     private MapReceiver mapReceiver;
     private PlayerReceiver playerReceiver;
     private EnemyReceiver enemyReceiver;
-    private Handler handler = new Handler();
-    private Runnable runnable = null;
+    private Handler handlerNotify = new Handler();
+    private Handler handlerBullet = new Handler();
+    private Runnable runnableNotify = null;
+    private Runnable runnableBullet = null;
+    private boolean shot = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +66,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         unregisterReceiver(mapReceiver);
         unregisterReceiver(playerReceiver);
         unregisterReceiver(enemyReceiver);
-        app.getGameService().stopGame();
+        service.stopGame();
     }
 
     /**
@@ -77,7 +86,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mCivBomb = (CircleImageView) findViewById(R.id.civBomb);
         mCivBomb.setOnClickListener(this);
         mCivShot = (CircleImageView) findViewById(R.id.civShot);
-        mCivShot.setOnClickListener(this);
+        mCivShot.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        shot = true;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        shot = false;
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     /**
@@ -85,6 +109,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initVariable() {
         app = (SpaceWarApp) getApplication();
+        service = app.getGameService();
+        playerView.setAgility(app.getPlayerData().getAgility().getValue());
         mapReceiver = new MapReceiver();
         playerReceiver = new PlayerReceiver();
         enemyReceiver = new EnemyReceiver();
@@ -94,10 +120,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         registerReceiver(playerReceiver, playerFilter);
         IntentFilter enemyFilter = new IntentFilter(Constant.Game.Type.ENEMY);
         registerReceiver(enemyReceiver, enemyFilter);
-        runnable = new Runnable() {
+        runnableNotify = new Runnable() {
             @Override
             public void run() {
                 mTvNotify.setVisibility(View.GONE);
+            }
+        };
+        runnableBullet = new Runnable() {
+            @Override
+            public void run() {
+                if (shot) {
+                    service.shotEnemy(playerView.getX(), playerView.getY());
+                    handlerBullet.postDelayed(runnableBullet, 500);
+                }
             }
         };
     }
@@ -113,7 +148,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mTvBomb.setText("" + app.getPlayerData().getBomb().getValue());
 //        if (mapItem != null) {
 //            mTvMap.setText(mapItem.getName());
-        app.getGameService().startGame(mapItem);
+        service.startGame(mapItem);
 //        } else {
 
 //        }
@@ -128,9 +163,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.civBomb:
 
                 break;
-            case R.id.civShot:
-
-                break;
             default:
                 break;
         }
@@ -141,7 +173,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            Log.e(TAG, state);
+            Log.e("MapReceiver", state);
             switch (state) {
 
             }
@@ -153,19 +185,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            Log.e(TAG, ">>> " + state);
+            Log.e("PlayerReceiver", ">>> " + state);
             switch (state) {
                 case Constant.Game.Type.NOTIFY:
                     String msg = intent.getStringExtra(Constant.Game.Type.NOTIFY);
                     boolean status = intent.getBooleanExtra(Constant.Game.Type.STATUS, false);
                     mTvNotify.setText("" + msg);
                     if (status) {
-                        handler.postDelayed(runnable, 1000);
+                        handlerNotify.postDelayed(runnableNotify, 1000);
                     }
                     break;
-                case Constant.Game.Player.AGILITY:
-                    int agility = intent.getIntExtra(Constant.Game.Player.AGILITY, 100);
-                    playerView.setAgility(agility);
+                case Constant.Game.Type.BULLET:
+                    ArrayList<Bullet> bullets = (ArrayList<Bullet>) intent.getSerializableExtra(Constant.Game.Type.BULLET);
+                    playerView.setBullets(bullets);
+                    handlerBullet.postDelayed(runnableBullet,500);
                     break;
                 case Constant.Game.Player.LEFT:
                     playerView.onLeft();
@@ -201,9 +234,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            Log.e(TAG, state);
+            Log.e("EnemyReceiver", state);
             switch (state) {
-
+                case Constant.Game.Type.BULLET:
+                    ArrayList<Bullet> bullets = (ArrayList<Bullet>) intent.getSerializableExtra(Constant.Game.Type.BULLET);
+                    enemyView.setBullets(bullets);
+                    break;
+                default:
+                    break;
             }
         }
     }

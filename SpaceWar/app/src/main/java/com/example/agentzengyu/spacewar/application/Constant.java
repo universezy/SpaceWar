@@ -25,6 +25,7 @@ public class Constant {
             public final static String ENEMY = "ENEMY";
             public final static String NOTIFY = "NOTIFY";
             public final static String STATUS = "STATUS";
+            public final static String BULLET = "BULLET";
         }
 
         //地图

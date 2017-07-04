@@ -11,6 +11,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.agentzengyu.spacewar.R;
+import com.example.agentzengyu.spacewar.entity.single.Bullet;
+
+import java.util.ArrayList;
 
 /**
  * Created by Agent ZengYu on 2017/6/29.
@@ -18,7 +21,7 @@ import com.example.agentzengyu.spacewar.R;
 
 public class PlayerView extends View {
     private int agility = 100;
-    private final static int SCALE = 5;
+    private final static int SCALE = 8;
     private int shieldColor = Color.parseColor("#30000099");
     private Paint paintShip, paintShield;
     private Bitmap bitmap;
@@ -30,6 +33,7 @@ public class PlayerView extends View {
     private float playerX = -1;
     private float playerY = -1;
     private boolean openShield = false;
+    private ArrayList<Bullet> bullets =null;
 
     public PlayerView(Context context) {
         super(context);
@@ -152,4 +156,28 @@ public class PlayerView extends View {
         bitmap = BitmapFactory.decodeResource(getResources(), destroyId);
         invalidate();
     }
+
+    public void setBullets(ArrayList<Bullet> bullets) {
+        this.bullets = bullets;
+    }
+
+    /**
+     * 获取玩家X坐标
+     *
+     * @return
+     */
+    public float getPlayerX() {
+        return playerX;
+    }
+
+    /**
+     * 获取玩家Y坐标
+     *
+     * @return
+     */
+    public float getPlayerY() {
+        return playerY;
+    }
+
+
 }
