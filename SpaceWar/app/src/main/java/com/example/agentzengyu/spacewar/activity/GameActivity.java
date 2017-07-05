@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,12 +15,17 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
+import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 import com.example.agentzengyu.spacewar.service.GameService;
+import com.example.agentzengyu.spacewar.view.BulletEnemyView;
+import com.example.agentzengyu.spacewar.view.BulletPlayerView;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 import com.example.agentzengyu.spacewar.view.EnemyView;
 import com.example.agentzengyu.spacewar.view.MapView;
 import com.example.agentzengyu.spacewar.view.PlayerView;
+
+import java.util.List;
 
 /**
  * 游戏主界面
@@ -32,6 +36,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private MapView mapView;
     private PlayerView playerView;
     private EnemyView enemyView;
+    private BulletPlayerView bulletPlayerView;
+    private BulletEnemyView bulletEnemyView;
     private TextView mTvLife, mTvShield, mTvBomb, mTvMap, mTvNotify;
     private CircleImageView mCivShield, mCivBomb, mCivShot;
 
@@ -74,6 +80,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mapView = (MapView) findViewById(R.id.mvMap);
         playerView = (PlayerView) findViewById(R.id.pvPlayer);
         enemyView = (EnemyView) findViewById(R.id.evEnemy);
+        bulletPlayerView = (BulletPlayerView)findViewById(R.id.bpvPlayer);
+        bulletEnemyView=(BulletEnemyView)findViewById(R.id.bevEnemy);
         mTvLife = (TextView) findViewById(R.id.tvLife);
         mTvShield = (TextView) findViewById(R.id.tvShield);
         mTvBomb = (TextView) findViewById(R.id.tvBomb);
@@ -97,7 +105,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     default:
                         break;
                 }
-                return false;
+                return true;
             }
         });
     }
@@ -121,6 +129,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 mTvNotify.setVisibility(View.GONE);
+                handlerBullet.postDelayed(runnableBullet, 500);
             }
         };
         runnableBullet = new Runnable() {
@@ -128,8 +137,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 if (shot) {
                     service.shotEnemy();
-                    handlerBullet.postDelayed(runnableBullet, 500);
                 }
+                handlerBullet.postDelayed(runnableBullet, 500);
             }
         };
     }
@@ -141,19 +150,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void startGame(final MapItem mapItem) {
         mTvLife.setText("" + app.getPlayerData().getLife().getValue());
-        mTvShield.setText("" + app.getPlayerData().getShield().getValue());
-        mTvBomb.setText("" + app.getPlayerData().getBomb().getValue());
-//        if (mapItem != null) {
-//            mTvMap.setText(mapItem.getName());
-        handlerNotify.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                service.onPrepare(mapItem);
-            }
-        }, 1000);
-//        } else {
+        mTvShield.setText("CD: " + app.getPlayerData().getShield().getValue());
+        mTvBomb.setText("CD: " + app.getPlayerData().getBomb().getValue());
+        if (mapItem != null) {
+            mTvMap.setText(mapItem.getName());
+            handlerNotify.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    service.onPrepare(mapItem);
+                }
+            }, 1000);
+        } else {
 
-//        }
+        }
     }
 
     @Override
@@ -175,7 +184,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            Log.e("MapReceiver", state);
             switch (state) {
 
             }
@@ -187,14 +195,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-//            Log.e("PlayerReceiver", ">>> " + state);
             switch (state) {
                 case Constant.Game.Type.NOTIFY:
                     String msg = intent.getStringExtra(Constant.Game.Type.NOTIFY);
                     boolean status = intent.getBooleanExtra(Constant.Game.Type.STATUS, false);
                     mTvNotify.setText("" + msg);
                     if (status) {
-                        handlerNotify.postDelayed(runnableNotify, 1000);
+                        handlerNotify.postDelayed(runnableNotify, 600);
                     }
                     break;
                 case Constant.Game.Player.LOCATION:
@@ -202,13 +209,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     float y = intent.getFloatExtra(Constant.Game.Player.Y, 0);
                     playerView.setLocation(x, y);
                     break;
+                case Constant.Game.Player.BULLET:
+                    List<Bullet> bullets = (List<Bullet>) intent.getSerializableExtra(Constant.Game.Player.BULLET);
+                    bulletPlayerView.setBullets(bullets);
+                    break;
                 case Constant.Game.Player.SHIELD_OPEN:
-                    boolean open = intent.getBooleanExtra(Constant.Game.Player.SHIELD_OPEN, false);
-                    playerView.shield(open);
+                    int coldOpen = intent.getIntExtra(Constant.Game.Player.SHIELD_OPEN, 0);
+                    playerView.shield(true);
+                    mTvShield.setText("Wait: " + coldOpen);
                     break;
                 case Constant.Game.Player.SHIELD_CLOSE:
-                    boolean close = intent.getBooleanExtra(Constant.Game.Player.SHIELD_CLOSE, false);
-                    playerView.shield(close);
+                    int coldClose = intent.getIntExtra(Constant.Game.Player.SHIELD_CLOSE, 0);
+                    playerView.shield(false);
+                    if (coldClose == app.getPlayerData().getShield().getValue()) {
+                        mTvShield.setText("CD: " + app.getPlayerData().getShield().getValue());
+                    } else {
+                        mTvShield.setText("Wait: " + coldClose);
+                    }
                     break;
                 case Constant.Game.Player.DESTROY:
                     playerView.destroy();
@@ -224,9 +241,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            Log.e("EnemyReceiver", state);
             switch (state) {
-
+                case Constant.Game.Enemy.BULLET:
+                    List<Bullet> bullets = (List<Bullet>) intent.getSerializableExtra(Constant.Game.Enemy.BULLET);
+                    bulletEnemyView.setBullets(bullets);
+                    break;
                 default:
                     break;
             }

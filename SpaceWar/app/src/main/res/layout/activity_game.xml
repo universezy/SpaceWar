@@ -24,6 +24,18 @@
         android:layout_height="match_parent"
         android:background="#00000000" />
 
+    <com.example.agentzengyu.spacewar.view.BulletPlayerView
+        android:id="@+id/bpvPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000" />
+
+    <com.example.agentzengyu.spacewar.view.BulletEnemyView
+        android:id="@+id/bevEnemy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000" />
+
     <TextView
         android:id="@+id/tvLife"
         android:layout_width="100dp"
@@ -76,6 +88,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="80dp"
         android:layout_marginLeft="20dp"
+        android:focusable="true"
         android:src="@mipmap/ic_launcher_round"
         app:border_color="#80000000"
         app:border_overlay="false"
@@ -89,6 +102,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="80dp"
+        android:focusable="true"
         android:src="@mipmap/ic_launcher_round"
         app:border_color="#80000000"
         app:border_overlay="false"
@@ -102,6 +116,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="30dp"
         android:layout_marginRight="30dp"
+        android:focusable="true"
         android:src="@mipmap/ic_launcher_round"
         app:border_color="#80000000"
         app:border_overlay="false"

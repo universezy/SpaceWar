@@ -37,6 +37,7 @@ public class Constant {
             public final static String LOCATION = "LOCATION";
             public final static String X = "X";
             public final static String Y = "Y";
+            public final static String BULLET = "BULLET";
             public final static String SHIELD_OPEN = "SHIELD_OPEN";
             public final static String SHIELD_CLOSE = "SHIELD_CLOSE";
             public final static String DESTROY= "DESTROY";
@@ -44,7 +45,7 @@ public class Constant {
 
         //敌人
         public static class Enemy{
-
+            public final static String BULLET = "BULLET";
         }
     }
 

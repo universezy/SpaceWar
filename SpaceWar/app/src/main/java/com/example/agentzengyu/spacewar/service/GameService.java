@@ -12,7 +12,11 @@ import com.example.agentzengyu.spacewar.engine.IEventHandle;
 import com.example.agentzengyu.spacewar.engine.IMessageCallback;
 import com.example.agentzengyu.spacewar.engine.IStatusHandle;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
+import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * 游戏服务，用于转发UI和引擎之间的消息
@@ -98,6 +102,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     /********************************* IEventHandle *********************************/
     @Override
     public void shotEnemy() {
+        Log.e(TAG, "shotEnemy");
         engine.shotEnemy();
     }
 
@@ -129,7 +134,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
 
     /********************************* IEventCallback *********************************/
     @Override
-    public void updateMap() {
+    public void updateMapLocation() {
         Log.e(TAG, "updateMap");
         Intent intent = new Intent(Constant.Game.Type.MAP);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.MAP);
@@ -138,7 +143,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     }
 
     @Override
-    public void updateEnemy() {
+    public void updateEnemyLocation() {
         Log.e(TAG, "updateEnemy");
         Intent intent = new Intent(Constant.Game.Type.ENEMY);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.ENEMY);
@@ -147,8 +152,17 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     }
 
     @Override
-    public void updatePlayer(float x, float y) {
-        Log.e(TAG, "updatePlayer");
+    public void updateEnemyBullets(List<Bullet> bullets) {
+//        Log.e(TAG, "updateEnemyBullets");
+        Intent intent = new Intent(Constant.Game.Type.ENEMY);
+        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Enemy.BULLET);
+        intent.putExtra(Constant.Game.Enemy.BULLET, (Serializable) bullets);
+        sendBroadcast(intent);
+    }
+
+    @Override
+    public void updatePlayerLocation(float x, float y) {
+//        Log.e(TAG, "updatePlayerLocation");
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.LOCATION);
         intent.putExtra(Constant.Game.Player.X, x);
@@ -157,8 +171,26 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     }
 
     @Override
-    public void setShield(boolean open) {
+    public void updatePlayerBullets(List<Bullet> bullets) {
+//        Log.e(TAG, "updatePlayerBullets");
+        Intent intent = new Intent(Constant.Game.Type.PLAYER);
+        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.BULLET);
+        intent.putExtra(Constant.Game.Player.BULLET, (Serializable) bullets);
+        sendBroadcast(intent);
+    }
+
+    @Override
+    public void setShield(boolean open,int cold) {
         Log.e(TAG, "setShield");
+        Intent intent = new Intent(Constant.Game.Type.PLAYER);
+        if (open) {
+            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.SHIELD_OPEN);
+            intent.putExtra(Constant.Game.Player.SHIELD_OPEN, cold);
+        } else {
+            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.SHIELD_CLOSE);
+            intent.putExtra(Constant.Game.Player.SHIELD_CLOSE, cold);
+        }
+        sendBroadcast(intent);
     }
 
     @Override

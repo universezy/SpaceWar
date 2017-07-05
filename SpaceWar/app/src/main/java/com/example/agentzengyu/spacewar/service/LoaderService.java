@@ -63,7 +63,6 @@ public class LoaderService extends Service {
 
                 @Override
                 public void onProcess(int progress) {
-                    Log.e("onProcess", "" + progress);
                     Intent intent = new Intent(Constant.BroadCast.LOADING);
                     intent.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
                     intent.putExtra(Constant.Status.PROGRESS, progress * 10);
@@ -115,7 +114,6 @@ public class LoaderService extends Service {
 
                     @Override
                     public void onProcess(int progress) {
-                        Log.e("onProcess", "" + progress);
                         Intent intent = new Intent(Constant.BroadCast.LOADING);
                         intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
                         intent.putExtra(Constant.Status.PROGRESS, progress * 10);
@@ -165,7 +163,6 @@ public class LoaderService extends Service {
 
                 @Override
                 public void onProcess(int progress) {
-                    Log.e("onProcess", "" + progress);
                     Intent intent = new Intent(Constant.BroadCast.LOADING);
                     intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
                     intent.putExtra(Constant.Status.PROGRESS, progress * 10);

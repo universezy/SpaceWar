@@ -60,15 +60,14 @@ public class PlayerView extends View {
             init = true;
         }
 
-        float x = playerX * moveWidth / 1000 - bitmapWidth / 2;
-        float y = playerY * moveHeight / 1000;
-        canvas.drawBitmap(bitmap, x, y, paintShip);
+        float pixelX = this.playerX * moveWidth / 1000 - bitmapWidth / 2;
+        float pixelY = playerY * moveHeight / 1000;
+        canvas.drawBitmap(bitmap, pixelX, pixelY, paintShip);
 
         if (openShield) {
-            paintShield.setColor(shieldColor);
-            float cx = playerX * moveWidth / 1000;
-            float cy = playerY * moveHeight / 1000 + bitmapHeight / 2;
-            canvas.drawCircle(cx, cy, radius, paintShield);
+            float shieldX = this.playerX * moveWidth / 1000;
+            float shielY = playerY * moveHeight / 1000 + bitmapHeight / 2;
+            canvas.drawCircle(shieldX, shielY, radius, paintShield);
         }
     }
 
@@ -83,6 +82,7 @@ public class PlayerView extends View {
         radius = Math.max(bitmapWidth, bitmapHeight);
         paintShip = new Paint();
         paintShield = new Paint();
+        paintShield.setColor(shieldColor);
     }
 
     /**

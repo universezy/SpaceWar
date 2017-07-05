@@ -4,34 +4,52 @@ package com.example.agentzengyu.spacewar.engine;
  * Created by Agent ZengYu on 2017/7/4.
  */
 
+import com.example.agentzengyu.spacewar.entity.single.Bullet;
+
+import java.util.List;
+
 /**
  * 游戏内容回调
  */
 public interface IEventCallback {
     /**
-     * 更新地图
+     * 更新地图位置
      */
-    void updateMap();
+    void updateMapLocation();
 
     /**
-     * 更新敌人
+     * 更新敌人位置
      */
-    void updateEnemy();
+    void updateEnemyLocation();
 
     /**
-     * 更新玩家
+     * 更新敌人子弹位置
+     *
+     * @param bullets
+     */
+    void updateEnemyBullets(List<Bullet> bullets);
+
+    /**
+     * 更新玩家位置
      *
      * @param x
      * @param y
      */
-    void updatePlayer(float x, float y);
+    void updatePlayerLocation(float x, float y);
+
+    /**
+     * 更新玩家子弹位置
+     *
+     * @param bullets
+     */
+    void updatePlayerBullets(List<Bullet> bullets);
 
     /**
      * 设置护盾
      *
      * @param open
      */
-    void setShield(boolean open);
+    void setShield(boolean open,int cold);
 
     /**
      * 更新炸弹

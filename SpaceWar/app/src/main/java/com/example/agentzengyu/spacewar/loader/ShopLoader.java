@@ -256,7 +256,7 @@ public class ShopLoader extends AbstractLoader {
      */
     private void getAttributes(XmlPullParser xmlPullParser, ArrayList<ShopItem> items, String endTagName) {
         try {
-            Thread.sleep(100);
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

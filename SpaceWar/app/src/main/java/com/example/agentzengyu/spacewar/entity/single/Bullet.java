@@ -13,9 +13,9 @@ public class Bullet implements Serializable {
     private float X = 0;
     private float Y = 0;
     private float radius = 0;
-    private int speed = 0;
+    private float speed = 0;
 
-    public Bullet(float x, float y, float radius, int speed) {
+    public Bullet(float x, float y, float radius, float speed) {
         this.X = x;
         this.Y = y;
         this.radius = radius;
@@ -50,7 +50,7 @@ public class Bullet implements Serializable {
         return radius;
     }
 
-    public int getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 }
