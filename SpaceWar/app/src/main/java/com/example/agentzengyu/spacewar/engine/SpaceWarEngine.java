@@ -66,6 +66,8 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private float playerAgility = 0;
     //玩家子弹范围
     private float playerRange = 0;
+    //玩家子弹力量
+    private float playerPower = 0;
     //护盾持续时间
     private int shieldKeep = 5;
     //护盾冷却时间
@@ -101,7 +103,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
             @Override
             public void run() {
                 updateMapLocation();
-                mapHandler.postDelayed(mapRunnable, 100);
+                mapHandler.postDelayed(mapRunnable, 200);
             }
         };
         playerRunnable = new Runnable() {
@@ -174,6 +176,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         playerSpeed = playerMirror.getSpeed().getValue();
         playerAgility = playerMirror.getAgility().getValue();
         playerRange = playerMirror.getRange().getValue();
+        playerPower = playerMirror.getPower().getValue();
         shieldCold = playerMirror.getShield().getValue();
         bombCold = playerMirror.getBomb().getValue();
         iMessageCallback.notifyInitMsg("Loading player data successful.", false);
@@ -239,7 +242,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
             SX = gx;
             SY = gy;
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -389,7 +392,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     public void onStart() {
         Log.e(TAG, "onStart");
 //        musicPlayer.onStart();
-//        mapHandler.postDelayed(mapRunnable, 100);
+//        mapHandler.postDelayed(mapRunnable, 200);
         playerHandler.postDelayed(playerRunnable, 200);
 //        enemyHandler.postDelayed(enemyRunnable, 200);
         listenGravitySensor = true;
@@ -423,7 +426,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     /********************************* IEventHandle *********************************/
     @Override
     public synchronized void shotEnemy() {
-        Bullet bullet = new Bullet(playerX, playerY, playerRange, playerSpeed);
+        Bullet bullet = new Bullet(playerX, playerY, playerPower, playerRange, playerSpeed);
         synchronized (bulletsPlayer) {
             bulletsPlayer.add(bullet);
         }

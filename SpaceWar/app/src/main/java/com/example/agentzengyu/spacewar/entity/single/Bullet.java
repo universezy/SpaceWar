@@ -12,12 +12,14 @@ import java.io.Serializable;
 public class Bullet implements Serializable {
     private float X = 0;
     private float Y = 0;
+    private float power = 0;
     private float radius = 0;
     private float speed = 0;
 
-    public Bullet(float x, float y, float radius, float speed) {
+    public Bullet(float x, float y, float power,float radius, float speed) {
         this.X = x;
         this.Y = y;
+        this.power = power;
         this.radius = radius;
         this.speed = speed;
     }
@@ -28,6 +30,10 @@ public class Bullet implements Serializable {
 
     public void setY(float y) {
         Y = y;
+    }
+
+    public void setPower(float power) {
+        this.power = power;
     }
 
     public void setRadius(float radius) {
@@ -44,6 +50,10 @@ public class Bullet implements Serializable {
 
     public float getY() {
         return Y;
+    }
+
+    public float getPower() {
+        return power;
     }
 
     public float getRadius() {

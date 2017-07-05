@@ -89,14 +89,12 @@ public class LoadingActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            Log.e("state", ">>> " + state);
             int progress = intent.getIntExtra(Constant.Status.PROGRESS, 0);
             if (progress == -1) {
                 Toast.makeText(LoadingActivity.this, "Resource file damaged. Initializing player data.", Toast.LENGTH_SHORT);
                 finish();
                 return;
             }
-            Log.e("LoadingReceiver", state);
             switch (state) {
                 case Constant.Status.SHOP:
                     mTvLoad.setText(getResources().getString(R.string.loading_shop));
