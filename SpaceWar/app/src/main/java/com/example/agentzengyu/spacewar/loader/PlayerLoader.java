@@ -98,9 +98,9 @@ public class PlayerLoader extends AbstractLoader {
                     xmlSerializer.endTag(null, Constant.Basic.Item.RANGE);
                     callBack.onProcess(++count);
                     //核弹
-                    xmlSerializer.startTag(null, Constant.Basic.Item.BOMB);
-                    setAttributes(xmlSerializer, playerData.getBomb());
-                    xmlSerializer.endTag(null, Constant.Basic.Item.BOMB);
+                    xmlSerializer.startTag(null, Constant.Basic.Item.LASER);
+                    setAttributes(xmlSerializer, playerData.getLaser());
+                    xmlSerializer.endTag(null, Constant.Basic.Item.LASER);
                     callBack.onProcess(++count);
                     //武器结束
                     xmlSerializer.endTag(null, Constant.Basic.Type.WEAPON);
@@ -181,7 +181,7 @@ public class PlayerLoader extends AbstractLoader {
                     playerData.setRange(data.getRanges().get(0));
                     callBack.onProcess(++count);
                     Thread.sleep(200);
-                    playerData.setBomb(data.getBombs().get(0));
+                    playerData.setLaser(data.getLasers().get(0));
                     callBack.onProcess(++count);
                     Thread.sleep(200);
                     playerData.setMoney(1000);
@@ -256,10 +256,10 @@ public class PlayerLoader extends AbstractLoader {
                                         getAttributes(xmlPullParser, item);
                                         playerData.setRange(item);
                                         break;
-                                    case Constant.Basic.Item.BOMB:
+                                    case Constant.Basic.Item.LASER:
                                         item = new ShopItem();
                                         getAttributes(xmlPullParser, item);
-                                        playerData.setBomb(item);
+                                        playerData.setLaser(item);
                                         break;
                                     case Constant.Basic.Type.MONEY:
                                         playerData.setMoney(Integer.parseInt(xmlPullParser.getAttributeValue(0)));
@@ -299,7 +299,7 @@ public class PlayerLoader extends AbstractLoader {
                                     case Constant.Basic.Item.RANGE:
                                         iLoaderCallback.onProcess(++count);
                                         break;
-                                    case Constant.Basic.Item.BOMB:
+                                    case Constant.Basic.Item.LASER:
                                         iLoaderCallback.onProcess(++count);
                                         break;
                                     case Constant.Basic.Type.MONEY:

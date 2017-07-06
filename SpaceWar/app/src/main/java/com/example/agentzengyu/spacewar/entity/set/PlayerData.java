@@ -22,7 +22,7 @@ public class PlayerData  extends AbstractLibrary implements Serializable {
     private ShopItem power = null;
     private ShopItem speed = null;
     private ShopItem range = null;
-    private ShopItem bomb = null;
+    private ShopItem laser = null;
 
     private int money = 0;
 
@@ -72,8 +72,8 @@ public class PlayerData  extends AbstractLibrary implements Serializable {
         this.range = range;
     }
 
-    public void setBomb(ShopItem bomb) {
-        this.bomb = bomb;
+    public void setLaser(ShopItem laser) {
+        this.laser = laser;
     }
 
     public ShopItem getPower() {
@@ -88,8 +88,8 @@ public class PlayerData  extends AbstractLibrary implements Serializable {
         return range;
     }
 
-    public ShopItem getBomb() {
-        return bomb;
+    public ShopItem getLaser() {
+        return laser;
     }
 
     /********** Money **********/

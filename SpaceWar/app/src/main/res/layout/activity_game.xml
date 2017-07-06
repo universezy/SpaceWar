@@ -59,7 +59,7 @@
         android:text="Shield" />
 
     <TextView
-        android:id="@+id/tvBomb"
+        android:id="@+id/tvLaser"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
@@ -95,7 +95,7 @@
         app:border_width="5dp" />
 
     <com.example.agentzengyu.spacewar.view.CircleImageView
-        android:id="@+id/civBomb"
+        android:id="@+id/civLaser"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"

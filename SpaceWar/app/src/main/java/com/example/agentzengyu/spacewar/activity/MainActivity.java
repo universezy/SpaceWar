@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCivSpeed.setOnClickListener(this);
         mCivRange = (CircleImageView) findViewById(R.id.civRange);
         mCivRange.setOnClickListener(this);
-        mCivBomb = (CircleImageView) findViewById(R.id.civBomb);
+        mCivBomb = (CircleImageView) findViewById(R.id.civLaser);
         mCivBomb.setOnClickListener(this);
 
         popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -130,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.civRange:
                 showDetail(app.getPlayerData().getRange());
                 break;
-            case R.id.civBomb:
-                showDetail(app.getPlayerData().getBomb());
+            case R.id.civLaser:
+                showDetail(app.getPlayerData().getLaser());
                 break;
             case R.id.btnPlay:
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);

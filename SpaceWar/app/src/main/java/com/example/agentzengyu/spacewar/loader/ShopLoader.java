@@ -73,9 +73,9 @@ public class ShopLoader extends AbstractLoader {
 //                    }
 //
 //                    //护盾库
-//                    for (ShopItem shield : data.getShields()) {
+//                    for (ShopItem setShield : data.getShields()) {
 //                        xmlSerializer.startTag(null, Constant.TAG_SHIELD);
-//                        setAttributes(xmlSerializer, shield);
+//                        setAttributes(xmlSerializer, setShield);
 //                        xmlSerializer.endTag(null, Constant.TAG_SHIELD);
 //                    }
 //
@@ -107,7 +107,7 @@ public class ShopLoader extends AbstractLoader {
 //                    }
 //
 //                    //核弹库
-//                    for (ShopItem nuclear : data.getBombs()) {
+//                    for (ShopItem nuclear : data.getLasers()) {
 //                        xmlSerializer.startTag(null, Constant.TAG_BOMB);
 //                        setAttributes(xmlSerializer, nuclear);
 //                        xmlSerializer.endTag(null, Constant.TAG_BOMB);
@@ -190,8 +190,8 @@ public class ShopLoader extends AbstractLoader {
                                     case Constant.Basic.Item.RANGE:
                                         getAttributes(xmlPullParser, shopLibrary.getRanges(), startName);
                                         break;
-                                    case Constant.Basic.Item.BOMB:
-                                        getAttributes(xmlPullParser, shopLibrary.getBombs(), startName);
+                                    case Constant.Basic.Item.LASER:
+                                        getAttributes(xmlPullParser, shopLibrary.getLasers(), startName);
                                         break;
                                     default:
                                         break;
@@ -223,7 +223,7 @@ public class ShopLoader extends AbstractLoader {
                                     case Constant.Basic.Array.RANGE:
                                         iLoaderCallback.onProcess(++count);
                                         break;
-                                    case Constant.Basic.Array.BOMB:
+                                    case Constant.Basic.Array.LASER:
                                         iLoaderCallback.onProcess(++count);
                                         break;
                                     default:

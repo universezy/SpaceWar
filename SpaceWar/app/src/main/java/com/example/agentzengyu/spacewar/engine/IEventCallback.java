@@ -46,18 +46,18 @@ public interface IEventCallback {
 
     /**
      * 设置护盾
-     *
-     * @param open
+     * @param open 状态
+     * @param cold 冷却
      */
-    void setShield(boolean open,int cold);
+    void setShield(boolean open, int cold);
 
     /**
-     * 更新炸弹
+     * 设置炸弹
      *
-     * @param x
-     * @param y
+     * @param start 状态
+     * @param cold 冷却
      */
-    void updateBomb(float x, float y);
+    void setLaser(boolean start, int cold);
 
     /**
      * 摧毁玩家

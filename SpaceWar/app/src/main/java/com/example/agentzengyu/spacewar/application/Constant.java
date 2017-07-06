@@ -12,7 +12,6 @@ public class Constant {
     public static class BroadCast {
         public final static String STATE = "STATE";
         public final static String LOADING = "LOADING";
-
     }
 
     //游戏
@@ -40,6 +39,8 @@ public class Constant {
             public final static String BULLET = "BULLET";
             public final static String SHIELD_OPEN = "SHIELD_OPEN";
             public final static String SHIELD_CLOSE = "SHIELD_CLOSE";
+            public final static String LASER_START = "LASER_START";
+            public final static String LASER_STOP = "LASER_STOP";
             public final static String DESTROY= "DESTROY";
         }
 
@@ -107,11 +108,11 @@ public class Constant {
             public final static String LIFE = "array-life";
             public final static String AGILITY = "array-agility";
             public final static String DEFENSE = "array-defense";
-            public final static String SHIELD = "array-shield";
+            public final static String SHIELD = "array-setShield";
             public final static String POWER = "array-power";
             public final static String SPEED = "array-speed";
             public final static String RANGE = "array-range";
-            public final static String BOMB = "array-bomb";
+            public final static String LASER = "array-laser";
         }
 
         //存档Item
@@ -119,11 +120,11 @@ public class Constant {
             public final static String LIFE = "life";
             public final static String AGILITY = "agility";
             public final static String DEFENSE = "defense";
-            public final static String SHIELD = "shield";
+            public final static String SHIELD = "setShield";
             public final static String POWER = "power";
             public final static String SPEED = "speed";
             public final static String RANGE = "range";
-            public final static String BOMB = "bomb";
+            public final static String LASER = "laser";
         }
     }
 

@@ -18,7 +18,8 @@ import com.example.agentzengyu.spacewar.R;
 
 public class PlayerView extends View {
     private int shieldColor = Color.parseColor("#30000099");
-    private Paint paintShip, paintShield;
+    private int laserColor = Color.parseColor("#50ff0000");
+    private Paint paintShip, paintShield, paintLaser;
     private Bitmap bitmap;
     private float screenWidth = 0;
     private float screenHeight = 0;
@@ -30,7 +31,9 @@ public class PlayerView extends View {
     private float playerX = 500;
     private float playerY = 1000;
     private boolean openShield = false;
+    private boolean launchLaser = false;
     private boolean init = false;
+    private float laserRange = 0;
 
     public PlayerView(Context context) {
         super(context);
@@ -60,14 +63,20 @@ public class PlayerView extends View {
             init = true;
         }
 
-        float pixelX = this.playerX * moveWidth / 1000 - bitmapWidth / 2;
+        float pixelX = playerX * moveWidth / 1000 - bitmapWidth / 2;
         float pixelY = playerY * moveHeight / 1000;
         canvas.drawBitmap(bitmap, pixelX, pixelY, paintShip);
 
         if (openShield) {
-            float shieldX = this.playerX * moveWidth / 1000;
-            float shielY = playerY * moveHeight / 1000 + bitmapHeight / 2;
-            canvas.drawCircle(shieldX, shielY, radius, paintShield);
+            float shieldX = playerX * moveWidth / 1000;
+            float shieldY = playerY * moveHeight / 1000 + bitmapHeight / 2;
+            canvas.drawCircle(shieldX, shieldY, radius, paintShield);
+        }
+
+        if (launchLaser) {
+            float laserX = playerX * moveWidth / 1000 - laserRange / 2;
+            float laserY = playerY * moveHeight / 1000;
+            canvas.drawRect(laserX, -50, laserX + laserRange, laserY, paintLaser);
         }
     }
 
@@ -83,6 +92,8 @@ public class PlayerView extends View {
         paintShip = new Paint();
         paintShield = new Paint();
         paintShield.setColor(shieldColor);
+        paintLaser = new Paint();
+        paintLaser.setColor(laserColor);
     }
 
     /**
@@ -98,12 +109,31 @@ public class PlayerView extends View {
     }
 
     /**
-     * 护盾
+     * 设置护盾
      *
      * @param open 是否开启
      */
-    public void shield(boolean open) {
+    public void setShield(boolean open) {
         openShield = open;
+        invalidate();
+    }
+
+    /**
+     * 初始化激光
+     *
+     * @param range 范围
+     */
+    public void initLaser(float range) {
+        this.laserRange = range * 5;
+    }
+
+    /**
+     * 设置激光
+     *
+     * @param open
+     */
+    public void setLaser(boolean open) {
+        launchLaser = open;
         invalidate();
     }
 

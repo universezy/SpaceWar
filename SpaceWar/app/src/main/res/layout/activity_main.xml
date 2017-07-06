@@ -163,7 +163,7 @@
 
 
     <com.example.agentzengyu.spacewar.view.CircleImageView
-        android:id="@+id/civBomb"
+        android:id="@+id/civLaser"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"

@@ -66,7 +66,7 @@ public class BulletPlayerView extends View {
         for (Bullet bullet : bullets) {
             float bulletX = bullet.getX() * moveWidth / 1000;
             float bulletY = bullet.getY() * moveHeight / 1000;
-            canvas.drawCircle(bulletX, bulletY, bullet.getRadius() / 10, paintBullet);
+            canvas.drawCircle(bulletX, bulletY, bullet.getRange() / 5, paintBullet);
         }
     }
 

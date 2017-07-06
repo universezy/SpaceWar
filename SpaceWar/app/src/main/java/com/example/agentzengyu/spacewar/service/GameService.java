@@ -102,7 +102,6 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     /********************************* IEventHandle *********************************/
     @Override
     public void shotEnemy() {
-        Log.e(TAG, "shotEnemy");
         engine.shotEnemy();
     }
 
@@ -112,8 +111,8 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     }
 
     @Override
-    public void launchBomb() {
-        engine.launchBomb();
+    public void launchLaser() {
+        engine.launchLaser();
     }
 
     /********************************* IMessageCallback *********************************/
@@ -162,7 +161,6 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
 
     @Override
     public void updatePlayerLocation(float x, float y) {
-//        Log.e(TAG, "updatePlayerLocation");
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.LOCATION);
         intent.putExtra(Constant.Game.Player.X, x);
@@ -172,7 +170,6 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
 
     @Override
     public void updatePlayerBullets(List<Bullet> bullets) {
-//        Log.e(TAG, "updatePlayerBullets");
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
         intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.BULLET);
         intent.putExtra(Constant.Game.Player.BULLET, (Serializable) bullets);
@@ -181,7 +178,6 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
 
     @Override
     public void setShield(boolean open,int cold) {
-        Log.e(TAG, "setShield");
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
         if (open) {
             intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.SHIELD_OPEN);
@@ -194,8 +190,16 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     }
 
     @Override
-    public void updateBomb(float x, float y) {
-        Log.e(TAG, "updateBomb");
+    public void setLaser(boolean start, int cold) {
+        Intent intent = new Intent(Constant.Game.Type.PLAYER);
+        if (start) {
+            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.LASER_START);
+            intent.putExtra(Constant.Game.Player.LASER_START, cold);
+        } else {
+            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.LASER_STOP);
+            intent.putExtra(Constant.Game.Player.LASER_STOP, cold);
+        }
+        sendBroadcast(intent);
     }
 
     @Override

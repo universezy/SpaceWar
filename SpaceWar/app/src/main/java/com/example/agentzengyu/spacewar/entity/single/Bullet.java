@@ -13,14 +13,14 @@ public class Bullet implements Serializable {
     private float X = 0;
     private float Y = 0;
     private float power = 0;
-    private float radius = 0;
+    private float range = 0;
     private float speed = 0;
 
-    public Bullet(float x, float y, float power,float radius, float speed) {
+    public Bullet(float x, float y, float power, float range, float speed) {
         this.X = x;
         this.Y = y;
         this.power = power;
-        this.radius = radius;
+        this.range = range;
         this.speed = speed;
     }
 
@@ -36,8 +36,8 @@ public class Bullet implements Serializable {
         this.power = power;
     }
 
-    public void setRadius(float radius) {
-        this.radius = radius;
+    public void setRange(float range) {
+        this.range = range;
     }
 
     public void setSpeed(int speed) {
@@ -56,8 +56,8 @@ public class Bullet implements Serializable {
         return power;
     }
 
-    public float getRadius() {
-        return radius;
+    public float getRange() {
+        return range;
     }
 
     public float getSpeed() {

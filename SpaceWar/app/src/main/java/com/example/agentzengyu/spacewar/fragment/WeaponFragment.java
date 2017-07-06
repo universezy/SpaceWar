@@ -99,8 +99,8 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
                 shopItems.addAll(app.getShopLibrary().getRanges());
                 break;
             case 3:
-                userItem.add(app.getPlayerData().getBomb());
-                shopItems.addAll(app.getShopLibrary().getBombs());
+                userItem.add(app.getPlayerData().getLaser());
+                shopItems.addAll(app.getShopLibrary().getLasers());
                 break;
             default:
                 break;

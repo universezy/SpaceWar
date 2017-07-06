@@ -19,7 +19,7 @@ public interface IEventHandle {
     void openShield();
 
     /**
-     * 发射炸弹
+     * 发射激光
      */
-    void launchBomb();
+    void launchLaser();
 }

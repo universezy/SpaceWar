@@ -23,7 +23,7 @@ public class ShopLibrary extends AbstractLibrary implements Serializable{
     private ArrayList<ShopItem> powers = new ArrayList<>();
     private ArrayList<ShopItem> speeds = new ArrayList<>();
     private ArrayList<ShopItem> ranges = new ArrayList<>();
-    private ArrayList<ShopItem> bombs = new ArrayList<>();
+    private ArrayList<ShopItem> lasers = new ArrayList<>();
 
     /********** Spaceship getter **********/
     public ArrayList<ShopItem> getLives() {
@@ -55,8 +55,8 @@ public class ShopLibrary extends AbstractLibrary implements Serializable{
         return ranges;
     }
 
-    public ArrayList<ShopItem> getBombs() {
-        return bombs;
+    public ArrayList<ShopItem> getLasers() {
+        return lasers;
     }
 
 }

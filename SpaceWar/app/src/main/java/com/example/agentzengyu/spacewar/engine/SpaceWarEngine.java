@@ -56,6 +56,10 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private Handler shieldHandler = new Handler();
     //护盾子线程
     private Runnable shieldRunnable = null;
+    //激光处理器
+    private Handler laserHandler = new Handler();
+    //激光子线程
+    private Runnable laserRunnable = null;
     //数据镜像
     private PlayerData playerMirror = null;
     private ArrayList<EnemyItem> enemysMirror = null;
@@ -72,8 +76,10 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private int shieldKeep = 5;
     //护盾冷却时间
     private int shieldCold = 0;
-    //炸弹冷却时间
-    private int bombCold = 0;
+    //激光持续时间
+    private int laserKeep = 3;
+    //激光冷却时间
+    private int laserCold = 0;
     //实时重力传感器坐标
     private float GX = 0, GY = 0, GZ = 0;
     //初始重力传感器坐标
@@ -124,6 +130,12 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
             @Override
             public void run() {
                 setShield();
+            }
+        };
+        laserRunnable = new Runnable() {
+            @Override
+            public void run() {
+                setLaser();
             }
         };
         musicPlayer = MusicPlayer.getInstance(context);
@@ -178,7 +190,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         playerRange = playerMirror.getRange().getValue();
         playerPower = playerMirror.getPower().getValue();
         shieldCold = playerMirror.getShield().getValue();
-        bombCold = playerMirror.getBomb().getValue();
+        laserCold = playerMirror.getLaser().getValue();
         iMessageCallback.notifyInitMsg("Loading player data successful.", false);
         try {
             Thread.sleep(500);
@@ -357,8 +369,28 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
             shieldHandler.postDelayed(shieldRunnable, 1000);
         } else {
             shieldCold = playerMirror.getShield().getValue();
-            shieldKeep = 3;
+            shieldKeep = 5;
             iEventCallback.setShield(false, shieldCold);
+        }
+    }
+
+    /**
+     * 设置激光
+     */
+    private void setLaser() {
+        if (laserCold != 0) {
+            if (laserKeep == 0) {
+                iEventCallback.setLaser(false, laserCold);
+            } else {
+                iEventCallback.setLaser(true, laserCold);
+                laserKeep--;
+            }
+            laserCold--;
+            laserHandler.postDelayed(laserRunnable, 1000);
+        } else {
+            laserCold = playerMirror.getLaser().getValue();
+            laserKeep = 3;
+            iEventCallback.setLaser(false, laserCold);
         }
     }
 
@@ -439,6 +471,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     }
 
     @Override
-    public void launchBomb() {
+    public void launchLaser() {
+
     }
 }

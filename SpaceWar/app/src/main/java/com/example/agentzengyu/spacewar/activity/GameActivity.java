@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 import com.example.agentzengyu.spacewar.service.GameService;
@@ -38,10 +39,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private EnemyView enemyView;
     private BulletPlayerView bulletPlayerView;
     private BulletEnemyView bulletEnemyView;
-    private TextView mTvLife, mTvShield, mTvBomb, mTvMap, mTvNotify;
-    private CircleImageView mCivShield, mCivBomb, mCivShot;
+    private TextView mTvLife, mTvShield, mTvLaser, mTvMap, mTvNotify;
+    private CircleImageView mCivShield, mCivLaser, mCivShot;
 
     private SpaceWarApp app = null;
+    private PlayerData playerData = null;
     private GameService service = null;
     private MapReceiver mapReceiver;
     private PlayerReceiver playerReceiver;
@@ -80,17 +82,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mapView = (MapView) findViewById(R.id.mvMap);
         playerView = (PlayerView) findViewById(R.id.pvPlayer);
         enemyView = (EnemyView) findViewById(R.id.evEnemy);
-        bulletPlayerView = (BulletPlayerView)findViewById(R.id.bpvPlayer);
-        bulletEnemyView=(BulletEnemyView)findViewById(R.id.bevEnemy);
+        bulletPlayerView = (BulletPlayerView) findViewById(R.id.bpvPlayer);
+        bulletEnemyView = (BulletEnemyView) findViewById(R.id.bevEnemy);
         mTvLife = (TextView) findViewById(R.id.tvLife);
         mTvShield = (TextView) findViewById(R.id.tvShield);
-        mTvBomb = (TextView) findViewById(R.id.tvBomb);
+        mTvLaser = (TextView) findViewById(R.id.tvLaser);
         mTvMap = (TextView) findViewById(R.id.tvMap);
         mTvNotify = (TextView) findViewById(R.id.tvNotify);
         mCivShield = (CircleImageView) findViewById(R.id.civShield);
         mCivShield.setOnClickListener(this);
-        mCivBomb = (CircleImageView) findViewById(R.id.civBomb);
-        mCivBomb.setOnClickListener(this);
+        mCivLaser = (CircleImageView) findViewById(R.id.civLaser);
+        mCivLaser.setOnClickListener(this);
         mCivShot = (CircleImageView) findViewById(R.id.civShot);
         mCivShot.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -115,6 +117,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initVariable() {
         app = (SpaceWarApp) getApplication();
+        playerData = app.getPlayerData();
         service = app.getGameService();
         mapReceiver = new MapReceiver();
         playerReceiver = new PlayerReceiver();
@@ -149,9 +152,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * @param mapItem 地图
      */
     private void startGame(final MapItem mapItem) {
-        mTvLife.setText("" + app.getPlayerData().getLife().getValue());
-        mTvShield.setText("CD: " + app.getPlayerData().getShield().getValue());
-        mTvBomb.setText("CD: " + app.getPlayerData().getBomb().getValue());
+        mTvLife.setText("" + playerData.getLife().getValue());
+        mTvShield.setText("CD: " + playerData.getShield().getValue());
+        mTvLaser.setText("CD: " + playerData.getLaser().getValue());
+        playerView.initLaser(playerData.getRange().getValue());
         if (mapItem != null) {
             mTvMap.setText(mapItem.getName());
             handlerNotify.postDelayed(new Runnable() {
@@ -160,8 +164,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     service.onPrepare(mapItem);
                 }
             }, 1000);
-        } else {
-
         }
     }
 
@@ -171,8 +173,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.civShield:
                 service.openShield();
                 break;
-            case R.id.civBomb:
-                service.launchBomb();
+            case R.id.civLaser:
+                service.launchLaser();
                 break;
             default:
                 break;
@@ -215,16 +217,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case Constant.Game.Player.SHIELD_OPEN:
                     int coldOpen = intent.getIntExtra(Constant.Game.Player.SHIELD_OPEN, 0);
-                    playerView.shield(true);
+                    playerView.setShield(true);
                     mTvShield.setText("Wait: " + coldOpen);
                     break;
                 case Constant.Game.Player.SHIELD_CLOSE:
                     int coldClose = intent.getIntExtra(Constant.Game.Player.SHIELD_CLOSE, 0);
-                    playerView.shield(false);
-                    if (coldClose == app.getPlayerData().getShield().getValue()) {
-                        mTvShield.setText("CD: " + app.getPlayerData().getShield().getValue());
+                    playerView.setShield(false);
+                    if (coldClose == playerData.getShield().getValue()) {
+                        mTvShield.setText("CD: " + playerData.getShield().getValue());
                     } else {
                         mTvShield.setText("Wait: " + coldClose);
+                    }
+                    break;
+                case Constant.Game.Player.LASER_START:
+                    int coldStart = intent.getIntExtra(Constant.Game.Player.LASER_START, 0);
+                    playerView.setLaser(true);
+                    mTvLaser.setText("Wait: " + coldStart);
+                    break;
+                case Constant.Game.Player.LASER_STOP:
+                    int coldStop = intent.getIntExtra(Constant.Game.Player.LASER_STOP, 0);
+                    playerView.setLaser(false);
+                    if (coldStop == playerData.getLaser().getValue()) {
+                        mTvLaser.setText("CD: " + playerData.getLaser().getValue());
+                    } else {
+                        mTvLaser.setText("Wait: " + coldStop);
                     }
                     break;
                 case Constant.Game.Player.DESTROY:
