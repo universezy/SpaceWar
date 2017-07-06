@@ -63,7 +63,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     public void onViewAttachedToWindow(MenuViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         View view = holder.itemView;
-        Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.welcome_in);
+        Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.activity_in);
         view.startAnimation(animation);
     }
 
@@ -71,7 +71,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     public void onViewDetachedFromWindow(MenuViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
         View view = holder.itemView;
-        Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.welcome_out);
+        Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.activity_out);
         view.startAnimation(animation);
     }
 
@@ -113,22 +113,22 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                         case Constant.Menu.MAIN:
                             Intent intentMain = new Intent(activity, MainActivity.class);
                             activity.startActivity(intentMain);
-                            activity.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
+                            activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         case Constant.Menu.GAME:
                             Intent intentMap = new Intent(activity, GameActivity.class);// MapActivity.class
                             activity.startActivity(intentMap);
-                            activity.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
+                            activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         case Constant.Menu.SHOP:
                             Intent intentShop = new Intent(activity, ShopActivity.class);
                             activity.startActivity(intentShop);
-                            activity.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
+                            activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         case Constant.Menu.SETTING:
                             Intent intentSetting = new Intent(activity, SettingActivity.class);
                             activity.startActivity(intentSetting);
-                            activity.overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
+                            activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         default:
                             break;

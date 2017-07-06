@@ -65,7 +65,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private ArrayList<EnemyItem> enemysMirror = null;
     private ArrayList mapMirror = null;
     //子线程刷新延迟
-    private int delay = 150;
+    private int delay = 100;
     //护盾持续时间
     private int shieldKeep = 5;
     //护盾冷却时间
@@ -84,10 +84,10 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private boolean listenGravitySensor = false;
     //玩家坐标
     private float playerX = 500, playerY = 1000;
-    //移动比例
-    private final static float LOCATION_SCALE = 20;
-    //速度比例
-    private final static float SPEED_SCALE = 1;
+    //玩家速度比例
+    private final static float LOCATION_SCALE = 30;
+    //子弹速度比例
+    private final static float SPEED_SCALE = 3;
     //子弹数组
     private List<Bullet> bulletsPlayer = Collections.synchronizedList(new ArrayList<Bullet>());
     private List<Bullet> bulletsEnemy = Collections.synchronizedList(new ArrayList<Bullet>());
@@ -455,7 +455,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         playerHandler.removeCallbacks(playerRunnable);
 //        enemyHandler.removeCallbacks(enemyRunnable);
         shieldHandler.removeCallbacks(shieldRunnable);
-
+        laserHandler.removeCallbacks(laserRunnable);
     }
 
     /********************************* IEventHandle *********************************/

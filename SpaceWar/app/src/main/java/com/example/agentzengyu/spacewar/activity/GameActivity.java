@@ -69,6 +69,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        handlerNotify.removeCallbacks(runnableNotify);
+        handlerBullet.removeCallbacks(runnableBullet);
         unregisterReceiver(mapReceiver);
         unregisterReceiver(playerReceiver);
         unregisterReceiver(enemyReceiver);
