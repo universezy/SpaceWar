@@ -201,6 +201,7 @@ public class PlayerLoader extends AbstractLoader {
      * @param iLoaderCallback 消息回调
      * @return
      */
+    @Override
     public void read(final ILoaderCallback iLoaderCallback) {
         new Thread(new Runnable() {
             @Override

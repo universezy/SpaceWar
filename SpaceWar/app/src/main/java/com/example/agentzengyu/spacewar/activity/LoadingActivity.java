@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
-import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.service.LoaderService;
 
 /**
@@ -27,7 +25,6 @@ public class LoadingActivity extends AppCompatActivity {
     private ProgressBar mPbLoad;
     private TextView mTvLoad;
 
-    private SpaceWarApp app = null;
     private LoadingReceiver receiver;
     private Handler handler;
     private Runnable runnable;
@@ -61,7 +58,6 @@ public class LoadingActivity extends AppCompatActivity {
      * 初始化变量
      */
     private void initVariable() {
-        app = (SpaceWarApp) getApplication();
         receiver = new LoadingReceiver();
         IntentFilter filter = new IntentFilter(Constant.BroadCast.LOADING);
         registerReceiver(receiver, filter);
@@ -81,8 +77,13 @@ public class LoadingActivity extends AppCompatActivity {
      * 启动服务
      */
     private void startService() {
-        Intent intent = new Intent(LoadingActivity.this, LoaderService.class);
-        startService(intent);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(LoadingActivity.this, LoaderService.class);
+                startService(intent);
+            }
+        }, 2000);
     }
 
     public class LoadingReceiver extends BroadcastReceiver {

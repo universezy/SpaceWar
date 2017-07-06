@@ -20,7 +20,7 @@ public class Constant {
         //类型
         public static class Type{
             public final static String MAP = "MAP";
-            public final static String PLAYER = "Player";
+            public final static String PLAYER = "PLAYER";
             public final static String ENEMY = "ENEMY";
             public final static String NOTIFY = "NOTIFY";
             public final static String STATUS = "STATUS";
@@ -75,7 +75,7 @@ public class Constant {
         //商店
         public final static String SHOP = "SHOP";
         //玩家
-        public final static String PLAYER = "Player";
+        public final static String PLAYER = "PLAYER";
         //地图
         public final static String MAP = "MAP";
         //敌人
@@ -108,7 +108,7 @@ public class Constant {
             public final static String LIFE = "array-life";
             public final static String AGILITY = "array-agility";
             public final static String DEFENSE = "array-defense";
-            public final static String SHIELD = "array-setShield";
+            public final static String SHIELD = "array-shield";
             public final static String POWER = "array-power";
             public final static String SPEED = "array-speed";
             public final static String RANGE = "array-range";
@@ -120,7 +120,7 @@ public class Constant {
             public final static String LIFE = "life";
             public final static String AGILITY = "agility";
             public final static String DEFENSE = "defense";
-            public final static String SHIELD = "setShield";
+            public final static String SHIELD = "shield";
             public final static String POWER = "power";
             public final static String SPEED = "speed";
             public final static String RANGE = "range";

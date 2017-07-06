@@ -64,14 +64,8 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private PlayerData playerMirror = null;
     private ArrayList<EnemyItem> enemysMirror = null;
     private ArrayList mapMirror = null;
-    //玩家子弹速度
-    private float playerSpeed = 0;
-    //玩家移动速度
-    private float playerAgility = 0;
-    //玩家子弹范围
-    private float playerRange = 0;
-    //玩家子弹力量
-    private float playerPower = 0;
+    //子线程刷新延迟
+    private int delay = 150;
     //护盾持续时间
     private int shieldKeep = 5;
     //护盾冷却时间
@@ -90,10 +84,10 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private boolean listenGravitySensor = false;
     //玩家坐标
     private float playerX = 500, playerY = 1000;
-    //移动值比例
-    private final static int LOCATION_SCALE = 20;
+    //移动比例
+    private final static float LOCATION_SCALE = 20;
     //速度比例
-    private final static int SPEED_SCALE = 3;
+    private final static float SPEED_SCALE = 1;
     //子弹数组
     private List<Bullet> bulletsPlayer = Collections.synchronizedList(new ArrayList<Bullet>());
     private List<Bullet> bulletsEnemy = Collections.synchronizedList(new ArrayList<Bullet>());
@@ -102,28 +96,37 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * 私有构造初始化变量
      */
     private SpaceWarEngine(Context context) {
-        app = (SpaceWarApp) context.getApplicationContext();
-        sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if (app == null) {
+            app = (SpaceWarApp) context.getApplicationContext();
+        }
+        if (sensorManager == null) {
+            sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        }
+        if (sensor == null) {
+            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        }
+        if (musicPlayer == null) {
+            musicPlayer = MusicPlayer.getInstance(context);
+        }
         mapRunnable = new Runnable() {
             @Override
             public void run() {
                 updateMapLocation();
-                mapHandler.postDelayed(mapRunnable, 200);
+                mapHandler.postDelayed(mapRunnable, delay);
             }
         };
         playerRunnable = new Runnable() {
             @Override
             public void run() {
                 updatePlayerBullets();
-                playerHandler.postDelayed(playerRunnable, 200);
+                playerHandler.postDelayed(playerRunnable, delay);
             }
         };
         enemyRunnable = new Runnable() {
             @Override
             public void run() {
                 updateEnemyBullets();
-                enemyHandler.postDelayed(enemyRunnable, 200);
+                enemyHandler.postDelayed(enemyRunnable, delay);
             }
         };
         shieldRunnable = new Runnable() {
@@ -138,7 +141,6 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
                 setLaser();
             }
         };
-        musicPlayer = MusicPlayer.getInstance(context);
     }
 
     /**
@@ -185,10 +187,6 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         MirrorCreator creator = new MirrorCreator();
         playerMirror = null;
         playerMirror = (PlayerData) creator.create(playerSource);
-        playerSpeed = playerMirror.getSpeed().getValue();
-        playerAgility = playerMirror.getAgility().getValue();
-        playerRange = playerMirror.getRange().getValue();
-        playerPower = playerMirror.getPower().getValue();
         shieldCold = playerMirror.getShield().getValue();
         laserCold = playerMirror.getLaser().getValue();
         iMessageCallback.notifyInitMsg("Loading player data successful.", false);
@@ -247,8 +245,8 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * @param gz 传入的z坐标
      */
     private void initCoord(float gx, float gy, float gz) {
-        //standard: x=7.0, y=0.0, offset=0.5
-        if (gz > 0.0 && gx > 6.5 && gx < 7.5 && gy > -0.5 && gy < 0.5) {
+        //standard: x=8.0, y=0.0, offset=0.5
+        if (gz > 0.0 && gx > 7.5 && gx < 8.5 && gy > -0.5 && gy < 0.5) {
             iMessageCallback.notifyInitMsg("Initializing gravity sensor successful.", true);
             initGravitySensor = false;
             SX = gx;
@@ -298,7 +296,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * @param Y Y坐标
      */
     private void updatePlayerLocation(float X, float Y) {
-        //TODO upgrade
+        int playerAgility = playerMirror.getAgility().getValue();
         if (X - SX > 0.5) {        //下
             if (playerY != 1000) {
                 playerY += playerAgility / LOCATION_SCALE;
@@ -404,6 +402,10 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         playerY = 1000;
         bulletsPlayer.clear();
         bulletsEnemy.clear();
+        shieldKeep = 5;
+        shieldCold = playerMirror.getShield().getValue();
+        laserKeep = 3;
+        laserCold = playerMirror.getLaser().getValue();
     }
 
     /********************************* IStatusHandle *********************************/
@@ -423,10 +425,11 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     @Override
     public void onStart() {
         Log.e(TAG, "onStart");
+        reset();
 //        musicPlayer.onStart();
-//        mapHandler.postDelayed(mapRunnable, 200);
-        playerHandler.postDelayed(playerRunnable, 200);
-//        enemyHandler.postDelayed(enemyRunnable, 200);
+//        mapHandler.postDelayed(mapRunnable, delay);
+        playerHandler.postDelayed(playerRunnable, delay);
+//        enemyHandler.postDelayed(enemyRunnable, delay);
         listenGravitySensor = true;
     }
 
@@ -458,7 +461,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     /********************************* IEventHandle *********************************/
     @Override
     public synchronized void shotEnemy() {
-        Bullet bullet = new Bullet(playerX, playerY, playerPower, playerRange, playerSpeed);
+        Bullet bullet = new Bullet(playerX, playerY, playerMirror.getPower().getValue(), playerMirror.getRange().getValue(), playerMirror.getSpeed().getValue());
         synchronized (bulletsPlayer) {
             bulletsPlayer.add(bullet);
         }
@@ -472,6 +475,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
 
     @Override
     public void launchLaser() {
-
+        if (laserCold != playerMirror.getLaser().getValue()) return;
+        laserHandler.post(laserRunnable);
     }
 }

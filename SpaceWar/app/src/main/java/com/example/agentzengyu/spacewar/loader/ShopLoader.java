@@ -152,6 +152,7 @@ public class ShopLoader extends AbstractLoader {
      *
      * @param iLoaderCallback 消息回调
      */
+    @Override
     public void read(final ILoaderCallback iLoaderCallback) {
         new Thread(new Runnable() {
             @Override

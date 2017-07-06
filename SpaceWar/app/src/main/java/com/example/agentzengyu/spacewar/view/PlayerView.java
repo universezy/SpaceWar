@@ -17,8 +17,8 @@ import com.example.agentzengyu.spacewar.R;
  */
 
 public class PlayerView extends View {
-    private int shieldColor = Color.parseColor("#30000099");
-    private int laserColor = Color.parseColor("#50ff0000");
+    private int shieldColor = Color.parseColor("#7700bfff");
+    private int laserColor = Color.parseColor("#ddff0000");
     private Paint paintShip, paintShield, paintLaser;
     private Bitmap bitmap;
     private float screenWidth = 0;
@@ -88,7 +88,7 @@ public class PlayerView extends View {
         bitmap = BitmapFactory.decodeResource(getResources(), normalId);
         bitmapWidth = bitmap.getWidth();
         bitmapHeight = bitmap.getHeight();
-        radius = Math.max(bitmapWidth, bitmapHeight);
+        radius = Math.max(bitmapWidth, bitmapHeight) * 2 / 3;
         paintShip = new Paint();
         paintShield = new Paint();
         paintShield.setColor(shieldColor);
@@ -124,7 +124,7 @@ public class PlayerView extends View {
      * @param range 范围
      */
     public void initLaser(float range) {
-        this.laserRange = range * 5;
+        this.laserRange = range * 2;
     }
 
     /**

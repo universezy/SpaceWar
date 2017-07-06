@@ -141,7 +141,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 if (shot) {
                     service.shotEnemy();
                 }
-                handlerBullet.postDelayed(runnableBullet, 500);
+                handlerBullet.postDelayed(runnableBullet, 300);
             }
         };
     }
