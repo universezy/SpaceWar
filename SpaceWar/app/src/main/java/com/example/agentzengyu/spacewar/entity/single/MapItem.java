@@ -8,17 +8,18 @@ import com.example.agentzengyu.spacewar.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 地图类
  */
 public class MapItem implements Serializable {
-    private ArrayList<EnemyItem> enemys  =new ArrayList<>();
+    private List<EnemyItem> enemys  =new ArrayList<>();
     private String name = "";
     private int image = 0;
     private int music = R.raw.dingding;
     // add a mapSource for map
-    private ArrayList mapSource = new ArrayList<>();
+    private List mapSource = new ArrayList<>();
 
     public MapItem(){
 
@@ -36,11 +37,11 @@ public class MapItem implements Serializable {
         this.music = music;
     }
 
-    public ArrayList<EnemyItem> getEnemys() {
+    public List<EnemyItem> getEnemys() {
         return enemys;
     }
 
-    public ArrayList getMapSource() {
+    public List getMapSource() {
         return mapSource;
     }
 

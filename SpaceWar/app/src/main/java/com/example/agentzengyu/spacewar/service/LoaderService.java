@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
+import com.example.agentzengyu.spacewar.database.PlayerDaoImpl;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.loader.ILoaderCallback;
 import com.example.agentzengyu.spacewar.loader.PlayerLoader;
 import com.example.agentzengyu.spacewar.loader.ShopLoader;
@@ -21,6 +23,7 @@ import java.io.InputStream;
 public class LoaderService extends Service {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
+    PlayerDaoImpl playerDao;
 
     @Override
     public void onCreate() {
@@ -28,13 +31,13 @@ public class LoaderService extends Service {
         super.onCreate();
         app = (SpaceWarApp) getApplication();
         app.setLoaderService(this);
-        initShopData();
     }
 
     @Override
     public void onStart(Intent intent, int startId) {
         Log.e(TAG, "onStart.");
         super.onStart(intent, startId);
+        initShopData();
     }
 
     @Override
@@ -76,7 +79,7 @@ public class LoaderService extends Service {
                     intent.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
                     intent.putExtra(Constant.Status.PROGRESS, 100);
                     sendBroadcast(intent);
-                    initPlayerData();
+                    initPlayerData(1);
                 }
 
                 @Override
@@ -94,6 +97,18 @@ public class LoaderService extends Service {
             });
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void initPlayerData(int i) {
+        Log.e("initPlayerData", "initPlayerData");
+         playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
+        PlayerData data = playerDao.read();
+        if (data == null) {
+            Log.e("data", "null");
+            initPlayerData();
+        } else {
+            Log.e("data", "exist");
         }
     }
 
@@ -127,7 +142,8 @@ public class LoaderService extends Service {
                         intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
                         intent.putExtra(Constant.Status.PROGRESS, 100);
                         sendBroadcast(intent);
-                        savePlayerData(true);
+//                        savePlayerData(true);
+                        playerDao.save(app.getPlayerData());
                     }
 
                     @Override

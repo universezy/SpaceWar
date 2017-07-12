@@ -20,7 +20,9 @@ public class MusicPlayer {
 
     private MusicPlayer(Context context) {
         this.context = context;
-        vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        if (vibrator == null) {
+            vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        }
     }
 
     public static MusicPlayer getInstance(Context context) {

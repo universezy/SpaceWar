@@ -13,14 +13,14 @@ import java.io.ObjectOutputStream;
 /**
  * 镜像创建器
  */
-public class MirrorCreator {
+public class MirrorBuilder {
     /**
      * 创建镜像
      *
      * @param source 数据源
      * @return 镜像
      */
-    public Object create(Object source) {
+    public Object buildMirror(Object source) {
         Object mirror = null;
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

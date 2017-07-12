@@ -183,10 +183,10 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * @param enemySource  敌人资源
      * @param mapSource    地图资源
      */
-    private void loadMirror(PlayerData playerSource, ArrayList<EnemyItem> enemySource, ArrayList mapSource) {
-        MirrorCreator creator = new MirrorCreator();
+    private void loadMirror(PlayerData playerSource, List<EnemyItem> enemySource, List mapSource) {
+        MirrorBuilder creator = new MirrorBuilder();
         playerMirror = null;
-        playerMirror = (PlayerData) creator.create(playerSource);
+        playerMirror = (PlayerData) creator.buildMirror(playerSource);
         shieldCold = playerMirror.getShield().getValue();
         laserCold = playerMirror.getLaser().getValue();
         iMessageCallback.notifyInitMsg("Loading player data successful.", false);
@@ -196,7 +196,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
             e.printStackTrace();
         }
         enemysMirror = null;
-        enemysMirror = (ArrayList<EnemyItem>) creator.create(enemySource);
+        enemysMirror = (ArrayList<EnemyItem>) creator.buildMirror(enemySource);
         iMessageCallback.notifyInitMsg("Loading enemy data successful.", false);
         try {
             Thread.sleep(500);
@@ -204,7 +204,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
             e.printStackTrace();
         }
         mapMirror = null;
-        mapMirror = (ArrayList) creator.create(mapSource);
+        mapMirror = (ArrayList) creator.buildMirror(mapSource);
         iMessageCallback.notifyInitMsg("Loading map data successful.", false);
         try {
             Thread.sleep(500);
@@ -403,8 +403,9 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         bulletsPlayer.clear();
         bulletsEnemy.clear();
         shieldKeep = 5;
-        shieldCold = playerMirror.getShield().getValue();
         laserKeep = 3;
+        if (playerMirror == null) return;
+        shieldCold = playerMirror.getShield().getValue();
         laserCold = playerMirror.getLaser().getValue();
     }
 
@@ -448,7 +449,6 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     @Override
     public void onStop() {
         Log.e(TAG, "onStop");
-        reset();
         sensorManager.unregisterListener(this);
 //        musicPlayer.onStop();
 //        mapHandler.removeCallbacks(mapRunnable);

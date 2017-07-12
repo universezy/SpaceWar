@@ -93,7 +93,6 @@ public class PlayerData  extends AbstractLibrary implements Serializable {
     }
 
     /********** Money **********/
-
     public void setMoney(int money) {
         this.money = money;
     }

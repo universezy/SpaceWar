@@ -26,7 +26,7 @@ public class LoadingActivity extends AppCompatActivity {
     private TextView mTvLoad;
 
     private LoadingReceiver receiver;
-    private Handler handler;
+    private Handler handler= new Handler();
     private Runnable runnable;
 
     @Override
@@ -61,7 +61,6 @@ public class LoadingActivity extends AppCompatActivity {
         receiver = new LoadingReceiver();
         IntentFilter filter = new IntentFilter(Constant.BroadCast.LOADING);
         registerReceiver(receiver, filter);
-        handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -85,6 +84,7 @@ public class LoadingActivity extends AppCompatActivity {
             }
         }, 2000);
     }
+
 
     public class LoadingReceiver extends BroadcastReceiver {
         @Override

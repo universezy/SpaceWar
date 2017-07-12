@@ -4,6 +4,7 @@ import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Agent ZengYu on 2017/6/20.
@@ -14,48 +15,48 @@ import java.util.ArrayList;
  */
 public class ShopLibrary extends AbstractLibrary implements Serializable{
     /********** Spaceship initialize **********/
-    private ArrayList<ShopItem> lives = new ArrayList<>();
-    private ArrayList<ShopItem> defenses = new ArrayList<>();
-    private ArrayList<ShopItem> agilities = new ArrayList<>();
-    private ArrayList<ShopItem> shields = new ArrayList<>();
+    private List<ShopItem> lives = new ArrayList<>();
+    private List<ShopItem> defenses = new ArrayList<>();
+    private List<ShopItem> agilities = new ArrayList<>();
+    private List<ShopItem> shields = new ArrayList<>();
 
     /********** Weapon initialize **********/
-    private ArrayList<ShopItem> powers = new ArrayList<>();
-    private ArrayList<ShopItem> speeds = new ArrayList<>();
-    private ArrayList<ShopItem> ranges = new ArrayList<>();
-    private ArrayList<ShopItem> lasers = new ArrayList<>();
+    private List<ShopItem> powers = new ArrayList<>();
+    private List<ShopItem> speeds = new ArrayList<>();
+    private List<ShopItem> ranges = new ArrayList<>();
+    private List<ShopItem> lasers = new ArrayList<>();
 
     /********** Spaceship getter **********/
-    public ArrayList<ShopItem> getLives() {
+    public List<ShopItem> getLives() {
         return lives;
     }
 
-    public ArrayList<ShopItem> getDefenses() {
+    public List<ShopItem> getDefenses() {
         return defenses;
     }
 
-    public ArrayList<ShopItem> getAgilities() {
+    public List<ShopItem> getAgilities() {
         return agilities;
     }
 
-    public ArrayList<ShopItem> getShields() {
+    public List<ShopItem> getShields() {
         return shields;
     }
 
     /********** Weapon getter **********/
-    public ArrayList<ShopItem> getPowers() {
+    public List<ShopItem> getPowers() {
         return powers;
     }
 
-    public ArrayList<ShopItem> getSpeeds() {
+    public List<ShopItem> getSpeeds() {
         return speeds;
     }
 
-    public ArrayList<ShopItem> getRanges() {
+    public List<ShopItem> getRanges() {
         return ranges;
     }
 
-    public ArrayList<ShopItem> getLasers() {
+    public List<ShopItem> getLasers() {
         return lasers;
     }
 

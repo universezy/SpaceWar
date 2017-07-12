@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Agent ZengYu on 2017/6/21.
@@ -30,122 +30,6 @@ public class ShopLoader extends AbstractLoader {
         super(abstractLibrary, file, inputStream);
         this.shopLibrary = (ShopLibrary) abstractLibrary;
     }
-
-    /**
-     * 存档
-     *
-     * @param callBack 消息回调
-     * @return
-     */
-//    private void save(final ILoaderCallback callBack) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    FileOutputStream fos = new FileOutputStream(file);
-//                    XmlSerializer xmlSerializer = Xml.newSerializer();
-//                    xmlSerializer.setOutput(fos, "utf-8");
-//                    xmlSerializer.startDocument("utf-8", true);
-//                    xmlSerializer.startTag(null, Constant.TAG_SHOP);
-//
-//                    //战舰库开始
-//                    xmlSerializer.startTag(null, Constant.TAG_SHIP);
-//
-//                    //生命库
-//                    for (ShopItem life : data.getLives()) {
-//                        xmlSerializer.startTag(null, Constant.TAG_LIFE);
-//                        setAttributes(xmlSerializer, life);
-//                        xmlSerializer.endTag(null, Constant.TAG_LIFE);
-//                    }
-//
-//                    //防御库
-//                    for (ShopItem defense : data.getDefenses()) {
-//                        xmlSerializer.startTag(null, Constant.TAG_DEFENSE);
-//                        setAttributes(xmlSerializer, defense);
-//                        xmlSerializer.endTag(null, Constant.TAG_DEFENSE);
-//                    }
-//
-//                    //敏捷库
-//                    for (ShopItem agility : data.getAgilities()) {
-//                        xmlSerializer.startTag(null, Constant.TAG_AGILITY);
-//                        setAttributes(xmlSerializer, agility);
-//                        xmlSerializer.endTag(null, Constant.TAG_AGILITY);
-//                    }
-//
-//                    //护盾库
-//                    for (ShopItem setShield : data.getShields()) {
-//                        xmlSerializer.startTag(null, Constant.TAG_SHIELD);
-//                        setAttributes(xmlSerializer, setShield);
-//                        xmlSerializer.endTag(null, Constant.TAG_SHIELD);
-//                    }
-//
-//                    //战舰库结束
-//                    xmlSerializer.endTag(null, Constant.TAG_SHIP);
-//
-//                    //武器库开始
-//                    xmlSerializer.startTag(null, Constant.TAG_WEAPON);
-//
-//                    //力量库
-//                    for (ShopItem power : data.getPowers()) {
-//                        xmlSerializer.startTag(null, Constant.TAG_POWER);
-//                        setAttributes(xmlSerializer, power);
-//                        xmlSerializer.endTag(null, Constant.TAG_POWER);
-//                    }
-//
-//                    //速度库
-//                    for (ShopItem speed : data.getSpeeds()) {
-//                        xmlSerializer.startTag(null, Constant.TAG_SPEED);
-//                        setAttributes(xmlSerializer, speed);
-//                        xmlSerializer.endTag(null, Constant.TAG_SPEED);
-//                    }
-//
-//                    //范围库
-//                    for (ShopItem range : data.getRanges()) {
-//                        xmlSerializer.startTag(null, Constant.TAG_RANGE);
-//                        setAttributes(xmlSerializer, range);
-//                        xmlSerializer.endTag(null, Constant.TAG_RANGE);
-//                    }
-//
-//                    //核弹库
-//                    for (ShopItem nuclear : data.getLasers()) {
-//                        xmlSerializer.startTag(null, Constant.TAG_BOMB);
-//                        setAttributes(xmlSerializer, nuclear);
-//                        xmlSerializer.endTag(null, Constant.TAG_BOMB);
-//                    }
-//
-//                    //武器库结束
-//                    xmlSerializer.endTag(null, Constant.TAG_WEAPON);
-//
-//                    xmlSerializer.endTag(null, Constant.TAG_SHOP);
-//
-//                    xmlSerializer.endDocument();
-//                    fos.close();
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-//    }
-//
-//    /**
-//     * 存档时设置属性
-//     *
-//     * @param xmlSerializer 解析器对象
-//     * @param item          存档商品
-//     */
-//    private void setAttributes(XmlSerializer xmlSerializer, ShopItem item) {
-//        try {
-//            xmlSerializer.attribute(null, Constant.TAG_NAME, item.getName());
-//            xmlSerializer.attribute(null, Constant.TAG_VALUE, ""+item.getValue());
-//            xmlSerializer.attribute(null, Constant.TAG_LEVEL, "" + item.getLevel());
-//            xmlSerializer.attribute(null, Constant.TAG_FEE, "" + item.getFee());
-//            xmlSerializer.attribute(null, Constant.TAG_IMAGE, "" + item.getImage());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     /**
      * 读档
@@ -255,7 +139,7 @@ public class ShopLoader extends AbstractLoader {
      * @param items         商品数组
      * @param endTagName    结束标志
      */
-    private void getAttributes(XmlPullParser xmlPullParser, ArrayList<ShopItem> items, String endTagName) {
+    private void getAttributes(XmlPullParser xmlPullParser, List<ShopItem> items, String endTagName) {
         try {
             Thread.sleep(50);
         } catch (InterruptedException e) {

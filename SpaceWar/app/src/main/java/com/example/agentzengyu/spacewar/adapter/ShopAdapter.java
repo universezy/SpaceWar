@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Agent ZengYu on 2017/6/20.
@@ -23,11 +23,11 @@ import java.util.ArrayList;
  */
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder> {
     private LayoutInflater inflater;
-    private ArrayList<ShopItem> userItem = null;
-    private ArrayList<ShopItem> shopItems = null;
+    private List<ShopItem> userItem = null;
+    private List<ShopItem> shopItems = null;
     private int[] upgrade = null;
 
-    public ShopAdapter(Activity context, ArrayList<ShopItem> userItem, ArrayList<ShopItem> shopItems) {
+    public ShopAdapter(Activity context, List<ShopItem> userItem, List<ShopItem> shopItems) {
         this.userItem = userItem;
         this.shopItems = shopItems;
         inflater = LayoutInflater.from(context);
