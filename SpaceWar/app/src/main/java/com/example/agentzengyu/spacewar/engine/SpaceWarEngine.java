@@ -416,7 +416,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         new Thread(new Runnable() {
             @Override
             public void run() {
-                loadMirror(app.getPlayerData(), mapItem.getEnemys(), mapItem.getMapSource());
+                loadMirror(app.getPlayerData(), mapItem.getNormalEnemys(), mapItem.getMapSource());
                 loadMusic(mapItem.getMusic());
                 initGravitySensorCoord();
             }

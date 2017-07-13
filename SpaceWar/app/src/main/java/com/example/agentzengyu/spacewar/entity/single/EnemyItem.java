@@ -10,25 +10,21 @@ import java.io.Serializable;
  * 敌人类
  */
 public class EnemyItem implements Serializable {
-    private int imageResId = 0;
-    private boolean isBoss = false;
+    private String name = "";
     private int life = 0;
     private int defense = 0;
     private int agility = 0;
     private int power = 0;
     private int speed = 0;
     private int range = 0;
+    private String image = "";
 
     public EnemyItem() {
 
     }
 
-    public void setImageResId(int imageResId) {
-        this.imageResId = imageResId;
-    }
-
-    public void setBoss(boolean isBoss) {
-        this.isBoss = isBoss;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setLife(int life) {
@@ -55,12 +51,12 @@ public class EnemyItem implements Serializable {
         this.range = range;
     }
 
-    public int getImageResId() {
-        return imageResId;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public boolean isBoss() {
-        return isBoss;
+    public String getName() {
+        return name;
     }
 
     public int getLife() {
@@ -85,5 +81,9 @@ public class EnemyItem implements Serializable {
 
     public int getRange() {
         return range;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

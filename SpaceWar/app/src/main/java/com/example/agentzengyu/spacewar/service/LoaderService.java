@@ -6,8 +6,11 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
+import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
+import com.example.agentzengyu.spacewar.database.map.MapDaoImpl;
 import com.example.agentzengyu.spacewar.database.player.PlayerDaoImpl;
 import com.example.agentzengyu.spacewar.database.shop.ShopDaoImpl;
+import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.set.ShopLibrary;
 import com.example.agentzengyu.spacewar.entity.single.UserInfo;
@@ -18,8 +21,10 @@ import com.example.agentzengyu.spacewar.entity.single.UserInfo;
 public class LoaderService extends Service {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
-    private PlayerDaoImpl playerDao = null;
     private ShopDaoImpl shopDao = null;
+    private PlayerDaoImpl playerDao = null;
+    private EnemyDaoImpl enemyDao = null;
+    private MapDaoImpl mapDao = null;
 
     @Override
     public void onCreate() {
@@ -27,8 +32,9 @@ public class LoaderService extends Service {
         super.onCreate();
         app = (SpaceWarApp) getApplication();
         app.setLoaderService(this);
-        playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
         shopDao = ShopDaoImpl.getInstance(getApplicationContext());
+        playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
+        enemyDao = EnemyDaoImpl.getInstance(getApplicationContext());
     }
 
     @Override
@@ -54,8 +60,8 @@ public class LoaderService extends Service {
     private void loadData() {
         loadShopData();
         loadPlayerData();
-        loadMapData();
         loadEnemyData();
+        loadMapData();
     }
 
     private void loadShopData() {
@@ -79,15 +85,21 @@ public class LoaderService extends Service {
             data.setRange(app.getShopLibrary().getRanges().get(0));
             data.setLaser(app.getShopLibrary().getLasers().get(0));
             data.setInfo(new UserInfo("New User", 1000));
+            playerDao.update(data);
         }
         app.setPlayerData(data);
     }
 
-    private void loadMapData() {
+    private void loadEnemyData() {
+        EnemyLibrary library =enemyDao.findAll();
+        if (library!=null){
+            app.setEnemyLibrary(library);
+        }else {
 
+        }
     }
 
-    private void loadEnemyData() {
+    private void loadMapData() {
 
     }
 
@@ -97,6 +109,12 @@ public class LoaderService extends Service {
         }
         if (playerDao != null) {
             playerDao.close();
+        }
+        if (enemyDao != null) {
+            enemyDao.close();
+        }
+        if (mapDao != null) {
+            mapDao.close();
         }
     }
 }

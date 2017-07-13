@@ -89,7 +89,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
 
         public ShopViewHolder(View itemView) {
             super(itemView);
-            mTvUpgradedFee = (TextView) itemView.findViewById(R.id.tvUpgradedFee);
+            mTvUpgradedFee = (TextView) itemView.findViewById(R.id.tvUpgradedPrice);
             mIvUpgrade = (ImageView) itemView.findViewById(R.id.ivUpgrade);
 
             mIvPlayer = (ImageView) itemView.findViewById(R.id.ivPlayer);

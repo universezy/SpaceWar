@@ -7,12 +7,23 @@
     tools:activity="com.example.agentzengyu.spacewar.activity.MainActivity">
 
     <TextView
-        android:id="@+id/tvMoney"
+        android:id="@+id/tvUser"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/ic_launcher"
+        android:gravity="center"
+        android:text="Money" />
+
+    <TextView
+        android:id="@+id/tvMoney"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
         android:background="@mipmap/ic_launcher"
         android:gravity="center"
         android:text="Money" />

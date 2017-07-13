@@ -7,14 +7,13 @@ package com.example.agentzengyu.spacewar.entity.set;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 地图库
  */
 public class MapLibrary implements Serializable {
-    private List<MapItem> maps = new ArrayList<>();
+    private List<MapItem> maps = null;
 
     public List<MapItem> getMaps() {
         return maps;

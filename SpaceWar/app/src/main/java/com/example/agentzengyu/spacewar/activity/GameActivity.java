@@ -159,7 +159,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mTvLaser.setText("CD: " + playerData.getLaser().getValue());
         playerView.initLaser(playerData.getRange().getValue());
         if (mapItem != null) {
-            mTvMap.setText(mapItem.getName());
+            mTvMap.setText(mapItem.getMapName());
             handlerNotify.postDelayed(new Runnable() {
                 @Override
                 public void run() {

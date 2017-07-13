@@ -24,7 +24,7 @@ import com.example.agentzengyu.spacewar.view.CircleImageView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private SpaceWarApp app = null;
 
-    private TextView mTvMoney;
+    private TextView mTvUser, mTvMoney;
     private Button mBtnPlay;
     private CircleImageView mCivLift, mCivDefense, mCivAgility, mCivShield;
     private CircleImageView mCivPower, mCivSpeed, mCivRange, mCivBomb;
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化布局
      */
     private void initView() {
+        mTvUser = (TextView) findViewById(R.id.tvUser);
+        mTvUser.setText(app.getPlayerData().getInfo().getName());
         mTvMoney = (TextView) findViewById(R.id.tvMoney);
         mTvMoney.setText("$" + app.getPlayerData().getInfo().getMoney());
         mBtnPlay = (Button) findViewById(R.id.btnPlay);

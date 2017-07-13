@@ -7,15 +7,22 @@ package com.example.agentzengyu.spacewar.entity.set;
 import com.example.agentzengyu.spacewar.entity.single.EnemyItem;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 敌人库
  */
 public class EnemyLibrary  implements Serializable {
-    private List<EnemyItem> normalEmenys = new ArrayList<>();
-    private List<EnemyItem> bossEmenys = new ArrayList<>();
+    private List<EnemyItem> normalEmenys = null;
+    private List<EnemyItem> bossEmenys = null;
+
+    public void setNormalEmenys(List<EnemyItem> normalEmenys) {
+        this.normalEmenys = normalEmenys;
+    }
+
+    public void setBossEmenys(List<EnemyItem> bossEmenys) {
+        this.bossEmenys = bossEmenys;
+    }
 
     public List<EnemyItem> getNormalEmenys() {
         return normalEmenys;

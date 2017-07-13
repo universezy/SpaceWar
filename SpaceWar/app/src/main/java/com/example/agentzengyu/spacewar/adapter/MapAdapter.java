@@ -43,7 +43,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
     public void onBindViewHolder(MapViewHolder holder, int position) {
         holder.getLlMap().setBackgroundResource(this.data.getMaps().get(position).getImage());
         holder.getLlMap().setTag(data.getMaps().get(position));
-        holder.getTvName().setText(this.data.getMaps().get(position).getName());
+        holder.getTvName().setText(this.data.getMaps().get(position).getMapName());
     }
 
     @Override

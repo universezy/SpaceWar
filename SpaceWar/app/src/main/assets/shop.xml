@@ -2,69 +2,69 @@
 <shop>
     <spaceship>
         <array-life>
-            <life name="Default" fee="0" image="0" level="0" value="800" />
-            <life name="Primary" fee="500" image="0" level="1" value="1000" />
-            <life name="Secondary" fee="1000" image="0" level="2" value="1200" />
-            <life name="Advanced" fee="1500" image="0" level="3" value="1400" />
-            <life name="Ultimate" fee="2000" image="0" level="4" value="1600" />
+            <life mapName="Default" fee="0" image="0" level="0" value="800" />
+            <life mapName="Primary" fee="500" image="0" level="1" value="1000" />
+            <life mapName="Secondary" fee="1000" image="0" level="2" value="1200" />
+            <life mapName="Advanced" fee="1500" image="0" level="3" value="1400" />
+            <life mapName="Ultimate" fee="2000" image="0" level="4" value="1600" />
         </array-life>
 
         <array-defense>
-            <defense name="Default" fee="0" image="0" level="0" value="100" />
-            <defense name="Primary" fee="500" image="0" level="1" value="110" />
-            <defense name="Secondary" fee="1000" image="0" level="2" value="120" />
-            <defense name="Advanced" fee="1500" image="0" level="3" value="130" />
-            <defense name="Ultimate" fee="2000" image="0" level="4" value="140" />
+            <defense mapName="Default" fee="0" image="0" level="0" value="100" />
+            <defense mapName="Primary" fee="500" image="0" level="1" value="110" />
+            <defense mapName="Secondary" fee="1000" image="0" level="2" value="120" />
+            <defense mapName="Advanced" fee="1500" image="0" level="3" value="130" />
+            <defense mapName="Ultimate" fee="2000" image="0" level="4" value="140" />
         </array-defense>
 
         <array-agility>
-            <agility name="Default" fee="0" image="0" level="0" value="100" />
-            <agility name="Primary" fee="500" image="0" level="1" value="110" />
-            <agility name="Secondary" fee="1000" image="0" level="2" value="120" />
-            <agility name="Advanced" fee="1500" image="0" level="3" value="130" />
-            <agility name="Ultimate" fee="2000" image="0" level="4" value="140" />
+            <agility mapName="Default" fee="0" image="0" level="0" value="100" />
+            <agility mapName="Primary" fee="500" image="0" level="1" value="110" />
+            <agility mapName="Secondary" fee="1000" image="0" level="2" value="120" />
+            <agility mapName="Advanced" fee="1500" image="0" level="3" value="130" />
+            <agility mapName="Ultimate" fee="2000" image="0" level="4" value="140" />
         </array-agility>
 
         <array-shield>
-            <shield name="Default" fee="0" image="0" level="0" value="60" />
-            <shield name="Primary" fee="500" image="0" level="1" value="55" />
-            <shield name="Secondary" fee="1000" image="0" level="2" value="50" />
-            <shield name="Advanced" fee="1500" image="0" level="3" value="45" />
-            <shield name="Ultimate" fee="2000" image="0" level="4" value="40" />
+            <shield mapName="Default" fee="0" image="0" level="0" value="60" />
+            <shield mapName="Primary" fee="500" image="0" level="1" value="55" />
+            <shield mapName="Secondary" fee="1000" image="0" level="2" value="50" />
+            <shield mapName="Advanced" fee="1500" image="0" level="3" value="45" />
+            <shield mapName="Ultimate" fee="2000" image="0" level="4" value="40" />
         </array-shield>
     </spaceship>
 
     <weapon>
         <array-power>
-            <power name="Default" fee="0" image="0" level="0" value="100" />
-            <power name="Primary" fee="500" image="0" level="1" value="120" />
-            <power name="Secondary" fee="1000" image="0" level="2" value="140" />
-            <power name="Advanced" fee="1500" image="0" level="3" value="160" />
-            <power name="Ultimate" fee="2000" image="0" level="4" value="180" />
+            <power mapName="Default" fee="0" image="0" level="0" value="100" />
+            <power mapName="Primary" fee="500" image="0" level="1" value="120" />
+            <power mapName="Secondary" fee="1000" image="0" level="2" value="140" />
+            <power mapName="Advanced" fee="1500" image="0" level="3" value="160" />
+            <power mapName="Ultimate" fee="2000" image="0" level="4" value="180" />
         </array-power>
 
         <array-speed>
-            <speed name="Default" fee="0" image="0" level="0" value="100" />
-            <speed name="Primary" fee="500" image="0" level="1" value="110" />
-            <speed name="Secondary" fee="1000" image="0" level="2" value="120" />
-            <speed name="Advanced" fee="1500" image="0" level="3" value="130" />
-            <speed name="Ultimate" fee="2000" image="0" level="4" value="140" />
+            <speed mapName="Default" fee="0" image="0" level="0" value="100" />
+            <speed mapName="Primary" fee="500" image="0" level="1" value="110" />
+            <speed mapName="Secondary" fee="1000" image="0" level="2" value="120" />
+            <speed mapName="Advanced" fee="1500" image="0" level="3" value="130" />
+            <speed mapName="Ultimate" fee="2000" image="0" level="4" value="140" />
         </array-speed>
 
         <array-range>
-            <range name="Default" fee="0" image="0" level="0" value="100" />
-            <range name="Primary" fee="500" image="0" level="1" value="120" />
-            <range name="Secondary" fee="1000" image="0" level="2" value="140" />
-            <range name="Advanced" fee="1500" image="0" level="3" value="160" />
-            <range name="Ultimate" fee="2000" image="0" level="4" value="180" />
+            <range mapName="Default" fee="0" image="0" level="0" value="100" />
+            <range mapName="Primary" fee="500" image="0" level="1" value="120" />
+            <range mapName="Secondary" fee="1000" image="0" level="2" value="140" />
+            <range mapName="Advanced" fee="1500" image="0" level="3" value="160" />
+            <range mapName="Ultimate" fee="2000" image="0" level="4" value="180" />
         </array-range>
 
         <array-laser>
-            <laser name="Default" fee="0" image="0" level="0" value="60" />
-            <laser name="Primary" fee="500" image="0" level="1" value="55" />
-            <laser name="Secondary" fee="1000" image="0" level="2" value="50" />
-            <laser name="Advanced" fee="1500" image="0" level="3" value="45" />
-            <laser name="Ultimate" fee="2000" image="0" level="4" value="40" />
+            <laser mapName="Default" fee="0" image="0" level="0" value="60" />
+            <laser mapName="Primary" fee="500" image="0" level="1" value="55" />
+            <laser mapName="Secondary" fee="1000" image="0" level="2" value="50" />
+            <laser mapName="Advanced" fee="1500" image="0" level="3" value="45" />
+            <laser mapName="Ultimate" fee="2000" image="0" level="4" value="40" />
         </array-laser>
     </weapon>
 </shop>
