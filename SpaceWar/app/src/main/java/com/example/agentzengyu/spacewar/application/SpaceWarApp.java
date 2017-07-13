@@ -20,10 +20,10 @@ import com.example.agentzengyu.spacewar.service.LoaderService;
 public class SpaceWarApp extends Application {
     private LoaderService loaderService = null;
     private GameService gameService = null;
-    private ShopLibrary shopLibrary = new ShopLibrary();
-    private PlayerData playerData = new PlayerData();
-    private MapLibrary mapLibrary = new MapLibrary();
-    private EnemyLibrary enemyLibrary = new EnemyLibrary();
+    private ShopLibrary shopLibrary = null;
+    private PlayerData playerData = null;
+    private MapLibrary mapLibrary = null;
+    private EnemyLibrary enemyLibrary = null;
 
     @Override
     public void onCreate() {
@@ -37,6 +37,22 @@ public class SpaceWarApp extends Application {
         Log.e("SpaceWarApp", "onTerminate.");
         destroyInitService();
         destroyGameService();
+    }
+
+    public void setShopLibrary(ShopLibrary shopLibrary) {
+        this.shopLibrary = shopLibrary;
+    }
+
+    public void setPlayerData(PlayerData playerData) {
+        this.playerData = playerData;
+    }
+
+    public void setMapLibrary(MapLibrary mapLibrary) {
+        this.mapLibrary = mapLibrary;
+    }
+
+    public void setEnemyLibrary(EnemyLibrary enemyLibrary) {
+        this.enemyLibrary = enemyLibrary;
     }
 
     public ShopLibrary getShopLibrary() {
@@ -76,8 +92,8 @@ public class SpaceWarApp extends Application {
     /**
      * 销毁初始化服务
      */
-    public void destroyInitService(){
-        if (loaderService !=null){
+    public void destroyInitService() {
+        if (loaderService != null) {
             loaderService.stopSelf();
             loaderService = null;
         }
@@ -104,10 +120,10 @@ public class SpaceWarApp extends Application {
     /**
      * 销毁初始化服务
      */
-    public void destroyGameService(){
-        if (gameService!=null){
+    public void destroyGameService() {
+        if (gameService != null) {
             gameService.stopSelf();
-           gameService = null;
+            gameService = null;
         }
     }
 }

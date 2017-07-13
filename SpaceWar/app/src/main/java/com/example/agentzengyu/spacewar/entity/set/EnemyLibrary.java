@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 敌人库
  */
-public class EnemyLibrary extends AbstractLibrary implements Serializable {
+public class EnemyLibrary  implements Serializable {
     private List<EnemyItem> normalEmenys = new ArrayList<>();
     private List<EnemyItem> bossEmenys = new ArrayList<>();
 

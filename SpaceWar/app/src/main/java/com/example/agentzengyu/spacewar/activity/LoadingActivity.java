@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
@@ -90,46 +89,6 @@ public class LoadingActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            int progress = intent.getIntExtra(Constant.Status.PROGRESS, 0);
-            if (progress == -1) {
-                Toast.makeText(LoadingActivity.this, "Resource file damaged. Initializing player data.", Toast.LENGTH_SHORT);
-                finish();
-                return;
-            }
-            switch (state) {
-                case Constant.Status.SHOP:
-                    mTvLoad.setText(getResources().getString(R.string.loading_shop));
-                    mPbLoad.setProgress(progress);
-                    if (progress == 100) {
-                        mTvLoad.setText(getResources().getString(R.string.loaded_shop));
-                    }
-                    break;
-                case Constant.Status.PLAYER:
-                    mTvLoad.setText(getResources().getString(R.string.loading_player));
-                    mPbLoad.setProgress(progress);
-                    if (progress == 100) {
-                        mTvLoad.setText(getResources().getString(R.string.loaded_player));
-                        handler.postDelayed(runnable, 800);
-                    }
-                    break;
-                case Constant.Status.MAP:
-                    mTvLoad.setText(getResources().getString(R.string.loading_map));
-                    mPbLoad.setProgress(progress);
-                    if (progress == 100) {
-                        mTvLoad.setText(getResources().getString(R.string.loaded_map));
-                    }
-                    break;
-                case Constant.Status.ENEMY:
-                    mTvLoad.setText(getResources().getString(R.string.loading_enemy));
-                    mPbLoad.setProgress(progress);
-                    if (progress == 100) {
-                        mTvLoad.setText(getResources().getString(R.string.loaded_enemy));
-                        handler.postDelayed(runnable, 800);
-                    }
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }

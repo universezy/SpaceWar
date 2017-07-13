@@ -3,7 +3,6 @@ package com.example.agentzengyu.spacewar.entity.set;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,20 +12,20 @@ import java.util.List;
 /**
  * 商品库
  */
-public class ShopLibrary extends AbstractLibrary implements Serializable{
-    /********** Spaceship initialize **********/
-    private List<ShopItem> lives = new ArrayList<>();
-    private List<ShopItem> defenses = new ArrayList<>();
-    private List<ShopItem> agilities = new ArrayList<>();
-    private List<ShopItem> shields = new ArrayList<>();
+public class ShopLibrary implements Serializable {
+    /********** Spaceship **********/
+    private List<ShopItem> lives = null;
+    private List<ShopItem> defenses = null;
+    private List<ShopItem> agilities = null;
+    private List<ShopItem> shields = null;
 
-    /********** Weapon initialize **********/
-    private List<ShopItem> powers = new ArrayList<>();
-    private List<ShopItem> speeds = new ArrayList<>();
-    private List<ShopItem> ranges = new ArrayList<>();
-    private List<ShopItem> lasers = new ArrayList<>();
+    /********** Weapon **********/
+    private List<ShopItem> powers = null;
+    private List<ShopItem> speeds = null;
+    private List<ShopItem> ranges = null;
+    private List<ShopItem> lasers = null;
 
-    /********** Spaceship getter **********/
+    /********** Spaceship **********/
     public List<ShopItem> getLives() {
         return lives;
     }
@@ -43,7 +42,23 @@ public class ShopLibrary extends AbstractLibrary implements Serializable{
         return shields;
     }
 
-    /********** Weapon getter **********/
+    public void setLives(List<ShopItem> lives) {
+        this.lives = lives;
+    }
+
+    public void setDefenses(List<ShopItem> defenses) {
+        this.defenses = defenses;
+    }
+
+    public void setAgilities(List<ShopItem> agilities) {
+        this.agilities = agilities;
+    }
+
+    public void setShields(List<ShopItem> shields) {
+        this.shields = shields;
+    }
+
+    /********** Weapon **********/
     public List<ShopItem> getPowers() {
         return powers;
     }
@@ -60,4 +75,19 @@ public class ShopLibrary extends AbstractLibrary implements Serializable{
         return lasers;
     }
 
+    public void setPowers(List<ShopItem> powers) {
+        this.powers = powers;
+    }
+
+    public void setSpeeds(List<ShopItem> speeds) {
+        this.speeds = speeds;
+    }
+
+    public void setRanges(List<ShopItem> ranges) {
+        this.ranges = ranges;
+    }
+
+    public void setLasers(List<ShopItem> lasers) {
+        this.lasers = lasers;
+    }
 }

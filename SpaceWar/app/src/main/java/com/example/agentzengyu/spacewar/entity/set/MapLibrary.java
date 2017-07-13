@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 地图库
  */
-public class MapLibrary extends AbstractLibrary implements Serializable {
+public class MapLibrary implements Serializable {
     private List<MapItem> maps = new ArrayList<>();
 
     public List<MapItem> getMaps() {

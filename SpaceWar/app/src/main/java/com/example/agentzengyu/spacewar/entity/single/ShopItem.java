@@ -14,7 +14,7 @@ public class ShopItem implements Serializable{
     private int Value = 0;
     private int Level = 0;
     private int Fee = 0;
-    private int Image = 0;
+    private String Image = "";
 
     public ShopItem(){
     }
@@ -35,7 +35,7 @@ public class ShopItem implements Serializable{
         Fee = fee;
     }
 
-    public void setImage(int image) {
+    public void setImage(String  image) {
         Image = image;
     }
 
@@ -55,7 +55,7 @@ public class ShopItem implements Serializable{
         return Fee;
     }
 
-    public int getImage() {
+    public String  getImage() {
         return Image;
     }
 }

@@ -16,11 +16,10 @@ public class Constant {
 
     //游戏
     public static class Game{
-
         //类型
         public static class Type{
             public final static String MAP = "MAP";
-            public final static String PLAYER = "PLAYER";
+            public final static String PLAYER = "Player";
             public final static String ENEMY = "ENEMY";
             public final static String NOTIFY = "NOTIFY";
             public final static String STATUS = "STATUS";
@@ -58,84 +57,57 @@ public class Constant {
         public final static int SETTING = 3;
     }
 
-    //存档文件名
-    public static class FileName {
-        public final static String PLAYER = "player.xml";
-        public final static String SHOP = "shop.xml";
-        public final static String MAP = "map.xml";
-        public final static String ENEMY = "enemy.xml";
-    }
+    public static class Database{
 
-    //存档状态
-    public static class Status {
-        //进度
-        public final static String PROGRESS = "PROGRESS";
-        //损坏
-        public final static String DESTROY = "DESTROY";
-        //商店
-        public final static String SHOP = "SHOP";
-        //玩家
-        public final static String PLAYER = "PLAYER";
-        //地图
-        public final static String MAP = "MAP";
-        //敌人
-        public final static String ENEMY = "ENEMY";
-    }
+        public static class Shop{
+            public final static String DBName = "DB_SHOP";
 
-    //基础数据存档
-    public static class Basic {
-        //存档类型
-        public static class Type {
-            public final static String SHOP = "shop";
-            public final static String PLAYER = "player";
-            public final static String SHIP = "ship";
-            public final static String WEAPON = "weapon";
-            public final static String MONEY = "money";
-            public final static String SUCCESSFUL = "successful";
+            public static class TableName{
+                public final static String TABLE_LIFE = "TABLE_LIFE";
+                public final static String TABLE_AGILITY = "TABLE_AGILITY";
+                public final static String TABLE_DEFENSE = "TABLE_DEFENSE";
+                public final static String TABLE_SHIELD = "TABLE_SHIELD";
+                public final static String TABLE_POWER = "TABLE_POWER";
+                public final static String TABLE_SPEED = "TABLE_SPEED";
+                public final static String TABLE_RANGE = "TABLE_RANGE";
+                public final static String TABLE_LASER = "TABLE_LASER";
+            }
+
+            public static class ColumnName{
+                public final static String COLUMN_LEVEL = "COLUMN_LEVEL";
+                public final static String COLUMN_NAME = "COLUMN_NAME";
+                public final static String COLUMN_VALUE = "COLUMN_VALUE";
+                public final static String COLUMN_FEE = "COLUMN_FEE";
+                public final static String COLUMN_IMAGE = "COLUMN_IMAGE";
+            }
         }
 
-        //存档item属性
-        public static class Attribution {
-            public final static String NAME = "name";
-            public final static String VALUE = "value";
-            public final static String LEVEL = "level";
-            public final static String FEE = "fee";
-            public final static String IMAGE = "image";
+        public static class Player {
+            public final static String DBName = "DB_PLAYER";
+
+            public static class TableName{
+                public final static String TABLE_LIFE = "TABLE_LIFE";
+                public final static String TABLE_AGILITY = "TABLE_AGILITY";
+                public final static String TABLE_DEFENSE = "TABLE_DEFENSE";
+                public final static String TABLE_SHIELD = "TABLE_SHIELD";
+                public final static String TABLE_POWER = "TABLE_POWER";
+                public final static String TABLE_SPEED = "TABLE_SPEED";
+                public final static String TABLE_RANGE = "TABLE_RANGE";
+                public final static String TABLE_LASER = "TABLE_LASER";
+                public final static String TABLE_INFO = "TABLE_INFO";
+            }
         }
 
-        //存档item数组
-        public static class Array {
-            public final static String LIFE = "array-life";
-            public final static String AGILITY = "array-agility";
-            public final static String DEFENSE = "array-defense";
-            public final static String SHIELD = "array-shield";
-            public final static String POWER = "array-power";
-            public final static String SPEED = "array-speed";
-            public final static String RANGE = "array-range";
-            public final static String LASER = "array-laser";
-        }
+        public static class Map{
+            public final static String DBName = "DB_MAP";
 
-        //存档Item
-        public static class Item {
-            public final static String LIFE = "life";
-            public final static String AGILITY = "agility";
-            public final static String DEFENSE = "defense";
-            public final static String SHIELD = "shield";
-            public final static String POWER = "power";
-            public final static String SPEED = "speed";
-            public final static String RANGE = "range";
-            public final static String LASER = "laser";
+            public static class TableName{
+
+            }
+
+            public static class ColumnName{
+
+            }
         }
     }
-
-    //地图存档
-    public static class Map {
-
-    }
-
-    //敌军存档
-    public static class Enemy {
-
-    }
-
 }

@@ -5,13 +5,14 @@ package com.example.agentzengyu.spacewar.entity.set;
  */
 
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.UserInfo;
 
 import java.io.Serializable;
 
 /**
  * 玩家数据
  */
-public class PlayerData  extends AbstractLibrary implements Serializable {
+public class PlayerData implements Serializable {
     /********** Ship **********/
     private ShopItem life = null;
     private ShopItem defense = null;
@@ -24,7 +25,8 @@ public class PlayerData  extends AbstractLibrary implements Serializable {
     private ShopItem range = null;
     private ShopItem laser = null;
 
-    private int money = 0;
+    /********** UserInfo **********/
+    private UserInfo info = null;
 
     /********** Ship **********/
     public void setLife(ShopItem life) {
@@ -92,12 +94,12 @@ public class PlayerData  extends AbstractLibrary implements Serializable {
         return laser;
     }
 
-    /********** Money **********/
-    public void setMoney(int money) {
-        this.money = money;
+    /********** UserInfo **********/
+    public void setInfo(UserInfo info) {
+        this.info = info;
     }
 
-    public int getMoney() {
-        return money;
+    public UserInfo getInfo() {
+        return info;
     }
 }

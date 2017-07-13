@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initView() {
         mTvMoney = (TextView) findViewById(R.id.tvMoney);
-        mTvMoney.setText("$" + app.getPlayerData().getMoney());
+        mTvMoney.setText("$" + app.getPlayerData().getInfo().getMoney());
         mBtnPlay = (Button) findViewById(R.id.btnPlay);
         mBtnPlay.setOnClickListener(this);
         mCivLift = (CircleImageView) findViewById(R.id.civLife);

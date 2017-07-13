@@ -5,17 +5,12 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.database.PlayerDaoImpl;
+import com.example.agentzengyu.spacewar.database.player.PlayerDaoImpl;
+import com.example.agentzengyu.spacewar.database.shop.ShopDaoImpl;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.loader.ILoaderCallback;
-import com.example.agentzengyu.spacewar.loader.PlayerLoader;
-import com.example.agentzengyu.spacewar.loader.ShopLoader;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import com.example.agentzengyu.spacewar.entity.set.ShopLibrary;
+import com.example.agentzengyu.spacewar.entity.single.UserInfo;
 
 /**
  * 初始化服务
@@ -23,7 +18,8 @@ import java.io.InputStream;
 public class LoaderService extends Service {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
-    PlayerDaoImpl playerDao;
+    private PlayerDaoImpl playerDao = null;
+    private ShopDaoImpl shopDao = null;
 
     @Override
     public void onCreate() {
@@ -31,13 +27,16 @@ public class LoaderService extends Service {
         super.onCreate();
         app = (SpaceWarApp) getApplication();
         app.setLoaderService(this);
+        playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
+        shopDao = ShopDaoImpl.getInstance(getApplicationContext());
     }
 
     @Override
     public void onStart(Intent intent, int startId) {
         Log.e(TAG, "onStart.");
         super.onStart(intent, startId);
-        initShopData();
+        loadData();
+        // initShopData();
     }
 
     @Override
@@ -49,228 +48,55 @@ public class LoaderService extends Service {
     public void onDestroy() {
         Log.e(TAG, "onDestroy.");
         super.onDestroy();
+        closeDatabase();
     }
 
-    /**
-     * 初始化商店数据
-     */
-    public void initShopData() {
-        try {
-            InputStream inputStream = getResources().getAssets().open(Constant.FileName.SHOP);
-            ShopLoader handler = new ShopLoader(app.getShopLibrary(), null, inputStream);
-            handler.read(new ILoaderCallback() {
-                @Override
-                public void onStart(String message) {
-                    Log.e("onStart", message);
-                }
+    private void loadData() {
+        loadShopData();
+        loadPlayerData();
+        loadMapData();
+        loadEnemyData();
+    }
 
-                @Override
-                public void onProcess(int progress) {
-                    Intent intent = new Intent(Constant.BroadCast.LOADING);
-                    intent.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
-                    intent.putExtra(Constant.Status.PROGRESS, progress * 10);
-                    sendBroadcast(intent);
-                }
+    private void loadShopData() {
+        ShopLibrary library = shopDao.findAll();
+        if (library != null) {
+            app.setShopLibrary(library);
+        } else {
 
-                @Override
-                public void onSuccess(String result) {
-                    Log.e("onSuccess", result);
-                    Intent intent = new Intent(Constant.BroadCast.LOADING);
-                    intent.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
-                    intent.putExtra(Constant.Status.PROGRESS, 100);
-                    sendBroadcast(intent);
-                    initPlayerData(1);
-                }
-
-                @Override
-                public void onFailure(String result, Exception e) {
-                    Log.e("onFailure", result);
-                    if (Constant.Status.DESTROY.equals(result)) {
-                        Intent intent = new Intent(Constant.BroadCast.LOADING);
-                        intent.putExtra(Constant.BroadCast.STATE, Constant.Status.SHOP);
-                        intent.putExtra(Constant.Status.PROGRESS, -1);
-                        sendBroadcast(intent);
-                    }
-                    if (e != null)
-                        e.printStackTrace();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    public void initPlayerData(int i) {
-        Log.e("initPlayerData", "initPlayerData");
-         playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
-        PlayerData data = playerDao.read();
+    private void loadPlayerData() {
+        PlayerData data = playerDao.findAll();
         if (data == null) {
-            Log.e("data", "null");
-            initPlayerData();
-        } else {
-            Log.e("data", "exist");
+            data.setLife(app.getShopLibrary().getLives().get(0));
+            data.setDefense(app.getShopLibrary().getDefenses().get(0));
+            data.setAgility(app.getShopLibrary().getAgilities().get(0));
+            data.setShield(app.getShopLibrary().getShields().get(0));
+            data.setPower(app.getShopLibrary().getPowers().get(0));
+            data.setSpeed(app.getShopLibrary().getSpeeds().get(0));
+            data.setRange(app.getShopLibrary().getRanges().get(0));
+            data.setLaser(app.getShopLibrary().getLasers().get(0));
+            data.setInfo(new UserInfo("New User", 1000));
         }
+        app.setPlayerData(data);
     }
 
-    /**
-     * 初始化玩家数据
-     */
-    public void initPlayerData() {
-        final File file = new File(getFilesDir(), Constant.FileName.PLAYER);
-        PlayerLoader handler = new PlayerLoader(app.getPlayerData(), file, null);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-                handler.init(new ILoaderCallback() {
-                    @Override
-                    public void onStart(String message) {
-                        Log.e("onStart", message);
-                    }
+    private void loadMapData() {
 
-                    @Override
-                    public void onProcess(int progress) {
-                        Intent intent = new Intent(Constant.BroadCast.LOADING);
-                        intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                        intent.putExtra(Constant.Status.PROGRESS, progress * 10);
-                        sendBroadcast(intent);
-                    }
+    }
 
-                    @Override
-                    public void onSuccess(String result) {
-                        Log.e("onSuccess", result);
-                        Intent intent = new Intent(Constant.BroadCast.LOADING);
-                        intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                        intent.putExtra(Constant.Status.PROGRESS, 100);
-                        sendBroadcast(intent);
-//                        savePlayerData(true);
-                        playerDao.save(app.getPlayerData());
-                    }
+    private void loadEnemyData() {
 
-                    @Override
-                    public void onFailure(String result, Exception e) {
-                        Log.e("onFailure", result);
-                        if (Constant.Status.DESTROY.equals(result)) {
-                            Intent intent = new Intent(Constant.BroadCast.LOADING);
-                            intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                            intent.putExtra(Constant.Status.PROGRESS, -1);
-                            sendBroadcast(intent);
-                            file.delete();
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
-                            initPlayerData();
-                        }
-                        if (e != null)
-                            e.printStackTrace();
-                    }
-                }, app.getShopLibrary());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return;
-        } else {
-            handler.read(new ILoaderCallback() {
-                @Override
-                public void onStart(String message) {
-                    Log.e("onStart", message);
-                }
+    }
 
-                @Override
-                public void onProcess(int progress) {
-                    Intent intent = new Intent(Constant.BroadCast.LOADING);
-                    intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                    intent.putExtra(Constant.Status.PROGRESS, progress * 10);
-                    sendBroadcast(intent);
-                }
-
-                @Override
-                public void onSuccess(String result) {
-                    Log.e("onSuccess", result);
-                    Intent intent = new Intent(Constant.BroadCast.LOADING);
-                    intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                    intent.putExtra(Constant.Status.PROGRESS, 100);
-                    sendBroadcast(intent);
-                    initMapData();
-                }
-
-                @Override
-                public void onFailure(String result, Exception e) {
-                    Log.e("onFailure", result);
-                    if (Constant.Status.DESTROY.equals(result)) {
-                        Intent intent = new Intent(Constant.BroadCast.LOADING);
-                        intent.putExtra(Constant.BroadCast.STATE, Constant.Status.PLAYER);
-                        intent.putExtra(Constant.Status.PROGRESS, -1);
-                        sendBroadcast(intent);
-                        file.delete();
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e1) {
-                            e1.printStackTrace();
-                        }
-                        initPlayerData();
-                    }
-                    if (e != null)
-                        e.printStackTrace();
-                }
-            });
+    private void closeDatabase() {
+        if (shopDao != null) {
+            shopDao.close();
         }
-    }
-
-    /**
-     * 保存玩家数据
-     */
-    public void savePlayerData(final boolean isInitial) {
-        File file = new File(getFilesDir(), Constant.FileName.PLAYER);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return;
+        if (playerDao != null) {
+            playerDao.close();
         }
-        PlayerLoader handler = new PlayerLoader(app.getPlayerData(), file, null);
-        handler.save(new ILoaderCallback() {
-            @Override
-            public void onStart(String message) {
-                Log.e("onStart", message);
-            }
-
-            @Override
-            public void onProcess(int progress) {
-                Log.e("progress", "" + progress);
-            }
-
-            @Override
-            public void onSuccess(String result) {
-                Log.e("onSuccess", result);
-                if (isInitial) {
-                    initMapData();
-                }
-            }
-
-            @Override
-            public void onFailure(String result, Exception e) {
-                Log.e("onFailure", result);
-                if (e != null)
-                    e.printStackTrace();
-            }
-        });
-    }
-
-    /**
-     * 初始化地图数据
-     */
-    public void initMapData() {
-
-    }
-
-    /**
-     * 初始化敌人数据
-     */
-    public void initEnemyData() {
-
     }
 }

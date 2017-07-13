@@ -1,4 +1,4 @@
-package com.example.agentzengyu.spacewar.database;
+package com.example.agentzengyu.spacewar.database.player;
 
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 
@@ -7,9 +7,9 @@ import com.example.agentzengyu.spacewar.entity.set.PlayerData;
  */
 
 public interface PlayerDao {
-    PlayerData read();
+    PlayerData findAll();
 
-    void save(PlayerData data);
+    void update(PlayerData data);
 
     void close();
 }
