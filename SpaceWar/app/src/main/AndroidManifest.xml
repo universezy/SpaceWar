@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.agentzengyu.spacewar">
 
-    <uses-permission android:mapName="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:mapName="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:mapName=".application.SpaceWarApp"
+        android:name=".application.SpaceWarApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,50 +14,50 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:mapName=".activity.WelcomeActivity"
+            android:name=".activity.WelcomeActivity"
             android:screenOrientation="landscape">
             <intent-filter>
-                <action android:mapName="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:mapName="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-            android:mapName=".activity.MenuActivity"
+            android:name=".activity.MenuActivity"
             android:screenOrientation="landscape" />
 
         <activity
-            android:mapName=".activity.GameActivity"
+            android:name=".activity.GameActivity"
             android:screenOrientation="landscape" />
 
         <activity
-            android:mapName=".activity.ShopActivity"
+            android:name=".activity.ShopActivity"
             android:screenOrientation="landscape" />
 
         <activity
-            android:mapName=".activity.SettingActivity"
+            android:name=".activity.SettingActivity"
             android:screenOrientation="landscape" />
 
         <activity
-            android:mapName=".activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="landscape" />
 
         <activity
-            android:mapName=".activity.LoadingActivity"
+            android:name=".activity.LoadingActivity"
             android:screenOrientation="landscape" />
 
         <activity
-            android:mapName=".activity.MapActivity"
+            android:name=".activity.MapActivity"
             android:screenOrientation="landscape" />
 
         <service
-            android:mapName=".service.LoaderService"
+            android:name=".service.LoaderService"
             android:enabled="true"
             android:exported="true" />
 
         <service
-            android:mapName=".service.GameService"
+            android:name=".service.GameService"
             android:enabled="true"
             android:exported="true" />
     </application>

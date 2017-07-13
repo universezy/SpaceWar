@@ -10,26 +10,26 @@ import java.io.Serializable;
  * 子弹
  */
 public class Bullet implements Serializable {
-    private float X = 0;
-    private float Y = 0;
+    private float x = 0;
+    private float y = 0;
     private float power = 0;
     private float range = 0;
     private float speed = 0;
 
     public Bullet(float x, float y, float power, float range, float speed) {
-        this.X = x;
-        this.Y = y;
+        this.x = x;
+        this.y = y;
         this.power = power;
         this.range = range;
         this.speed = speed;
     }
 
     public void setX(float x) {
-        X = x;
+        this.x = x;
     }
 
     public void setY(float y) {
-        Y = y;
+        this.y = y;
     }
 
     public void setPower(float power) {
@@ -45,11 +45,11 @@ public class Bullet implements Serializable {
     }
 
     public float getX() {
-        return X;
+        return x;
     }
 
     public float getY() {
-        return Y;
+        return y;
     }
 
     public float getPower() {

@@ -42,20 +42,40 @@ public class ShopLibrary implements Serializable {
         return shields;
     }
 
-    public void setLives(List<ShopItem> lives) {
-        this.lives = lives;
+    public boolean setLives(List<ShopItem> lives) {
+        if (lives == null) {
+            return false;
+        } else {
+            this.lives = lives;
+            return true;
+        }
     }
 
-    public void setDefenses(List<ShopItem> defenses) {
-        this.defenses = defenses;
+    public boolean setDefenses(List<ShopItem> defenses) {
+        if (defenses == null) {
+            return false;
+        } else {
+            this.defenses = defenses;
+            return true;
+        }
     }
 
-    public void setAgilities(List<ShopItem> agilities) {
-        this.agilities = agilities;
+    public boolean setAgilities(List<ShopItem> agilities) {
+        if (agilities == null) {
+            return false;
+        } else {
+            this.agilities = agilities;
+            return true;
+        }
     }
 
-    public void setShields(List<ShopItem> shields) {
-        this.shields = shields;
+    public boolean setShields(List<ShopItem> shields) {
+        if (shields == null) {
+            return false;
+        } else {
+            this.shields = shields;
+            return true;
+        }
     }
 
     /********** Weapon **********/
@@ -75,19 +95,39 @@ public class ShopLibrary implements Serializable {
         return lasers;
     }
 
-    public void setPowers(List<ShopItem> powers) {
-        this.powers = powers;
+    public boolean setPowers(List<ShopItem> powers) {
+        if (powers == null) {
+            return false;
+        } else {
+            this.powers = powers;
+            return true;
+        }
     }
 
-    public void setSpeeds(List<ShopItem> speeds) {
-        this.speeds = speeds;
+    public boolean setSpeeds(List<ShopItem> speeds) {
+        if (speeds == null) {
+            return false;
+        } else {
+            this.speeds = speeds;
+            return true;
+        }
     }
 
-    public void setRanges(List<ShopItem> ranges) {
-        this.ranges = ranges;
+    public boolean setRanges(List<ShopItem> ranges) {
+        if (ranges == null) {
+            return false;
+        } else {
+            this.ranges = ranges;
+            return true;
+        }
     }
 
-    public void setLasers(List<ShopItem> lasers) {
-        this.lasers = lasers;
+    public boolean setLasers(List<ShopItem> lasers) {
+        if (lasers == null) {
+            return false;
+        } else {
+            this.lasers = lasers;
+            return true;
+        }
     }
 }

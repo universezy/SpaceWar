@@ -10,10 +10,6 @@ public class UserInfo implements Serializable {
     private String name = "";
     private int money = 0;
 
-    public UserInfo() {
-
-    }
-
     public UserInfo(String name, int money) {
 
     }

@@ -8,6 +8,8 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 
+import com.example.agentzengyu.spacewar.database.ResourceMap;
+
 /**
  * 音乐播放器
  */
@@ -42,8 +44,8 @@ public class MusicPlayer {
      * @param musicSource 音乐资源
      * @return 提示信息
      */
-    public String init(int musicSource) {
-        mediaPlayer = MediaPlayer.create(context, musicSource);
+    public String init(String musicSource) {
+        mediaPlayer = MediaPlayer.create(context, (int) new ResourceMap().getMapMusicMap().get(musicSource));
         mediaPlayer.reset();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override

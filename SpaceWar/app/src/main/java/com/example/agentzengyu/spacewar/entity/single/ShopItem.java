@@ -10,52 +10,52 @@ import java.io.Serializable;
  * 商品类
  */
 public class ShopItem implements Serializable{
-    private String Name = "";
-    private int Value = 0;
-    private int Level = 0;
-    private int Fee = 0;
-    private String Image = "";
+    private String name = "";
+    private int value = 0;
+    private int level = 0;
+    private int price = 0;
+    private String image = "";
 
     public ShopItem(){
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public void setValue(int value) {
-        Value = value;
+        this.value = value;
     }
 
     public void setLevel(int level) {
-        Level = level;
+        this.level = level;
     }
 
-    public void setFee(int fee) {
-        Fee = fee;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public void setImage(String  image) {
-        Image = image;
+        this.image = image;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public int getValue() {
-        return Value;
+        return value;
     }
 
     public int getLevel() {
-        return Level;
+        return level;
     }
 
-    public int getFee() {
-        return Fee;
+    public int getPrice() {
+        return price;
     }
 
     public String  getImage() {
-        return Image;
+        return image;
     }
 }

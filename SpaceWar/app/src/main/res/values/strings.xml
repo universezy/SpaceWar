@@ -1,39 +1,39 @@
 <resources>
-    <string mapName="app_name">SpaceWar</string>
+    <string name="app_name">SpaceWar</string>
 
-    <string mapName="loading_shop">Loading shop library......</string>
-    <string mapName="loading_player">Loading player library......</string>
-    <string mapName="loading_map">Loading map library......</string>
-    <string mapName="loading_enemy">Loading enemy library......</string>
+    <string name="loading_shop">Loading shop library......</string>
+    <string name="loading_player">Loading player library......</string>
+    <string name="loading_map">Loading map library......</string>
+    <string name="loading_enemy">Loading enemy library......</string>
 
-    <string mapName="loaded_shop">Loading shop library successful.</string>
-    <string mapName="loaded_player">Loading player library successful.</string>
-    <string mapName="loaded_map">Loading shop map successful.</string>
-    <string mapName="loaded_enemy">Loading enemy library successful.</string>
+    <string name="loaded_shop">Loading shop library successful.</string>
+    <string name="loaded_player">Loading player library successful.</string>
+    <string name="loaded_map">Loading shop map successful.</string>
+    <string name="loaded_enemy">Loading enemy library successful.</string>
 
-    <string mapName="shop_money">Money</string>
-    <string mapName="shop_upgrade">Upgrade</string>
+    <string name="shop_money">Money</string>
+    <string name="shop_upgrade">Upgrade</string>
 
-    <string mapName="menu_main">Main</string>
-    <string mapName="menu_game">Game</string>
-    <string mapName="menu_shop">Shop</string>
-    <string mapName="menu_setting">Setting</string>
+    <string name="menu_main">Main</string>
+    <string name="menu_game">Game</string>
+    <string name="menu_shop">Shop</string>
+    <string name="menu_setting">Setting</string>
 
-    <string mapName="weapon_power">Power</string>
-    <string mapName="weapon_speed">Speed</string>
-    <string mapName="weapon_range">Range</string>
-    <string mapName="weapon_nuclear">Nuclear</string>
+    <string name="weapon_power">Power</string>
+    <string name="weapon_speed">Speed</string>
+    <string name="weapon_range">Range</string>
+    <string name="weapon_nuclear">Nuclear</string>
 
-    <string mapName="spaceship_life">Life</string>
-    <string mapName="spaceship_defense">Defense</string>
-    <string mapName="spaceship_agility">Agility</string>
-    <string mapName="spaceship_shield">Shield</string>
+    <string name="spaceship_life">Life</string>
+    <string name="spaceship_defense">Defense</string>
+    <string name="spaceship_agility">Agility</string>
+    <string name="spaceship_shield">Shield</string>
 
-    <string mapName="map_one">One</string>
-    <string mapName="map_two">Two</string>
-    <string mapName="map_three">Three</string>
-    <string mapName="map_four">Four</string>
-    <string mapName="map_five">Five</string>
-    <string mapName="map_six">Six</string>
+    <string name="map_one">One</string>
+    <string name="map_two">Two</string>
+    <string name="map_three">Three</string>
+    <string name="map_four">Four</string>
+    <string name="map_five">Five</string>
+    <string name="map_six">Six</string>
 
 </resources>

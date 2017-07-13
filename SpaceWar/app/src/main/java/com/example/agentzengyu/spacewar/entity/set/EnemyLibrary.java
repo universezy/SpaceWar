@@ -13,22 +13,32 @@ import java.util.List;
  * 敌人库
  */
 public class EnemyLibrary  implements Serializable {
-    private List<EnemyItem> normalEmenys = null;
-    private List<EnemyItem> bossEmenys = null;
+    private List<EnemyItem> normalEnemys = null;
+    private List<EnemyItem> bossEnemys = null;
 
-    public void setNormalEmenys(List<EnemyItem> normalEmenys) {
-        this.normalEmenys = normalEmenys;
+    public boolean setNormalEmenys(List<EnemyItem> normalEmenys) {
+        if (normalEmenys == null) {
+            return false;
+        } else {
+            this.normalEnemys = normalEmenys;
+            return true;
+        }
     }
 
-    public void setBossEmenys(List<EnemyItem> bossEmenys) {
-        this.bossEmenys = bossEmenys;
+    public boolean setBossEmenys(List<EnemyItem> bossEmenys) {
+        if (bossEmenys == null) {
+            return false;
+        } else {
+            this.bossEnemys = bossEmenys;
+            return true;
+        }
     }
 
-    public List<EnemyItem> getNormalEmenys() {
-        return normalEmenys;
+    public List<EnemyItem> getNormalEnemys() {
+        return normalEnemys;
     }
 
-    public List<EnemyItem> getBossEmenys() {
-        return bossEmenys;
+    public List<EnemyItem> getBossEnemys() {
+        return bossEnemys;
     }
 }

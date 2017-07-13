@@ -80,9 +80,11 @@ public class EnemyDaoImpl implements EnemyDao {
     @Override
     public EnemyLibrary findAll() {
         EnemyLibrary library = new EnemyLibrary();
-        library.setNormalEmenys(findEachTable(Constant.Database.Enemy.TableName.NORMAL));
-        library.setBossEmenys(findEachTable(Constant.Database.Enemy.TableName.BOSS));
-        return library;
+        if (library.setNormalEmenys(findEachTable(Constant.Database.Enemy.TableName.NORMAL)) &&
+                library.setBossEmenys(findEachTable(Constant.Database.Enemy.TableName.BOSS))) {
+            return library;
+        }
+        return null;
     }
 
     @Override
@@ -92,6 +94,12 @@ public class EnemyDaoImpl implements EnemyDao {
         }
     }
 
+    /**
+     * 查找每张表的数据
+     *
+     * @param tableName 表名
+     * @return
+     */
     private List<EnemyItem> findEachTable(@Constant.Database.Enemy.TableName String tableName) {
         List<EnemyItem> items = null;
         Cursor cursor = database.query(tableName, null, null, null, null, null, null);

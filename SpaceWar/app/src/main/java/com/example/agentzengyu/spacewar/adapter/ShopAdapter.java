@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
+import com.example.agentzengyu.spacewar.database.ResourceMap;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
     @Override
     public void onBindViewHolder(ShopViewHolder holder, int position) {
         if (userItem.size() == 1) {
-//            holder.getmIvPlayer().setImageResource(userItem.get(0).getImage());
+            holder.getmIvPlayer().setImageResource((int) new ResourceMap().getShopMap().get(userItem.get(0).getImage()));
             holder.getmIvPlayer().setImageResource(R.mipmap.ic_launcher_round);
             holder.getmTvPlayerName().setText(userItem.get(0).getName());
             holder.getmTvPlayerLevel().setText(String.valueOf(userItem.get(0).getLevel()));
@@ -57,12 +58,12 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
                 holder.getmBtnUpgrade().setClickable(false);
             }
         }
-//        holder.getmIvUpgraded().setImageResource(shopItems.get(position).getImage());
+        holder.getmIvUpgraded().setImageResource((int) new ResourceMap().getShopMap().get(shopItems.get(0).getImage()));
         holder.getmIvUpgraded().setImageResource(R.mipmap.ic_launcher_round);
         holder.getmTvUpgradedName().setText(shopItems.get(position).getName());
         holder.getmTvUpgradedLevel().setText(String.valueOf(shopItems.get(position).getLevel()));
         holder.getmTvUpgradedValue().setText(String.valueOf(shopItems.get(position).getValue()));
-        holder.getmTvUpgradedFee().setText(String.valueOf(shopItems.get(position).getFee()));
+        holder.getmTvUpgradedPrice().setText(String.valueOf(shopItems.get(position).getPrice()));
     }
 
     @Override
@@ -82,14 +83,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
      */
     public class ShopViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mIvPlayer, mIvUpgraded, mIvUpgrade;
-        private TextView mTvUpgradedFee;
+        private TextView mTvUpgradedPrice;
         private TextView mTvPlayerLevel, mTvPlayerName, mTvPlayerValue;
         private TextView mTvUpgradedLevel, mTvUpgradedName, mTvUpgradedValue;
         private Button mBtnUpgrade;
 
         public ShopViewHolder(View itemView) {
             super(itemView);
-            mTvUpgradedFee = (TextView) itemView.findViewById(R.id.tvUpgradedPrice);
+            mTvUpgradedPrice = (TextView) itemView.findViewById(R.id.tvUpgradedPrice);
             mIvUpgrade = (ImageView) itemView.findViewById(R.id.ivUpgrade);
 
             mIvPlayer = (ImageView) itemView.findViewById(R.id.ivPlayer);
@@ -106,8 +107,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
             mBtnUpgrade.setOnClickListener(this);
         }
 
-        public TextView getmTvUpgradedFee() {
-            return mTvUpgradedFee;
+        public TextView getmTvUpgradedPrice() {
+            return mTvUpgradedPrice;
         }
 
         public ImageView getmIvUpgrade() {

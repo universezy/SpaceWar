@@ -191,6 +191,11 @@ public class Constant {
 
             @Retention(RetentionPolicy.SOURCE)
             public @interface ColumnName {
+                String MAPNAME = "MAPNAME";
+                String IMAGE = "IMAGE";
+                String MUSIC = "MUSIC";
+                String BOSSNAME = "BOSSNAME";
+
                 String NAME1 = "NAME1";
                 String COUNT1 = "COUNT1";
                 String NAME2 = "NAME2";
@@ -211,10 +216,6 @@ public class Constant {
                 String COUNT9 = "COUNT9";
                 String NAME10 = "NAME10";
                 String COUNT10 = "COUNT10";
-                String BOSSNAME = "BOSSNAME";
-                String MAPNAME = "MAPNAME";
-                String IMAGE = "IMAGE";
-                String MUSIC = "MUSIC";
             }
         }
     }

@@ -11,7 +11,6 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
-import com.example.agentzengyu.spacewar.entity.single.EnemyItem;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
 import java.util.ArrayList;
@@ -62,8 +61,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private Runnable laserRunnable = null;
     //数据镜像
     private PlayerData playerMirror = null;
-    private ArrayList<EnemyItem> enemysMirror = null;
-    private ArrayList mapMirror = null;
+    private MapItem mapMirror = null;
     //子线程刷新延迟
     private int delay = 100;
     //护盾持续时间
@@ -180,10 +178,9 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * 加载镜像
      *
      * @param playerSource 玩家资源
-     * @param enemySource  敌人资源
      * @param mapSource    地图资源
      */
-    private void loadMirror(PlayerData playerSource, List<EnemyItem> enemySource, List mapSource) {
+    private void loadMirror(PlayerData playerSource, MapItem mapSource) {
         MirrorBuilder creator = new MirrorBuilder();
         playerMirror = null;
         playerMirror = (PlayerData) creator.buildMirror(playerSource);
@@ -195,17 +192,9 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        enemysMirror = null;
-        enemysMirror = (ArrayList<EnemyItem>) creator.buildMirror(enemySource);
-        iMessageCallback.notifyInitMsg("Loading enemy data successful.", false);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         mapMirror = null;
-        mapMirror = (ArrayList) creator.buildMirror(mapSource);
-        iMessageCallback.notifyInitMsg("Loading map data successful.", false);
+        mapMirror = (MapItem) creator.buildMirror(mapSource);
+        iMessageCallback.notifyInitMsg("Loading enemy data successful.", false);
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -218,7 +207,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      *
      * @param musicSource 音乐资源
      */
-    private void loadMusic(int musicSource) {
+    private void loadMusic(String musicSource) {
         String msg = musicPlayer.init(musicSource);
         iMessageCallback.notifyInitMsg(msg, false);
         try {
@@ -416,7 +405,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         new Thread(new Runnable() {
             @Override
             public void run() {
-                loadMirror(app.getPlayerData(), mapItem.getNormalEnemys(), mapItem.getMapSource());
+                loadMirror(app.getPlayerData(), mapItem);
                 loadMusic(mapItem.getMusic());
                 initGravitySensorCoord();
             }
