@@ -24,8 +24,8 @@ public class MapHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table " + TABLE_NAME + "("
                 + Constant.Database.Map.ColumnName.MAPNAME + " varchar(20) primary key,"
-                + Constant.Database.Map.ColumnName.IMAGE + " varchar(20),"
-                + Constant.Database.Map.ColumnName.MUSIC + " varchar(20),"
+                + Constant.Database.Map.ColumnName.IMAGE + " integer,"
+                + Constant.Database.Map.ColumnName.MUSIC + " integer,"
                 + Constant.Database.Map.ColumnName.BOSSNAME + " varchar(20),"
                 + Constant.Database.Map.ColumnName.NAME1 + " varchar(20),"
                 + Constant.Database.Map.ColumnName.COUNT1 + " integer,"

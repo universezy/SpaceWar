@@ -8,11 +8,6 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.set.ResourceMap;
-import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
-import com.example.agentzengyu.spacewar.database.map.MapDaoImpl;
-import com.example.agentzengyu.spacewar.database.player.PlayerDaoImpl;
-import com.example.agentzengyu.spacewar.database.shop.ShopDaoImpl;
 import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
 import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
@@ -26,10 +21,6 @@ import com.example.agentzengyu.spacewar.entity.single.UserInfo;
 public class LoaderService extends Service {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
-    private ShopDaoImpl shopDao = null;
-    private PlayerDaoImpl playerDao = null;
-    private EnemyDaoImpl enemyDao = null;
-    private MapDaoImpl mapDao = null;
 
     @Override
     public void onCreate() {
@@ -37,10 +28,6 @@ public class LoaderService extends Service {
         super.onCreate();
         app = (SpaceWarApp) getApplication();
         app.setLoaderService(this);
-        shopDao = ShopDaoImpl.getInstance(getApplicationContext());
-        playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
-        enemyDao = EnemyDaoImpl.getInstance(getApplicationContext());
-        mapDao = MapDaoImpl.getInstance(getApplicationContext());
     }
 
     @Override
@@ -59,7 +46,6 @@ public class LoaderService extends Service {
     public void onDestroy() {
         Log.e(TAG, "onDestroy.");
         super.onDestroy();
-        closeDatabase();
     }
 
     /**
@@ -78,7 +64,7 @@ public class LoaderService extends Service {
      */
     private void loadShopData() {
         Log.e(TAG, "loadShopData");
-        ShopLibrary library = shopDao.findAll();
+        ShopLibrary library = app.getShopDao().findAll();
         if (library == null) {
             library = initShopData();
         }
@@ -92,7 +78,7 @@ public class LoaderService extends Service {
      */
     private void loadPlayerData() {
         Log.e(TAG, "loadPlayerData");
-        PlayerData data = playerDao.findAll();
+        PlayerData data = app.getPlayerDao().findAll();
         if (data == null) {
             Log.e("data", "null");
             data = initPlayerData();
@@ -105,7 +91,7 @@ public class LoaderService extends Service {
      */
     private void loadEnemyData() {
         Log.e(TAG, "loadEnemyData");
-        EnemyLibrary library = enemyDao.findAll();
+        EnemyLibrary library = app.getEnemyDao().findAll();
         if (library == null) {
             library = initEnemyData();
         }
@@ -117,7 +103,7 @@ public class LoaderService extends Service {
      */
     private void loadMapData() {
         Log.e(TAG, "loadMapData");
-        MapLibrary library = mapDao.findAll();
+        MapLibrary library = app.getMapDao().findAll();
         if (library == null) {
             library = initMapData();
         }
@@ -132,47 +118,38 @@ public class LoaderService extends Service {
     private ShopLibrary initShopData() {
         Log.e(TAG, "initShopData");
         ShopLibrary library = new ShopLibrary(true);
-        ResourceMap resourceMap = ResourceMap.getInstance();
 
-        ShopItem life1 = new ShopItem("life1", 100, 100, 100, "life1");
-        resourceMap.getShopImageMap().put("life1", R.mipmap.life1);
+        ShopItem life1 = new ShopItem("life1", 100, 100, 100, R.mipmap.life1);
         library.getLives().add(life1);
-        shopDao.insert(Constant.Database.Shop.TableName.LIFE, life1);
+        app.getShopDao().insert(Constant.Database.Shop.TableName.LIFE, life1);
 
-        ShopItem defense1 = new ShopItem("defense1", 100, 100, 100, "defense1");
-        resourceMap.getShopImageMap().put("defense1", R.mipmap.life1);
+        ShopItem defense1 = new ShopItem("defense1", 100, 100, 100, R.mipmap.life1);
         library.getDefenses().add(defense1);
-        shopDao.insert(Constant.Database.Shop.TableName.DEFENSE, defense1);
+        app.getShopDao().insert(Constant.Database.Shop.TableName.DEFENSE, defense1);
 
-        ShopItem agility1 = new ShopItem("agility1", 100, 100, 100, "agility1");
-        resourceMap.getShopImageMap().put("agility1", R.mipmap.life1);
+        ShopItem agility1 = new ShopItem("agility1", 100, 100, 100, R.mipmap.life1);
         library.getAgilities().add(agility1);
-        shopDao.insert(Constant.Database.Shop.TableName.AGILITY, agility1);
+        app.getShopDao().insert(Constant.Database.Shop.TableName.AGILITY, agility1);
 
-        ShopItem shield1 = new ShopItem("shield1", 100, 100, 100, "shield1");
-        resourceMap.getShopImageMap().put("shield1", R.mipmap.ic_launcher_round);
+        ShopItem shield1 = new ShopItem("shield1", 100, 100, 100, R.mipmap.ic_launcher_round);
         library.getShields().add(shield1);
-        shopDao.insert(Constant.Database.Shop.TableName.SHIELD, shield1);
+        app.getShopDao().insert(Constant.Database.Shop.TableName.SHIELD, shield1);
 
-        ShopItem power1 = new ShopItem("power1", 100, 100, 100, "power1");
-        resourceMap.getShopImageMap().put("power1", R.mipmap.life1);
+        ShopItem power1 = new ShopItem("power1", 100, 100, 100, R.mipmap.life1);
         library.getPowers().add(power1);
-        shopDao.insert(Constant.Database.Shop.TableName.POWER, power1);
+        app.getShopDao().insert(Constant.Database.Shop.TableName.POWER, power1);
 
-        ShopItem speed1 = new ShopItem("speed1", 100, 100, 100, "speed1");
-        resourceMap.getShopImageMap().put("speed1", R.mipmap.life1);
+        ShopItem speed1 = new ShopItem("speed1", 100, 100, 100, R.mipmap.life1);
         library.getSpeeds().add(speed1);
-        shopDao.insert(Constant.Database.Shop.TableName.SPEED, speed1);
+        app.getShopDao().insert(Constant.Database.Shop.TableName.SPEED, speed1);
 
-        ShopItem range1 = new ShopItem("range1", 100, 100, 100, "range1");
-        resourceMap.getShopImageMap().put("range1", R.mipmap.life1);
+        ShopItem range1 = new ShopItem("range1", 100, 100, 100, R.mipmap.life1);
         library.getRanges().add(range1);
-        shopDao.insert(Constant.Database.Shop.TableName.RANGE, range1);
+        app.getShopDao().insert(Constant.Database.Shop.TableName.RANGE, range1);
 
-        ShopItem laser1 = new ShopItem("laser1", 100, 100, 100, "laser1");
-        resourceMap.getShopImageMap().put("laser1", R.mipmap.life1);
+        ShopItem laser1 = new ShopItem("laser1", 100, 100, 100, R.mipmap.life1);
         library.getLasers().add(laser1);
-        shopDao.insert(Constant.Database.Shop.TableName.LASER, laser1);
+        app.getShopDao().insert(Constant.Database.Shop.TableName.LASER, laser1);
 
         return library;
     }
@@ -194,7 +171,7 @@ public class LoaderService extends Service {
         data.setRange(app.getShopLibrary().getRanges().get(0));
         data.setLaser(app.getShopLibrary().getLasers().get(0));
         data.setInfo(new UserInfo("New User", 1000));
-        playerDao.update(data);
+        app.getPlayerDao().update(data);
         return data;
     }
 
@@ -222,24 +199,5 @@ public class LoaderService extends Service {
 
         // TODO mapDao.insert()
         return library;
-    }
-
-    /**
-     * 关闭数据库
-     */
-    private void closeDatabase() {
-        Log.e(TAG, "closeDatabase");
-        if (shopDao != null) {
-            shopDao.close();
-        }
-        if (playerDao != null) {
-            playerDao.close();
-        }
-        if (enemyDao != null) {
-            enemyDao.close();
-        }
-        if (mapDao != null) {
-            mapDao.close();
-        }
     }
 }

@@ -17,7 +17,7 @@ public class EnemyItem implements Serializable {
     private int power = 0;
     private int speed = 0;
     private int range = 0;
-    private String image = "";
+    private int image = 0;
 
     public EnemyItem() {
 
@@ -51,7 +51,7 @@ public class EnemyItem implements Serializable {
         this.range = range;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
@@ -83,7 +83,7 @@ public class EnemyItem implements Serializable {
         return range;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 }

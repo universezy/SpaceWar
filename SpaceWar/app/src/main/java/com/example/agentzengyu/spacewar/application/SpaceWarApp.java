@@ -3,6 +3,10 @@ package com.example.agentzengyu.spacewar.application;
 import android.app.Application;
 import android.util.Log;
 
+import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
+import com.example.agentzengyu.spacewar.database.map.MapDaoImpl;
+import com.example.agentzengyu.spacewar.database.player.PlayerDaoImpl;
+import com.example.agentzengyu.spacewar.database.shop.ShopDaoImpl;
 import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
 import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
@@ -18,25 +22,39 @@ import com.example.agentzengyu.spacewar.service.LoaderService;
  * 应用类，全局管理
  */
 public class SpaceWarApp extends Application {
+    private static String TAG = null;
+
     private LoaderService loaderService = null;
     private GameService gameService = null;
+
     private ShopLibrary shopLibrary = null;
     private PlayerData playerData = null;
     private MapLibrary mapLibrary = null;
     private EnemyLibrary enemyLibrary = null;
 
+    private ShopDaoImpl shopDao = null;
+    private PlayerDaoImpl playerDao = null;
+    private EnemyDaoImpl enemyDao = null;
+    private MapDaoImpl mapDao = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("SpaceWarApp", "onCreate.");
+        TAG = getApplicationContext().getClass().getName();
+        Log.e(TAG, "onCreate.");
+        shopDao = ShopDaoImpl.getInstance(getApplicationContext());
+        playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
+        enemyDao = EnemyDaoImpl.getInstance(getApplicationContext());
+        mapDao = MapDaoImpl.getInstance(getApplicationContext());
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-        Log.e("SpaceWarApp", "onTerminate.");
+        Log.e(TAG, "onTerminate.");
         destroyInitService();
         destroyGameService();
+        closeDatabase();
     }
 
     public void setShopLibrary(ShopLibrary shopLibrary) {
@@ -69,6 +87,22 @@ public class SpaceWarApp extends Application {
 
     public EnemyLibrary getEnemyLibrary() {
         return enemyLibrary;
+    }
+
+    public ShopDaoImpl getShopDao() {
+        return shopDao;
+    }
+
+    public PlayerDaoImpl getPlayerDao() {
+        return playerDao;
+    }
+
+    public EnemyDaoImpl getEnemyDao() {
+        return enemyDao;
+    }
+
+    public MapDaoImpl getMapDao() {
+        return mapDao;
     }
 
     /**
@@ -124,6 +158,25 @@ public class SpaceWarApp extends Application {
         if (gameService != null) {
             gameService.stopSelf();
             gameService = null;
+        }
+    }
+
+    /**
+     * 关闭数据库
+     */
+    private void closeDatabase() {
+        Log.e(TAG, "closeDatabase");
+        if (shopDao != null) {
+            shopDao.close();
+        }
+        if (playerDao != null) {
+            playerDao.close();
+        }
+        if (enemyDao != null) {
+            enemyDao.close();
+        }
+        if (mapDao != null) {
+            mapDao.close();
         }
     }
 }

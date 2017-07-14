@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.entity.set.ResourceMap;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
     @Override
     public void onBindViewHolder(ShopViewHolder holder, int position) {
         if (userItem.size() == 1) {
-            holder.getmIvPlayer().setImageResource((int) ResourceMap.getInstance().getShopImageMap().get(userItem.get(0).getImage()));
+            holder.getmIvPlayer().setImageResource(userItem.get(0).getImage());
             holder.getmTvPlayerName().setText(userItem.get(0).getName());
             holder.getmTvPlayerLevel().setText(String.valueOf(userItem.get(0).getLevel()));
             holder.getmTvPlayerValue().setText(String.valueOf(userItem.get(0).getValue()));
@@ -57,7 +56,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
                 holder.getmBtnUpgrade().setClickable(false);
             }
         }
-        holder.getmIvUpgraded().setImageResource((int) ResourceMap.getInstance().getShopImageMap().get(shopItems.get(0).getImage()));
+        holder.getmIvUpgraded().setImageResource(shopItems.get(0).getImage());
         holder.getmTvUpgradedName().setText(shopItems.get(position).getName());
         holder.getmTvUpgradedLevel().setText(String.valueOf(shopItems.get(position).getLevel()));
         holder.getmTvUpgradedValue().setText(String.valueOf(shopItems.get(position).getValue()));

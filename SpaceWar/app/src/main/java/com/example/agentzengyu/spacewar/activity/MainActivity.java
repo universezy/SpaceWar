@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.set.ResourceMap;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 
@@ -25,7 +23,6 @@ import com.example.agentzengyu.spacewar.view.CircleImageView;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private SpaceWarApp app = null;
-    private ResourceMap resourceMap = null;
 
     private TextView mTvUser, mTvMoney;
     private Button mBtnPlay;
@@ -42,11 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         app = (SpaceWarApp) getApplication();
-        resourceMap = ResourceMap.getInstance();
-        if (resourceMap==null){
-            Log.e("resourceMap","null");
-        }
-
         initView();
     }
 
@@ -61,28 +53,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnPlay = (Button) findViewById(R.id.btnPlay);
         mBtnPlay.setOnClickListener(this);
         mCivLife = (CircleImageView) findViewById(R.id.civLife);
-        mCivLife.setImageResource((int) resourceMap.getShopImageMap().get(app.getPlayerData().getLife().getImage()));
+        mCivLife.setImageResource(app.getPlayerData().getLife().getImage());
         mCivLife.setOnClickListener(this);
         mCivDefense = (CircleImageView) findViewById(R.id.civDefense);
-        mCivDefense.setImageResource((int) resourceMap.getShopImageMap().get(app.getPlayerData().getDefense().getImage()));
+        mCivDefense.setImageResource(app.getPlayerData().getDefense().getImage());
         mCivDefense.setOnClickListener(this);
         mCivAgility = (CircleImageView) findViewById(R.id.civAgility);
-        mCivAgility.setImageResource((int) resourceMap.getShopImageMap().get(app.getPlayerData().getAgility().getImage()));
+        mCivAgility.setImageResource(app.getPlayerData().getAgility().getImage());
         mCivAgility.setOnClickListener(this);
         mCivShield = (CircleImageView) findViewById(R.id.civShield);
-        mCivShield.setImageResource((int) resourceMap.getShopImageMap().get(app.getPlayerData().getShield().getImage()));
+        mCivShield.setImageResource(app.getPlayerData().getShield().getImage());
         mCivShield.setOnClickListener(this);
         mCivPower = (CircleImageView) findViewById(R.id.civPower);
-        mCivPower.setImageResource((int) resourceMap.getShopImageMap().get(app.getPlayerData().getPower().getImage()));
+        mCivPower.setImageResource(app.getPlayerData().getPower().getImage());
         mCivPower.setOnClickListener(this);
         mCivSpeed = (CircleImageView) findViewById(R.id.civSpeed);
-        mCivSpeed.setImageResource((int) resourceMap.getShopImageMap().get(app.getPlayerData().getSpeed().getImage()));
+        mCivSpeed.setImageResource(app.getPlayerData().getSpeed().getImage());
         mCivSpeed.setOnClickListener(this);
         mCivRange = (CircleImageView) findViewById(R.id.civRange);
-        mCivRange.setImageResource((int) resourceMap.getShopImageMap().get(app.getPlayerData().getRange().getImage()));
+        mCivRange.setImageResource(app.getPlayerData().getRange().getImage());
         mCivRange.setOnClickListener(this);
         mCivLaser = (CircleImageView) findViewById(R.id.civLaser);
-        mCivLaser.setImageResource((int) resourceMap.getShopImageMap().get(app.getPlayerData().getLaser().getImage()));
+        mCivLaser.setImageResource(app.getPlayerData().getLaser().getImage());
         mCivLaser.setOnClickListener(this);
 
         popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -100,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void showDetail(ShopItem item) {
         View view = getLayoutInflater().inflate(R.layout.popupwindow_main, null);
         mIvPlayer = (ImageView) view.findViewById(R.id.ivPlayer);
-        mIvPlayer.setImageResource((int) resourceMap.getShopImageMap().get(item.getImage()));
+        mIvPlayer.setImageResource(item.getImage());
         mTvName = (TextView) view.findViewById(R.id.tvName);
         mTvLevel = (TextView) view.findViewById(R.id.tvLevel);
         mTvValue = (TextView) view.findViewById(R.id.tvValue);
@@ -118,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 getWindow().setAttributes(layoutParams);
             }
         });
-        mIvPlayer.setImageResource((int) resourceMap.getShopImageMap().get(item.getImage()));
+        mIvPlayer.setImageResource(item.getImage());
         mTvName.setText(item.getName());
         mTvLevel.setText(String.valueOf(item.getLevel()));
         mTvValue.setText(String.valueOf(item.getValue()));

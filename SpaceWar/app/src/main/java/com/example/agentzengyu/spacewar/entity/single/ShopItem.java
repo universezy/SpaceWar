@@ -14,12 +14,12 @@ public class ShopItem implements Serializable{
     private int value = 0;
     private int level = 0;
     private int price = 0;
-    private String image = "";
+    private int image = 0;
 
     public ShopItem(){
     }
 
-    public ShopItem(String name,int value,int level,int price,String image) {
+    public ShopItem(String name,int value,int level,int price,int image) {
         this.name = name;
         this.value = value;
         this.level = level;
@@ -43,7 +43,7 @@ public class ShopItem implements Serializable{
         this.price = price;
     }
 
-    public void setImage(String  image) {
+    public void setImage(int  image) {
         this.image = image;
     }
 
@@ -63,7 +63,7 @@ public class ShopItem implements Serializable{
         return price;
     }
 
-    public String  getImage() {
+    public int  getImage() {
         return image;
     }
 }

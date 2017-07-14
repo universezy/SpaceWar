@@ -115,7 +115,7 @@ public class ShopDaoImpl implements ShopDao {
                 item.setName(cursor.getString(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.NAME)));
                 item.setValue(cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.VALUE)));
                 item.setPrice(cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.PRICE)));
-                item.setImage(cursor.getString(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.IMAGE)));
+                item.setImage(cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.IMAGE)));
                 items.add(item);
             }
         }

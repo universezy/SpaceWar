@@ -116,8 +116,8 @@ public class MapDaoImpl implements MapDao{
             while (cursor.moveToNext()) {
                 MapItem item  =new MapItem();
                 item.setMapName(cursor.getString(cursor.getColumnIndex(Constant.Database.Map.ColumnName.MAPNAME)));
-                item.setImage(cursor.getString(cursor.getColumnIndex(Constant.Database.Map.ColumnName.IMAGE)));
-                item.setMusic(cursor.getString(cursor.getColumnIndex(Constant.Database.Map.ColumnName.MUSIC)));
+                item.setImage(cursor.getInt(cursor.getColumnIndex(Constant.Database.Map.ColumnName.IMAGE)));
+                item.setMusic(cursor.getInt(cursor.getColumnIndex(Constant.Database.Map.ColumnName.MUSIC)));
                 item.setBossName(cursor.getString(cursor.getColumnIndex(Constant.Database.Map.ColumnName.BOSSNAME)));
                 item.setNormal1(cursor.getString(cursor.getColumnIndex(Constant.Database.Map.ColumnName.NAME1)),cursor.getInt(cursor.getColumnIndex(Constant.Database.Map.ColumnName.COUNT1)));
                 item.setNormal2(cursor.getString(cursor.getColumnIndex(Constant.Database.Map.ColumnName.NAME2)),cursor.getInt(cursor.getColumnIndex(Constant.Database.Map.ColumnName.COUNT2)));

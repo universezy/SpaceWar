@@ -114,7 +114,7 @@ public class EnemyDaoImpl implements EnemyDao {
                 item.setPower(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.POWER)));
                 item.setSpeed(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.SPEED)));
                 item.setRange(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.RANGE)));
-                item.setImage(cursor.getString(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.IMAGE)));
+                item.setImage(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.IMAGE)));
                 items.add(item);
             }
         }

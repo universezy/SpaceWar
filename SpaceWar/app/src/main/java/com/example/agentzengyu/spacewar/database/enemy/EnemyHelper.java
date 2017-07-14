@@ -22,7 +22,7 @@ public class EnemyHelper extends SQLiteOpenHelper {
             + Constant.Database.Enemy.ColumnName.POWER + " integer,"
             + Constant.Database.Enemy.ColumnName.SPEED + " integer,"
             + Constant.Database.Enemy.ColumnName.RANGE + " integer,"
-            + Constant.Database.Enemy.ColumnName.IMAGE + " varchar(20)"
+            + Constant.Database.Enemy.ColumnName.IMAGE + " integer"
             + ")";
 
     public EnemyHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

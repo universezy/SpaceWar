@@ -207,7 +207,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      *
      * @param musicSource 音乐资源
      */
-    private void loadMusic(String musicSource) {
+    private void loadMusic(int musicSource) {
         String msg = musicPlayer.init(musicSource);
         iMessageCallback.notifyInitMsg(msg, false);
         try {

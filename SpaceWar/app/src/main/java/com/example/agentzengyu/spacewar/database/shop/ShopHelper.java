@@ -19,7 +19,7 @@ public class ShopHelper extends SQLiteOpenHelper {
             + Constant.Database.Shop.ColumnName.NAME + " varchar(20),"
             + Constant.Database.Shop.ColumnName.VALUE + " integer,"
             + Constant.Database.Shop.ColumnName.PRICE + " integer,"
-            + Constant.Database.Shop.ColumnName.IMAGE + " varchar(20)"
+            + Constant.Database.Shop.ColumnName.IMAGE + " integer"
             + ")";
 
     public ShopHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

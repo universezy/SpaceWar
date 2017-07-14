@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.activity.GameActivity;
 import com.example.agentzengyu.spacewar.activity.MapActivity;
-import com.example.agentzengyu.spacewar.entity.set.ResourceMap;
 import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
@@ -42,7 +41,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
 
     @Override
     public void onBindViewHolder(MapViewHolder holder, int position) {
-        holder.getLlMap().setBackgroundResource((int)ResourceMap.getInstance().getMapIconMap().get(this.data.getMaps().get(position).getImage()));
+        holder.getLlMap().setBackgroundResource(this.data.getMaps().get(position).getImage());
         holder.getLlMap().setTag(data.getMaps().get(position));
         holder.getTvName().setText(this.data.getMaps().get(position).getMapName());
     }

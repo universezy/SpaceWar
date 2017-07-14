@@ -11,8 +11,8 @@ import java.io.Serializable;
  */
 public class MapItem implements Serializable {
     private String mapName = "";
-    private String image = "";
-    private String music = "";
+    private int image = 0;
+    private int music = 0;
     private String bossName = "";
 
     private String name1 = "";
@@ -44,11 +44,11 @@ public class MapItem implements Serializable {
         this.mapName = mapName;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
-    public void setMusic(String music) {
+    public void setMusic(int music) {
         this.music = music;
     }
 
@@ -110,11 +110,11 @@ public class MapItem implements Serializable {
         return mapName;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 
-    public String getMusic() {
+    public int getMusic() {
         return music;
     }
 
