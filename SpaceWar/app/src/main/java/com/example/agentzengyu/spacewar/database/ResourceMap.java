@@ -11,8 +11,9 @@ import java.util.Map;
  * 资源映射
  */
 public class ResourceMap {
+    private static ResourceMap instance = null;
     //商店
-    private Map shopMap = new HashMap();
+    private Map shopImageMap = new HashMap();
 
     //敌人
     private Map enemyImageMap = new HashMap();
@@ -22,8 +23,23 @@ public class ResourceMap {
     private Map mapIconMap = new HashMap();
     private Map mapMusicMap = new HashMap();
 
-    public Map getShopMap() {
-        return shopMap;
+    private ResourceMap() {
+
+    }
+
+    public static ResourceMap getInstance() {
+        if (instance == null) {
+            synchronized (ResourceMap.class) {
+                if (instance == null) {
+                    instance = new ResourceMap();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public Map getShopImageMap() {
+        return shopImageMap;
     }
 
     public Map getEnemyImageMap() {

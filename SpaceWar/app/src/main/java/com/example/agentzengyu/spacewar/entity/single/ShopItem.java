@@ -19,6 +19,14 @@ public class ShopItem implements Serializable{
     public ShopItem(){
     }
 
+    public ShopItem(String name,int value,int level,int price,String image) {
+        this.name = name;
+        this.value = value;
+        this.level = level;
+        this.price = price;
+        this.image = image;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

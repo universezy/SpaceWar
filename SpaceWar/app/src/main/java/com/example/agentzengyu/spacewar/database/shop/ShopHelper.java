@@ -15,7 +15,7 @@ import com.example.agentzengyu.spacewar.application.Constant;
  */
 public class ShopHelper extends SQLiteOpenHelper {
     private final static String TableAttr = "("
-            + Constant.Database.Shop.ColumnName.LEVEL + " integer primary key autoincrement,"
+            + Constant.Database.Shop.ColumnName.LEVEL + " integer primary key,"
             + Constant.Database.Shop.ColumnName.NAME + " varchar(20),"
             + Constant.Database.Shop.ColumnName.VALUE + " integer,"
             + Constant.Database.Shop.ColumnName.PRICE + " integer,"

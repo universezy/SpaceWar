@@ -3,6 +3,7 @@ package com.example.agentzengyu.spacewar.entity.set;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +25,22 @@ public class ShopLibrary implements Serializable {
     private List<ShopItem> speeds = null;
     private List<ShopItem> ranges = null;
     private List<ShopItem> lasers = null;
+
+    public ShopLibrary() {
+
+    }
+
+    public ShopLibrary(boolean init) {
+        if (!init) new ShopLibrary();
+        lives = new ArrayList<>();
+        defenses = new ArrayList<>();
+        agilities = new ArrayList<>();
+        shields = new ArrayList<>();
+        powers = new ArrayList<>();
+        speeds = new ArrayList<>();
+        ranges = new ArrayList<>();
+        lasers = new ArrayList<>();
+    }
 
     /********** Spaceship **********/
     public List<ShopItem> getLives() {

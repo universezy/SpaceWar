@@ -28,6 +28,10 @@ public class PlayerData implements Serializable {
     /********** UserInfo **********/
     private UserInfo info = null;
 
+    public PlayerData(){
+
+    }
+
     /********** Ship **********/
     public void setLife(ShopItem life) {
         this.life = life;

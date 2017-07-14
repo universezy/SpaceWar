@@ -11,7 +11,16 @@ public class UserInfo implements Serializable {
     private int money = 0;
 
     public UserInfo(String name, int money) {
+        this.name = name;
+        this.money = money;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setMoney(int money) {
@@ -22,11 +31,4 @@ public class UserInfo implements Serializable {
         return money;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

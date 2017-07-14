@@ -7,6 +7,7 @@ package com.example.agentzengyu.spacewar.entity.set;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,15 @@ import java.util.List;
  */
 public class MapLibrary implements Serializable {
     private List<MapItem> maps = null;
+
+    public MapLibrary() {
+
+    }
+
+    public MapLibrary(boolean init) {
+        if (!init) new MapLibrary();
+        maps = new ArrayList<>();
+    }
 
     public List<MapItem> getMaps() {
         return maps;

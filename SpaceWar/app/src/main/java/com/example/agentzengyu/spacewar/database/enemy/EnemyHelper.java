@@ -15,7 +15,7 @@ import com.example.agentzengyu.spacewar.application.Constant;
  */
 public class EnemyHelper extends SQLiteOpenHelper {
     private final static String TableAttr = "("
-            + Constant.Database.Enemy.ColumnName.NAME + " varchar(20) primary key autoincrement,"
+            + Constant.Database.Enemy.ColumnName.NAME + " varchar(20) primary key,"
             + Constant.Database.Enemy.ColumnName.LIFE + " integer,"
             + Constant.Database.Enemy.ColumnName.DEFENSE + " integer,"
             + Constant.Database.Enemy.ColumnName.AGILITY + " integer,"

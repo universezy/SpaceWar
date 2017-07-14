@@ -45,7 +45,7 @@ public class MusicPlayer {
      * @return 提示信息
      */
     public String init(String musicSource) {
-        mediaPlayer = MediaPlayer.create(context, (int) new ResourceMap().getMapMusicMap().get(musicSource));
+        mediaPlayer = MediaPlayer.create(context, (int) ResourceMap.getInstance().getMapMusicMap().get(musicSource));
         mediaPlayer.reset();
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
