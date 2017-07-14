@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.entity.set.ShopLibrary;
@@ -25,6 +26,7 @@ public class ShopDaoImpl implements ShopDao {
     private SQLiteDatabase database = null;
 
     private ShopDaoImpl(Context context) {
+        Log.e("ShopDaoImpl", "init");
         if (helper == null) {
             helper = new ShopHelper(context, Constant.Database.Shop.DBName, null, 1);
             database = helper.getWritableDatabase();
@@ -38,6 +40,8 @@ public class ShopDaoImpl implements ShopDao {
                     instance = new ShopDaoImpl(context);
                 }
             }
+        } else {
+            Log.e("ShopDaoImpl", "instance");
         }
         return instance;
     }

@@ -42,7 +42,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        app.destroyInitService();
         app.destroyGameService();
         overridePendingTransition(0, R.anim.activity_out);
     }

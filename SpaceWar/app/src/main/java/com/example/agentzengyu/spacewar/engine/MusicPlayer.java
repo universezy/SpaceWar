@@ -8,7 +8,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 
-import com.example.agentzengyu.spacewar.database.ResourceMap;
+import com.example.agentzengyu.spacewar.entity.set.ResourceMap;
 
 /**
  * 音乐播放器

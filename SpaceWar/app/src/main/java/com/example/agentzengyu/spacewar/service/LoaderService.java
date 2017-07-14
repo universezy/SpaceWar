@@ -8,7 +8,7 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.database.ResourceMap;
+import com.example.agentzengyu.spacewar.entity.set.ResourceMap;
 import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
 import com.example.agentzengyu.spacewar.database.map.MapDaoImpl;
 import com.example.agentzengyu.spacewar.database.player.PlayerDaoImpl;
@@ -40,6 +40,7 @@ public class LoaderService extends Service {
         shopDao = ShopDaoImpl.getInstance(getApplicationContext());
         playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
         enemyDao = EnemyDaoImpl.getInstance(getApplicationContext());
+        mapDao = MapDaoImpl.getInstance(getApplicationContext());
     }
 
     @Override
@@ -93,6 +94,7 @@ public class LoaderService extends Service {
         Log.e(TAG, "loadPlayerData");
         PlayerData data = playerDao.findAll();
         if (data == null) {
+            Log.e("data", "null");
             data = initPlayerData();
         }
         app.setPlayerData(data);

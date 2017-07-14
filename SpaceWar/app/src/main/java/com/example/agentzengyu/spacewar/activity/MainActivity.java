@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.database.ResourceMap;
+import com.example.agentzengyu.spacewar.entity.set.ResourceMap;
 import com.example.agentzengyu.spacewar.entity.single.ShopItem;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 

@@ -28,25 +28,45 @@ public class PlayerData implements Serializable {
     /********** UserInfo **********/
     private UserInfo info = null;
 
-    public PlayerData(){
+    public PlayerData() {
 
     }
 
     /********** Ship **********/
-    public void setLife(ShopItem life) {
-        this.life = life;
+    public boolean setLife(ShopItem life) {
+        if (life == null) {
+            return false;
+        } else {
+            this.life = life;
+            return true;
+        }
     }
 
-    public void setDefense(ShopItem defense) {
-        this.defense = defense;
+    public boolean setDefense(ShopItem defense) {
+        if (defense == null) {
+            return false;
+        } else {
+            this.defense = defense;
+            return true;
+        }
     }
 
-    public void setAgility(ShopItem agility) {
-        this.agility = agility;
+    public boolean setAgility(ShopItem agility) {
+        if (agility == null) {
+            return false;
+        } else {
+            this.agility = agility;
+            return true;
+        }
     }
 
-    public void setShield(ShopItem shield) {
-        this.shield = shield;
+    public boolean setShield(ShopItem shield) {
+        if (shield == null) {
+            return false;
+        } else {
+            this.shield = shield;
+            return true;
+        }
     }
 
     public ShopItem getLife() {
@@ -66,20 +86,40 @@ public class PlayerData implements Serializable {
     }
 
     /********** Weapon **********/
-    public void setPower(ShopItem power) {
-        this.power = power;
+    public boolean setPower(ShopItem power) {
+        if (power == null) {
+            return false;
+        } else {
+            this.power = power;
+            return true;
+        }
     }
 
-    public void setSpeed(ShopItem speed) {
-        this.speed = speed;
+    public boolean setSpeed(ShopItem speed) {
+        if (speed == null) {
+            return false;
+        } else {
+            this.speed = speed;
+            return true;
+        }
     }
 
-    public void setRange(ShopItem range) {
-        this.range = range;
+    public boolean setRange(ShopItem range) {
+        if (range == null) {
+            return false;
+        } else {
+            this.range = range;
+            return true;
+        }
     }
 
-    public void setLaser(ShopItem laser) {
-        this.laser = laser;
+    public boolean setLaser(ShopItem laser) {
+        if (laser == null) {
+            return false;
+        } else {
+            this.laser = laser;
+            return true;
+        }
     }
 
     public ShopItem getPower() {
@@ -99,8 +139,13 @@ public class PlayerData implements Serializable {
     }
 
     /********** UserInfo **********/
-    public void setInfo(UserInfo info) {
-        this.info = info;
+    public boolean setInfo(UserInfo info) {
+        if (info == null) {
+            return false;
+        } else {
+            this.info = info;
+            return true;
+        }
     }
 
     public UserInfo getInfo() {

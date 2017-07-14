@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.activity.GameActivity;
 import com.example.agentzengyu.spacewar.activity.MapActivity;
-import com.example.agentzengyu.spacewar.database.ResourceMap;
+import com.example.agentzengyu.spacewar.entity.set.ResourceMap;
 import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
 import com.example.agentzengyu.spacewar.entity.single.MapItem;
 
