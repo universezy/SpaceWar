@@ -156,28 +156,28 @@ public class LoaderService extends Service {
      */
     private void initShopData() {
         Log.e(TAG, "initShopData");
-        ShopItem life1 = new ShopItem("life1", 100, 100, 100, R.mipmap.life1);
+        ShopItem life1 = new ShopItem("life1", R.mipmap.ic_launcher_round, 100, 100, 100);
         app.getShopDao().insert(Constant.Database.Shop.TableName.LIFE, life1);
 
-        ShopItem defense1 = new ShopItem("defense1", 100, 100, 100, R.mipmap.life1);
+        ShopItem defense1 = new ShopItem("defense1", R.mipmap.ic_launcher, 100, 100, 100);
         app.getShopDao().insert(Constant.Database.Shop.TableName.DEFENSE, defense1);
 
-        ShopItem agility1 = new ShopItem("agility1", 100, 100, 100, R.mipmap.life1);
+        ShopItem agility1 = new ShopItem("agility1", R.mipmap.life1, 100, 100, 100);
         app.getShopDao().insert(Constant.Database.Shop.TableName.AGILITY, agility1);
 
-        ShopItem shield1 = new ShopItem("shield1", 100, 100, 100, R.mipmap.ic_launcher_round);
+        ShopItem shield1 = new ShopItem("shield1", R.mipmap.ic_launcher_round, 100, 100, 100);
         app.getShopDao().insert(Constant.Database.Shop.TableName.SHIELD, shield1);
 
-        ShopItem power1 = new ShopItem("power1", 100, 100, 100, R.mipmap.life1);
+        ShopItem power1 = new ShopItem("power1", R.mipmap.life1, 100, 100, 100);
         app.getShopDao().insert(Constant.Database.Shop.TableName.POWER, power1);
 
-        ShopItem speed1 = new ShopItem("speed1", 100, 100, 100, R.mipmap.life1);
+        ShopItem speed1 = new ShopItem("speed1", R.mipmap.life1, 100, 100, 100);
         app.getShopDao().insert(Constant.Database.Shop.TableName.SPEED, speed1);
 
-        ShopItem range1 = new ShopItem("range1", 100, 100, 100, R.mipmap.life1);
+        ShopItem range1 = new ShopItem("range1", R.mipmap.life1, 100, 100, 100);
         app.getShopDao().insert(Constant.Database.Shop.TableName.RANGE, range1);
 
-        ShopItem laser1 = new ShopItem("laser1", 100, 100, 100, R.mipmap.life1);
+        ShopItem laser1 = new ShopItem("laser1", R.mipmap.life1, 100, 100, 100);
         app.getShopDao().insert(Constant.Database.Shop.TableName.LASER, laser1);
     }
 
@@ -212,31 +212,31 @@ public class LoaderService extends Service {
         EnemyItem item1 = new EnemyItem("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, item1);
 
-        EnemyItem item2 = new EnemyItem("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        EnemyItem item2 = new EnemyItem("enemy2", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, item2);
 
-        EnemyItem item3 = new EnemyItem("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        EnemyItem item3 = new EnemyItem("enemy3", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, item3);
 
-        EnemyItem item4 = new EnemyItem("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        EnemyItem item4 = new EnemyItem("enemy4", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, item4);
 
-        EnemyItem item5 = new EnemyItem("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        EnemyItem item5 = new EnemyItem("enemy5", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, item5);
 
-        EnemyItem item6 = new EnemyItem("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        EnemyItem item6 = new EnemyItem("enemy6", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, item6);
 
-        EnemyItem item7 = new EnemyItem("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        EnemyItem item7 = new EnemyItem("enemy7", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, item7);
 
-        EnemyItem item8 = new EnemyItem("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        EnemyItem item8 = new EnemyItem("enemy8", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, item8);
 
-        EnemyItem boss1 = new EnemyItem("enemy1", 300, 200, 100, 100, 100, 100, R.mipmap.ic_launcher_round);
+        EnemyItem boss1 = new EnemyItem("boss1", 300, 200, 100, 100, 100, 100, R.mipmap.ic_launcher_round);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss1);
 
-        EnemyItem boss2 = new EnemyItem("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher_round);
+        EnemyItem boss2 = new EnemyItem("boss2", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher_round);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss2);
     }
 

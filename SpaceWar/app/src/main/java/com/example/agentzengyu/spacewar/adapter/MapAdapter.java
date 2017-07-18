@@ -24,12 +24,12 @@ import com.example.agentzengyu.spacewar.entity.single.MapItem;
 public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
     private MapActivity activity;
     private LayoutInflater inflater;
-    private MapLibrary data = null;
+    private MapLibrary library = null;
 
-    public MapAdapter(MapActivity activity, MapLibrary data) {
+    public MapAdapter(MapActivity activity, MapLibrary library) {
         this.activity = activity;
         this.inflater = LayoutInflater.from(activity);
-        this.data = data;
+        this.library = library;
     }
 
     @Override
@@ -41,14 +41,14 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
 
     @Override
     public void onBindViewHolder(MapViewHolder holder, int position) {
-        holder.getLlMap().setBackgroundResource(this.data.getMaps().get(position).getImage());
-        holder.getLlMap().setTag(data.getMaps().get(position));
-        holder.getTvName().setText(this.data.getMaps().get(position).getMapName());
+        holder.getLlMap().setBackgroundResource(this.library.getMaps().get(position).getImage());
+        holder.getLlMap().setTag(library.getMaps().get(position));
+        holder.getTvName().setText(library.getMaps().get(position).getMapName());
     }
 
     @Override
     public int getItemCount() {
-        return this.data.getMaps().size();
+        return library.getMaps().size();
     }
 
     /**

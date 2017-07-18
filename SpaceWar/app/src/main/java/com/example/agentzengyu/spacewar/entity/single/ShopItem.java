@@ -4,31 +4,37 @@ package com.example.agentzengyu.spacewar.entity.single;
  * Created by Agent ZengYu on 2017/6/20.
  */
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
  * 商品类
  */
-public class ShopItem implements Serializable{
+public class ShopItem implements Serializable {
     private String name = "";
+    private int image = 0;
     private int value = 0;
     private int level = 0;
     private int price = 0;
-    private int image = 0;
 
-    private ShopItem(){
+    private ShopItem() {
     }
 
-    public ShopItem(String name,int value,int level,int price,int image) {
+    public ShopItem(String name, int image, int value, int level, int price) {
         this.name = name;
+        this.image = image;
         this.value = value;
         this.level = level;
         this.price = price;
-        this.image = image;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public void setValue(int value) {
@@ -43,12 +49,12 @@ public class ShopItem implements Serializable{
         this.price = price;
     }
 
-    public void setImage(int  image) {
-        this.image = image;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public int getImage() {
+        return image;
     }
 
     public int getValue() {
@@ -61,9 +67,5 @@ public class ShopItem implements Serializable{
 
     public int getPrice() {
         return price;
-    }
-
-    public int  getImage() {
-        return image;
     }
 }

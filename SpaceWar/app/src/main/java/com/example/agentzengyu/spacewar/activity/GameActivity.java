@@ -59,10 +59,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
-//        MapItem mapItem = (MapItem) getIntent().getSerializableExtra("MapItem");
+        MapItem mapItem = (MapItem) getIntent().getSerializableExtra("MapItem");
         initView();
         initVariable();
-        MapItem mapItem = app.getMapLibrary().getMaps().get(0);
         startGame(mapItem);
     }
 

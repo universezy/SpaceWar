@@ -14,7 +14,7 @@ import java.util.List;
  * 地图库
  */
 public class MapLibrary implements Serializable {
-    private List<MapItem> maps = null;
+    private List<MapItem> maps = new ArrayList<>();
 
     public MapLibrary() {
 

@@ -26,7 +26,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="New"
+        android:hint="New"
         android:textSize="15sp" />
 
     <Button

@@ -46,13 +46,13 @@ public class EnemyDaoImpl implements EnemyDao {
     public void insert(@Constant.Database.Enemy.TableName String tableName, EnemyItem item) {
         ContentValues values = new ContentValues();
         values.put(Constant.Database.Enemy.ColumnName.NAME, item.getName());
+        values.put(Constant.Database.Enemy.ColumnName.IMAGE, item.getImage());
         values.put(Constant.Database.Enemy.ColumnName.LIFE, item.getLife());
         values.put(Constant.Database.Enemy.ColumnName.DEFENSE, item.getDefense());
         values.put(Constant.Database.Enemy.ColumnName.AGILITY, item.getAgility());
         values.put(Constant.Database.Enemy.ColumnName.POWER, item.getPower());
         values.put(Constant.Database.Enemy.ColumnName.SPEED, item.getSpeed());
         values.put(Constant.Database.Enemy.ColumnName.RANGE, item.getRange());
-        values.put(Constant.Database.Enemy.ColumnName.IMAGE, item.getImage());
         database.insert(tableName, null, values);
     }
 
@@ -60,13 +60,13 @@ public class EnemyDaoImpl implements EnemyDao {
     public void update(@Constant.Database.Enemy.TableName String tableName, EnemyItem item) {
         ContentValues values = new ContentValues();
         values.put(Constant.Database.Enemy.ColumnName.NAME, item.getName());
+        values.put(Constant.Database.Enemy.ColumnName.IMAGE, item.getImage());
         values.put(Constant.Database.Enemy.ColumnName.LIFE, item.getLife());
         values.put(Constant.Database.Enemy.ColumnName.DEFENSE, item.getDefense());
         values.put(Constant.Database.Enemy.ColumnName.AGILITY, item.getAgility());
         values.put(Constant.Database.Enemy.ColumnName.POWER, item.getPower());
         values.put(Constant.Database.Enemy.ColumnName.SPEED, item.getSpeed());
         values.put(Constant.Database.Enemy.ColumnName.RANGE, item.getRange());
-        values.put(Constant.Database.Enemy.ColumnName.IMAGE, item.getImage());
         String[] whereArgs = new String[]{String.valueOf(item.getName())};
         database.update(tableName, values, Constant.Database.Shop.ColumnName.NAME + "=?", whereArgs);
     }
@@ -107,16 +107,16 @@ public class EnemyDaoImpl implements EnemyDao {
             items = new ArrayList<>();
             while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.NAME));
+                int image = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.IMAGE));
                 int life = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.LIFE));
                 int defense = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.DEFENSE));
                 int agility = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.AGILITY));
                 int power = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.POWER));
                 int speed = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.SPEED));
                 int range = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.RANGE));
-                int image = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.IMAGE));
 
                 if (!"".equals(name) && life > 0 && defense > 0 && agility > 0 && power > 0 && speed > 0 && range > 0 && image > 0) {
-                    EnemyItem item = new EnemyItem(name, life, defense, agility, power, speed, range, image);
+                    EnemyItem item = new EnemyItem(name, image, life, defense, agility, power, speed, range);
                     items.add(item);
                 }
             }

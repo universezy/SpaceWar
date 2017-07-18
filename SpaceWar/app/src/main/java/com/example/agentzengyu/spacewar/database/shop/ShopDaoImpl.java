@@ -49,30 +49,30 @@ public class ShopDaoImpl implements ShopDao {
     @Override
     public void insert(@Constant.Database.Shop.TableName String tableName, ShopItem item) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Shop.ColumnName.LEVEL, item.getLevel());
         values.put(Constant.Database.Shop.ColumnName.NAME, item.getName());
-        values.put(Constant.Database.Shop.ColumnName.VALUE, item.getValue());
-        values.put(Constant.Database.Shop.ColumnName.PRICE, item.getPrice());
         values.put(Constant.Database.Shop.ColumnName.IMAGE, item.getImage());
+        values.put(Constant.Database.Shop.ColumnName.VALUE, item.getValue());
+        values.put(Constant.Database.Shop.ColumnName.LEVEL, item.getLevel());
+        values.put(Constant.Database.Shop.ColumnName.PRICE, item.getPrice());
         database.insert(tableName, null, values);
     }
 
     @Override
     public void update(@Constant.Database.Shop.TableName String tableName, ShopItem item) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Shop.ColumnName.LEVEL, item.getLevel());
         values.put(Constant.Database.Shop.ColumnName.NAME, item.getName());
-        values.put(Constant.Database.Shop.ColumnName.VALUE, item.getValue());
-        values.put(Constant.Database.Shop.ColumnName.PRICE, item.getPrice());
         values.put(Constant.Database.Shop.ColumnName.IMAGE, item.getImage());
+        values.put(Constant.Database.Shop.ColumnName.VALUE, item.getValue());
+        values.put(Constant.Database.Shop.ColumnName.LEVEL, item.getLevel());
+        values.put(Constant.Database.Shop.ColumnName.PRICE, item.getPrice());
         String[] whereArgs = new String[]{String.valueOf(item.getLevel())};
         database.update(tableName, values, Constant.Database.Shop.ColumnName.LEVEL + "=?", whereArgs);
     }
 
     @Override
     public void delete(@Constant.Database.Shop.TableName String tableName, ShopItem item) {
-        String[] whereArgs = new String[]{String.valueOf(item.getLevel())};
-        database.delete(tableName, Constant.Database.Shop.ColumnName.LEVEL + "=?", whereArgs);
+        String[] whereArgs = new String[]{String.valueOf(item.getName())};
+        database.delete(tableName, Constant.Database.Shop.ColumnName.NAME + "=?", whereArgs);
     }
 
     @Override
@@ -111,12 +111,12 @@ public class ShopDaoImpl implements ShopDao {
             items = new ArrayList<>();
             while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.NAME));
-                int level = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.LEVEL));
-                int value = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.VALUE));
-                int price = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.PRICE));
                 int image = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.IMAGE));
-                if (level >= 0 && !"".equals(name) && value > 0 && price > 0 && image > 0) {
-                    ShopItem item = new ShopItem(name, level, value, price, image);
+                int value = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.VALUE));
+                int level = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.LEVEL));
+                int price = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.PRICE));
+                if (!"".equals(name) && image > 0 && value > 0 && level >= 0 && price > 0) {
+                    ShopItem item = new ShopItem(name, image, value, level, price);
                     items.add(item);
                 }
             }

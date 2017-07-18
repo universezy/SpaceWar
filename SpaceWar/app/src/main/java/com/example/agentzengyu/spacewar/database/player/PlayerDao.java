@@ -28,4 +28,9 @@ public interface PlayerDao {
      * 关闭连接
      */
     void close();
+
+    /**
+     * 销毁数据库
+     */
+    void destroy();
 }

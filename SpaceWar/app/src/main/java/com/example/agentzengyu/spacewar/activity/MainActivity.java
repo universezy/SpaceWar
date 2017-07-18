@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -190,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnPlay:
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
+                overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                 break;
             default:
                 break;

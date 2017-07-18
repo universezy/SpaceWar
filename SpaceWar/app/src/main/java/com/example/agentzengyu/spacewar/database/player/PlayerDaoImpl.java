@@ -101,4 +101,16 @@ public class PlayerDaoImpl implements PlayerDao {
             }
         }
     }
+
+    @Override
+    public void destroy() {
+        if (snappyDB != null) {
+            try {
+                snappyDB.destroy();
+                Log.e("snappyDB", "destroy");
+            } catch (SnappydbException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

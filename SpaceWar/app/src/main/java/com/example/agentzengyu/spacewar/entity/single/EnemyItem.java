@@ -11,31 +11,35 @@ import java.io.Serializable;
  */
 public class EnemyItem implements Serializable {
     private String name = "";
+    private int image = 0;
     private int life = 0;
     private int defense = 0;
     private int agility = 0;
     private int power = 0;
     private int speed = 0;
     private int range = 0;
-    private int image = 0;
 
     private EnemyItem() {
 
     }
 
-    public EnemyItem(String name, int life, int defense, int agility, int power, int speed, int range, int image) {
+    public EnemyItem(String name, int image, int life, int defense, int agility, int power, int speed, int range) {
         this.name = name;
+        this.image = image;
         this.life = life;
         this.defense = defense;
         this.agility = agility;
         this.power = power;
         this.speed = speed;
         this.range = range;
-        this.image = image;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 
     public void setLife(int life) {
@@ -62,12 +66,12 @@ public class EnemyItem implements Serializable {
         this.range = range;
     }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public int getImage() {
+        return image;
     }
 
     public int getLife() {
@@ -92,9 +96,5 @@ public class EnemyItem implements Serializable {
 
     public int getRange() {
         return range;
-    }
-
-    public int getImage() {
-        return image;
     }
 }
