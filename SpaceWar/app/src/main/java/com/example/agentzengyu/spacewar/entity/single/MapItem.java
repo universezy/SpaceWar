@@ -36,8 +36,15 @@ public class MapItem implements Serializable {
     private String name10 = "";
     private int count10 = 0;
 
-    public MapItem() {
+    private MapItem() {
 
+    }
+
+    public MapItem(String mapName, int image, int music, String bossName) {
+        this.mapName = mapName;
+        this.image = image;
+        this.music = music;
+        this.bossName = bossName;
     }
 
     public void setMapName(String mapName) {

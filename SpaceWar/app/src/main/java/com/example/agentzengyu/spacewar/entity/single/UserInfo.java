@@ -10,6 +10,10 @@ public class UserInfo implements Serializable {
     private String name = "";
     private int money = 0;
 
+    private UserInfo(){
+
+    }
+
     public UserInfo(String name, int money) {
         this.name = name;
         this.money = money;

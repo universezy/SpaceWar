@@ -30,18 +30,6 @@ public class ShopLibrary implements Serializable {
 
     }
 
-    public ShopLibrary(boolean init) {
-        if (!init) new ShopLibrary();
-        lives = new ArrayList<>();
-        defenses = new ArrayList<>();
-        agilities = new ArrayList<>();
-        shields = new ArrayList<>();
-        powers = new ArrayList<>();
-        speeds = new ArrayList<>();
-        ranges = new ArrayList<>();
-        lasers = new ArrayList<>();
-    }
-
     /********** Spaceship **********/
     public List<ShopItem> getLives() {
         return lives;

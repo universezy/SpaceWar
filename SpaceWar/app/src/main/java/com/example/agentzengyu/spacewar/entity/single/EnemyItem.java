@@ -19,8 +19,19 @@ public class EnemyItem implements Serializable {
     private int range = 0;
     private int image = 0;
 
-    public EnemyItem() {
+    private EnemyItem() {
 
+    }
+
+    public EnemyItem(String name, int life, int defense, int agility, int power, int speed, int range, int image) {
+        this.name = name;
+        this.life = life;
+        this.defense = defense;
+        this.agility = agility;
+        this.power = power;
+        this.speed = speed;
+        this.range = range;
+        this.image = image;
     }
 
     public void setName(String name) {

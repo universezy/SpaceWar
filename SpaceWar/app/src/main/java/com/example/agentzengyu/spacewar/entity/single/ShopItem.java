@@ -16,7 +16,7 @@ public class ShopItem implements Serializable{
     private int price = 0;
     private int image = 0;
 
-    public ShopItem(){
+    private ShopItem(){
     }
 
     public ShopItem(String name,int value,int level,int price,int image) {

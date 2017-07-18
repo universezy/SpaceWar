@@ -110,13 +110,15 @@ public class ShopDaoImpl implements ShopDao {
         if (cursor != null && cursor.getCount() > 0) {
             items = new ArrayList<>();
             while (cursor.moveToNext()) {
-                ShopItem item = new ShopItem();
-                item.setLevel(cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.LEVEL)));
-                item.setName(cursor.getString(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.NAME)));
-                item.setValue(cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.VALUE)));
-                item.setPrice(cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.PRICE)));
-                item.setImage(cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.IMAGE)));
-                items.add(item);
+                String name = cursor.getString(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.NAME));
+                int level = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.LEVEL));
+                int value = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.VALUE));
+                int price = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.PRICE));
+                int image = cursor.getInt(cursor.getColumnIndex(Constant.Database.Shop.ColumnName.IMAGE));
+                if (level >= 0 && !"".equals(name) && value > 0 && price > 0 && image > 0) {
+                    ShopItem item = new ShopItem(name, level, value, price, image);
+                    items.add(item);
+                }
             }
         }
         return items;

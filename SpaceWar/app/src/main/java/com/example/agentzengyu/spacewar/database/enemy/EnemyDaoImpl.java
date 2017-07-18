@@ -106,16 +106,19 @@ public class EnemyDaoImpl implements EnemyDao {
         if (cursor != null && cursor.getCount() > 0) {
             items = new ArrayList<>();
             while (cursor.moveToNext()) {
-                EnemyItem item = new EnemyItem();
-                item.setName(cursor.getString(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.NAME)));
-                item.setLife(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.LIFE)));
-                item.setAgility(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.AGILITY)));
-                item.setDefense(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.DEFENSE)));
-                item.setPower(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.POWER)));
-                item.setSpeed(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.SPEED)));
-                item.setRange(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.RANGE)));
-                item.setImage(cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.IMAGE)));
-                items.add(item);
+                String name = cursor.getString(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.NAME));
+                int life = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.LIFE));
+                int defense = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.DEFENSE));
+                int agility = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.AGILITY));
+                int power = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.POWER));
+                int speed = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.SPEED));
+                int range = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.RANGE));
+                int image = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.IMAGE));
+
+                if (!"".equals(name) && life > 0 && defense > 0 && agility > 0 && power > 0 && speed > 0 && range > 0 && image > 0) {
+                    EnemyItem item = new EnemyItem(name, life, defense, agility, power, speed, range, image);
+                    items.add(item);
+                }
             }
         }
         return items;

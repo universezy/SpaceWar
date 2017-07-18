@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -29,9 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CircleImageView mCivLife, mCivDefense, mCivAgility, mCivShield;
     private CircleImageView mCivPower, mCivSpeed, mCivRange, mCivLaser;
 
-    private PopupWindow popupWindow;
-    private ImageView mIvPlayer;
-    private TextView mTvName, mTvLevel, mTvValue;
+    private PopupWindow popupWindowShow,popupWindowUser;
+    private ImageView mIvShop;
+    private TextView mTvName, mTvLevel, mTvValue,mTvOld;
+    private EditText mEtNew;
+    private Button mBtnSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         mTvUser = (TextView) findViewById(R.id.tvUser);
         mTvUser.setText(app.getPlayerData().getInfo().getName());
+        mTvUser.setOnClickListener(this);
         mTvMoney = (TextView) findViewById(R.id.tvMoney);
         mTvMoney.setText("$" + app.getPlayerData().getInfo().getMoney());
         mBtnPlay = (Button) findViewById(R.id.btnPlay);
@@ -77,11 +81,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCivLaser.setImageResource(app.getPlayerData().getLaser().getImage());
         mCivLaser.setOnClickListener(this);
 
-        popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-        popupWindow.setFocusable(true);
-        popupWindow.setTouchable(true);
-        popupWindow.setOutsideTouchable(true);
+        popupWindowShow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindowShow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindowShow.setFocusable(true);
+        popupWindowShow.setTouchable(true);
+        popupWindowShow.setOutsideTouchable(true);
+
+        popupWindowUser = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindowUser.setBackgroundDrawable(new BitmapDrawable());
+        popupWindowUser.setFocusable(true);
+        popupWindowUser.setTouchable(true);
+        popupWindowUser.setOutsideTouchable(true);
     }
 
     /**
@@ -91,18 +101,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void showDetail(ShopItem item) {
         View view = getLayoutInflater().inflate(R.layout.popupwindow_main, null);
-        mIvPlayer = (ImageView) view.findViewById(R.id.ivPlayer);
-        mIvPlayer.setImageResource(item.getImage());
+        mIvShop = (ImageView) view.findViewById(R.id.ivPlayer);
+        mIvShop.setImageResource(item.getImage());
         mTvName = (TextView) view.findViewById(R.id.tvName);
+        mTvName.setText(item.getName());
         mTvLevel = (TextView) view.findViewById(R.id.tvLevel);
+        mTvLevel.setText(String.valueOf(item.getLevel()));
         mTvValue = (TextView) view.findViewById(R.id.tvValue);
+        mTvValue.setText(String.valueOf(item.getValue()));
 
-        popupWindow.setContentView(view);
-        popupWindow.showAtLocation(mTvMoney, Gravity.CENTER, 0, 0);
+        popupWindowShow.setContentView(view);
+        popupWindowShow.showAtLocation(mTvMoney, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.alpha = 0.2f;
         getWindow().setAttributes(layoutParams);
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+        popupWindowShow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
@@ -110,15 +123,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 getWindow().setAttributes(layoutParams);
             }
         });
-        mIvPlayer.setImageResource(item.getImage());
-        mTvName.setText(item.getName());
-        mTvLevel.setText(String.valueOf(item.getLevel()));
-        mTvValue.setText(String.valueOf(item.getValue()));
+    }
+
+    private void modifyUserName(){
+        View view = getLayoutInflater().inflate(R.layout.popupwindow_user, null);
+        mTvOld =(TextView) view.findViewById(R.id.tvOld);
+        mTvOld.setText(app.getPlayerData().getInfo().getName());
+        mEtNew = (EditText)view.findViewById(R.id.evNew);
+        mBtnSave = (Button) view.findViewById(R.id.btnSave);
+        mBtnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newName = mEtNew.getText().toString().trim();
+                app.getPlayerData().getInfo().setName(newName);
+                app.getPlayerDao().update(app.getPlayerData());
+                mTvUser.setText(app.getPlayerData().getInfo().getName());
+                popupWindowUser.dismiss();
+            }
+        });
+
+        popupWindowUser.setContentView(view);
+        popupWindowUser.showAtLocation(mTvMoney, Gravity.CENTER, 0, 0);
+        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+        layoutParams.alpha = 0.2f;
+        getWindow().setAttributes(layoutParams);
+        popupWindowUser.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+                layoutParams.alpha = 1f;
+                getWindow().setAttributes(layoutParams);
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tvUser:
+                modifyUserName();
+                break;
             case R.id.civLife:
                 showDetail(app.getPlayerData().getLife());
                 break;

@@ -120,7 +120,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     public void notifyInitMsg(String message, boolean status) {
         Log.e(TAG, message);
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.NOTIFY);
+        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Type.NOTIFY);
         intent.putExtra(Constant.Game.Type.NOTIFY, message);
         intent.putExtra(Constant.Game.Type.STATUS, status);
         sendBroadcast(intent);
@@ -136,7 +136,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     public void updateMapLocation() {
         Log.e(TAG, "updateMap");
         Intent intent = new Intent(Constant.Game.Type.MAP);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.MAP);
+        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Type.MAP);
         //TODO
 //        sendBroadcast(intent);
     }
@@ -145,7 +145,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     public void updateEnemyLocation() {
         Log.e(TAG, "updateEnemy");
         Intent intent = new Intent(Constant.Game.Type.ENEMY);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Type.ENEMY);
+        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Type.ENEMY);
         //TODO
 //        sendBroadcast(intent);
     }
@@ -154,7 +154,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     public void updateEnemyBullets(List<Bullet> bullets) {
 //        Log.e(TAG, "updateEnemyBullets");
         Intent intent = new Intent(Constant.Game.Type.ENEMY);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Enemy.BULLET);
+        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Enemy.BULLET);
         intent.putExtra(Constant.Game.Enemy.BULLET, (Serializable) bullets);
         sendBroadcast(intent);
     }
@@ -162,7 +162,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     @Override
     public void updatePlayerLocation(float x, float y) {
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.LOCATION);
+        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.COORD);
         intent.putExtra(Constant.Game.Player.X, x);
         intent.putExtra(Constant.Game.Player.Y, y);
         sendBroadcast(intent);
@@ -171,7 +171,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     @Override
     public void updatePlayerBullets(List<Bullet> bullets) {
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.BULLET);
+        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.BULLET);
         intent.putExtra(Constant.Game.Player.BULLET, (Serializable) bullets);
         sendBroadcast(intent);
     }
@@ -180,10 +180,10 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     public void setShield(boolean open,int cold) {
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
         if (open) {
-            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.SHIELD_OPEN);
+            intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.SHIELD_OPEN);
             intent.putExtra(Constant.Game.Player.SHIELD_OPEN, cold);
         } else {
-            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.SHIELD_CLOSE);
+            intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.SHIELD_CLOSE);
             intent.putExtra(Constant.Game.Player.SHIELD_CLOSE, cold);
         }
         sendBroadcast(intent);
@@ -193,10 +193,10 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     public void setLaser(boolean start, int cold) {
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
         if (start) {
-            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.LASER_START);
+            intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.LASER_START);
             intent.putExtra(Constant.Game.Player.LASER_START, cold);
         } else {
-            intent.putExtra(Constant.BroadCast.STATE, Constant.Game.Player.LASER_STOP);
+            intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.LASER_STOP);
             intent.putExtra(Constant.Game.Player.LASER_STOP, cold);
         }
         sendBroadcast(intent);

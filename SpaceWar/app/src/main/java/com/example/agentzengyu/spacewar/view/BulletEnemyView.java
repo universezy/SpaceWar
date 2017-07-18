@@ -25,7 +25,7 @@ import java.util.List;
  * 敌人子弹视图
  */
 public class BulletEnemyView extends View {
-    private int bulletColor = Color.parseColor("#000000");
+    private int colorBullet = Color.parseColor("#000000");
     private Paint paintBullet;
     private Bitmap bitmap;
     private float screenWidth = 0;
@@ -78,7 +78,7 @@ public class BulletEnemyView extends View {
         bitmap = BitmapFactory.decodeResource(getResources(), normalId);
         bitmapHeight = bitmap.getHeight();
         paintBullet = new Paint();
-        paintBullet.setColor(bulletColor);
+        paintBullet.setColor(colorBullet);
     }
 
     /**

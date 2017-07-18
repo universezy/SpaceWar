@@ -21,12 +21,6 @@ public class EnemyLibrary implements Serializable {
 
     }
 
-    public EnemyLibrary(boolean init) {
-        if (!init) new EnemyLibrary();
-        normalEnemys = new ArrayList<>();
-        bossEnemys = new ArrayList<>();
-    }
-
     public boolean setNormalEmenys(List<EnemyItem> normalEmenys) {
         if (normalEmenys == null) {
             return false;

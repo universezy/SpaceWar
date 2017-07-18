@@ -81,12 +81,12 @@ public class SpaceWarApp extends Application {
         return playerData;
     }
 
-    public MapLibrary getMapLibrary() {
-        return mapLibrary;
-    }
-
     public EnemyLibrary getEnemyLibrary() {
         return enemyLibrary;
+    }
+
+    public MapLibrary getMapLibrary() {
+        return mapLibrary;
     }
 
     public ShopDaoImpl getShopDao() {

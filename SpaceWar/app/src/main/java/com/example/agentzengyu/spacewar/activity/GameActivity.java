@@ -62,7 +62,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //        MapItem mapItem = (MapItem) getIntent().getSerializableExtra("MapItem");
         initView();
         initVariable();
-        MapItem mapItem = new MapItem();
+        MapItem mapItem = app.getMapLibrary().getMaps().get(0);
         startGame(mapItem);
     }
 
@@ -187,7 +187,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public class MapReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String state = intent.getStringExtra(Constant.BroadCast.STATE);
+            String state = intent.getStringExtra(Constant.BroadCast.TARGET);
             switch (state) {
 
             }
@@ -198,7 +198,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public class PlayerReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String state = intent.getStringExtra(Constant.BroadCast.STATE);
+            String state = intent.getStringExtra(Constant.BroadCast.TARGET);
             switch (state) {
                 case Constant.Game.Type.NOTIFY:
                     String msg = intent.getStringExtra(Constant.Game.Type.NOTIFY);
@@ -208,7 +208,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         handlerNotify.postDelayed(runnableNotify, 600);
                     }
                     break;
-                case Constant.Game.Player.LOCATION:
+                case Constant.Game.Player.COORD:
                     float x = intent.getFloatExtra(Constant.Game.Player.X, 0);
                     float y = intent.getFloatExtra(Constant.Game.Player.Y, 0);
                     playerView.setLocation(x, y);
@@ -258,7 +258,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public class EnemyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String state = intent.getStringExtra(Constant.BroadCast.STATE);
+            String state = intent.getStringExtra(Constant.BroadCast.TARGET);
             switch (state) {
                 case Constant.Game.Enemy.BULLET:
                     List<Bullet> bullets = (List<Bullet>) intent.getSerializableExtra(Constant.Game.Enemy.BULLET);

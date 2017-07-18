@@ -1,15 +1,9 @@
 <resources>
     <string name="app_name">SpaceWar</string>
 
-    <string name="loading_shop">Loading shop library......</string>
-    <string name="loading_player">Loading player library......</string>
-    <string name="loading_map">Loading map library......</string>
-    <string name="loading_enemy">Loading enemy library......</string>
-
-    <string name="loaded_shop">Loading shop library successful.</string>
-    <string name="loaded_player">Loading player library successful.</string>
-    <string name="loaded_map">Loading shop map successful.</string>
-    <string name="loaded_enemy">Loading enemy library successful.</string>
+    <string name="load_start">Loading...</string>
+    <string name="load_end">Loading successful.</string>
+    <string name="load_error">Data file damaged. Please reinstall.</string>
 
     <string name="shop_money">Money</string>
     <string name="shop_upgrade">Upgrade</string>

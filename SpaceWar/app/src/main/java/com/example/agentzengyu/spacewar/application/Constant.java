@@ -12,79 +12,99 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * 常量
  */
-public class Constant {
+public @interface Constant {
     /**
      * 广播
      */
-    public static class BroadCast {
-        public final static String STATE = "STATE";
-        public final static String LOADING = "LOADING";
+    @interface BroadCast {
+        String TARGET = "TARGET";
+    }
+
+    /**
+     * 菜单
+     */
+    @interface Menu {
+        int MAIN = 0;
+        int GAME = 1;
+        int SHOP = 2;
+        int SETTING = 3;
+    }
+
+    /**
+     * 初始化
+     */
+    @interface Init {
+        String TAG = "LOADING";
+
+        /**
+         * 类型
+         */
+        @StringDef({
+                Type.SHOP, Type.PLAYER, Type.ENEMY, Type.MAP, Type.ERROR
+        })
+        @interface Type {
+            String SHOP = "SHOP";
+            String PLAYER = "PLAYER";
+            String ENEMY = "ENEMY";
+            String MAP = "MAP";
+            String ERROR = "ERROR";
+        }
     }
 
     /**
      * 游戏
      */
-    public static class Game {
+    @interface Game {
         /**
          * 类型
          */
-        public static class Type {
-            public final static String MAP = "MAP";
-            public final static String PLAYER = "Player";
-            public final static String ENEMY = "ENEMY";
-            public final static String NOTIFY = "NOTIFY";
-            public final static String STATUS = "STATUS";
+        @interface Type {
+            String MAP = "MAP";
+            String PLAYER = "Player";
+            String ENEMY = "ENEMY";
+            String NOTIFY = "NOTIFY";
+            String STATUS = "STATUS";
         }
 
         /**
          * 地图
          */
-        public static class Map {
+        @interface Map {
 
         }
 
         /**
          * 玩家
          */
-        public static class Player {
-            public final static String LOCATION = "LOCATION";
-            public final static String X = "X";
-            public final static String Y = "Y";
-            public final static String BULLET = "BULLET";
-            public final static String SHIELD_OPEN = "SHIELD_OPEN";
-            public final static String SHIELD_CLOSE = "SHIELD_CLOSE";
-            public final static String LASER_START = "LASER_START";
-            public final static String LASER_STOP = "LASER_STOP";
-            public final static String DESTROY = "DESTROY";
+        @interface Player {
+            String COORD = "COORD";
+            String X = "X";
+            String Y = "Y";
+            String BULLET = "BULLET";
+            String SHIELD_OPEN = "SHIELD_OPEN";
+            String SHIELD_CLOSE = "SHIELD_CLOSE";
+            String LASER_START = "LASER_START";
+            String LASER_STOP = "LASER_STOP";
+            String DESTROY = "DESTROY";
         }
 
         /**
          * 敌人
          */
-        public static class Enemy {
-            public final static String BULLET = "BULLET";
+        @interface Enemy {
+            String BULLET = "BULLET";
         }
-    }
-
-    /**
-     * 菜单
-     */
-    public static class Menu {
-        public final static int MAIN = 0;
-        public final static int GAME = 1;
-        public final static int SHOP = 2;
-        public final static int SETTING = 3;
     }
 
     /**
      * 数据库
      */
-    public static class Database {
+    @interface Database {
         /**
          * 商店
          */
-        public static class Shop {
-            public final static String DBName = "DB_SHOP";
+        @interface Shop {
+            String DBName = "DB_SHOP";
 
             @StringDef({
                     TableName.LIFE,
@@ -96,7 +116,7 @@ public class Constant {
                     TableName.RANGE,
                     TableName.LASER})
             @Retention(RetentionPolicy.RUNTIME)
-            public @interface TableName {
+            @interface TableName {
                 String LIFE = "LIFE";
                 String AGILITY = "AGILITY";
                 String DEFENSE = "DEFENSE";
@@ -108,7 +128,7 @@ public class Constant {
             }
 
             @Retention(RetentionPolicy.SOURCE)
-            public @interface ColumnName {
+            @interface ColumnName {
                 String LEVEL = "LEVEL";
                 String NAME = "NAME";
                 String VALUE = "VALUE";
@@ -120,8 +140,8 @@ public class Constant {
         /**
          * 玩家
          */
-        public static class Player {
-            public final static String DBName = "DB_PLAYER";
+        @interface Player {
+            String DBName = "DB_PLAYER";
 
             @StringDef({
                     TableName.LIFE,
@@ -134,7 +154,7 @@ public class Constant {
                     TableName.LASER,
                     TableName.INFO})
             @Retention(RetentionPolicy.SOURCE)
-            public @interface TableName {
+            @interface TableName {
                 String LIFE = "LIFE";
                 String AGILITY = "AGILITY";
                 String DEFENSE = "DEFENSE";
@@ -150,21 +170,21 @@ public class Constant {
         /**
          * 敌人
          */
-        public static class Enemy {
-            public final static String DBName = "DB_ENEMY";
+        @interface Enemy {
+            String DBName = "DB_ENEMY";
 
             @StringDef({
                     TableName.NORMAL,
                     TableName.BOSS
             })
             @Retention(RetentionPolicy.SOURCE)
-            public @interface TableName {
+            @interface TableName {
                 String NORMAL = "NORMAL";
                 String BOSS = "BOSS";
             }
 
             @Retention(RetentionPolicy.SOURCE)
-            public @interface ColumnName {
+            @interface ColumnName {
                 String NAME = "NAME";
                 String LIFE = "LIFE";
                 String DEFENSE = "DEFENSE";
@@ -179,22 +199,22 @@ public class Constant {
         /**
          * 地图
          */
-        public static class Map {
-            public final static String DBName = "DB_MAP";
+        @interface Map {
+            String DBName = "DB_MAP";
 
             @StringDef({
                     TableName.MAP
             })
-            public @interface TableName {
+            @interface TableName {
                 String MAP = "MAP";
             }
 
             @Retention(RetentionPolicy.SOURCE)
-            public @interface ColumnName {
-                String MAPNAME = "MAPNAME";
+            @interface ColumnName {
+                String MAP_NAME = "MAP_NAME";
                 String IMAGE = "IMAGE";
                 String MUSIC = "MUSIC";
-                String BOSSNAME = "BOSSNAME";
+                String BOSS_NAME = "BOSS_NAME";
 
                 String NAME1 = "NAME1";
                 String COUNT1 = "COUNT1";

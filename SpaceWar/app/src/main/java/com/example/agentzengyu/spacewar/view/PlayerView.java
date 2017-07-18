@@ -17,8 +17,8 @@ import com.example.agentzengyu.spacewar.R;
  */
 
 public class PlayerView extends View {
-    private int shieldColor = Color.parseColor("#7700bfff");
-    private int laserColor = Color.parseColor("#ddff0000");
+    private int colorShield = Color.parseColor("#7700bfff");
+    private int colorLaser = Color.parseColor("#ddff0000");
     private Paint paintShip, paintShield, paintLaser;
     private Bitmap bitmap;
     private float screenWidth = 0;
@@ -33,7 +33,7 @@ public class PlayerView extends View {
     private boolean openShield = false;
     private boolean launchLaser = false;
     private boolean init = false;
-    private float laserRange = 0;
+    private float rangeLaser = 0;
 
     public PlayerView(Context context) {
         super(context);
@@ -74,9 +74,9 @@ public class PlayerView extends View {
         }
 
         if (launchLaser) {
-            float laserX = playerX * moveWidth / 1000 - laserRange / 2;
+            float laserX = playerX * moveWidth / 1000 - rangeLaser / 2;
             float laserY = playerY * moveHeight / 1000;
-            canvas.drawRect(laserX, -50, laserX + laserRange, laserY, paintLaser);
+            canvas.drawRect(laserX, -50, laserX + rangeLaser, laserY, paintLaser);
         }
     }
 
@@ -91,9 +91,9 @@ public class PlayerView extends View {
         radius = Math.max(bitmapWidth, bitmapHeight) * 2 / 3;
         paintShip = new Paint();
         paintShield = new Paint();
-        paintShield.setColor(shieldColor);
+        paintShield.setColor(colorShield);
         paintLaser = new Paint();
-        paintLaser.setColor(laserColor);
+        paintLaser.setColor(colorLaser);
     }
 
     /**
@@ -124,7 +124,7 @@ public class PlayerView extends View {
      * @param range 范围
      */
     public void initLaser(float range) {
-        this.laserRange = range * 2;
+        this.rangeLaser = range * 2;
     }
 
     /**

@@ -7,11 +7,11 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
@@ -24,10 +24,9 @@ import com.example.agentzengyu.spacewar.service.LoaderService;
 public class LoadingActivity extends AppCompatActivity {
     private SpaceWarApp app = null;
     private LoadingReceiver receiver;
-    private Handler handler= new Handler();
+    private Handler handler = new Handler();
     private Runnable runnable;
 
-    private ImageView mIvLogo;
     private ProgressBar mPbLoad;
     private TextView mTvLoad;
 
@@ -52,7 +51,6 @@ public class LoadingActivity extends AppCompatActivity {
      * 初始化布局
      */
     private void initView() {
-        mIvLogo = (ImageView) findViewById(R.id.ivLogo);
         mPbLoad = (ProgressBar) findViewById(R.id.pbLoad);
         mTvLoad = (TextView) findViewById(R.id.tvLoad);
     }
@@ -63,7 +61,7 @@ public class LoadingActivity extends AppCompatActivity {
     private void initVariable() {
         app = (SpaceWarApp) getApplication();
         receiver = new LoadingReceiver();
-        IntentFilter filter = new IntentFilter(Constant.BroadCast.LOADING);
+        IntentFilter filter = new IntentFilter(Constant.Init.TAG);
         registerReceiver(receiver, filter);
         runnable = new Runnable() {
             @Override
@@ -89,13 +87,31 @@ public class LoadingActivity extends AppCompatActivity {
         }, 2000);
     }
 
-
     public class LoadingReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String state = intent.getStringExtra(Constant.BroadCast.STATE);
-            Log.e("start","===");
-            handler.postDelayed(runnable,1000);
+            String target = intent.getStringExtra(Constant.BroadCast.TARGET);
+            switch (target) {
+                case Constant.Init.Type.SHOP:
+                    mPbLoad.setProgress(25);
+                    break;
+                case Constant.Init.Type.PLAYER:
+                    mPbLoad.setProgress(50);
+                    break;
+                case Constant.Init.Type.ENEMY:
+                    mPbLoad.setProgress(75);
+                    break;
+                case Constant.Init.Type.MAP:
+                    mPbLoad.setProgress(100);
+                    mTvLoad.setText(R.string.load_end);
+                    handler.postDelayed(runnable, 1000);
+                    break;
+                case Constant.Init.Type.ERROR:
+                    Toast.makeText(LoadingActivity.this, R.string.load_error, Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
