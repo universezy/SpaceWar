@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.activity.MainActivity;
+import com.example.agentzengyu.spacewar.activity.UserActivity;
 import com.example.agentzengyu.spacewar.activity.MapActivity;
 import com.example.agentzengyu.spacewar.activity.MenuActivity;
 import com.example.agentzengyu.spacewar.activity.SettingActivity;
@@ -111,7 +111,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                 case R.id.btnEnter:
                     switch ((int) v.getTag()) {
                         case Constant.Menu.MAIN:
-                            Intent intentMain = new Intent(activity, MainActivity.class);
+                            Intent intentMain = new Intent(activity, UserActivity.class);
                             activity.startActivity(intentMain);
                             activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;

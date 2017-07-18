@@ -21,7 +21,7 @@ public class WelcomeActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
         initVariable();
-        setAction();
+        handler.postDelayed(runnable, 2000);
     }
 
     /**
@@ -38,12 +38,5 @@ public class WelcomeActivity extends AppCompatActivity {
                 finish();
             }
         };
-    }
-
-    /**
-     * 设置动作
-     */
-    private void setAction() {
-        handler.postDelayed(runnable, 2000);
     }
 }

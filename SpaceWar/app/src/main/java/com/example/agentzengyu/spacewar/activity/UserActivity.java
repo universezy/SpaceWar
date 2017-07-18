@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import com.example.agentzengyu.spacewar.view.CircleImageView;
 /**
  * 玩家信息界面
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserActivity extends AppCompatActivity implements View.OnClickListener {
     private SpaceWarApp app = null;
 
     private TextView mTvUser, mTvMoney;
@@ -41,9 +40,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user);
         app = (SpaceWarApp) getApplication();
         initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        overridePendingTransition(0, R.anim.activity_out);
     }
 
     /**
@@ -189,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showDetail(app.getPlayerData().getLaser());
                 break;
             case R.id.btnPlay:
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                Intent intent = new Intent(UserActivity.this, MapActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                 break;

@@ -120,6 +120,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_weight="15"
+        android:background="@drawable/button"
         android:text="@string/shop_upgrade" />
 
 </LinearLayout>

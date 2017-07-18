@@ -20,7 +20,7 @@ public class MirrorBuilder {
      * @param source 数据源
      * @return 镜像
      */
-    public Object buildMirror(Object source) {
+    public static Object buildMirror(Object source) {
         Object mirror = null;
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

@@ -10,16 +10,19 @@ import android.view.View;
  * Created by Agent ZengYu on 2017/6/29.
  */
 
-public class MapView extends View {
-    public MapView(Context context) {
+/**
+ * 地图位置视图
+ */
+public class LocationMapView extends View {
+    public LocationMapView(Context context) {
         super(context);
     }
 
-    public MapView(Context context, @Nullable AttributeSet attrs) {
+    public LocationMapView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MapView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LocationMapView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:activity="com.example.agentzengyu.spacewar.activity.MainActivity">
+    tools:activity="com.example.agentzengyu.spacewar.activity.UserActivity">
 
     <TextView
         android:id="@+id/tvUser"
@@ -193,6 +193,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/button"
         android:gravity="center"
         android:text="Start" />
 

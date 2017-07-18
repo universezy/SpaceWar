@@ -29,6 +29,12 @@ public class MapActivity extends AppCompatActivity {
         initView();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        overridePendingTransition(0, R.anim.activity_out);
+    }
+
     /**
      * 初始化变量
      */

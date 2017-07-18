@@ -22,9 +22,9 @@ import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.view.BulletEnemyView;
 import com.example.agentzengyu.spacewar.view.BulletPlayerView;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
-import com.example.agentzengyu.spacewar.view.EnemyView;
-import com.example.agentzengyu.spacewar.view.MapView;
-import com.example.agentzengyu.spacewar.view.PlayerView;
+import com.example.agentzengyu.spacewar.view.LocationEnemyView;
+import com.example.agentzengyu.spacewar.view.LocationMapView;
+import com.example.agentzengyu.spacewar.view.LocationPlayerView;
 
 import java.util.List;
 
@@ -34,9 +34,9 @@ import java.util.List;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getName();
 
-    private MapView mapView;
-    private PlayerView playerView;
-    private EnemyView enemyView;
+    private LocationMapView locationMapView;
+    private LocationPlayerView locationPlayerView;
+    private LocationEnemyView locationEnemyView;
     private BulletPlayerView bulletPlayerView;
     private BulletEnemyView bulletEnemyView;
     private TextView mTvLife, mTvShield, mTvLaser, mTvMap, mTvNotify;
@@ -80,9 +80,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化布局
      */
     private void initView() {
-        mapView = (MapView) findViewById(R.id.mvMap);
-        playerView = (PlayerView) findViewById(R.id.pvPlayer);
-        enemyView = (EnemyView) findViewById(R.id.evEnemy);
+        locationMapView = (LocationMapView) findViewById(R.id.mvMap);
+        locationPlayerView = (LocationPlayerView) findViewById(R.id.pvPlayer);
+        locationEnemyView = (LocationEnemyView) findViewById(R.id.evEnemy);
         bulletPlayerView = (BulletPlayerView) findViewById(R.id.bpvPlayer);
         bulletEnemyView = (BulletEnemyView) findViewById(R.id.bevEnemy);
         mTvLife = (TextView) findViewById(R.id.tvLife);
@@ -156,7 +156,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mTvLife.setText("" + playerData.getLife().getValue());
         mTvShield.setText("CD: " + playerData.getShield().getValue());
         mTvLaser.setText("CD: " + playerData.getLaser().getValue());
-        playerView.initLaser(playerData.getRange().getValue());
+        locationPlayerView.initLaser(playerData.getRange().getValue());
         if (mapItem != null) {
             mTvMap.setText(mapItem.getMapName());
             handlerNotify.postDelayed(new Runnable() {
@@ -210,7 +210,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 case Constant.Game.Player.COORD:
                     float x = intent.getFloatExtra(Constant.Game.Player.X, 0);
                     float y = intent.getFloatExtra(Constant.Game.Player.Y, 0);
-                    playerView.setLocation(x, y);
+                    locationPlayerView.setLocation(x, y);
                     break;
                 case Constant.Game.Player.BULLET:
                     List<Bullet> bullets = (List<Bullet>) intent.getSerializableExtra(Constant.Game.Player.BULLET);
@@ -218,12 +218,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case Constant.Game.Player.SHIELD_OPEN:
                     int coldOpen = intent.getIntExtra(Constant.Game.Player.SHIELD_OPEN, 0);
-                    playerView.setShield(true);
+                    locationPlayerView.setShield(true);
                     mTvShield.setText("Wait: " + coldOpen);
                     break;
                 case Constant.Game.Player.SHIELD_CLOSE:
                     int coldClose = intent.getIntExtra(Constant.Game.Player.SHIELD_CLOSE, 0);
-                    playerView.setShield(false);
+                    locationPlayerView.setShield(false);
                     if (coldClose == playerData.getShield().getValue()) {
                         mTvShield.setText("CD: " + playerData.getShield().getValue());
                     } else {
@@ -232,12 +232,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case Constant.Game.Player.LASER_START:
                     int coldStart = intent.getIntExtra(Constant.Game.Player.LASER_START, 0);
-                    playerView.setLaser(true);
+                    locationPlayerView.setLaser(true);
                     mTvLaser.setText("Wait: " + coldStart);
                     break;
                 case Constant.Game.Player.LASER_STOP:
                     int coldStop = intent.getIntExtra(Constant.Game.Player.LASER_STOP, 0);
-                    playerView.setLaser(false);
+                    locationPlayerView.setLaser(false);
                     if (coldStop == playerData.getLaser().getValue()) {
                         mTvLaser.setText("CD: " + playerData.getLaser().getValue());
                     } else {
@@ -245,7 +245,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     break;
                 case Constant.Game.Player.DESTROY:
-                    playerView.destroy();
+                    locationPlayerView.destroy();
                     break;
                 default:
                     break;

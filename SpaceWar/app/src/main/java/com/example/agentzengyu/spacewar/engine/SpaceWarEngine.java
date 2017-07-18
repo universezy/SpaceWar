@@ -28,6 +28,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private static String TAG = "";
     //引擎实例
     private static SpaceWarEngine instance = null;
+    //应用管理
     private SpaceWarApp app = null;
     //消息接口
     private IMessageCallback iMessageCallback = null;
@@ -82,10 +83,6 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private boolean listenGravitySensor = false;
     //玩家坐标
     private float playerX = 500, playerY = 1000;
-    //玩家速度比例
-    private final static float LOCATION_SCALE = 30;
-    //子弹速度比例
-    private final static float SPEED_SCALE = 3;
     //子弹数组
     private List<Bullet> bulletsPlayer = Collections.synchronizedList(new ArrayList<Bullet>());
     private List<Bullet> bulletsEnemy = Collections.synchronizedList(new ArrayList<Bullet>());
@@ -181,9 +178,8 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * @param mapSource    地图资源
      */
     private void loadMirror(PlayerData playerSource, MapItem mapSource) {
-        MirrorBuilder creator = new MirrorBuilder();
         playerMirror = null;
-        playerMirror = (PlayerData) creator.buildMirror(playerSource);
+        playerMirror = (PlayerData) MirrorBuilder.buildMirror(playerSource);
         shieldCold = playerMirror.getShield().getValue();
         laserCold = playerMirror.getLaser().getValue();
         iMessageCallback.notifyInitMsg("Loading player data successful.", false);
@@ -193,7 +189,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
             e.printStackTrace();
         }
         mapMirror = null;
-        mapMirror = (MapItem) creator.buildMirror(mapSource);
+        mapMirror = (MapItem) MirrorBuilder.buildMirror(mapSource);
         iMessageCallback.notifyInitMsg("Loading enemy data successful.", false);
         try {
             Thread.sleep(500);
@@ -288,23 +284,23 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         int playerAgility = playerMirror.getAgility().getValue();
         if (X - SX > 0.5) {        //下
             if (playerY != 1000) {
-                playerY += playerAgility / LOCATION_SCALE;
+                playerY += playerAgility;
                 if (playerY > 1000) playerY = 1000;
             }
         } else if (SX - X > 0.5) { //上
             if (playerY != 0) {
-                playerY -= playerAgility / LOCATION_SCALE;
+                playerY -= playerAgility;
                 if (playerY < 0) playerY = 0;
             }
         }
         if (Y - SY > 0.5) {        //右
             if (playerX != 1000) {
-                playerX += playerAgility / LOCATION_SCALE;
+                playerX += playerAgility;
                 if (playerX > 1000) playerX = 1000;
             }
         } else if (SY - Y > 0.5) { //左
             if (playerX != 0) {
-                playerX -= playerAgility / LOCATION_SCALE;
+                playerX -= playerAgility;
                 if (playerX < 0) playerX = 0;
             }
         }
@@ -318,7 +314,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         synchronized (bulletsPlayer) {
             for (int i = 0; i < bulletsPlayer.size(); i++) {
                 Bullet bullet = bulletsPlayer.get(i);
-                bullet.setY(bullet.getY() - bullet.getSpeed() / SPEED_SCALE);
+                bullet.setY(bullet.getY() - bullet.getSpeed());
                 if (bullet.getY() < 0)
                     bulletsPlayer.remove(i);
             }
@@ -333,7 +329,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         synchronized (bulletsEnemy) {
             for (int i = 0; i < bulletsEnemy.size(); i++) {
                 Bullet bullet = bulletsEnemy.get(i);
-                bullet.setY(bullet.getY() - bullet.getSpeed() / SPEED_SCALE);
+                bullet.setY(bullet.getY() - bullet.getSpeed());
                 if (bullet.getY() < 0)
                     bulletsEnemy.remove(i);
             }

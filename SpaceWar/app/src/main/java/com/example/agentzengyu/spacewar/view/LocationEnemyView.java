@@ -6,27 +6,24 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.example.agentzengyu.spacewar.entity.single.Bullet;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Created by Agent ZengYu on 2017/6/29.
  */
 
-public class EnemyView extends View {
+/**
+ * 敌人位置视图
+ */
+public class LocationEnemyView extends View {
 
-    public EnemyView(Context context) {
+    public LocationEnemyView(Context context) {
         super(context);
     }
 
-    public EnemyView(Context context, @Nullable AttributeSet attrs) {
+    public LocationEnemyView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public EnemyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LocationEnemyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

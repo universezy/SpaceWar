@@ -36,6 +36,12 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         initView();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        overridePendingTransition(0, R.anim.activity_out);
+    }
+
     /**
      * 初始化布局
      */

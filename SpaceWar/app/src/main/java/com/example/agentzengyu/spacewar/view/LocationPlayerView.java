@@ -16,7 +16,10 @@ import com.example.agentzengyu.spacewar.R;
  * Created by Agent ZengYu on 2017/6/29.
  */
 
-public class PlayerView extends View {
+/**
+ * 玩家位置视图
+ */
+public class LocationPlayerView extends View {
     private int colorShield = Color.parseColor("#7700bfff");
     private int colorLaser = Color.parseColor("#ddff0000");
     private Paint paintShip, paintShield, paintLaser;
@@ -35,17 +38,17 @@ public class PlayerView extends View {
     private boolean init = false;
     private float rangeLaser = 0;
 
-    public PlayerView(Context context) {
+    public LocationPlayerView(Context context) {
         super(context);
         init();
     }
 
-    public PlayerView(Context context, @Nullable AttributeSet attrs) {
+    public LocationPlayerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public PlayerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LocationPlayerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
