@@ -32,7 +32,7 @@
             android:screenOrientation="landscape" />
 
         <activity
-            android:name=".activity.ShopActivity"
+            android:name=".activity.ArticleActivity"
             android:screenOrientation="landscape" />
 
         <activity

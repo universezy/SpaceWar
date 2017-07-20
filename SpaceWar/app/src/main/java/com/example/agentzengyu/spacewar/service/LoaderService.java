@@ -12,6 +12,7 @@ import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
 import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.set.ArticleLibrary;
+import com.example.agentzengyu.spacewar.entity.set.RelevancyLibrary;
 import com.example.agentzengyu.spacewar.entity.single.Enemy;
 import com.example.agentzengyu.spacewar.entity.single.Map;
 import com.example.agentzengyu.spacewar.entity.single.UserInfo;
@@ -64,6 +65,9 @@ public class LoaderService extends Service {
             return;
         }
         if (!loadMapData()) {
+            return;
+        }
+        if (!loadRelevancyData()){
             return;
         }
     }
@@ -149,6 +153,26 @@ public class LoaderService extends Service {
     }
 
     /**
+     * 加载关联数据
+     */
+    private boolean loadRelevancyData(){
+        Log.e(TAG, "loadRelevancyData");
+        RelevancyLibrary library = app.getRelevancyDao().findAll();
+        if (library==null){
+            Log.e("RelevancyData","null");
+            initRelevancy();
+            library = app.getRelevancyDao().findAll();
+            if (library == null) {
+                sendNotify(Constant.Init.Type.ERROR);
+                return false;
+            }
+        }
+        app.setRelevancyLibrary(library);
+        sendNotify(Constant.Init.Type.RELEVANCY);
+        return true;
+    }
+
+    /**
      * 初始化商店数据
      *
      * @return
@@ -190,7 +214,7 @@ public class LoaderService extends Service {
         PlayerData data = new PlayerData();
         if (data.setLife(app.getArticleLibrary().getLives().get(0)) &&
                 data.setDefense(app.getArticleLibrary().getDefenses().get(0)) &&
-                data.setAgility(app.getArticleLibrary().getVelocities().get(0)) &&
+                data.setVelocity(app.getArticleLibrary().getVelocities().get(0)) &&
                 data.setShield(app.getArticleLibrary().getShields().get(0)) &&
                 data.setPower(app.getArticleLibrary().getPowers().get(0)) &&
                 data.setSpeed(app.getArticleLibrary().getSpeeds().get(0)) &&
@@ -254,6 +278,15 @@ public class LoaderService extends Service {
 
         Map item3 = new Map("map3", R.mipmap.ic_launcher, R.raw.dingding, "boss3");
         app.getMapDao().insert(item3);
+    }
+
+    /**
+     * 初始化关联数据
+     *
+     * @return
+     */
+    private void initRelevancy(){
+
     }
 
     /**

@@ -16,7 +16,7 @@ import com.example.agentzengyu.spacewar.activity.UserActivity;
 import com.example.agentzengyu.spacewar.activity.MapActivity;
 import com.example.agentzengyu.spacewar.activity.MenuActivity;
 import com.example.agentzengyu.spacewar.activity.SettingActivity;
-import com.example.agentzengyu.spacewar.activity.ShopActivity;
+import com.example.agentzengyu.spacewar.activity.ArticleActivity;
 import com.example.agentzengyu.spacewar.application.Constant;
 
 /**
@@ -121,7 +121,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                             activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         case Constant.Menu.ARTICLE:
-                            Intent intentShop = new Intent(activity, ShopActivity.class);
+                            Intent intentShop = new Intent(activity, ArticleActivity.class);
                             activity.startActivity(intentShop);
                             activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;

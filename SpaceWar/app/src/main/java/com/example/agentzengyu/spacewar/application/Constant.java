@@ -40,13 +40,14 @@ public @interface Constant {
          * 类型
          */
         @StringDef({
-                Type.ARTICLE, Type.PLAYER, Type.ENEMY, Type.MAP, Type.ERROR
+                Type.ARTICLE, Type.PLAYER, Type.ENEMY, Type.MAP, Type.RELEVANCY, Type.ERROR
         })
         @interface Type {
             String ARTICLE = "ARTICLE";
             String PLAYER = "PLAYER";
             String ENEMY = "ENEMY";
             String MAP = "MAP";
+            String RELEVANCY = "RELEVANCY";
             String ERROR = "ERROR";
         }
     }

@@ -55,7 +55,7 @@ public class PlayerDaoImpl implements PlayerDao {
         try {
             if (data.setLife(snappyDB.getObject(Constant.Database.Player.TableName.LIFE, Article.class)) &&
                     data.setDefense(snappyDB.getObject(Constant.Database.Player.TableName.DEFENSE, Article.class)) &&
-                    data.setAgility(snappyDB.getObject(Constant.Database.Player.TableName.VELOCITY, Article.class)) &&
+                    data.setVelocity(snappyDB.getObject(Constant.Database.Player.TableName.VELOCITY, Article.class)) &&
                     data.setShield(snappyDB.getObject(Constant.Database.Player.TableName.SHIELD, Article.class)) &&
                     data.setPower(snappyDB.getObject(Constant.Database.Player.TableName.POWER, Article.class)) &&
                     data.setSpeed(snappyDB.getObject(Constant.Database.Player.TableName.SPEED, Article.class)) &&
@@ -77,7 +77,7 @@ public class PlayerDaoImpl implements PlayerDao {
         try {
             snappyDB.put(Constant.Database.Player.TableName.LIFE, data.getLife());
             snappyDB.put(Constant.Database.Player.TableName.DEFENSE, data.getDefense());
-            snappyDB.put(Constant.Database.Player.TableName.VELOCITY, data.getAgility());
+            snappyDB.put(Constant.Database.Player.TableName.VELOCITY, data.getVelocity());
             snappyDB.put(Constant.Database.Player.TableName.SHIELD, data.getShield());
             snappyDB.put(Constant.Database.Player.TableName.POWER, data.getPower());
             snappyDB.put(Constant.Database.Player.TableName.SPEED, data.getSpeed());

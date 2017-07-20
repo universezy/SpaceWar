@@ -281,7 +281,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * @param Y Y坐标
      */
     private void updatePlayerLocation(float X, float Y) {
-        int playerAgility = playerMirror.getAgility().getValue();
+        int playerAgility = playerMirror.getVelocity().getValue();
         if (X - SX > 0.5) {        //下
             if (playerY != 1000) {
                 playerY += playerAgility;

@@ -16,7 +16,7 @@ public class PlayerData implements Serializable {
     /********** Ship **********/
     private Article life = null;
     private Article defense = null;
-    private Article agility = null;
+    private Article velocity = null;
     private Article shield = null;
 
     /********** Weapon **********/
@@ -51,11 +51,11 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public boolean setAgility(Article agility) {
-        if (agility == null) {
+    public boolean setVelocity(Article velocity) {
+        if (velocity == null) {
             return false;
         } else {
-            this.agility = agility;
+            this.velocity = velocity;
             return true;
         }
     }
@@ -77,8 +77,8 @@ public class PlayerData implements Serializable {
         return defense;
     }
 
-    public Article getAgility() {
-        return agility;
+    public Article getVelocity() {
+        return velocity;
     }
 
     public Article getShield() {

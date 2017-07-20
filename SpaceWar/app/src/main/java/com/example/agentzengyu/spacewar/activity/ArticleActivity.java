@@ -17,7 +17,7 @@ import com.example.agentzengyu.spacewar.view.CircleImageView;
 /**
  * 商店界面
  */
-public class ShopActivity extends AppCompatActivity implements View.OnClickListener {
+public class ArticleActivity extends AppCompatActivity implements View.OnClickListener {
     private SpaceWarApp app = null;
     private FragmentManager fragmentManager;
     private WeaponFragment weaponFragment;

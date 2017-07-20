@@ -94,7 +94,7 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
                 articles.addAll(app.getArticleLibrary().getDefenses());
                 break;
             case 2:
-                userItem.add(app.getPlayerData().getAgility());
+                userItem.add(app.getPlayerData().getVelocity());
                 articles.addAll(app.getArticleLibrary().getVelocities());
                 break;
             case 3:

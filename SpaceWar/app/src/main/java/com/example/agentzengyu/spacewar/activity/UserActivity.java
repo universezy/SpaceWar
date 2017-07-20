@@ -69,7 +69,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         mCivDefense.setImageResource(app.getPlayerData().getDefense().getImage());
         mCivDefense.setOnClickListener(this);
         mCivAgility = (CircleImageView) findViewById(R.id.civAgility);
-        mCivAgility.setImageResource(app.getPlayerData().getAgility().getImage());
+        mCivAgility.setImageResource(app.getPlayerData().getVelocity().getImage());
         mCivAgility.setOnClickListener(this);
         mCivShield = (CircleImageView) findViewById(R.id.civShield);
         mCivShield.setImageResource(app.getPlayerData().getShield().getImage());
@@ -179,7 +179,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 showDetail(app.getPlayerData().getDefense());
                 break;
             case R.id.civAgility:
-                showDetail(app.getPlayerData().getAgility());
+                showDetail(app.getPlayerData().getVelocity());
                 break;
             case R.id.civShield:
                 showDetail(app.getPlayerData().getShield());
