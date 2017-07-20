@@ -13,7 +13,7 @@ import com.example.agentzengyu.spacewar.engine.IMessageCallback;
 import com.example.agentzengyu.spacewar.engine.IStatusHandle;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
-import com.example.agentzengyu.spacewar.entity.single.MapItem;
+import com.example.agentzengyu.spacewar.entity.single.Map;
 
 import java.io.Serializable;
 import java.util.List;
@@ -75,8 +75,8 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
 
     /********************************* IStatusHandle *********************************/
     @Override
-    public void onPrepare(MapItem mapItem) {
-        engine.onPrepare(mapItem);
+    public void onPrepare(Map map) {
+        engine.onPrepare(map);
     }
 
     @Override

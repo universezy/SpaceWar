@@ -18,7 +18,7 @@ public class EnemyHelper extends SQLiteOpenHelper {
             + Constant.Database.Enemy.ColumnName.NAME + " varchar(20) primary key,"
             + Constant.Database.Enemy.ColumnName.LIFE + " integer,"
             + Constant.Database.Enemy.ColumnName.DEFENSE + " integer,"
-            + Constant.Database.Enemy.ColumnName.AGILITY + " integer,"
+            + Constant.Database.Enemy.ColumnName.VELOCITY + " integer,"
             + Constant.Database.Enemy.ColumnName.POWER + " integer,"
             + Constant.Database.Enemy.ColumnName.SPEED + " integer,"
             + Constant.Database.Enemy.ColumnName.RANGE + " integer,"

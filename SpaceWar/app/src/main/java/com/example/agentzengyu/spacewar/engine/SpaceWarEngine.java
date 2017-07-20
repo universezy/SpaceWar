@@ -11,7 +11,7 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
-import com.example.agentzengyu.spacewar.entity.single.MapItem;
+import com.example.agentzengyu.spacewar.entity.single.Map;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,7 +62,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private Runnable laserRunnable = null;
     //数据镜像
     private PlayerData playerMirror = null;
-    private MapItem mapMirror = null;
+    private Map mapMirror = null;
     //子线程刷新延迟
     private int delay = 100;
     //护盾持续时间
@@ -177,7 +177,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * @param playerSource 玩家资源
      * @param mapSource    地图资源
      */
-    private void loadMirror(PlayerData playerSource, MapItem mapSource) {
+    private void loadMirror(PlayerData playerSource, Map mapSource) {
         playerMirror = null;
         playerMirror = (PlayerData) MirrorBuilder.buildMirror(playerSource);
         shieldCold = playerMirror.getShield().getValue();
@@ -189,7 +189,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
             e.printStackTrace();
         }
         mapMirror = null;
-        mapMirror = (MapItem) MirrorBuilder.buildMirror(mapSource);
+        mapMirror = (Map) MirrorBuilder.buildMirror(mapSource);
         iMessageCallback.notifyInitMsg("Loading enemy data successful.", false);
         try {
             Thread.sleep(500);
@@ -396,13 +396,13 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
 
     /********************************* IStatusHandle *********************************/
     @Override
-    public void onPrepare(final MapItem mapItem) {
+    public void onPrepare(final Map map) {
         Log.e(TAG, "onPrepare");
         new Thread(new Runnable() {
             @Override
             public void run() {
-                loadMirror(app.getPlayerData(), mapItem);
-                loadMusic(mapItem.getMusic());
+                loadMirror(app.getPlayerData(), map);
+                loadMusic(map.getMusic());
                 initGravitySensorCoord();
             }
         }).start();

@@ -11,17 +11,17 @@ import java.io.Serializable;
 /**
  * 商品类
  */
-public class ShopItem implements Serializable {
+public class Article implements Serializable {
     private String name = "";
     private int image = 0;
     private int value = 0;
     private int level = 0;
     private int price = 0;
 
-    private ShopItem() {
+    private Article() {
     }
 
-    public ShopItem(String name, int image, int value, int level, int price) {
+    public Article(String name, int image, int value, int level, int price) {
         this.name = name;
         this.image = image;
         this.value = value;

@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.single.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.Article;
 import com.example.agentzengyu.spacewar.entity.single.UserInfo;
 import com.snappydb.DB;
 import com.snappydb.SnappyDB;
@@ -26,12 +26,12 @@ public class PlayerDaoImpl implements PlayerDao {
         try {
             snappyDB = new SnappyDB.Builder(context)
                     .directory(context.getFilesDir().getAbsolutePath())
-                    .name(Constant.Database.Player.DBName)
+                    .name(Constant.Database.Player.DatabaseName)
                     .build();
             if (snappyDB == null) {
-                Log.e("snappyDB", "---------> null");
+                Log.e("Player snappyDB", "---------> null");
             } else {
-                Log.e("snappyDB", "---------> create");
+                Log.e("Player snappyDB", "---------> create");
             }
         } catch (SnappydbException e) {
             e.printStackTrace();
@@ -53,14 +53,14 @@ public class PlayerDaoImpl implements PlayerDao {
     public PlayerData findAll() {
         PlayerData data = new PlayerData();
         try {
-            if (data.setLife(snappyDB.getObject(Constant.Database.Player.TableName.LIFE, ShopItem.class)) &&
-                    data.setDefense(snappyDB.getObject(Constant.Database.Player.TableName.DEFENSE, ShopItem.class)) &&
-                    data.setAgility(snappyDB.getObject(Constant.Database.Player.TableName.AGILITY, ShopItem.class)) &&
-                    data.setShield(snappyDB.getObject(Constant.Database.Player.TableName.SHIELD, ShopItem.class)) &&
-                    data.setPower(snappyDB.getObject(Constant.Database.Player.TableName.POWER, ShopItem.class)) &&
-                    data.setSpeed(snappyDB.getObject(Constant.Database.Player.TableName.SPEED, ShopItem.class)) &&
-                    data.setRange(snappyDB.getObject(Constant.Database.Player.TableName.RANGE, ShopItem.class)) &&
-                    data.setLaser(snappyDB.getObject(Constant.Database.Player.TableName.LASER, ShopItem.class)) &&
+            if (data.setLife(snappyDB.getObject(Constant.Database.Player.TableName.LIFE, Article.class)) &&
+                    data.setDefense(snappyDB.getObject(Constant.Database.Player.TableName.DEFENSE, Article.class)) &&
+                    data.setAgility(snappyDB.getObject(Constant.Database.Player.TableName.VELOCITY, Article.class)) &&
+                    data.setShield(snappyDB.getObject(Constant.Database.Player.TableName.SHIELD, Article.class)) &&
+                    data.setPower(snappyDB.getObject(Constant.Database.Player.TableName.POWER, Article.class)) &&
+                    data.setSpeed(snappyDB.getObject(Constant.Database.Player.TableName.SPEED, Article.class)) &&
+                    data.setRange(snappyDB.getObject(Constant.Database.Player.TableName.RANGE, Article.class)) &&
+                    data.setLaser(snappyDB.getObject(Constant.Database.Player.TableName.LASER, Article.class)) &&
                     data.setInfo(snappyDB.getObject(Constant.Database.Player.TableName.INFO, UserInfo.class))) {
                 Log.e("snappyDB", "findAll");
                 return data;
@@ -77,7 +77,7 @@ public class PlayerDaoImpl implements PlayerDao {
         try {
             snappyDB.put(Constant.Database.Player.TableName.LIFE, data.getLife());
             snappyDB.put(Constant.Database.Player.TableName.DEFENSE, data.getDefense());
-            snappyDB.put(Constant.Database.Player.TableName.AGILITY, data.getAgility());
+            snappyDB.put(Constant.Database.Player.TableName.VELOCITY, data.getAgility());
             snappyDB.put(Constant.Database.Player.TableName.SHIELD, data.getShield());
             snappyDB.put(Constant.Database.Player.TableName.POWER, data.getPower());
             snappyDB.put(Constant.Database.Player.TableName.SPEED, data.getSpeed());

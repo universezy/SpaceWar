@@ -4,7 +4,7 @@ package com.example.agentzengyu.spacewar.engine;
  * Created by Agent ZengYu on 2017/6/29.
  */
 
-import com.example.agentzengyu.spacewar.entity.single.MapItem;
+import com.example.agentzengyu.spacewar.entity.single.Map;
 
 /**
  * 状态操作接口
@@ -13,7 +13,7 @@ public interface IStatusHandle {
     /**
      * 准备
      */
-    void onPrepare(MapItem mapItem);
+    void onPrepare(Map map);
 
     /**
      * 开始

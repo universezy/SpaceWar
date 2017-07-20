@@ -4,7 +4,7 @@ package com.example.agentzengyu.spacewar.entity.set;
  * Created by Agent ZengYu on 2017/6/20.
  */
 
-import com.example.agentzengyu.spacewar.entity.single.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.Article;
 import com.example.agentzengyu.spacewar.entity.single.UserInfo;
 
 import java.io.Serializable;
@@ -14,16 +14,16 @@ import java.io.Serializable;
  */
 public class PlayerData implements Serializable {
     /********** Ship **********/
-    private ShopItem life = null;
-    private ShopItem defense = null;
-    private ShopItem agility = null;
-    private ShopItem shield = null;
+    private Article life = null;
+    private Article defense = null;
+    private Article agility = null;
+    private Article shield = null;
 
     /********** Weapon **********/
-    private ShopItem power = null;
-    private ShopItem speed = null;
-    private ShopItem range = null;
-    private ShopItem laser = null;
+    private Article power = null;
+    private Article speed = null;
+    private Article range = null;
+    private Article laser = null;
 
     /********** UserInfo **********/
     private UserInfo info = null;
@@ -33,7 +33,7 @@ public class PlayerData implements Serializable {
     }
 
     /********** Ship **********/
-    public boolean setLife(ShopItem life) {
+    public boolean setLife(Article life) {
         if (life == null) {
             return false;
         } else {
@@ -42,7 +42,7 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public boolean setDefense(ShopItem defense) {
+    public boolean setDefense(Article defense) {
         if (defense == null) {
             return false;
         } else {
@@ -51,7 +51,7 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public boolean setAgility(ShopItem agility) {
+    public boolean setAgility(Article agility) {
         if (agility == null) {
             return false;
         } else {
@@ -60,7 +60,7 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public boolean setShield(ShopItem shield) {
+    public boolean setShield(Article shield) {
         if (shield == null) {
             return false;
         } else {
@@ -69,24 +69,24 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public ShopItem getLife() {
+    public Article getLife() {
         return life;
     }
 
-    public ShopItem getDefense() {
+    public Article getDefense() {
         return defense;
     }
 
-    public ShopItem getAgility() {
+    public Article getAgility() {
         return agility;
     }
 
-    public ShopItem getShield() {
+    public Article getShield() {
         return shield;
     }
 
     /********** Weapon **********/
-    public boolean setPower(ShopItem power) {
+    public boolean setPower(Article power) {
         if (power == null) {
             return false;
         } else {
@@ -95,7 +95,7 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public boolean setSpeed(ShopItem speed) {
+    public boolean setSpeed(Article speed) {
         if (speed == null) {
             return false;
         } else {
@@ -104,7 +104,7 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public boolean setRange(ShopItem range) {
+    public boolean setRange(Article range) {
         if (range == null) {
             return false;
         } else {
@@ -113,7 +113,7 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public boolean setLaser(ShopItem laser) {
+    public boolean setLaser(Article laser) {
         if (laser == null) {
             return false;
         } else {
@@ -122,19 +122,19 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public ShopItem getPower() {
+    public Article getPower() {
         return power;
     }
 
-    public ShopItem getSpeed() {
+    public Article getSpeed() {
         return speed;
     }
 
-    public ShopItem getRange() {
+    public Article getRange() {
         return range;
     }
 
-    public ShopItem getLaser() {
+    public Article getLaser() {
         return laser;
     }
 

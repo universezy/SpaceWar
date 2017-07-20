@@ -12,7 +12,7 @@ import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.activity.GameActivity;
 import com.example.agentzengyu.spacewar.activity.MapActivity;
 import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
-import com.example.agentzengyu.spacewar.entity.single.MapItem;
+import com.example.agentzengyu.spacewar.entity.single.Map;
 
 /**
  * Created by Agent ZengYu on 2017/6/29.
@@ -66,7 +66,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(activity, GameActivity.class);
-                    intent.putExtra("MapItem", (MapItem) mLlMap.getTag());
+                    intent.putExtra("Map", (Map) mLlMap.getTag());
                     activity.startActivity(intent);
                 }
             });

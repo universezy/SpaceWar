@@ -9,26 +9,28 @@ import java.io.Serializable;
 /**
  * 敌人类
  */
-public class EnemyItem implements Serializable {
+public class Enemy implements Serializable {
     private String name = "";
     private int image = 0;
     private int life = 0;
     private int defense = 0;
-    private int agility = 0;
+    private int velocity = 0;
     private int power = 0;
     private int speed = 0;
     private int range = 0;
+    private float X = 0;
+    private float Y = 0;
 
-    private EnemyItem() {
+    private Enemy() {
 
     }
 
-    public EnemyItem(String name, int image, int life, int defense, int agility, int power, int speed, int range) {
+    public Enemy(String name, int image, int life, int defense, int velocity, int power, int speed, int range) {
         this.name = name;
         this.image = image;
         this.life = life;
         this.defense = defense;
-        this.agility = agility;
+        this.velocity = velocity;
         this.power = power;
         this.speed = speed;
         this.range = range;
@@ -50,8 +52,8 @@ public class EnemyItem implements Serializable {
         this.defense = defense;
     }
 
-    public void setAgility(int agility) {
-        this.agility = agility;
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
     }
 
     public void setPower(int power) {
@@ -64,6 +66,11 @@ public class EnemyItem implements Serializable {
 
     public void setRange(int range) {
         this.range = range;
+    }
+
+    public void setLocation(float x, float y) {
+        this.X = x;
+        this.Y = y;
     }
 
     public String getName() {
@@ -82,8 +89,8 @@ public class EnemyItem implements Serializable {
         return defense;
     }
 
-    public int getAgility() {
-        return agility;
+    public int getVelocity() {
+        return velocity;
     }
 
     public int getPower() {
@@ -96,5 +103,13 @@ public class EnemyItem implements Serializable {
 
     public int getRange() {
         return range;
+    }
+
+    public float getX() {
+        return X;
+    }
+
+    public float getY() {
+        return Y;
     }
 }

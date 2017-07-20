@@ -11,10 +11,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
-import com.example.agentzengyu.spacewar.entity.single.EnemyItem;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 敌人数据库调用接口
@@ -26,7 +26,7 @@ public class EnemyDaoImpl implements EnemyDao {
 
     private EnemyDaoImpl(Context context) {
         if (helper == null) {
-            helper = new EnemyHelper(context, Constant.Database.Enemy.DBName, null, 1);
+            helper = new EnemyHelper(context, Constant.Database.Enemy.DatabaseName, null, 1);
             database = helper.getWritableDatabase();
         }
     }
@@ -43,37 +43,37 @@ public class EnemyDaoImpl implements EnemyDao {
     }
 
     @Override
-    public void insert(@Constant.Database.Enemy.TableName String tableName, EnemyItem item) {
+    public void insert(@Constant.Database.Enemy.TableName String tableName, Enemy enemy) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Enemy.ColumnName.NAME, item.getName());
-        values.put(Constant.Database.Enemy.ColumnName.IMAGE, item.getImage());
-        values.put(Constant.Database.Enemy.ColumnName.LIFE, item.getLife());
-        values.put(Constant.Database.Enemy.ColumnName.DEFENSE, item.getDefense());
-        values.put(Constant.Database.Enemy.ColumnName.AGILITY, item.getAgility());
-        values.put(Constant.Database.Enemy.ColumnName.POWER, item.getPower());
-        values.put(Constant.Database.Enemy.ColumnName.SPEED, item.getSpeed());
-        values.put(Constant.Database.Enemy.ColumnName.RANGE, item.getRange());
+        values.put(Constant.Database.Enemy.ColumnName.NAME, enemy.getName());
+        values.put(Constant.Database.Enemy.ColumnName.IMAGE, enemy.getImage());
+        values.put(Constant.Database.Enemy.ColumnName.LIFE, enemy.getLife());
+        values.put(Constant.Database.Enemy.ColumnName.DEFENSE, enemy.getDefense());
+        values.put(Constant.Database.Enemy.ColumnName.VELOCITY, enemy.getVelocity());
+        values.put(Constant.Database.Enemy.ColumnName.POWER, enemy.getPower());
+        values.put(Constant.Database.Enemy.ColumnName.SPEED, enemy.getSpeed());
+        values.put(Constant.Database.Enemy.ColumnName.RANGE, enemy.getRange());
         database.insert(tableName, null, values);
     }
 
     @Override
-    public void update(@Constant.Database.Enemy.TableName String tableName, EnemyItem item) {
+    public void update(@Constant.Database.Enemy.TableName String tableName, Enemy enemy) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Enemy.ColumnName.NAME, item.getName());
-        values.put(Constant.Database.Enemy.ColumnName.IMAGE, item.getImage());
-        values.put(Constant.Database.Enemy.ColumnName.LIFE, item.getLife());
-        values.put(Constant.Database.Enemy.ColumnName.DEFENSE, item.getDefense());
-        values.put(Constant.Database.Enemy.ColumnName.AGILITY, item.getAgility());
-        values.put(Constant.Database.Enemy.ColumnName.POWER, item.getPower());
-        values.put(Constant.Database.Enemy.ColumnName.SPEED, item.getSpeed());
-        values.put(Constant.Database.Enemy.ColumnName.RANGE, item.getRange());
-        String[] whereArgs = new String[]{String.valueOf(item.getName())};
-        database.update(tableName, values, Constant.Database.Shop.ColumnName.NAME + "=?", whereArgs);
+        values.put(Constant.Database.Enemy.ColumnName.NAME, enemy.getName());
+        values.put(Constant.Database.Enemy.ColumnName.IMAGE, enemy.getImage());
+        values.put(Constant.Database.Enemy.ColumnName.LIFE, enemy.getLife());
+        values.put(Constant.Database.Enemy.ColumnName.DEFENSE, enemy.getDefense());
+        values.put(Constant.Database.Enemy.ColumnName.VELOCITY, enemy.getVelocity());
+        values.put(Constant.Database.Enemy.ColumnName.POWER, enemy.getPower());
+        values.put(Constant.Database.Enemy.ColumnName.SPEED, enemy.getSpeed());
+        values.put(Constant.Database.Enemy.ColumnName.RANGE, enemy.getRange());
+        String[] whereArgs = new String[]{String.valueOf(enemy.getName())};
+        database.update(tableName, values, Constant.Database.Article.ColumnName.NAME + "=?", whereArgs);
     }
 
     @Override
-    public void delete(@Constant.Database.Enemy.TableName String tableName, EnemyItem item) {
-        String[] whereArgs = new String[]{String.valueOf(item.getName())};
+    public void delete(@Constant.Database.Enemy.TableName String tableName, Enemy enemy) {
+        String[] whereArgs = new String[]{String.valueOf(enemy.getName())};
         database.delete(tableName, Constant.Database.Enemy.ColumnName.NAME + "=?", whereArgs);
     }
 
@@ -94,33 +94,39 @@ public class EnemyDaoImpl implements EnemyDao {
         }
     }
 
+    @Override
+    public void destroy(@Constant.Database.Enemy.TableName String tableName) {
+        String sql = "drop table " + tableName;
+        database.execSQL(sql);
+    }
+
     /**
      * 查找每张表的数据
      *
      * @param tableName 表名
      * @return
      */
-    private List<EnemyItem> findEachTable(@Constant.Database.Enemy.TableName String tableName) {
-        List<EnemyItem> items = null;
+    private Map<String, Enemy> findEachTable(@Constant.Database.Enemy.TableName String tableName) {
+        Map<String, Enemy> enemyMap = null;
         Cursor cursor = database.query(tableName, null, null, null, null, null, null);
         if (cursor != null && cursor.getCount() > 0) {
-            items = new ArrayList<>();
+            enemyMap = new HashMap<>();
             while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.NAME));
                 int image = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.IMAGE));
                 int life = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.LIFE));
                 int defense = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.DEFENSE));
-                int agility = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.AGILITY));
+                int velocity = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.VELOCITY));
                 int power = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.POWER));
                 int speed = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.SPEED));
                 int range = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.RANGE));
 
-                if (!"".equals(name) && life > 0 && defense > 0 && agility > 0 && power > 0 && speed > 0 && range > 0 && image > 0) {
-                    EnemyItem item = new EnemyItem(name, image, life, defense, agility, power, speed, range);
-                    items.add(item);
+                if (!"".equals(name) && life > 0 && defense > 0 && velocity > 0 && power > 0 && speed > 0 && range > 0 && image > 0) {
+                    Enemy item = new Enemy(name, image, life, defense, velocity, power, speed, range);
+                    enemyMap.put(name, item);
                 }
             }
         }
-        return items;
+        return enemyMap;
     }
 }

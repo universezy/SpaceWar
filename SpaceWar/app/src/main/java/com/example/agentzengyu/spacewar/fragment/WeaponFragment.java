@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.adapter.ShopAdapter;
+import com.example.agentzengyu.spacewar.adapter.ArticleAdapter;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.single.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.Article;
 
 import java.util.ArrayList;
 
@@ -23,11 +23,11 @@ import java.util.ArrayList;
 public class WeaponFragment extends Fragment implements View.OnClickListener {
     private SpaceWarApp app = null;
     private LinearLayoutManager manager;
-    private ShopAdapter adapter;
+    private ArticleAdapter adapter;
     private RecyclerView recyclerView;
     private ImageView mIvPower, mIvSpeed, mIvRange, mIvNuclear;
-    private ArrayList<ShopItem> userItem = new ArrayList<>();
-    private ArrayList<ShopItem> shopItems = new ArrayList<>();
+    private ArrayList<Article> userItem = new ArrayList<>();
+    private ArrayList<Article> articles = new ArrayList<>();
     private int currentPosition = 1;
 
     public WeaponFragment() {
@@ -51,7 +51,7 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
         app = (SpaceWarApp) getActivity().getApplication();
         manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        adapter = new ShopAdapter(getActivity(), userItem, shopItems);
+        adapter = new ArticleAdapter(getActivity(), userItem, articles);
     }
 
     /**
@@ -84,23 +84,23 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
     private void shift(int position) {
         if (position == currentPosition) return;
         userItem.clear();
-        shopItems.clear();
+        articles.clear();
         switch (position) {
             case 0:
                 userItem.add(app.getPlayerData().getPower());
-                shopItems.addAll(app.getShopLibrary().getPowers());
+                articles.addAll(app.getArticleLibrary().getPowers());
                 break;
             case 1:
                 userItem.add(app.getPlayerData().getSpeed());
-                shopItems.addAll(app.getShopLibrary().getSpeeds());
+                articles.addAll(app.getArticleLibrary().getSpeeds());
                 break;
             case 2:
                 userItem.add(app.getPlayerData().getRange());
-                shopItems.addAll(app.getShopLibrary().getRanges());
+                articles.addAll(app.getArticleLibrary().getRanges());
                 break;
             case 3:
                 userItem.add(app.getPlayerData().getLaser());
-                shopItems.addAll(app.getShopLibrary().getLasers());
+                articles.addAll(app.getArticleLibrary().getLasers());
                 break;
             default:
                 break;

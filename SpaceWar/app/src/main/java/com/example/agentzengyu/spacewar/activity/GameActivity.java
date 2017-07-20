@@ -17,7 +17,7 @@ import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
-import com.example.agentzengyu.spacewar.entity.single.MapItem;
+import com.example.agentzengyu.spacewar.entity.single.Map;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.view.BulletEnemyView;
 import com.example.agentzengyu.spacewar.view.BulletPlayerView;
@@ -59,10 +59,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
-        MapItem mapItem = (MapItem) getIntent().getSerializableExtra("MapItem");
+        Map map = (Map) getIntent().getSerializableExtra("Map");
         initView();
         initVariable();
-        startGame(mapItem);
+        startGame(map);
     }
 
     @Override
@@ -150,19 +150,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 开始游戏
      *
-     * @param mapItem 地图
+     * @param map 地图
      */
-    private void startGame(final MapItem mapItem) {
+    private void startGame(final Map map) {
         mTvLife.setText("" + playerData.getLife().getValue());
         mTvShield.setText("CD: " + playerData.getShield().getValue());
         mTvLaser.setText("CD: " + playerData.getLaser().getValue());
         locationPlayerView.initLaser(playerData.getRange().getValue());
-        if (mapItem != null) {
-            mTvMap.setText(mapItem.getMapName());
+        if (map != null) {
+            mTvMap.setText(map.getMapName());
             handlerNotify.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    service.onPrepare(mapItem);
+                    service.onPrepare(map);
                 }
             }, 1000);
         }

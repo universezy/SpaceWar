@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.entity.single.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.Article;
 
 import java.util.List;
 
@@ -21,22 +21,22 @@ import java.util.List;
 /**
  * 商店适配器
  */
-public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder> {
+public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ShopViewHolder> {
     private LayoutInflater inflater;
-    private List<ShopItem> userItem = null;
-    private List<ShopItem> shopItems = null;
+    private List<Article> userItem = null;
+    private List<Article> articles = null;
     private int[] upgrade = null;
 
-    public ShopAdapter(Activity context, List<ShopItem> userItem, List<ShopItem> shopItems) {
+    public ArticleAdapter(Activity context, List<Article> userItem, List<Article> articles) {
         this.userItem = userItem;
-        this.shopItems = shopItems;
+        this.articles = articles;
         inflater = LayoutInflater.from(context);
         setData();
     }
 
     @Override
     public ShopViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_shop, parent, false);
+        View view = inflater.inflate(R.layout.item_article, parent, false);
         ShopViewHolder holder = new ShopViewHolder(view);
         return holder;
     }
@@ -48,7 +48,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
             holder.getmTvPlayerName().setText(userItem.get(0).getName());
             holder.getmTvPlayerLevel().setText(String.valueOf(userItem.get(0).getLevel()));
             holder.getmTvPlayerValue().setText(String.valueOf(userItem.get(0).getValue()));
-            if (userItem.get(0).getLevel() < shopItems.get(position).getLevel()) {
+            if (userItem.get(0).getLevel() < articles.get(position).getLevel()) {
                 holder.getmIvUpgrade().setImageResource(upgrade[0]);
                 holder.getmBtnUpgrade().setClickable(true);
             } else {
@@ -56,16 +56,16 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopViewHolder
                 holder.getmBtnUpgrade().setClickable(false);
             }
         }
-        holder.getmIvUpgraded().setImageResource(shopItems.get(0).getImage());
-        holder.getmTvUpgradedName().setText(shopItems.get(position).getName());
-        holder.getmTvUpgradedLevel().setText(String.valueOf(shopItems.get(position).getLevel()));
-        holder.getmTvUpgradedValue().setText(String.valueOf(shopItems.get(position).getValue()));
-        holder.getmTvUpgradedPrice().setText(String.valueOf(shopItems.get(position).getPrice()));
+        holder.getmIvUpgraded().setImageResource(articles.get(0).getImage());
+        holder.getmTvUpgradedName().setText(articles.get(position).getName());
+        holder.getmTvUpgradedLevel().setText(String.valueOf(articles.get(position).getLevel()));
+        holder.getmTvUpgradedValue().setText(String.valueOf(articles.get(position).getValue()));
+        holder.getmTvUpgradedPrice().setText(String.valueOf(articles.get(position).getPrice()));
     }
 
     @Override
     public int getItemCount() {
-        return shopItems.size();
+        return articles.size();
     }
 
     /**

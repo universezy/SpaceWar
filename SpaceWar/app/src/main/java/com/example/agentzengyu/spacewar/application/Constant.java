@@ -26,7 +26,7 @@ public @interface Constant {
     @interface Menu {
         int MAIN = 0;
         int GAME = 1;
-        int SHOP = 2;
+        int ARTICLE = 2;
         int SETTING = 3;
     }
 
@@ -40,10 +40,10 @@ public @interface Constant {
          * 类型
          */
         @StringDef({
-                Type.SHOP, Type.PLAYER, Type.ENEMY, Type.MAP, Type.ERROR
+                Type.ARTICLE, Type.PLAYER, Type.ENEMY, Type.MAP, Type.ERROR
         })
         @interface Type {
-            String SHOP = "SHOP";
+            String ARTICLE = "ARTICLE";
             String PLAYER = "PLAYER";
             String ENEMY = "ENEMY";
             String MAP = "MAP";
@@ -103,12 +103,12 @@ public @interface Constant {
         /**
          * 商店
          */
-        @interface Shop {
-            String DBName = "DB_SHOP";
+        @interface Article {
+            String DatabaseName = "ARTICLE";
 
             @StringDef({
                     TableName.LIFE,
-                    TableName.AGILITY,
+                    TableName.VELOCITY,
                     TableName.DEFENSE,
                     TableName.SHIELD,
                     TableName.POWER,
@@ -118,7 +118,7 @@ public @interface Constant {
             @Retention(RetentionPolicy.RUNTIME)
             @interface TableName {
                 String LIFE = "LIFE";
-                String AGILITY = "AGILITY";
+                String VELOCITY = "VELOCITY";
                 String DEFENSE = "DEFENSE";
                 String SHIELD = "SHIELD";
                 String POWER = "POWER";
@@ -141,11 +141,11 @@ public @interface Constant {
          * 玩家
          */
         @interface Player {
-            String DBName = "DB_PLAYER";
+            String DatabaseName = "PLAYER";
 
             @StringDef({
                     TableName.LIFE,
-                    TableName.AGILITY,
+                    TableName.VELOCITY,
                     TableName.DEFENSE,
                     TableName.SHIELD,
                     TableName.POWER,
@@ -156,7 +156,7 @@ public @interface Constant {
             @Retention(RetentionPolicy.SOURCE)
             @interface TableName {
                 String LIFE = "LIFE";
-                String AGILITY = "AGILITY";
+                String VELOCITY = "VELOCITY";
                 String DEFENSE = "DEFENSE";
                 String SHIELD = "SHIELD";
                 String POWER = "POWER";
@@ -171,7 +171,7 @@ public @interface Constant {
          * 敌人
          */
         @interface Enemy {
-            String DBName = "DB_ENEMY";
+            String DatabaseName = "ENEMY";
 
             @StringDef({
                     TableName.NORMAL,
@@ -188,7 +188,7 @@ public @interface Constant {
                 String NAME = "NAME";
                 String LIFE = "LIFE";
                 String DEFENSE = "DEFENSE";
-                String AGILITY = "AGILITY";
+                String VELOCITY = "VELOCITY";
                 String POWER = "POWER";
                 String SPEED = "SPEED";
                 String RANGE = "RANGE";
@@ -200,7 +200,7 @@ public @interface Constant {
          * 地图
          */
         @interface Map {
-            String DBName = "DB_MAP";
+            String DatabaseName = "MAP";
 
             @StringDef({
                     TableName.MAP
@@ -215,27 +215,25 @@ public @interface Constant {
                 String IMAGE = "IMAGE";
                 String MUSIC = "MUSIC";
                 String BOSS_NAME = "BOSS_NAME";
+            }
+        }
 
-                String NAME1 = "NAME1";
-                String COUNT1 = "COUNT1";
-                String NAME2 = "NAME2";
-                String COUNT2 = "COUNT2";
-                String NAME3 = "NAME3";
-                String COUNT3 = "COUNT3";
-                String NAME4 = "NAME4";
-                String COUNT4 = "COUNT4";
-                String NAME5 = "NAME5";
-                String COUNT5 = "COUNT5";
-                String NAME6 = "NAME6";
-                String COUNT6 = "COUNT6";
-                String NAME7 = "NAME7";
-                String COUNT7 = "COUNT7";
-                String NAME8 = "NAME8";
-                String COUNT8 = "COUNT8";
-                String NAME9 = "NAME9";
-                String COUNT9 = "COUNT9";
-                String NAME10 = "NAME10";
-                String COUNT10 = "COUNT10";
+        @interface Relevancy {
+            String DatabaseName = "RELEVANCY";
+
+            @StringDef({
+                    TableName.RELEVANCY
+            })
+            @interface TableName {
+                String RELEVANCY = "RELEVANCY";
+            }
+
+            @Retention(RetentionPolicy.SOURCE)
+            @interface ColumnName {
+                String MAP_NAME = "MAP_NAME";
+                String ENEMY_NAME = "ENEMY_NAME";
+                String ENEMY_COUNT = "ENEMY_COUNT";
+                String MD5 = "MD5";
             }
         }
     }

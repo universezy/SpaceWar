@@ -18,7 +18,7 @@
             android:layout_height="0dp"
             android:layout_weight="8"
             android:gravity="center"
-            android:text="@string/shop_money" />
+            android:text="@string/article_money" />
 
         <TextView
             android:id="@+id/tvMoney"

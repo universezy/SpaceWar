@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,7 +91,7 @@ public class LoadingActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             String target = intent.getStringExtra(Constant.BroadCast.TARGET);
             switch (target) {
-                case Constant.Init.Type.SHOP:
+                case Constant.Init.Type.ARTICLE:
                     mPbLoad.setProgress(25);
                     break;
                 case Constant.Init.Type.PLAYER:

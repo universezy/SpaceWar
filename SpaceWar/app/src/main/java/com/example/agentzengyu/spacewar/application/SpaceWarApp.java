@@ -6,11 +6,13 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
 import com.example.agentzengyu.spacewar.database.map.MapDaoImpl;
 import com.example.agentzengyu.spacewar.database.player.PlayerDaoImpl;
-import com.example.agentzengyu.spacewar.database.shop.ShopDaoImpl;
+import com.example.agentzengyu.spacewar.database.article.ArticleDaoImpl;
+import com.example.agentzengyu.spacewar.database.relevancy.RelevancyDaoImpl;
 import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
 import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.set.ShopLibrary;
+import com.example.agentzengyu.spacewar.entity.set.ArticleLibrary;
+import com.example.agentzengyu.spacewar.entity.set.RelevancyLibrary;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.service.LoaderService;
 
@@ -27,25 +29,28 @@ public class SpaceWarApp extends Application {
     private LoaderService loaderService = null;
     private GameService gameService = null;
 
-    private ShopLibrary shopLibrary = null;
+    private ArticleLibrary articleLibrary = null;
     private PlayerData playerData = null;
-    private MapLibrary mapLibrary = null;
     private EnemyLibrary enemyLibrary = null;
+    private MapLibrary mapLibrary = null;
+    private RelevancyLibrary relevancyLibrary = null;
 
-    private ShopDaoImpl shopDao = null;
+    private ArticleDaoImpl articleDao = null;
     private PlayerDaoImpl playerDao = null;
     private EnemyDaoImpl enemyDao = null;
     private MapDaoImpl mapDao = null;
+    private RelevancyDaoImpl relevancyDao = null;
 
     @Override
     public void onCreate() {
         super.onCreate();
         TAG = getApplicationContext().getClass().getName();
         Log.e(TAG, "onCreate.");
-        shopDao = ShopDaoImpl.getInstance(getApplicationContext());
+        articleDao = ArticleDaoImpl.getInstance(getApplicationContext());
         playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
         enemyDao = EnemyDaoImpl.getInstance(getApplicationContext());
         mapDao = MapDaoImpl.getInstance(getApplicationContext());
+        relevancyDao = RelevancyDaoImpl.getInstance(getApplicationContext());
     }
 
     @Override
@@ -57,24 +62,28 @@ public class SpaceWarApp extends Application {
         closeDatabase();
     }
 
-    public void setShopLibrary(ShopLibrary shopLibrary) {
-        this.shopLibrary = shopLibrary;
+    public void setArticleLibrary(ArticleLibrary articleLibrary) {
+        this.articleLibrary = articleLibrary;
     }
 
     public void setPlayerData(PlayerData playerData) {
         this.playerData = playerData;
     }
 
-    public void setMapLibrary(MapLibrary mapLibrary) {
-        this.mapLibrary = mapLibrary;
-    }
-
     public void setEnemyLibrary(EnemyLibrary enemyLibrary) {
         this.enemyLibrary = enemyLibrary;
     }
 
-    public ShopLibrary getShopLibrary() {
-        return shopLibrary;
+    public void setMapLibrary(MapLibrary mapLibrary) {
+        this.mapLibrary = mapLibrary;
+    }
+
+    public void setRelevancyLibrary(RelevancyLibrary relevancyLibrary) {
+        this.relevancyLibrary = relevancyLibrary;
+    }
+
+    public ArticleLibrary getArticleLibrary() {
+        return articleLibrary;
     }
 
     public PlayerData getPlayerData() {
@@ -89,8 +98,12 @@ public class SpaceWarApp extends Application {
         return mapLibrary;
     }
 
-    public ShopDaoImpl getShopDao() {
-        return shopDao;
+    public RelevancyLibrary getRelevancyLibrary() {
+        return relevancyLibrary;
+    }
+
+    public ArticleDaoImpl getArticleDao() {
+        return articleDao;
     }
 
     public PlayerDaoImpl getPlayerDao() {
@@ -103,6 +116,10 @@ public class SpaceWarApp extends Application {
 
     public MapDaoImpl getMapDao() {
         return mapDao;
+    }
+
+    public RelevancyDaoImpl getRelevancyDao() {
+        return relevancyDao;
     }
 
     /**
@@ -166,8 +183,8 @@ public class SpaceWarApp extends Application {
      */
     private void closeDatabase() {
         Log.e(TAG, "closeDatabase");
-        if (shopDao != null) {
-            shopDao.close();
+        if (articleDao != null) {
+            articleDao.close();
         }
         if (playerDao != null) {
             playerDao.close();
@@ -177,6 +194,9 @@ public class SpaceWarApp extends Application {
         }
         if (mapDao != null) {
             mapDao.close();
+        }
+        if (relevancyDao != null) {
+            relevancyDao.close();
         }
     }
 }

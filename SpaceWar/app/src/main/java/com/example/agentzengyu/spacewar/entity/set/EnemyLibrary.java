@@ -4,24 +4,23 @@ package com.example.agentzengyu.spacewar.entity.set;
  * Created by Agent ZengYu on 2017/6/28.
  */
 
-import com.example.agentzengyu.spacewar.entity.single.EnemyItem;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 /**
  * 敌人库
  */
 public class EnemyLibrary implements Serializable {
-    private List<EnemyItem> normalEnemys = null;
-    private List<EnemyItem> bossEnemys = null;
+    private Map<String, Enemy> normalEnemys = null;
+    private Map<String, Enemy> bossEnemys = null;
 
     public EnemyLibrary() {
 
     }
 
-    public boolean setNormalEmenys(List<EnemyItem> normalEmenys) {
+    public boolean setNormalEmenys(Map<String, Enemy> normalEmenys) {
         if (normalEmenys == null) {
             return false;
         } else {
@@ -30,7 +29,7 @@ public class EnemyLibrary implements Serializable {
         }
     }
 
-    public boolean setBossEmenys(List<EnemyItem> bossEmenys) {
+    public boolean setBossEmenys(Map<String, Enemy> bossEmenys) {
         if (bossEmenys == null) {
             return false;
         } else {
@@ -39,11 +38,11 @@ public class EnemyLibrary implements Serializable {
         }
     }
 
-    public List<EnemyItem> getNormalEnemys() {
+    public Map<String, Enemy> getNormalEnemys() {
         return normalEnemys;
     }
 
-    public List<EnemyItem> getBossEnemys() {
+    public Map<String, Enemy> getBossEnemys() {
         return bossEnemys;
     }
 }

@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.adapter.ShopAdapter;
+import com.example.agentzengyu.spacewar.adapter.ArticleAdapter;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.single.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.Article;
 
 import java.util.ArrayList;
 
@@ -23,11 +23,11 @@ import java.util.ArrayList;
 public class ShipFragment extends Fragment implements View.OnClickListener {
     private SpaceWarApp app = null;
     private LinearLayoutManager manager;
-    private ShopAdapter adapter;
+    private ArticleAdapter adapter;
     private RecyclerView recyclerView;
     private ImageView mIvLife, mIvAgility, mIvDefense, mIvShield;
-    private ArrayList<ShopItem> userItem = new ArrayList<>();
-    private ArrayList<ShopItem> shopItems = new ArrayList<>();
+    private ArrayList<Article> userItem = new ArrayList<>();
+    private ArrayList<Article> articles = new ArrayList<>();
     private int currentPosition = 1;
 
     public ShipFragment() {
@@ -50,7 +50,7 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
         app = (SpaceWarApp) getActivity().getApplication();
         manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        adapter = new ShopAdapter(getActivity(), userItem, shopItems);
+        adapter = new ArticleAdapter(getActivity(), userItem, articles);
     }
 
     /**
@@ -83,23 +83,23 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
     private void shift(int position) {
         if (position == currentPosition) return;
         userItem.clear();
-        shopItems.clear();
+        articles.clear();
         switch (position) {
             case 0:
                 userItem.add(app.getPlayerData().getLife());
-                shopItems.addAll(app.getShopLibrary().getLives());
+                articles.addAll(app.getArticleLibrary().getLives());
                 break;
             case 1:
                 userItem.add(app.getPlayerData().getDefense());
-                shopItems.addAll(app.getShopLibrary().getDefenses());
+                articles.addAll(app.getArticleLibrary().getDefenses());
                 break;
             case 2:
                 userItem.add(app.getPlayerData().getAgility());
-                shopItems.addAll(app.getShopLibrary().getAgilities());
+                articles.addAll(app.getArticleLibrary().getVelocities());
                 break;
             case 3:
                 userItem.add(app.getPlayerData().getShield());
-                shopItems.addAll(app.getShopLibrary().getShields());
+                articles.addAll(app.getArticleLibrary().getShields());
                 break;
             default:
                 break;

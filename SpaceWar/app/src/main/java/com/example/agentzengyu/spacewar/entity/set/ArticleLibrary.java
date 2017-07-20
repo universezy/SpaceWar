@@ -1,9 +1,8 @@
 package com.example.agentzengyu.spacewar.entity.set;
 
-import com.example.agentzengyu.spacewar.entity.single.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.Article;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,41 +12,41 @@ import java.util.List;
 /**
  * 商品库
  */
-public class ShopLibrary implements Serializable {
+public class ArticleLibrary implements Serializable {
     /********** Spaceship **********/
-    private List<ShopItem> lives = null;
-    private List<ShopItem> defenses = null;
-    private List<ShopItem> agilities = null;
-    private List<ShopItem> shields = null;
+    private List<Article> lives = null;
+    private List<Article> defenses = null;
+    private List<Article> velocities = null;
+    private List<Article> shields = null;
 
     /********** Weapon **********/
-    private List<ShopItem> powers = null;
-    private List<ShopItem> speeds = null;
-    private List<ShopItem> ranges = null;
-    private List<ShopItem> lasers = null;
+    private List<Article> powers = null;
+    private List<Article> speeds = null;
+    private List<Article> ranges = null;
+    private List<Article> lasers = null;
 
-    public ShopLibrary() {
+    public ArticleLibrary() {
 
     }
 
     /********** Spaceship **********/
-    public List<ShopItem> getLives() {
+    public List<Article> getLives() {
         return lives;
     }
 
-    public List<ShopItem> getDefenses() {
+    public List<Article> getDefenses() {
         return defenses;
     }
 
-    public List<ShopItem> getAgilities() {
-        return agilities;
+    public List<Article> getVelocities() {
+        return velocities;
     }
 
-    public List<ShopItem> getShields() {
+    public List<Article> getShields() {
         return shields;
     }
 
-    public boolean setLives(List<ShopItem> lives) {
+    public boolean setLives(List<Article> lives) {
         if (lives == null) {
             return false;
         } else {
@@ -56,7 +55,7 @@ public class ShopLibrary implements Serializable {
         }
     }
 
-    public boolean setDefenses(List<ShopItem> defenses) {
+    public boolean setDefenses(List<Article> defenses) {
         if (defenses == null) {
             return false;
         } else {
@@ -65,16 +64,16 @@ public class ShopLibrary implements Serializable {
         }
     }
 
-    public boolean setAgilities(List<ShopItem> agilities) {
+    public boolean setAgilities(List<Article> agilities) {
         if (agilities == null) {
             return false;
         } else {
-            this.agilities = agilities;
+            this.velocities = agilities;
             return true;
         }
     }
 
-    public boolean setShields(List<ShopItem> shields) {
+    public boolean setShields(List<Article> shields) {
         if (shields == null) {
             return false;
         } else {
@@ -84,23 +83,23 @@ public class ShopLibrary implements Serializable {
     }
 
     /********** Weapon **********/
-    public List<ShopItem> getPowers() {
+    public List<Article> getPowers() {
         return powers;
     }
 
-    public List<ShopItem> getSpeeds() {
+    public List<Article> getSpeeds() {
         return speeds;
     }
 
-    public List<ShopItem> getRanges() {
+    public List<Article> getRanges() {
         return ranges;
     }
 
-    public List<ShopItem> getLasers() {
+    public List<Article> getLasers() {
         return lasers;
     }
 
-    public boolean setPowers(List<ShopItem> powers) {
+    public boolean setPowers(List<Article> powers) {
         if (powers == null) {
             return false;
         } else {
@@ -109,7 +108,7 @@ public class ShopLibrary implements Serializable {
         }
     }
 
-    public boolean setSpeeds(List<ShopItem> speeds) {
+    public boolean setSpeeds(List<Article> speeds) {
         if (speeds == null) {
             return false;
         } else {
@@ -118,7 +117,7 @@ public class ShopLibrary implements Serializable {
         }
     }
 
-    public boolean setRanges(List<ShopItem> ranges) {
+    public boolean setRanges(List<Article> ranges) {
         if (ranges == null) {
             return false;
         } else {
@@ -127,7 +126,7 @@ public class ShopLibrary implements Serializable {
         }
     }
 
-    public boolean setLasers(List<ShopItem> lasers) {
+    public boolean setLasers(List<Article> lasers) {
         if (lasers == null) {
             return false;
         } else {

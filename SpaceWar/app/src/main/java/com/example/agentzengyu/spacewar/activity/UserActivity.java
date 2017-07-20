@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.single.ShopItem;
+import com.example.agentzengyu.spacewar.entity.single.Article;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 
 /**
@@ -105,7 +105,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @param item 属性
      */
-    private void showDetail(ShopItem item) {
+    private void showDetail(Article item) {
         View view = getLayoutInflater().inflate(R.layout.popupwindow_main, null);
         mIvShop = (ImageView) view.findViewById(R.id.ivPlayer);
         mIvShop.setImageResource(item.getImage());
@@ -131,6 +131,9 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    /**
+     * 修改用户名
+     */
     private void modifyUserName(){
         View view = getLayoutInflater().inflate(R.layout.popupwindow_user, null);
         mTvOld =(TextView) view.findViewById(R.id.tvOld);

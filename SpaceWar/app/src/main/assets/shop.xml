@@ -17,13 +17,13 @@
             <defense name="Ultimate" price="2000" image="0" level="4" value="140" />
         </array-defense>
 
-        <array-agility>
-            <agility name="Default" price="0" image="0" level="0" value="100" />
-            <agility name="Primary" price="500" image="0" level="1" value="110" />
-            <agility name="Secondary" price="1000" image="0" level="2" value="120" />
-            <agility name="Advanced" price="1500" image="0" level="3" value="130" />
-            <agility name="Ultimate" price="2000" image="0" level="4" value="140" />
-        </array-agility>
+        <array-velocity>
+            <velocity name="Default" price="0" image="0" level="0" value="100" />
+            <velocity name="Primary" price="500" image="0" level="1" value="110" />
+            <velocity name="Secondary" price="1000" image="0" level="2" value="120" />
+            <velocity name="Advanced" price="1500" image="0" level="3" value="130" />
+            <velocity name="Ultimate" price="2000" image="0" level="4" value="140" />
+        </array-velocity>
 
         <array-shield>
             <shield name="Default" price="0" image="0" level="0" value="60" />

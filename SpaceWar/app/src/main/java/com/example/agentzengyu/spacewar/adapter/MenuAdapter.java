@@ -80,7 +80,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
      */
     private void setData() {
         images = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round,R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
-        titles = new String[]{resources.getString(R.string.menu_main),resources.getString(R.string.menu_game), resources.getString(R.string.menu_shop), resources.getString(R.string.menu_setting)};
+        titles = new String[]{resources.getString(R.string.menu_main),resources.getString(R.string.menu_game), resources.getString(R.string.menu_article), resources.getString(R.string.menu_setting)};
     }
 
     /**
@@ -120,7 +120,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                             activity.startActivity(intentMap);
                             activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
-                        case Constant.Menu.SHOP:
+                        case Constant.Menu.ARTICLE:
                             Intent intentShop = new Intent(activity, ShopActivity.class);
                             activity.startActivity(intentShop);
                             activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
