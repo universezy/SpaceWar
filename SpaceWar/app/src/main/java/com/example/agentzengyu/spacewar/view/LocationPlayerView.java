@@ -127,7 +127,7 @@ public class LocationPlayerView extends View {
      * @param range 范围
      */
     public void initLaser(float range) {
-        this.rangeLaser = range * 2;
+        this.rangeLaser = range * 10;
     }
 
     /**

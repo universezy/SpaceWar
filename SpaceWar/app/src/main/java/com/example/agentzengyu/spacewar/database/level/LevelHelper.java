@@ -23,10 +23,10 @@ public class LevelHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table " + TABLE_NAME + "("
-                + Constant.Database.Level.ColumnName.LEVEL_NAME + " varchar(20) primary key,"
+                + Constant.Database.Level.ColumnName.LEVEL + " varchar(20) primary key,"
                 + Constant.Database.Level.ColumnName.IMAGE + " integer,"
                 + Constant.Database.Level.ColumnName.MUSIC + " integer,"
-                + Constant.Database.Level.ColumnName.BOSS_NAME + " varchar(20)"
+                + Constant.Database.Level.ColumnName.BOSS + " varchar(20)"
                 + ")";
         db.execSQL(sql);
     }

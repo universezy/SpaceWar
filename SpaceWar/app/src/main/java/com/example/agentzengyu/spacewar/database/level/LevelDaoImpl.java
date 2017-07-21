@@ -45,28 +45,28 @@ public class LevelDaoImpl implements LevelDao {
     @Override
     public void insert(com.example.agentzengyu.spacewar.entity.single.Level level) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Level.ColumnName.LEVEL_NAME, level.getMapName());
+        values.put(Constant.Database.Level.ColumnName.LEVEL, level.getMapName());
         values.put(Constant.Database.Level.ColumnName.IMAGE, level.getImage());
         values.put(Constant.Database.Level.ColumnName.MUSIC, level.getMusic());
-        values.put(Constant.Database.Level.ColumnName.BOSS_NAME, level.getBossName());
+        values.put(Constant.Database.Level.ColumnName.BOSS, level.getBossName());
         database.insert(helper.TABLE_NAME, null, values);
     }
 
     @Override
     public void update(com.example.agentzengyu.spacewar.entity.single.Level level) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Level.ColumnName.LEVEL_NAME, level.getMapName());
+        values.put(Constant.Database.Level.ColumnName.LEVEL, level.getMapName());
         values.put(Constant.Database.Level.ColumnName.IMAGE, level.getImage());
         values.put(Constant.Database.Level.ColumnName.MUSIC, level.getMusic());
-        values.put(Constant.Database.Level.ColumnName.BOSS_NAME, level.getBossName());
+        values.put(Constant.Database.Level.ColumnName.BOSS, level.getBossName());
         String[] whereArgs = new String[]{String.valueOf(level.getMapName())};
-        database.update(helper.TABLE_NAME, values, Constant.Database.Level.ColumnName.LEVEL_NAME + "=?", whereArgs);
+        database.update(helper.TABLE_NAME, values, Constant.Database.Level.ColumnName.LEVEL + "=?", whereArgs);
     }
 
     @Override
     public void delete(com.example.agentzengyu.spacewar.entity.single.Level level) {
         String[] whereArgs = new String[]{String.valueOf(level.getMapName())};
-        database.delete(helper.TABLE_NAME, Constant.Database.Level.ColumnName.LEVEL_NAME + "=?", whereArgs);
+        database.delete(helper.TABLE_NAME, Constant.Database.Level.ColumnName.LEVEL + "=?", whereArgs);
     }
 
     @Override
@@ -76,13 +76,13 @@ public class LevelDaoImpl implements LevelDao {
         if (cursor != null && cursor.getCount() > 0) {
             library = new LevelLibrary();
             while (cursor.moveToNext()) {
-                String mapName = cursor.getString(cursor.getColumnIndex(Constant.Database.Level.ColumnName.LEVEL_NAME));
+                String mapName = cursor.getString(cursor.getColumnIndex(Constant.Database.Level.ColumnName.LEVEL));
                 int image = cursor.getInt(cursor.getColumnIndex(Constant.Database.Level.ColumnName.IMAGE));
                 int music = cursor.getInt(cursor.getColumnIndex(Constant.Database.Level.ColumnName.MUSIC));
-                String bossName = cursor.getString(cursor.getColumnIndex(Constant.Database.Level.ColumnName.BOSS_NAME));
+                String bossName = cursor.getString(cursor.getColumnIndex(Constant.Database.Level.ColumnName.BOSS));
                 if (!"".equals(mapName) && image > 0 && music > 0 && !"".equals(bossName)) {
                     com.example.agentzengyu.spacewar.entity.single.Level level = new com.example.agentzengyu.spacewar.entity.single.Level(mapName, image, music, bossName);
-                    library.getMaps().put(mapName,level);
+                    library.getLevels().put(mapName,level);
                 }
             }
         }

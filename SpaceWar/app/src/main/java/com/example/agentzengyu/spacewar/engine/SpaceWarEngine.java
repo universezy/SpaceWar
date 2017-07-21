@@ -106,7 +106,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         levelRunnable = new Runnable() {
             @Override
             public void run() {
-                updateMapLocation();
+                updateLevelLocation();
                 levelHandler.postDelayed(levelRunnable, delay);
             }
         };
@@ -175,7 +175,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * 加载镜像
      *
      * @param playerSource 玩家资源
-     * @param levelSource    地图资源
+     * @param levelSource  地图资源
      */
     private void loadMirror(PlayerData playerSource, Level levelSource) {
         playerMirror = null;
@@ -270,7 +270,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     /**
      * 更新地图
      */
-    private void updateMapLocation(/**/) {
+    private void updateLevelLocation(/**/) {
         //TODO
     }
 
@@ -281,26 +281,26 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * @param Y Y坐标
      */
     private void updatePlayerLocation(float X, float Y) {
-        int playerAgility = playerMirror.getVelocity().getValue();
+        int velocity = playerMirror.getVelocity().getValue();
         if (X - SX > 0.5) {        //下
             if (playerY != 1000) {
-                playerY += playerAgility;
+                playerY += velocity;
                 if (playerY > 1000) playerY = 1000;
             }
         } else if (SX - X > 0.5) { //上
             if (playerY != 0) {
-                playerY -= playerAgility;
+                playerY -= velocity;
                 if (playerY < 0) playerY = 0;
             }
         }
         if (Y - SY > 0.5) {        //右
             if (playerX != 1000) {
-                playerX += playerAgility;
+                playerX += velocity;
                 if (playerX > 1000) playerX = 1000;
             }
         } else if (SY - Y > 0.5) { //左
             if (playerX != 0) {
-                playerX -= playerAgility;
+                playerX -= velocity;
                 if (playerX < 0) playerX = 0;
             }
         }

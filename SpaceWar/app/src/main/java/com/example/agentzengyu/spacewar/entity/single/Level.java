@@ -16,6 +16,7 @@ public class Level implements Serializable {
     private int image = 0;
     private int music = 0;
     private String bossName = "";
+    private Enemy boss = null;
     private List<Enemy> enemys = new ArrayList<>();
 
     private Level() {
@@ -27,6 +28,10 @@ public class Level implements Serializable {
         this.image = image;
         this.music = music;
         this.bossName = bossName;
+    }
+
+    public void setBoss(Enemy boss) {
+        this.boss = boss;
     }
 
     public void setEnemys(List<Enemy> enemys) {
@@ -47,6 +52,10 @@ public class Level implements Serializable {
 
     public String getBossName() {
         return bossName;
+    }
+
+    public Enemy getBoss() {
+        return boss;
     }
 
     public List<Enemy> getEnemys() {

@@ -110,7 +110,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             switch (v.getId()) {
                 case R.id.btnEnter:
                     switch ((int) v.getTag()) {
-                        case Constant.Menu.MAIN:
+                        case Constant.Menu.PLAYER:
                             Intent intentMain = new Intent(activity, PlayerActivity.class);
                             activity.startActivity(intentMain);
                             activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);

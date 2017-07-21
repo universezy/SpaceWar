@@ -15,13 +15,13 @@ import java.util.Map;
  * 地图库
  */
 public class LevelLibrary implements Serializable {
-    private Map<String, Level> maps = new HashMap<>();
+    private Map<String, Level> levels = new HashMap<>();
 
     public LevelLibrary() {
 
     }
 
-    public Map<String, Level> getMaps() {
-        return maps;
+    public Map<String, Level> getLevels() {
+        return levels;
     }
 }

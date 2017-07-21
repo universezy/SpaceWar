@@ -2,6 +2,7 @@ package com.example.agentzengyu.spacewar.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -19,10 +20,12 @@ import com.example.agentzengyu.spacewar.entity.single.Level;
 import com.example.agentzengyu.spacewar.entity.single.Player;
 import com.example.agentzengyu.spacewar.entity.single.Relevancy;
 
+import java.util.List;
+
 /**
  * 初始化服务
  */
-public class LoaderService extends Service implements ILoader{
+public class LoaderService extends Service implements ILoader {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
 
@@ -67,7 +70,10 @@ public class LoaderService extends Service implements ILoader{
         if (!loadLevelData()) {
             return;
         }
-        if (!loadRelevancyData()){
+        if (!loadRelevancyData()) {
+            return;
+        }
+        if (!bindData()) {
             return;
         }
     }
@@ -77,8 +83,8 @@ public class LoaderService extends Service implements ILoader{
         Log.e(TAG, "loadArticleData");
         ArticleLibrary library = app.getArticleDao().findAll();
         if (library == null) {
-            Log.e("ShopData", "null");
-            initArcitleData();
+            Log.e("ArticleData", "null");
+            initArticleData();
             library = app.getArticleDao().findAll();
             if (library == null) {
                 sendNotify(Constant.Init.Type.ERROR);
@@ -145,11 +151,11 @@ public class LoaderService extends Service implements ILoader{
     }
 
     @Override
-    public boolean loadRelevancyData(){
+    public boolean loadRelevancyData() {
         Log.e(TAG, "loadRelevancyData");
         RelevancyLibrary library = app.getRelevancyDao().findAll();
-        if (library==null){
-            Log.e("RelevancyData","null");
+        if (library == null) {
+            Log.e("RelevancyData", "null");
             initRelevancy();
             library = app.getRelevancyDao().findAll();
             if (library == null) {
@@ -163,30 +169,30 @@ public class LoaderService extends Service implements ILoader{
     }
 
     @Override
-    public void initArcitleData() {
-        Log.e(TAG, "initArcitleData");
-        Article life1 = new Article("life1", R.mipmap.ic_launcher_round, 100, 100, 100);
+    public void initArticleData() {
+        Log.e(TAG, "initArticleData");
+        Article life1 = new Article("life1", R.mipmap.ic_launcher_round, 100, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.LIFE, life1);
 
-        Article defense1 = new Article("defense1", R.mipmap.ic_launcher, 100, 100, 100);
+        Article defense1 = new Article("defense1", R.mipmap.ic_launcher, 100, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.DEFENSE, defense1);
 
-        Article agility1 = new Article("agility1", R.mipmap.life1, 100, 100, 100);
-        app.getArticleDao().insert(Constant.Database.Article.TableName.VELOCITY, agility1);
+        Article velocity1 = new Article("velocity1", R.mipmap.life1, 5, 1, 1000);
+        app.getArticleDao().insert(Constant.Database.Article.TableName.VELOCITY, velocity1);
 
-        Article shield1 = new Article("shield1", R.mipmap.ic_launcher_round, 100, 100, 100);
+        Article shield1 = new Article("shield1", R.mipmap.ic_launcher_round, 30, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.SHIELD, shield1);
 
-        Article power1 = new Article("power1", R.mipmap.life1, 100, 100, 100);
+        Article power1 = new Article("power1", R.mipmap.life1, 100, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.POWER, power1);
 
-        Article speed1 = new Article("speed1", R.mipmap.life1, 100, 100, 100);
+        Article speed1 = new Article("speed1", R.mipmap.life1, 50, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.SPEED, speed1);
 
-        Article range1 = new Article("range1", R.mipmap.life1, 100, 100, 100);
+        Article range1 = new Article("range1", R.mipmap.life1, 20, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.RANGE, range1);
 
-        Article laser1 = new Article("laser1", R.mipmap.life1, 100, 100, 100);
+        Article laser1 = new Article("laser1", R.mipmap.life1, 20, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.LASER, laser1);
     }
 
@@ -239,6 +245,9 @@ public class LoaderService extends Service implements ILoader{
 
         Enemy boss2 = new Enemy("boss2", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher_round);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss2);
+
+        Enemy boss3 = new Enemy("boss3", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher_round);
+        app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss3);
     }
 
     @Override
@@ -255,26 +264,50 @@ public class LoaderService extends Service implements ILoader{
     }
 
     @Override
-    public void initRelevancy(){
-        Relevancy relevancy1 = new Relevancy("level1","enemy1",2);
+    public void initRelevancy() {
+        Log.e(TAG, "initRelevancy");
+        Relevancy relevancy1 = new Relevancy("level1", "enemy1", 2);
         app.getRelevancyDao().insert(relevancy1);
 
-        Relevancy relevancy2 = new Relevancy("level2","enemy2",3);
+        Relevancy relevancy2 = new Relevancy("level2", "enemy2", 3);
         app.getRelevancyDao().insert(relevancy2);
 
-        Relevancy relevancy3 = new Relevancy("level3","enemy3",1);
+        Relevancy relevancy3 = new Relevancy("level3", "enemy3", 1);
         app.getRelevancyDao().insert(relevancy3);
     }
 
     @Override
-    public void bindData() {
-
+    public boolean bindData() {
+        List<Relevancy> relevancies = app.getRelevancyLibrary().getRelevancies();
+        if (relevancies == null) {
+            sendNotify(Constant.Init.Type.ERROR);
+            return false;
+        }
+        if (relevancies.size() == 0) {
+            sendNotify(Constant.Init.Type.ERROR);
+            return false;
+        }
+        for (Relevancy relevancy : relevancies) {
+            Level level = app.getLevelLibrary().getLevels().get(relevancy.getMapName());
+            Enemy enemy = app.getEnemyLibrary().getNormalEnemys().get(relevancy.getEnemyName());
+            for (int i = 0; i < relevancy.getEnemyCount(); i++) {
+                level.getEnemys().add(enemy);
+            }
+            level.setBoss(app.getEnemyLibrary().getBossEnemys().get(level.getBossName()));
+        }
+        sendNotify(Constant.Init.Type.BIND);
+        return true;
     }
 
     @Override
-    public void sendNotify(@Constant.Init.Type String target) {
-        Intent intent = new Intent(Constant.Init.TAG);
-        intent.putExtra(Constant.BroadCast.TARGET, target);
-        sendBroadcast(intent);
+    public void sendNotify(@Constant.Init.Type final String target) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Constant.Init.TAG);
+                intent.putExtra(Constant.BroadCast.TARGET, target);
+                sendBroadcast(intent);
+            }
+        }, 300);
     }
 }

@@ -45,7 +45,7 @@ public interface ILoader {
      *
      * @return
      */
-    void initArcitleData();
+    void initArticleData();
 
     /**
      * 初始化玩家数据
@@ -83,7 +83,7 @@ public interface ILoader {
     /**
      * 绑定数据
      */
-    void bindData();
+    boolean bindData();
 
     /**
      * 发送通知

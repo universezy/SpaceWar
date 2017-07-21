@@ -60,25 +60,25 @@ public class LocationEnemyView extends View {
             init = true;
         }
 
-        synchronized (enemys){
-            for (Enemy enemy:enemys){
-                float pixelX = enemy.getX()*moveWidth/1000-bitmapWidth/2;
-                float pixelY = enemy.getY()*moveHeight/1000-bitmapHeight;
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),enemy.getImage());
-                canvas.drawBitmap(bitmap,pixelX,pixelY,paint);
+        synchronized (enemys) {
+            for (Enemy enemy : enemys) {
+                float pixelX = enemy.getX() * moveWidth / 1000 - bitmapWidth / 2;
+                float pixelY = enemy.getY() * moveHeight / 1000 - bitmapHeight;
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), enemy.getImage());
+                canvas.drawBitmap(bitmap, pixelX, pixelY, paint);
             }
         }
     }
 
-    private void init(){
+    private void init() {
         int standardId = R.mipmap.ic_launcher;
-        Bitmap bitmapStandard = BitmapFactory.decodeResource(getResources(),standardId);
+        Bitmap bitmapStandard = BitmapFactory.decodeResource(getResources(), standardId);
         bitmapWidth = bitmapStandard.getWidth();
         bitmapHeight = bitmapStandard.getHeight();
         paint = new Paint();
     }
 
-    public synchronized void setList(List<Enemy> items){
+    public synchronized void setList(List<Enemy> items) {
         this.enemys.clear();
         this.enemys.addAll(items);
         invalidate();

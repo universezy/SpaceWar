@@ -92,18 +92,21 @@ public class LoadActivity extends AppCompatActivity {
             String target = intent.getStringExtra(Constant.BroadCast.TARGET);
             switch (target) {
                 case Constant.Init.Type.ARTICLE:
-                    mPbLoad.setProgress(20);
+                    mPbLoad.setProgress(16);
                     break;
                 case Constant.Init.Type.PLAYER:
-                    mPbLoad.setProgress(40);
+                    mPbLoad.setProgress(32);
                     break;
                 case Constant.Init.Type.ENEMY:
-                    mPbLoad.setProgress(60);
+                    mPbLoad.setProgress(48);
                     break;
                 case Constant.Init.Type.LEVEL:
-                    mPbLoad.setProgress(80);
+                    mPbLoad.setProgress(64);
                     break;
                 case Constant.Init.Type.RELEVANCY:
+                    mPbLoad.setProgress(80);
+                    break;
+                case Constant.Init.Type.BIND:
                     mPbLoad.setProgress(100);
                     mTvLoad.setText(R.string.load_end);
                     handler.postDelayed(runnable, 1000);

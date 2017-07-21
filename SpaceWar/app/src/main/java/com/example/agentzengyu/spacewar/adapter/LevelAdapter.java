@@ -14,6 +14,10 @@ import com.example.agentzengyu.spacewar.activity.LevelActivity;
 import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
 import com.example.agentzengyu.spacewar.entity.single.Level;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Agent ZengYu on 2017/6/29.
  */
@@ -24,12 +28,15 @@ import com.example.agentzengyu.spacewar.entity.single.Level;
 public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MapViewHolder> {
     private LevelActivity activity;
     private LayoutInflater inflater;
-    private LevelLibrary library = null;
+    private List<Level> levels = new ArrayList<>();
 
     public LevelAdapter(LevelActivity activity, LevelLibrary library) {
         this.activity = activity;
         this.inflater = LayoutInflater.from(activity);
-        this.library = library;
+        for (Object object : library.getLevels().entrySet()) {
+            Map.Entry<String, Level> entry = (Map.Entry<String, Level>) object;
+            levels.add(0, entry.getValue());
+        }
     }
 
     @Override
@@ -41,39 +48,39 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MapViewHolde
 
     @Override
     public void onBindViewHolder(MapViewHolder holder, int position) {
-        holder.getLlMap().setBackgroundResource(this.library.getMaps().get(position).getImage());
-        holder.getLlMap().setTag(library.getMaps().get(position));
-        holder.getTvName().setText(library.getMaps().get(position).getMapName());
+        holder.getLlMap().setBackgroundResource(levels.get(position).getImage());
+        holder.getLlMap().setTag(levels.get(position));
+        holder.getTvName().setText(levels.get(position).getMapName());
     }
 
     @Override
     public int getItemCount() {
-        return library.getMaps().size();
+        return levels.size();
     }
 
     /**
      * 地图布局容器
      */
     public class MapViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout mLlMap;
+        private LinearLayout mLlLevel;
         private TextView mTvName;
 
         public MapViewHolder(View itemView) {
             super(itemView);
-            mLlMap = (LinearLayout) itemView.findViewById(R.id.llMap);
+            mLlLevel = (LinearLayout) itemView.findViewById(R.id.llLevel);
             mTvName = (TextView) itemView.findViewById(R.id.tvName);
-            mLlMap.setOnClickListener(new View.OnClickListener() {
+            mLlLevel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(activity, GameActivity.class);
-                    intent.putExtra("Level", (Level) mLlMap.getTag());
+                    intent.putExtra("Level", (Level) mLlLevel.getTag());
                     activity.startActivity(intent);
                 }
             });
         }
 
         public LinearLayout getLlMap() {
-            return mLlMap;
+            return mLlLevel;
         }
 
         public TextView getTvName() {

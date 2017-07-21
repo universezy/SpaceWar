@@ -24,7 +24,7 @@ public @interface Constant {
      * 菜单
      */
     @interface Menu {
-        int MAIN = 0;
+        int PLAYER = 0;
         int GAME = 1;
         int ARTICLE = 2;
         int SETTING = 3;
@@ -40,14 +40,16 @@ public @interface Constant {
          * 类型
          */
         @StringDef({
-                Type.ARTICLE, Type.PLAYER, Type.ENEMY, Type.LEVEL, Type.RELEVANCY, Type.ERROR
+                Type.ARTICLE, Type.PLAYER, Type.ENEMY, Type.LEVEL, Type.RELEVANCY, Type.ERROR,Type.BIND
         })
+        @Retention(RetentionPolicy.SOURCE)
         @interface Type {
             String ARTICLE = "ARTICLE";
             String PLAYER = "PLAYER";
             String ENEMY = "ENEMY";
             String LEVEL = "LEVEL";
             String RELEVANCY = "RELEVANCY";
+            String BIND = "BIND";
             String ERROR = "ERROR";
         }
     }
@@ -116,7 +118,7 @@ public @interface Constant {
                     TableName.SPEED,
                     TableName.RANGE,
                     TableName.LASER})
-            @Retention(RetentionPolicy.RUNTIME)
+            @Retention(RetentionPolicy.SOURCE)
             @interface TableName {
                 String LIFE = "LIFE";
                 String VELOCITY = "VELOCITY";
@@ -206,16 +208,17 @@ public @interface Constant {
             @StringDef({
                     TableName.LEVEL
             })
+            @Retention(RetentionPolicy.SOURCE)
             @interface TableName {
                 String LEVEL = "LEVEL";
             }
 
             @Retention(RetentionPolicy.SOURCE)
             @interface ColumnName {
-                String LEVEL_NAME = "LEVEL_NAME";
+                String LEVEL = "LEVEL";
                 String IMAGE = "IMAGE";
                 String MUSIC = "MUSIC";
-                String BOSS_NAME = "BOSS_NAME";
+                String BOSS = "BOSS";
             }
         }
 
@@ -225,6 +228,7 @@ public @interface Constant {
             @StringDef({
                     TableName.RELEVANCY
             })
+            @Retention(RetentionPolicy.SOURCE)
             @interface TableName {
                 String RELEVANCY = "RELEVANCY";
             }
