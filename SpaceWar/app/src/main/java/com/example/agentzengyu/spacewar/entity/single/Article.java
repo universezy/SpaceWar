@@ -4,28 +4,26 @@ package com.example.agentzengyu.spacewar.entity.single;
  * Created by Agent ZengYu on 2017/6/20.
  */
 
-import android.util.Log;
-
 import java.io.Serializable;
 
 /**
- * 商品类
+ * 商品
  */
 public class Article implements Serializable {
     private String name = "";
     private int image = 0;
     private int value = 0;
-    private int level = 0;
+    private int grade = 0;
     private int price = 0;
 
     private Article() {
     }
 
-    public Article(String name, int image, int value, int level, int price) {
+    public Article(String name, int image, int value, int grade, int price) {
         this.name = name;
         this.image = image;
         this.value = value;
-        this.level = level;
+        this.grade = grade;
         this.price = price;
     }
 
@@ -41,8 +39,8 @@ public class Article implements Serializable {
         this.value = value;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 
     public void setPrice(int price) {
@@ -61,8 +59,8 @@ public class Article implements Serializable {
         return value;
     }
 
-    public int getLevel() {
-        return level;
+    public int getGrade() {
+        return grade;
     }
 
     public int getPrice() {

@@ -25,9 +25,9 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
     private LinearLayoutManager manager;
     private ArticleAdapter adapter;
     private RecyclerView recyclerView;
-    private ImageView mIvLife, mIvAgility, mIvDefense, mIvShield;
-    private ArrayList<Article> userItem = new ArrayList<>();
-    private ArrayList<Article> articles = new ArrayList<>();
+    private ImageView mIvLife, mIvVelocity, mIvDefense, mIvShield;
+    private ArrayList<Article> playerArticles = new ArrayList<>();
+    private ArrayList<Article> shopArticles = new ArrayList<>();
     private int currentPosition = 1;
 
     public ShipFragment() {
@@ -50,7 +50,7 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
         app = (SpaceWarApp) getActivity().getApplication();
         manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        adapter = new ArticleAdapter(getActivity(), userItem, articles);
+        adapter = new ArticleAdapter(getActivity(), playerArticles, shopArticles);
     }
 
     /**
@@ -67,8 +67,8 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
 
         mIvLife = (ImageView) view.findViewById(R.id.ivLife);
         mIvLife.setOnClickListener(this);
-        mIvAgility = (ImageView) view.findViewById(R.id.ivAgility);
-        mIvAgility.setOnClickListener(this);
+        mIvVelocity = (ImageView) view.findViewById(R.id.ivVelocity);
+        mIvVelocity.setOnClickListener(this);
         mIvDefense = (ImageView) view.findViewById(R.id.ivDefense);
         mIvDefense.setOnClickListener(this);
         mIvShield = (ImageView) view.findViewById(R.id.ivShield);
@@ -82,24 +82,24 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
      */
     private void shift(int position) {
         if (position == currentPosition) return;
-        userItem.clear();
-        articles.clear();
+        playerArticles.clear();
+        shopArticles.clear();
         switch (position) {
             case 0:
-                userItem.add(app.getPlayerData().getLife());
-                articles.addAll(app.getArticleLibrary().getLives());
+                playerArticles.add(app.getPlayerData().getLife());
+                shopArticles.addAll(app.getArticleLibrary().getLives());
                 break;
             case 1:
-                userItem.add(app.getPlayerData().getDefense());
-                articles.addAll(app.getArticleLibrary().getDefenses());
+                playerArticles.add(app.getPlayerData().getDefense());
+                shopArticles.addAll(app.getArticleLibrary().getDefenses());
                 break;
             case 2:
-                userItem.add(app.getPlayerData().getVelocity());
-                articles.addAll(app.getArticleLibrary().getVelocities());
+                playerArticles.add(app.getPlayerData().getVelocity());
+                shopArticles.addAll(app.getArticleLibrary().getVelocities());
                 break;
             case 3:
-                userItem.add(app.getPlayerData().getShield());
-                articles.addAll(app.getArticleLibrary().getShields());
+                playerArticles.add(app.getPlayerData().getShield());
+                shopArticles.addAll(app.getArticleLibrary().getShields());
                 break;
             default:
                 break;
@@ -118,7 +118,7 @@ public class ShipFragment extends Fragment implements View.OnClickListener {
             case R.id.ivDefense:
                 shift(1);
                 break;
-            case R.id.ivAgility:
+            case R.id.ivVelocity:
                 shift(2);
                 break;
             case R.id.ivShield:

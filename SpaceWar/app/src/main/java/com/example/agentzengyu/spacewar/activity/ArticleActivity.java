@@ -47,7 +47,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
      */
     private void initView() {
         mTvMoney = (TextView) findViewById(R.id.tvMoney);
-        mTvMoney.setText("$" + app.getPlayerData().getInfo().getMoney());
+        mTvMoney.setText("$" + app.getPlayerData().getPlayer().getMoney());
         mCivWeapon = (CircleImageView) findViewById(R.id.civWeapon);
         mCivWeapon.setOnClickListener(this);
         mCivShip = (CircleImageView) findViewById(R.id.civShip);

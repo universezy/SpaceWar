@@ -6,15 +6,18 @@ import java.io.Serializable;
  * Created by Agent ZengYu on 2017/7/13.
  */
 
-public class UserInfo implements Serializable {
+/**
+ * 玩家
+ */
+public class Player implements Serializable {
     private String name = "";
     private int money = 0;
 
-    private UserInfo(){
+    private Player(){
 
     }
 
-    public UserInfo(String name, int money) {
+    public Player(String name, int money) {
         this.name = name;
         this.money = money;
     }

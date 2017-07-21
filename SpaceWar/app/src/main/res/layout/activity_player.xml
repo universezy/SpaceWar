@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:activity="com.example.agentzengyu.spacewar.activity.UserActivity">
+    tools:activity="com.example.agentzengyu.spacewar.activity.PlayerActivity">
 
     <TextView
-        android:id="@+id/tvUser"
+        android:id="@+id/tvPlayer"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
@@ -103,7 +103,7 @@
             app:border_width="5dp" />
 
         <com.example.agentzengyu.spacewar.view.CircleImageView
-            android:id="@+id/civAgility"
+            android:id="@+id/civVelocity"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"

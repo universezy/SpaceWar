@@ -40,13 +40,13 @@ public @interface Constant {
          * 类型
          */
         @StringDef({
-                Type.ARTICLE, Type.PLAYER, Type.ENEMY, Type.MAP, Type.RELEVANCY, Type.ERROR
+                Type.ARTICLE, Type.PLAYER, Type.ENEMY, Type.LEVEL, Type.RELEVANCY, Type.ERROR
         })
         @interface Type {
             String ARTICLE = "ARTICLE";
             String PLAYER = "PLAYER";
             String ENEMY = "ENEMY";
-            String MAP = "MAP";
+            String LEVEL = "LEVEL";
             String RELEVANCY = "RELEVANCY";
             String ERROR = "ERROR";
         }
@@ -60,8 +60,8 @@ public @interface Constant {
          * 类型
          */
         @interface Type {
-            String MAP = "MAP";
-            String PLAYER = "Player";
+            String LEVEL = "LEVEL";
+            String PLAYER = "PLAYER";
             String ENEMY = "ENEMY";
             String NOTIFY = "NOTIFY";
             String STATUS = "STATUS";
@@ -70,7 +70,7 @@ public @interface Constant {
         /**
          * 地图
          */
-        @interface Map {
+        @interface Level {
 
         }
 
@@ -130,7 +130,7 @@ public @interface Constant {
 
             @Retention(RetentionPolicy.SOURCE)
             @interface ColumnName {
-                String LEVEL = "LEVEL";
+                String GRADE = "GRADE";
                 String NAME = "NAME";
                 String VALUE = "VALUE";
                 String PRICE = "PRICE";
@@ -200,19 +200,19 @@ public @interface Constant {
         /**
          * 地图
          */
-        @interface Map {
-            String DatabaseName = "MAP";
+        @interface Level {
+            String DatabaseName = "LEVEL";
 
             @StringDef({
-                    TableName.MAP
+                    TableName.LEVEL
             })
             @interface TableName {
-                String MAP = "MAP";
+                String LEVEL = "LEVEL";
             }
 
             @Retention(RetentionPolicy.SOURCE)
             @interface ColumnName {
-                String MAP_NAME = "MAP_NAME";
+                String LEVEL_NAME = "LEVEL_NAME";
                 String IMAGE = "IMAGE";
                 String MUSIC = "MUSIC";
                 String BOSS_NAME = "BOSS_NAME";
@@ -231,7 +231,7 @@ public @interface Constant {
 
             @Retention(RetentionPolicy.SOURCE)
             @interface ColumnName {
-                String MAP_NAME = "MAP_NAME";
+                String LEVEL_NAME = "LEVEL_NAME";
                 String ENEMY_NAME = "ENEMY_NAME";
                 String ENEMY_COUNT = "ENEMY_COUNT";
                 String MD5 = "MD5";

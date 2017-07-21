@@ -22,6 +22,4 @@ public interface IMessageCallback {
      * @param message 消息
      */
     void notifyProgressMsg(String message);
-
-
 }

@@ -1,7 +1,7 @@
-package com.example.agentzengyu.spacewar.database.map;
+package com.example.agentzengyu.spacewar.database.level;
 
-import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
-import com.example.agentzengyu.spacewar.entity.single.Map;
+import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
+import com.example.agentzengyu.spacewar.entity.single.Level;
 
 /**
  * Created by Agent ZengYu on 2017/7/13.
@@ -10,34 +10,34 @@ import com.example.agentzengyu.spacewar.entity.single.Map;
 /**
  * 地图数据库接口
  */
-public interface MapDao {
+public interface LevelDao {
     /**
      * 插入一张地图数据
      *
-     * @param map
+     * @param level
      */
-    void insert(Map map);
+    void insert(Level level);
 
     /**
      * 更新一张地图数据
      *
-     * @param map
+     * @param level
      */
-    void update(Map map);
+    void update(Level level);
 
     /**
      * 删除一张地图数据
      *
-     * @param map
+     * @param level
      */
-    void delete(Map map);
+    void delete(Level level);
 
     /**
      * 查找全部地图数据
      *
      * @return
      */
-    MapLibrary findAll();
+    LevelLibrary findAll();
 
     /**
      * 关闭连接

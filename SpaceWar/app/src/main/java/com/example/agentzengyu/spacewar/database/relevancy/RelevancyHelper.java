@@ -23,7 +23,7 @@ public class RelevancyHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table " + TABLE_NAME + "("
-                + Constant.Database.Relevancy.ColumnName.MAP_NAME + " varchar(20),"
+                + Constant.Database.Relevancy.ColumnName.LEVEL_NAME + " varchar(20),"
                 + Constant.Database.Relevancy.ColumnName.ENEMY_NAME + " varchar(20),"
                 + Constant.Database.Relevancy.ColumnName.ENEMY_COUNT + " integer,"
                 + Constant.Database.Relevancy.ColumnName.MD5 + " text"

@@ -17,13 +17,13 @@ import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
-import com.example.agentzengyu.spacewar.entity.single.Map;
+import com.example.agentzengyu.spacewar.entity.single.Level;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.view.BulletEnemyView;
 import com.example.agentzengyu.spacewar.view.BulletPlayerView;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 import com.example.agentzengyu.spacewar.view.LocationEnemyView;
-import com.example.agentzengyu.spacewar.view.LocationMapView;
+import com.example.agentzengyu.spacewar.view.LocationLevelView;
 import com.example.agentzengyu.spacewar.view.LocationPlayerView;
 
 import java.util.List;
@@ -34,18 +34,18 @@ import java.util.List;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getName();
 
-    private LocationMapView locationMapView;
+    private LocationLevelView locationLevelView;
     private LocationPlayerView locationPlayerView;
     private LocationEnemyView locationEnemyView;
     private BulletPlayerView bulletPlayerView;
     private BulletEnemyView bulletEnemyView;
-    private TextView mTvLife, mTvShield, mTvLaser, mTvMap, mTvNotify;
+    private TextView mTvLife, mTvShield, mTvLaser, mTvLevel, mTvNotify;
     private CircleImageView mCivShield, mCivLaser, mCivShot;
 
     private SpaceWarApp app = null;
     private PlayerData playerData = null;
     private GameService service = null;
-    private MapReceiver mapReceiver;
+    private LevelReceiver levelReceiver;
     private PlayerReceiver playerReceiver;
     private EnemyReceiver enemyReceiver;
     private Handler handlerNotify = new Handler();
@@ -59,10 +59,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
-        Map map = (Map) getIntent().getSerializableExtra("Map");
+        Level level = (Level) getIntent().getSerializableExtra("Level");
         initView();
         initVariable();
-        startGame(map);
+        startGame(level);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         handlerNotify.removeCallbacks(runnableNotify);
         handlerBullet.removeCallbacks(runnableBullet);
-        unregisterReceiver(mapReceiver);
+        unregisterReceiver(levelReceiver);
         unregisterReceiver(playerReceiver);
         unregisterReceiver(enemyReceiver);
         service.onStop();
@@ -80,15 +80,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化布局
      */
     private void initView() {
-        locationMapView = (LocationMapView) findViewById(R.id.mvMap);
-        locationPlayerView = (LocationPlayerView) findViewById(R.id.pvPlayer);
-        locationEnemyView = (LocationEnemyView) findViewById(R.id.evEnemy);
+        locationLevelView = (LocationLevelView) findViewById(R.id.lmvLevel);
+        locationPlayerView = (LocationPlayerView) findViewById(R.id.lpvPlayer);
+        locationEnemyView = (LocationEnemyView) findViewById(R.id.levEnemy);
         bulletPlayerView = (BulletPlayerView) findViewById(R.id.bpvPlayer);
         bulletEnemyView = (BulletEnemyView) findViewById(R.id.bevEnemy);
         mTvLife = (TextView) findViewById(R.id.tvLife);
         mTvShield = (TextView) findViewById(R.id.tvShield);
         mTvLaser = (TextView) findViewById(R.id.tvLaser);
-        mTvMap = (TextView) findViewById(R.id.tvMap);
+        mTvLevel = (TextView) findViewById(R.id.tvLevel);
         mTvNotify = (TextView) findViewById(R.id.tvNotify);
         mCivShield = (CircleImageView) findViewById(R.id.civShield);
         mCivShield.setOnClickListener(this);
@@ -120,11 +120,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         app = (SpaceWarApp) getApplication();
         playerData = app.getPlayerData();
         service = app.getGameService();
-        mapReceiver = new MapReceiver();
+        levelReceiver = new LevelReceiver();
         playerReceiver = new PlayerReceiver();
         enemyReceiver = new EnemyReceiver();
-        IntentFilter mapFilter = new IntentFilter(Constant.Game.Type.MAP);
-        registerReceiver(mapReceiver, mapFilter);
+        IntentFilter mapFilter = new IntentFilter(Constant.Game.Type.LEVEL);
+        registerReceiver(levelReceiver, mapFilter);
         IntentFilter playerFilter = new IntentFilter(Constant.Game.Type.PLAYER);
         registerReceiver(playerReceiver, playerFilter);
         IntentFilter enemyFilter = new IntentFilter(Constant.Game.Type.ENEMY);
@@ -150,19 +150,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 开始游戏
      *
-     * @param map 地图
+     * @param level 地图
      */
-    private void startGame(final Map map) {
+    private void startGame(final Level level) {
         mTvLife.setText("" + playerData.getLife().getValue());
         mTvShield.setText("CD: " + playerData.getShield().getValue());
         mTvLaser.setText("CD: " + playerData.getLaser().getValue());
         locationPlayerView.initLaser(playerData.getRange().getValue());
-        if (map != null) {
-            mTvMap.setText(map.getMapName());
+        if (level != null) {
+            mTvLevel.setText(level.getMapName());
             handlerNotify.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    service.onPrepare(map);
+                    service.onPrepare(level);
                 }
             }, 1000);
         }
@@ -183,7 +183,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //地图接收器
-    public class MapReceiver extends BroadcastReceiver {
+    public class LevelReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Constant.BroadCast.TARGET);

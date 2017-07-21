@@ -40,15 +40,15 @@
             android:screenOrientation="landscape" />
 
         <activity
-            android:name=".activity.UserActivity"
+            android:name=".activity.PlayerActivity"
             android:screenOrientation="landscape" />
 
         <activity
-            android:name=".activity.LoadingActivity"
+            android:name=".activity.LoadActivity"
             android:screenOrientation="landscape" />
 
         <activity
-            android:name=".activity.MapActivity"
+            android:name=".activity.LevelActivity"
             android:screenOrientation="landscape" />
 
         <service

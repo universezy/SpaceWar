@@ -32,7 +32,7 @@ public class WelcomeActivity extends AppCompatActivity {
         runnable = new Runnable() {
             @Override
             public void run() {
-                Intent intentMainActivity = new Intent(WelcomeActivity.this, LoadingActivity.class);
+                Intent intentMainActivity = new Intent(WelcomeActivity.this, LoadActivity.class);
                 startActivity(intentMainActivity);
                 overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                 finish();

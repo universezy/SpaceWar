@@ -6,10 +6,12 @@ package com.example.agentzengyu.spacewar.entity.single;
 
 import com.example.agentzengyu.spacewar.tool.MD5Util;
 
+import java.io.Serializable;
+
 /**
  * 关联
  */
-public class Relevancy {
+public class Relevancy implements Serializable {
     private String mapName = "";
     private String enemyName = "";
     private int enemyCount = 0;

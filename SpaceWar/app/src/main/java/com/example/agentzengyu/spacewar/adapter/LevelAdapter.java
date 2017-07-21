@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.activity.GameActivity;
-import com.example.agentzengyu.spacewar.activity.MapActivity;
-import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
-import com.example.agentzengyu.spacewar.entity.single.Map;
+import com.example.agentzengyu.spacewar.activity.LevelActivity;
+import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
+import com.example.agentzengyu.spacewar.entity.single.Level;
 
 /**
  * Created by Agent ZengYu on 2017/6/29.
@@ -21,12 +21,12 @@ import com.example.agentzengyu.spacewar.entity.single.Map;
 /**
  * 地图适配器
  */
-public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
-    private MapActivity activity;
+public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MapViewHolder> {
+    private LevelActivity activity;
     private LayoutInflater inflater;
-    private MapLibrary library = null;
+    private LevelLibrary library = null;
 
-    public MapAdapter(MapActivity activity, MapLibrary library) {
+    public LevelAdapter(LevelActivity activity, LevelLibrary library) {
         this.activity = activity;
         this.inflater = LayoutInflater.from(activity);
         this.library = library;
@@ -34,7 +34,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
 
     @Override
     public MapViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_map, parent, false);
+        View view = inflater.inflate(R.layout.item_level, parent, false);
         MapViewHolder holder = new MapViewHolder(view);
         return holder;
     }
@@ -66,7 +66,7 @@ public class MapAdapter extends RecyclerView.Adapter<MapAdapter.MapViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(activity, GameActivity.class);
-                    intent.putExtra("Map", (Map) mLlMap.getTag());
+                    intent.putExtra("Level", (Level) mLlMap.getTag());
                     activity.startActivity(intent);
                 }
             });

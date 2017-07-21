@@ -6,20 +6,20 @@
     android:layout_height="match_parent"
     tools:activity="com.example.agentzengyu.spacewar.activity.GameActivity">
 
-    <com.example.agentzengyu.spacewar.view.LocationMapView
-        android:id="@+id/mvMap"
+    <com.example.agentzengyu.spacewar.view.LocationLevelView
+        android:id="@+id/lmvLevel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00000000" />
 
     <com.example.agentzengyu.spacewar.view.LocationPlayerView
-        android:id="@+id/pvPlayer"
+        android:id="@+id/lpvPlayer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00000000" />
 
     <com.example.agentzengyu.spacewar.view.LocationEnemyView
-        android:id="@+id/evEnemy"
+        android:id="@+id/levEnemy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00000000" />
@@ -70,7 +70,7 @@
         android:text="Bomb" />
 
     <TextView
-        android:id="@+id/tvMap"
+        android:id="@+id/tvLevel"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"

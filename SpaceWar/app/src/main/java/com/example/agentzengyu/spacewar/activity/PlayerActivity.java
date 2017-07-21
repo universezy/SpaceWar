@@ -22,16 +22,16 @@ import com.example.agentzengyu.spacewar.view.CircleImageView;
 /**
  * 玩家信息界面
  */
-public class UserActivity extends AppCompatActivity implements View.OnClickListener {
+public class PlayerActivity extends AppCompatActivity implements View.OnClickListener {
     private SpaceWarApp app = null;
 
-    private TextView mTvUser, mTvMoney;
+    private TextView mTvPlayer, mTvMoney;
     private Button mBtnPlay;
-    private CircleImageView mCivLife, mCivDefense, mCivAgility, mCivShield;
+    private CircleImageView mCivLife, mCivDefense, mCivVelocity, mCivShield;
     private CircleImageView mCivPower, mCivSpeed, mCivRange, mCivLaser;
 
-    private PopupWindow popupWindowShow,popupWindowUser;
-    private ImageView mIvShop;
+    private PopupWindow popupWindowArticle, popupWindowPlayer;
+    private ImageView mIvArticle;
     private TextView mTvName, mTvLevel, mTvValue,mTvOld;
     private EditText mEtNew;
     private Button mBtnSave;
@@ -40,7 +40,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_player);
         app = (SpaceWarApp) getApplication();
         initView();
     }
@@ -55,11 +55,11 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化布局
      */
     private void initView() {
-        mTvUser = (TextView) findViewById(R.id.tvUser);
-        mTvUser.setText(app.getPlayerData().getInfo().getName());
-        mTvUser.setOnClickListener(this);
+        mTvPlayer = (TextView) findViewById(R.id.tvPlayer);
+        mTvPlayer.setText(app.getPlayerData().getPlayer().getName());
+        mTvPlayer.setOnClickListener(this);
         mTvMoney = (TextView) findViewById(R.id.tvMoney);
-        mTvMoney.setText("$" + app.getPlayerData().getInfo().getMoney());
+        mTvMoney.setText("$" + app.getPlayerData().getPlayer().getMoney());
         mBtnPlay = (Button) findViewById(R.id.btnPlay);
         mBtnPlay.setOnClickListener(this);
         mCivLife = (CircleImageView) findViewById(R.id.civLife);
@@ -68,9 +68,9 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         mCivDefense = (CircleImageView) findViewById(R.id.civDefense);
         mCivDefense.setImageResource(app.getPlayerData().getDefense().getImage());
         mCivDefense.setOnClickListener(this);
-        mCivAgility = (CircleImageView) findViewById(R.id.civAgility);
-        mCivAgility.setImageResource(app.getPlayerData().getVelocity().getImage());
-        mCivAgility.setOnClickListener(this);
+        mCivVelocity = (CircleImageView) findViewById(R.id.civVelocity);
+        mCivVelocity.setImageResource(app.getPlayerData().getVelocity().getImage());
+        mCivVelocity.setOnClickListener(this);
         mCivShield = (CircleImageView) findViewById(R.id.civShield);
         mCivShield.setImageResource(app.getPlayerData().getShield().getImage());
         mCivShield.setOnClickListener(this);
@@ -87,41 +87,41 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         mCivLaser.setImageResource(app.getPlayerData().getLaser().getImage());
         mCivLaser.setOnClickListener(this);
 
-        popupWindowShow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindowShow.setBackgroundDrawable(new BitmapDrawable());
-        popupWindowShow.setFocusable(true);
-        popupWindowShow.setTouchable(true);
-        popupWindowShow.setOutsideTouchable(true);
+        popupWindowArticle = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindowArticle.setBackgroundDrawable(new BitmapDrawable());
+        popupWindowArticle.setFocusable(true);
+        popupWindowArticle.setTouchable(true);
+        popupWindowArticle.setOutsideTouchable(true);
 
-        popupWindowUser = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindowUser.setBackgroundDrawable(new BitmapDrawable());
-        popupWindowUser.setFocusable(true);
-        popupWindowUser.setTouchable(true);
-        popupWindowUser.setOutsideTouchable(true);
+        popupWindowPlayer = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindowPlayer.setBackgroundDrawable(new BitmapDrawable());
+        popupWindowPlayer.setFocusable(true);
+        popupWindowPlayer.setTouchable(true);
+        popupWindowPlayer.setOutsideTouchable(true);
     }
 
     /**
      * 属性详情
      *
-     * @param item 属性
+     * @param article 属性
      */
-    private void showDetail(Article item) {
-        View view = getLayoutInflater().inflate(R.layout.popupwindow_main, null);
-        mIvShop = (ImageView) view.findViewById(R.id.ivPlayer);
-        mIvShop.setImageResource(item.getImage());
+    private void showArticle(Article article) {
+        View view = getLayoutInflater().inflate(R.layout.popupwindow_article, null);
+        mIvArticle = (ImageView) view.findViewById(R.id.ivArticle);
+        mIvArticle.setImageResource(article.getImage());
         mTvName = (TextView) view.findViewById(R.id.tvName);
-        mTvName.setText(item.getName());
+        mTvName.setText(article.getName());
         mTvLevel = (TextView) view.findViewById(R.id.tvLevel);
-        mTvLevel.setText(String.valueOf(item.getLevel()));
+        mTvLevel.setText(String.valueOf(article.getGrade()));
         mTvValue = (TextView) view.findViewById(R.id.tvValue);
-        mTvValue.setText(String.valueOf(item.getValue()));
+        mTvValue.setText(String.valueOf(article.getValue()));
 
-        popupWindowShow.setContentView(view);
-        popupWindowShow.showAtLocation(mTvMoney, Gravity.CENTER, 0, 0);
+        popupWindowArticle.setContentView(view);
+        popupWindowArticle.showAtLocation(mTvMoney, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.alpha = 0.2f;
         getWindow().setAttributes(layoutParams);
-        popupWindowShow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+        popupWindowArticle.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
@@ -135,28 +135,28 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
      * 修改用户名
      */
     private void modifyUserName(){
-        View view = getLayoutInflater().inflate(R.layout.popupwindow_user, null);
+        View view = getLayoutInflater().inflate(R.layout.popupwindow_player, null);
         mTvOld =(TextView) view.findViewById(R.id.tvOld);
-        mTvOld.setText(app.getPlayerData().getInfo().getName());
+        mTvOld.setText(app.getPlayerData().getPlayer().getName());
         mEtNew = (EditText)view.findViewById(R.id.evNew);
         mBtnSave = (Button) view.findViewById(R.id.btnSave);
         mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newName = mEtNew.getText().toString().trim();
-                app.getPlayerData().getInfo().setName(newName);
+                app.getPlayerData().getPlayer().setName(newName);
                 app.getPlayerDao().update(app.getPlayerData());
-                mTvUser.setText(app.getPlayerData().getInfo().getName());
-                popupWindowUser.dismiss();
+                mTvPlayer.setText(app.getPlayerData().getPlayer().getName());
+                popupWindowPlayer.dismiss();
             }
         });
 
-        popupWindowUser.setContentView(view);
-        popupWindowUser.showAtLocation(mTvMoney, Gravity.CENTER, 0, 0);
+        popupWindowPlayer.setContentView(view);
+        popupWindowPlayer.showAtLocation(mTvMoney, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.alpha = 0.2f;
         getWindow().setAttributes(layoutParams);
-        popupWindowUser.setOnDismissListener(new PopupWindow.OnDismissListener() {
+        popupWindowPlayer.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
@@ -169,35 +169,35 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tvUser:
+            case R.id.tvPlayer:
                 modifyUserName();
                 break;
             case R.id.civLife:
-                showDetail(app.getPlayerData().getLife());
+                showArticle(app.getPlayerData().getLife());
                 break;
             case R.id.civDefense:
-                showDetail(app.getPlayerData().getDefense());
+                showArticle(app.getPlayerData().getDefense());
                 break;
-            case R.id.civAgility:
-                showDetail(app.getPlayerData().getVelocity());
+            case R.id.civVelocity:
+                showArticle(app.getPlayerData().getVelocity());
                 break;
             case R.id.civShield:
-                showDetail(app.getPlayerData().getShield());
+                showArticle(app.getPlayerData().getShield());
                 break;
             case R.id.civPower:
-                showDetail(app.getPlayerData().getPower());
+                showArticle(app.getPlayerData().getPower());
                 break;
             case R.id.civSpeed:
-                showDetail(app.getPlayerData().getSpeed());
+                showArticle(app.getPlayerData().getSpeed());
                 break;
             case R.id.civRange:
-                showDetail(app.getPlayerData().getRange());
+                showArticle(app.getPlayerData().getRange());
                 break;
             case R.id.civLaser:
-                showDetail(app.getPlayerData().getLaser());
+                showArticle(app.getPlayerData().getLaser());
                 break;
             case R.id.btnPlay:
-                Intent intent = new Intent(UserActivity.this, MapActivity.class);
+                Intent intent = new Intent(PlayerActivity.this, LevelActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                 break;

@@ -7,7 +7,7 @@
     android:padding="15dp">
 
     <ImageView
-        android:id="@+id/ivPlayer"
+        android:id="@+id/ivArticle"
         android:layout_width="270dp"
         android:layout_height="180dp"
         android:src="@mipmap/ic_launcher" />

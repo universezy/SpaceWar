@@ -7,7 +7,7 @@ package com.example.agentzengyu.spacewar.entity.single;
 import java.io.Serializable;
 
 /**
- * 敌人类
+ * 敌人
  */
 public class Enemy implements Serializable {
     private String name = "";

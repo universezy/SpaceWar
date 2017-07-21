@@ -2,69 +2,69 @@
 <shop>
     <spaceship>
         <array-life>
-            <life name="Default" price="0" image="0" level="0" value="800" />
-            <life name="Primary" price="500" image="0" level="1" value="1000" />
-            <life name="Secondary" price="1000" image="0" level="2" value="1200" />
-            <life name="Advanced" price="1500" image="0" level="3" value="1400" />
-            <life name="Ultimate" price="2000" image="0" level="4" value="1600" />
+            <life name="Default" price="0" image="0" grade="0" value="800" />
+            <life name="Primary" price="500" image="0" grade="1" value="1000" />
+            <life name="Secondary" price="1000" image="0" grade="2" value="1200" />
+            <life name="Advanced" price="1500" image="0" grade="3" value="1400" />
+            <life name="Ultimate" price="2000" image="0" grade="4" value="1600" />
         </array-life>
 
         <array-defense>
-            <defense name="Default" price="0" image="0" level="0" value="100" />
-            <defense name="Primary" price="500" image="0" level="1" value="110" />
-            <defense name="Secondary" price="1000" image="0" level="2" value="120" />
-            <defense name="Advanced" price="1500" image="0" level="3" value="130" />
-            <defense name="Ultimate" price="2000" image="0" level="4" value="140" />
+            <defense name="Default" price="0" image="0" grade="0" value="100" />
+            <defense name="Primary" price="500" image="0" grade="1" value="110" />
+            <defense name="Secondary" price="1000" image="0" grade="2" value="120" />
+            <defense name="Advanced" price="1500" image="0" grade="3" value="130" />
+            <defense name="Ultimate" price="2000" image="0" grade="4" value="140" />
         </array-defense>
 
         <array-velocity>
-            <velocity name="Default" price="0" image="0" level="0" value="100" />
-            <velocity name="Primary" price="500" image="0" level="1" value="110" />
-            <velocity name="Secondary" price="1000" image="0" level="2" value="120" />
-            <velocity name="Advanced" price="1500" image="0" level="3" value="130" />
-            <velocity name="Ultimate" price="2000" image="0" level="4" value="140" />
+            <velocity name="Default" price="0" image="0" grade="0" value="100" />
+            <velocity name="Primary" price="500" image="0" grade="1" value="110" />
+            <velocity name="Secondary" price="1000" image="0" grade="2" value="120" />
+            <velocity name="Advanced" price="1500" image="0" grade="3" value="130" />
+            <velocity name="Ultimate" price="2000" image="0" grade="4" value="140" />
         </array-velocity>
 
         <array-shield>
-            <shield name="Default" price="0" image="0" level="0" value="60" />
-            <shield name="Primary" price="500" image="0" level="1" value="55" />
-            <shield name="Secondary" price="1000" image="0" level="2" value="50" />
-            <shield name="Advanced" price="1500" image="0" level="3" value="45" />
-            <shield name="Ultimate" price="2000" image="0" level="4" value="40" />
+            <shield name="Default" price="0" image="0" grade="0" value="60" />
+            <shield name="Primary" price="500" image="0" grade="1" value="55" />
+            <shield name="Secondary" price="1000" image="0" grade="2" value="50" />
+            <shield name="Advanced" price="1500" image="0" grade="3" value="45" />
+            <shield name="Ultimate" price="2000" image="0" grade="4" value="40" />
         </array-shield>
     </spaceship>
 
     <weapon>
         <array-power>
-            <power name="Default" price="0" image="0" level="0" value="100" />
-            <power name="Primary" price="500" image="0" level="1" value="120" />
-            <power name="Secondary" price="1000" image="0" level="2" value="140" />
-            <power name="Advanced" price="1500" image="0" level="3" value="160" />
-            <power name="Ultimate" price="2000" image="0" level="4" value="180" />
+            <power name="Default" price="0" image="0" grade="0" value="100" />
+            <power name="Primary" price="500" image="0" grade="1" value="120" />
+            <power name="Secondary" price="1000" image="0" grade="2" value="140" />
+            <power name="Advanced" price="1500" image="0" grade="3" value="160" />
+            <power name="Ultimate" price="2000" image="0" grade="4" value="180" />
         </array-power>
 
         <array-speed>
-            <speed name="Default" price="0" image="0" level="0" value="100" />
-            <speed name="Primary" price="500" image="0" level="1" value="110" />
-            <speed name="Secondary" price="1000" image="0" level="2" value="120" />
-            <speed name="Advanced" price="1500" image="0" level="3" value="130" />
-            <speed name="Ultimate" price="2000" image="0" level="4" value="140" />
+            <speed name="Default" price="0" image="0" grade="0" value="100" />
+            <speed name="Primary" price="500" image="0" grade="1" value="110" />
+            <speed name="Secondary" price="1000" image="0" grade="2" value="120" />
+            <speed name="Advanced" price="1500" image="0" grade="3" value="130" />
+            <speed name="Ultimate" price="2000" image="0" grade="4" value="140" />
         </array-speed>
 
         <array-range>
-            <range name="Default" price="0" image="0" level="0" value="100" />
-            <range name="Primary" price="500" image="0" level="1" value="120" />
-            <range name="Secondary" price="1000" image="0" level="2" value="140" />
-            <range name="Advanced" price="1500" image="0" level="3" value="160" />
-            <range name="Ultimate" price="2000" image="0" level="4" value="180" />
+            <range name="Default" price="0" image="0" grade="0" value="100" />
+            <range name="Primary" price="500" image="0" grade="1" value="120" />
+            <range name="Secondary" price="1000" image="0" grade="2" value="140" />
+            <range name="Advanced" price="1500" image="0" grade="3" value="160" />
+            <range name="Ultimate" price="2000" image="0" grade="4" value="180" />
         </array-range>
 
         <array-laser>
-            <laser name="Default" price="0" image="0" level="0" value="60" />
-            <laser name="Primary" price="500" image="0" level="1" value="55" />
-            <laser name="Secondary" price="1000" image="0" level="2" value="50" />
-            <laser name="Advanced" price="1500" image="0" level="3" value="45" />
-            <laser name="Ultimate" price="2000" image="0" level="4" value="40" />
+            <laser name="Default" price="0" image="0" grade="0" value="60" />
+            <laser name="Primary" price="500" image="0" grade="1" value="55" />
+            <laser name="Secondary" price="1000" image="0" grade="2" value="50" />
+            <laser name="Advanced" price="1500" image="0" grade="3" value="45" />
+            <laser name="Ultimate" price="2000" image="0" grade="4" value="40" />
         </array-laser>
     </weapon>
 </shop>

@@ -42,7 +42,7 @@ public class RelevancyDaoImpl implements RelevancyDao {
     @Override
     public void insert(Relevancy relevancy) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Relevancy.ColumnName.MAP_NAME, relevancy.getMapName());
+        values.put(Constant.Database.Relevancy.ColumnName.LEVEL_NAME, relevancy.getMapName());
         values.put(Constant.Database.Relevancy.ColumnName.ENEMY_NAME, relevancy.getEnemyName());
         values.put(Constant.Database.Relevancy.ColumnName.ENEMY_COUNT, relevancy.getEnemyCount());
         values.put(Constant.Database.Relevancy.ColumnName.MD5, relevancy.getMD5());
@@ -52,7 +52,7 @@ public class RelevancyDaoImpl implements RelevancyDao {
     @Override
     public void update(Relevancy relevancy) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Relevancy.ColumnName.MAP_NAME, relevancy.getMapName());
+        values.put(Constant.Database.Relevancy.ColumnName.LEVEL_NAME, relevancy.getMapName());
         values.put(Constant.Database.Relevancy.ColumnName.ENEMY_NAME, relevancy.getEnemyName());
         values.put(Constant.Database.Relevancy.ColumnName.ENEMY_COUNT, relevancy.getEnemyCount());
         values.put(Constant.Database.Relevancy.ColumnName.MD5, relevancy.getMD5());
@@ -73,7 +73,7 @@ public class RelevancyDaoImpl implements RelevancyDao {
         if (cursor != null && cursor.getCount() > 0) {
             library = new RelevancyLibrary();
             while (cursor.moveToNext()) {
-                String mapName = cursor.getString(cursor.getColumnIndex(Constant.Database.Relevancy.ColumnName.MAP_NAME));
+                String mapName = cursor.getString(cursor.getColumnIndex(Constant.Database.Relevancy.ColumnName.LEVEL_NAME));
                 String enemyName = cursor.getString(cursor.getColumnIndex(Constant.Database.Relevancy.ColumnName.ENEMY_NAME));
                 int enemyCount = cursor.getInt(cursor.getColumnIndex(Constant.Database.Relevancy.ColumnName.ENEMY_COUNT));
 

@@ -13,16 +13,16 @@ import android.view.View;
 /**
  * 地图位置视图
  */
-public class LocationMapView extends View {
-    public LocationMapView(Context context) {
+public class LocationLevelView extends View {
+    public LocationLevelView(Context context) {
         super(context);
     }
 
-    public LocationMapView(Context context, @Nullable AttributeSet attrs) {
+    public LocationLevelView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public LocationMapView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LocationLevelView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

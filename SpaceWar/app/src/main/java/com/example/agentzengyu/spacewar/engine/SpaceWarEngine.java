@@ -11,7 +11,7 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
-import com.example.agentzengyu.spacewar.entity.single.Map;
+import com.example.agentzengyu.spacewar.entity.single.Level;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,9 +41,9 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     //音乐播放器
     private MusicPlayer musicPlayer = null;
     //地图处理器
-    private Handler mapHandler = new Handler();
+    private Handler levelHandler = new Handler();
     //地图子线程
-    private Runnable mapRunnable = null;
+    private Runnable levelRunnable = null;
     //玩家子弹处理器
     private Handler playerHandler = new Handler();
     //玩家子弹子线程
@@ -62,7 +62,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
     private Runnable laserRunnable = null;
     //数据镜像
     private PlayerData playerMirror = null;
-    private Map mapMirror = null;
+    private Level levelMirror = null;
     //子线程刷新延迟
     private int delay = 100;
     //护盾持续时间
@@ -103,11 +103,11 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         if (musicPlayer == null) {
             musicPlayer = MusicPlayer.getInstance(context);
         }
-        mapRunnable = new Runnable() {
+        levelRunnable = new Runnable() {
             @Override
             public void run() {
                 updateMapLocation();
-                mapHandler.postDelayed(mapRunnable, delay);
+                levelHandler.postDelayed(levelRunnable, delay);
             }
         };
         playerRunnable = new Runnable() {
@@ -175,9 +175,9 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
      * 加载镜像
      *
      * @param playerSource 玩家资源
-     * @param mapSource    地图资源
+     * @param levelSource    地图资源
      */
-    private void loadMirror(PlayerData playerSource, Map mapSource) {
+    private void loadMirror(PlayerData playerSource, Level levelSource) {
         playerMirror = null;
         playerMirror = (PlayerData) MirrorBuilder.buildMirror(playerSource);
         shieldCold = playerMirror.getShield().getValue();
@@ -188,8 +188,8 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        mapMirror = null;
-        mapMirror = (Map) MirrorBuilder.buildMirror(mapSource);
+        levelMirror = null;
+        levelMirror = (Level) MirrorBuilder.buildMirror(levelSource);
         iMessageCallback.notifyInitMsg("Loading enemy data successful.", false);
         try {
             Thread.sleep(500);
@@ -396,13 +396,13 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
 
     /********************************* IStatusHandle *********************************/
     @Override
-    public void onPrepare(final Map map) {
+    public void onPrepare(final Level level) {
         Log.e(TAG, "onPrepare");
         new Thread(new Runnable() {
             @Override
             public void run() {
-                loadMirror(app.getPlayerData(), map);
-                loadMusic(map.getMusic());
+                loadMirror(app.getPlayerData(), level);
+                loadMusic(level.getMusic());
                 initGravitySensorCoord();
             }
         }).start();
@@ -413,7 +413,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         Log.e(TAG, "onStart");
         reset();
 //        musicPlayer.onStart();
-//        mapHandler.postDelayed(mapRunnable, delay);
+//        levelHandler.postDelayed(levelRunnable, delay);
         playerHandler.postDelayed(playerRunnable, delay);
 //        enemyHandler.postDelayed(enemyRunnable, delay);
         listenGravitySensor = true;
@@ -436,7 +436,7 @@ public class SpaceWarEngine implements IStatusHandle, IEventHandle, SensorEventL
         Log.e(TAG, "onStop");
         sensorManager.unregisterListener(this);
 //        musicPlayer.onStop();
-//        mapHandler.removeCallbacks(mapRunnable);
+//        levelHandler.removeCallbacks(levelRunnable);
         playerHandler.removeCallbacks(playerRunnable);
 //        enemyHandler.removeCallbacks(enemyRunnable);
         shieldHandler.removeCallbacks(shieldRunnable);

@@ -13,7 +13,7 @@ import com.example.agentzengyu.spacewar.engine.IMessageCallback;
 import com.example.agentzengyu.spacewar.engine.IStatusHandle;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
-import com.example.agentzengyu.spacewar.entity.single.Map;
+import com.example.agentzengyu.spacewar.entity.single.Level;
 
 import java.io.Serializable;
 import java.util.List;
@@ -75,8 +75,8 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
 
     /********************************* IStatusHandle *********************************/
     @Override
-    public void onPrepare(Map map) {
-        engine.onPrepare(map);
+    public void onPrepare(Level level) {
+        engine.onPrepare(level);
     }
 
     @Override
@@ -133,10 +133,10 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
 
     /********************************* IEventCallback *********************************/
     @Override
-    public void updateMapLocation() {
+    public void updateLevelLocation() {
         Log.e(TAG, "updateMap");
-        Intent intent = new Intent(Constant.Game.Type.MAP);
-        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Type.MAP);
+        Intent intent = new Intent(Constant.Game.Type.LEVEL);
+        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Type.LEVEL);
         //TODO
 //        sendBroadcast(intent);
     }

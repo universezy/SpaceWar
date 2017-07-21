@@ -20,7 +20,7 @@ import com.example.agentzengyu.spacewar.service.LoaderService;
 /**
  * 加载页面
  */
-public class LoadingActivity extends AppCompatActivity {
+public class LoadActivity extends AppCompatActivity {
     private SpaceWarApp app = null;
     private LoadingReceiver receiver;
     private Handler handler = new Handler();
@@ -33,7 +33,7 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_loading);
+        setContentView(R.layout.activity_load);
         initView();
         initVariable();
         startService();
@@ -65,7 +65,7 @@ public class LoadingActivity extends AppCompatActivity {
         runnable = new Runnable() {
             @Override
             public void run() {
-                Intent intentMenu = new Intent(LoadingActivity.this, MenuActivity.class);
+                Intent intentMenu = new Intent(LoadActivity.this, MenuActivity.class);
                 startActivity(intentMenu);
                 overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                 finish();
@@ -80,7 +80,7 @@ public class LoadingActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LoadingActivity.this, LoaderService.class);
+                Intent intent = new Intent(LoadActivity.this, LoaderService.class);
                 startService(intent);
             }
         }, 2000);
@@ -100,7 +100,7 @@ public class LoadingActivity extends AppCompatActivity {
                 case Constant.Init.Type.ENEMY:
                     mPbLoad.setProgress(60);
                     break;
-                case Constant.Init.Type.MAP:
+                case Constant.Init.Type.LEVEL:
                     mPbLoad.setProgress(80);
                     break;
                 case Constant.Init.Type.RELEVANCY:
@@ -109,7 +109,7 @@ public class LoadingActivity extends AppCompatActivity {
                     handler.postDelayed(runnable, 1000);
                     break;
                 case Constant.Init.Type.ERROR:
-                    Toast.makeText(LoadingActivity.this, R.string.load_error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoadActivity.this, R.string.load_error, Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;

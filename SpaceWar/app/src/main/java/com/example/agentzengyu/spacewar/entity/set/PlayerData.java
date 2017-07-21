@@ -5,7 +5,7 @@ package com.example.agentzengyu.spacewar.entity.set;
  */
 
 import com.example.agentzengyu.spacewar.entity.single.Article;
-import com.example.agentzengyu.spacewar.entity.single.UserInfo;
+import com.example.agentzengyu.spacewar.entity.single.Player;
 
 import java.io.Serializable;
 
@@ -25,8 +25,8 @@ public class PlayerData implements Serializable {
     private Article range = null;
     private Article laser = null;
 
-    /********** UserInfo **********/
-    private UserInfo info = null;
+    /********** Player **********/
+    private Player player = null;
 
     public PlayerData() {
 
@@ -138,17 +138,17 @@ public class PlayerData implements Serializable {
         return laser;
     }
 
-    /********** UserInfo **********/
-    public boolean setInfo(UserInfo info) {
+    /********** Player **********/
+    public boolean setInfo(Player info) {
         if (info == null) {
             return false;
         } else {
-            this.info = info;
+            this.player = info;
             return true;
         }
     }
 
-    public UserInfo getInfo() {
-        return info;
+    public Player getPlayer() {
+        return player;
     }
 }

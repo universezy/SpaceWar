@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:activity="com.example.agentzengyu.spacewar.activity.LoadingActivity">
+    tools:activity="com.example.agentzengyu.spacewar.activity.LoadActivity">
 
     <ImageView
         android:layout_width="200dp"

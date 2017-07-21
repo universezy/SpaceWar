@@ -52,7 +52,7 @@ public class ArticleDaoImpl implements ArticleDao {
         values.put(Constant.Database.Article.ColumnName.NAME, article.getName());
         values.put(Constant.Database.Article.ColumnName.IMAGE, article.getImage());
         values.put(Constant.Database.Article.ColumnName.VALUE, article.getValue());
-        values.put(Constant.Database.Article.ColumnName.LEVEL, article.getLevel());
+        values.put(Constant.Database.Article.ColumnName.GRADE, article.getGrade());
         values.put(Constant.Database.Article.ColumnName.PRICE, article.getPrice());
         database.insert(tableName, null, values);
     }
@@ -63,10 +63,10 @@ public class ArticleDaoImpl implements ArticleDao {
         values.put(Constant.Database.Article.ColumnName.NAME, article.getName());
         values.put(Constant.Database.Article.ColumnName.IMAGE, article.getImage());
         values.put(Constant.Database.Article.ColumnName.VALUE, article.getValue());
-        values.put(Constant.Database.Article.ColumnName.LEVEL, article.getLevel());
+        values.put(Constant.Database.Article.ColumnName.GRADE, article.getGrade());
         values.put(Constant.Database.Article.ColumnName.PRICE, article.getPrice());
-        String[] whereArgs = new String[]{String.valueOf(article.getLevel())};
-        database.update(tableName, values, Constant.Database.Article.ColumnName.LEVEL + "=?", whereArgs);
+        String[] whereArgs = new String[]{String.valueOf(article.getGrade())};
+        database.update(tableName, values, Constant.Database.Article.ColumnName.GRADE + "=?", whereArgs);
     }
 
     @Override
@@ -119,11 +119,11 @@ public class ArticleDaoImpl implements ArticleDao {
                 String name = cursor.getString(cursor.getColumnIndex(Constant.Database.Article.ColumnName.NAME));
                 int image = cursor.getInt(cursor.getColumnIndex(Constant.Database.Article.ColumnName.IMAGE));
                 int value = cursor.getInt(cursor.getColumnIndex(Constant.Database.Article.ColumnName.VALUE));
-                int level = cursor.getInt(cursor.getColumnIndex(Constant.Database.Article.ColumnName.LEVEL));
+                int level = cursor.getInt(cursor.getColumnIndex(Constant.Database.Article.ColumnName.GRADE));
                 int price = cursor.getInt(cursor.getColumnIndex(Constant.Database.Article.ColumnName.PRICE));
                 if (!"".equals(name) && image > 0 && value > 0 && level >= 0 && price > 0) {
-                    com.example.agentzengyu.spacewar.entity.single.Article item = new com.example.agentzengyu.spacewar.entity.single.Article(name, image, value, level, price);
-                    articles.add(item);
+                    Article article = new Article(name, image, value, level, price);
+                    articles.add(article);
                 }
             }
         }

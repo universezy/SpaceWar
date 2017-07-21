@@ -18,7 +18,7 @@ public class ArticleHelper extends SQLiteOpenHelper {
             + Constant.Database.Article.ColumnName.NAME + " varchar(20) primary key,"
             + Constant.Database.Article.ColumnName.IMAGE + " integer,"
             + Constant.Database.Article.ColumnName.VALUE + " integer,"
-            + Constant.Database.Article.ColumnName.LEVEL + " integer,"
+            + Constant.Database.Article.ColumnName.GRADE + " integer,"
             + Constant.Database.Article.ColumnName.PRICE + " integer"
             + ")";
 

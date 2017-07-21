@@ -6,7 +6,7 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Article;
-import com.example.agentzengyu.spacewar.entity.single.UserInfo;
+import com.example.agentzengyu.spacewar.entity.single.Player;
 import com.snappydb.DB;
 import com.snappydb.SnappyDB;
 import com.snappydb.SnappydbException;
@@ -61,7 +61,7 @@ public class PlayerDaoImpl implements PlayerDao {
                     data.setSpeed(snappyDB.getObject(Constant.Database.Player.TableName.SPEED, Article.class)) &&
                     data.setRange(snappyDB.getObject(Constant.Database.Player.TableName.RANGE, Article.class)) &&
                     data.setLaser(snappyDB.getObject(Constant.Database.Player.TableName.LASER, Article.class)) &&
-                    data.setInfo(snappyDB.getObject(Constant.Database.Player.TableName.INFO, UserInfo.class))) {
+                    data.setInfo(snappyDB.getObject(Constant.Database.Player.TableName.INFO, Player.class))) {
                 Log.e("snappyDB", "findAll");
                 return data;
             }
@@ -83,7 +83,7 @@ public class PlayerDaoImpl implements PlayerDao {
             snappyDB.put(Constant.Database.Player.TableName.SPEED, data.getSpeed());
             snappyDB.put(Constant.Database.Player.TableName.RANGE, data.getRange());
             snappyDB.put(Constant.Database.Player.TableName.LASER, data.getLaser());
-            snappyDB.put(Constant.Database.Player.TableName.INFO, data.getInfo());
+            snappyDB.put(Constant.Database.Player.TableName.INFO, data.getPlayer());
             Log.e("snappyDB", "update");
         } catch (SnappydbException e) {
             e.printStackTrace();

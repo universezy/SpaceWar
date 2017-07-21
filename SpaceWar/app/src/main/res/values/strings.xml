@@ -8,7 +8,7 @@
     <string name="article_money">Money</string>
     <string name="article_upgrade">Upgrade</string>
 
-    <string name="menu_main">User</string>
+    <string name="menu_player">Player</string>
     <string name="menu_game">Game</string>
     <string name="menu_article">Article</string>
     <string name="menu_setting">Setting</string>

@@ -25,9 +25,9 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
     private LinearLayoutManager manager;
     private ArticleAdapter adapter;
     private RecyclerView recyclerView;
-    private ImageView mIvPower, mIvSpeed, mIvRange, mIvNuclear;
-    private ArrayList<Article> userItem = new ArrayList<>();
-    private ArrayList<Article> articles = new ArrayList<>();
+    private ImageView mIvPower, mIvSpeed, mIvRange, mIvLaser;
+    private ArrayList<Article> playerArticles = new ArrayList<>();
+    private ArrayList<Article> shopArticles = new ArrayList<>();
     private int currentPosition = 1;
 
     public WeaponFragment() {
@@ -51,7 +51,7 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
         app = (SpaceWarApp) getActivity().getApplication();
         manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        adapter = new ArticleAdapter(getActivity(), userItem, articles);
+        adapter = new ArticleAdapter(getActivity(), playerArticles, shopArticles);
     }
 
     /**
@@ -72,8 +72,8 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
         mIvSpeed.setOnClickListener(this);
         mIvRange = (ImageView) view.findViewById(R.id.ivRange);
         mIvRange.setOnClickListener(this);
-        mIvNuclear = (ImageView) view.findViewById(R.id.ivNuclear);
-        mIvNuclear.setOnClickListener(this);
+        mIvLaser = (ImageView) view.findViewById(R.id.ivLaser);
+        mIvLaser.setOnClickListener(this);
     }
 
     /**
@@ -83,24 +83,24 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
      */
     private void shift(int position) {
         if (position == currentPosition) return;
-        userItem.clear();
-        articles.clear();
+        playerArticles.clear();
+        shopArticles.clear();
         switch (position) {
             case 0:
-                userItem.add(app.getPlayerData().getPower());
-                articles.addAll(app.getArticleLibrary().getPowers());
+                playerArticles.add(app.getPlayerData().getPower());
+                shopArticles.addAll(app.getArticleLibrary().getPowers());
                 break;
             case 1:
-                userItem.add(app.getPlayerData().getSpeed());
-                articles.addAll(app.getArticleLibrary().getSpeeds());
+                playerArticles.add(app.getPlayerData().getSpeed());
+                shopArticles.addAll(app.getArticleLibrary().getSpeeds());
                 break;
             case 2:
-                userItem.add(app.getPlayerData().getRange());
-                articles.addAll(app.getArticleLibrary().getRanges());
+                playerArticles.add(app.getPlayerData().getRange());
+                shopArticles.addAll(app.getArticleLibrary().getRanges());
                 break;
             case 3:
-                userItem.add(app.getPlayerData().getLaser());
-                articles.addAll(app.getArticleLibrary().getLasers());
+                playerArticles.add(app.getPlayerData().getLaser());
+                shopArticles.addAll(app.getArticleLibrary().getLasers());
                 break;
             default:
                 break;
@@ -122,7 +122,7 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
             case R.id.ivRange:
                 shift(2);
                 break;
-            case R.id.ivNuclear:
+            case R.id.ivLaser:
                 shift(3);
                 break;
             default:

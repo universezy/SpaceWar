@@ -3,15 +3,15 @@ package com.example.agentzengyu.spacewar.application;
 import android.app.Application;
 import android.util.Log;
 
-import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
-import com.example.agentzengyu.spacewar.database.map.MapDaoImpl;
-import com.example.agentzengyu.spacewar.database.player.PlayerDaoImpl;
 import com.example.agentzengyu.spacewar.database.article.ArticleDaoImpl;
+import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
+import com.example.agentzengyu.spacewar.database.level.LevelDaoImpl;
+import com.example.agentzengyu.spacewar.database.player.PlayerDaoImpl;
 import com.example.agentzengyu.spacewar.database.relevancy.RelevancyDaoImpl;
-import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
-import com.example.agentzengyu.spacewar.entity.set.MapLibrary;
-import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.set.ArticleLibrary;
+import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
+import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.set.RelevancyLibrary;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.service.LoaderService;
@@ -32,13 +32,13 @@ public class SpaceWarApp extends Application {
     private ArticleLibrary articleLibrary = null;
     private PlayerData playerData = null;
     private EnemyLibrary enemyLibrary = null;
-    private MapLibrary mapLibrary = null;
+    private LevelLibrary levelLibrary = null;
     private RelevancyLibrary relevancyLibrary = null;
 
     private ArticleDaoImpl articleDao = null;
     private PlayerDaoImpl playerDao = null;
     private EnemyDaoImpl enemyDao = null;
-    private MapDaoImpl mapDao = null;
+    private LevelDaoImpl levelDao = null;
     private RelevancyDaoImpl relevancyDao = null;
 
     @Override
@@ -49,7 +49,7 @@ public class SpaceWarApp extends Application {
         articleDao = ArticleDaoImpl.getInstance(getApplicationContext());
         playerDao = PlayerDaoImpl.getInstance(getApplicationContext());
         enemyDao = EnemyDaoImpl.getInstance(getApplicationContext());
-        mapDao = MapDaoImpl.getInstance(getApplicationContext());
+        levelDao = LevelDaoImpl.getInstance(getApplicationContext());
         relevancyDao = RelevancyDaoImpl.getInstance(getApplicationContext());
     }
 
@@ -74,8 +74,8 @@ public class SpaceWarApp extends Application {
         this.enemyLibrary = enemyLibrary;
     }
 
-    public void setMapLibrary(MapLibrary mapLibrary) {
-        this.mapLibrary = mapLibrary;
+    public void setLevelLibrary(LevelLibrary levelLibrary) {
+        this.levelLibrary = levelLibrary;
     }
 
     public void setRelevancyLibrary(RelevancyLibrary relevancyLibrary) {
@@ -94,8 +94,8 @@ public class SpaceWarApp extends Application {
         return enemyLibrary;
     }
 
-    public MapLibrary getMapLibrary() {
-        return mapLibrary;
+    public LevelLibrary getLevelLibrary() {
+        return levelLibrary;
     }
 
     public RelevancyLibrary getRelevancyLibrary() {
@@ -114,8 +114,8 @@ public class SpaceWarApp extends Application {
         return enemyDao;
     }
 
-    public MapDaoImpl getMapDao() {
-        return mapDao;
+    public LevelDaoImpl getLevelDao() {
+        return levelDao;
     }
 
     public RelevancyDaoImpl getRelevancyDao() {
@@ -192,8 +192,8 @@ public class SpaceWarApp extends Application {
         if (enemyDao != null) {
             enemyDao.close();
         }
-        if (mapDao != null) {
-            mapDao.close();
+        if (levelDao != null) {
+            levelDao.close();
         }
         if (relevancyDao != null) {
             relevancyDao.close();

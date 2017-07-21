@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.agentzengyu.spacewar.R;
-import com.example.agentzengyu.spacewar.activity.UserActivity;
-import com.example.agentzengyu.spacewar.activity.MapActivity;
+import com.example.agentzengyu.spacewar.activity.PlayerActivity;
+import com.example.agentzengyu.spacewar.activity.LevelActivity;
 import com.example.agentzengyu.spacewar.activity.MenuActivity;
 import com.example.agentzengyu.spacewar.activity.SettingActivity;
 import com.example.agentzengyu.spacewar.activity.ArticleActivity;
@@ -80,7 +80,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
      */
     private void setData() {
         images = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round,R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
-        titles = new String[]{resources.getString(R.string.menu_main),resources.getString(R.string.menu_game), resources.getString(R.string.menu_article), resources.getString(R.string.menu_setting)};
+        titles = new String[]{resources.getString(R.string.menu_player),resources.getString(R.string.menu_game), resources.getString(R.string.menu_article), resources.getString(R.string.menu_setting)};
     }
 
     /**
@@ -111,12 +111,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                 case R.id.btnEnter:
                     switch ((int) v.getTag()) {
                         case Constant.Menu.MAIN:
-                            Intent intentMain = new Intent(activity, UserActivity.class);
+                            Intent intentMain = new Intent(activity, PlayerActivity.class);
                             activity.startActivity(intentMain);
                             activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         case Constant.Menu.GAME:
-                            Intent intentMap = new Intent(activity, MapActivity.class);// MapActivity.class
+                            Intent intentMap = new Intent(activity, LevelActivity.class);// LevelActivity.class
                             activity.startActivity(intentMap);
                             activity.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;

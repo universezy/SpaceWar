@@ -46,9 +46,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ShopView
         if (userItem.size() == 1) {
             holder.getmIvPlayer().setImageResource(userItem.get(0).getImage());
             holder.getmTvPlayerName().setText(userItem.get(0).getName());
-            holder.getmTvPlayerLevel().setText(String.valueOf(userItem.get(0).getLevel()));
+            holder.getmTvPlayerLevel().setText(String.valueOf(userItem.get(0).getGrade()));
             holder.getmTvPlayerValue().setText(String.valueOf(userItem.get(0).getValue()));
-            if (userItem.get(0).getLevel() < articles.get(position).getLevel()) {
+            if (userItem.get(0).getGrade() < articles.get(position).getGrade()) {
                 holder.getmIvUpgrade().setImageResource(upgrade[0]);
                 holder.getmBtnUpgrade().setClickable(true);
             } else {
@@ -58,7 +58,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ShopView
         }
         holder.getmIvUpgraded().setImageResource(articles.get(0).getImage());
         holder.getmTvUpgradedName().setText(articles.get(position).getName());
-        holder.getmTvUpgradedLevel().setText(String.valueOf(articles.get(position).getLevel()));
+        holder.getmTvUpgradedLevel().setText(String.valueOf(articles.get(position).getGrade()));
         holder.getmTvUpgradedValue().setText(String.valueOf(articles.get(position).getValue()));
         holder.getmTvUpgradedPrice().setText(String.valueOf(articles.get(position).getPrice()));
     }
@@ -90,7 +90,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ShopView
             mTvUpgradedPrice = (TextView) itemView.findViewById(R.id.tvUpgradedPrice);
             mIvUpgrade = (ImageView) itemView.findViewById(R.id.ivUpgrade);
 
-            mIvPlayer = (ImageView) itemView.findViewById(R.id.ivPlayer);
+            mIvPlayer = (ImageView) itemView.findViewById(R.id.ivArticle);
             mTvPlayerLevel = (TextView) itemView.findViewById(R.id.tvPlayerLevel);
             mTvPlayerName = (TextView) itemView.findViewById(R.id.tvPlayerName);
             mTvPlayerValue = (TextView) itemView.findViewById(R.id.tvPlayerValue);

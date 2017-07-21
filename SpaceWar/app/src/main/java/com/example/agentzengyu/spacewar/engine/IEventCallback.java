@@ -15,7 +15,7 @@ public interface IEventCallback {
     /**
      * 更新地图位置
      */
-    void updateMapLocation();
+    void updateLevelLocation();
 
     /**
      * 更新敌人位置
