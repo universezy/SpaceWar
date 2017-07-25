@@ -5,9 +5,9 @@ package com.example.agentzengyu.spacewar.engine;
  */
 
 /**
- * 游戏操作接口
+ * 玩家接口
  */
-public interface IEventHandle {
+public interface IPlayer {
     /**
      * 射击敌人
      */

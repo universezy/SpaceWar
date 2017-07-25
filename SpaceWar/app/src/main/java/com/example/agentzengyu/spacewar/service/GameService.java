@@ -7,10 +7,9 @@ import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.engine.IEventCallback;
-import com.example.agentzengyu.spacewar.engine.IEventHandle;
-import com.example.agentzengyu.spacewar.engine.IMessageCallback;
-import com.example.agentzengyu.spacewar.engine.IStatusHandle;
+import com.example.agentzengyu.spacewar.engine.IMessage;
+import com.example.agentzengyu.spacewar.engine.IPlayer;
+import com.example.agentzengyu.spacewar.engine.IStatus;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.Level;
@@ -21,7 +20,7 @@ import java.util.List;
 /**
  * 游戏服务，用于转发UI和引擎之间的消息
  */
-public class GameService extends Service implements IStatusHandle, IEventHandle, IMessageCallback, IEventCallback {
+public class GameService extends Service implements IStatus, IPlayer, IMessage, IGame {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
     private SpaceWarEngine engine = null;
@@ -59,7 +58,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     private void initVariable() {
         Log.e(TAG, "initVariable");
         app = (SpaceWarApp) getApplication();
-        app.setGameService(this);
+        app.setGameGameService(this);
     }
 
     /**
@@ -73,7 +72,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
         engine.initEngineCallBack(this, this);
     }
 
-    /********************************* IStatusHandle *********************************/
+    /********************************* IStatus *********************************/
     @Override
     public void onPrepare(Level level) {
         engine.onPrepare(level);
@@ -99,7 +98,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
         engine.onStop();
     }
 
-    /********************************* IEventHandle *********************************/
+    /********************************* IPlayer *********************************/
     @Override
     public void shotEnemy() {
         engine.shotEnemy();
@@ -115,7 +114,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
         engine.launchLaser();
     }
 
-    /********************************* IMessageCallback *********************************/
+    /********************************* IMessage *********************************/
     @Override
     public void notifyInitMsg(String message, boolean status) {
         Log.e(TAG, message);
@@ -127,13 +126,13 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     }
 
     @Override
-    public void notifyProgressMsg(String message) {
+    public void notifyGameMsg(String message) {
         Log.e(TAG, message);
     }
 
-    /********************************* IEventCallback *********************************/
+    /********************************* IEvent *********************************/
     @Override
-    public void updateLevelLocation() {
+    public void updateLevelCoord() {
         Log.e(TAG, "updateMap");
         Intent intent = new Intent(Constant.Game.Type.LEVEL);
         intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Type.LEVEL);
@@ -142,7 +141,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     }
 
     @Override
-    public void updateEnemyLocation() {
+    public void updateEnemyCoord() {
         Log.e(TAG, "updateEnemy");
         Intent intent = new Intent(Constant.Game.Type.ENEMY);
         intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Type.ENEMY);
@@ -160,7 +159,7 @@ public class GameService extends Service implements IStatusHandle, IEventHandle,
     }
 
     @Override
-    public void updatePlayerLocation(float x, float y) {
+    public void updatePlayerCoord(float x, float y) {
         Intent intent = new Intent(Constant.Game.Type.PLAYER);
         intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.COORD);
         intent.putExtra(Constant.Game.Player.X, x);

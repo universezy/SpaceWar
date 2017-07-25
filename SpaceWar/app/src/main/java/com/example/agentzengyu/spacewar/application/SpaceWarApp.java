@@ -27,7 +27,7 @@ public class SpaceWarApp extends Application {
     private static String TAG = null;
 
     private LoaderService loaderService = null;
-    private GameService gameService = null;
+    private GameService gameGameService = null;
 
     private ArticleLibrary articleLibrary = null;
     private PlayerData playerData = null;
@@ -153,10 +153,10 @@ public class SpaceWarApp extends Application {
     /**
      * 设置游戏服务
      *
-     * @param gameService
+     * @param gameGameService
      */
-    public void setGameService(GameService gameService) {
-        this.gameService = gameService;
+    public void setGameGameService(GameService gameGameService) {
+        this.gameGameService = gameGameService;
     }
 
     /**
@@ -164,17 +164,17 @@ public class SpaceWarApp extends Application {
      *
      * @return
      */
-    public GameService getGameService() {
-        return gameService;
+    public GameService getGameGameService() {
+        return gameGameService;
     }
 
     /**
      * 销毁初始化服务
      */
     public void destroyGameService() {
-        if (gameService != null) {
-            gameService.stopSelf();
-            gameService = null;
+        if (gameGameService != null) {
+            gameGameService.stopSelf();
+            gameGameService = null;
         }
     }
 

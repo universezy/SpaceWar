@@ -44,7 +44,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private SpaceWarApp app = null;
     private PlayerData playerData = null;
-    private GameService service = null;
+    private GameService gameService = null;
     private LevelReceiver levelReceiver;
     private PlayerReceiver playerReceiver;
     private EnemyReceiver enemyReceiver;
@@ -73,7 +73,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         unregisterReceiver(levelReceiver);
         unregisterReceiver(playerReceiver);
         unregisterReceiver(enemyReceiver);
-        service.onStop();
+        gameService.onStop();
     }
 
     /**
@@ -119,7 +119,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void initVariable() {
         app = (SpaceWarApp) getApplication();
         playerData = app.getPlayerData();
-        service = app.getGameService();
+        gameService = app.getGameGameService();
         levelReceiver = new LevelReceiver();
         playerReceiver = new PlayerReceiver();
         enemyReceiver = new EnemyReceiver();
@@ -140,7 +140,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 if (shot) {
-                    service.shotEnemy();
+                    gameService.shotEnemy();
                 }
                 handlerBullet.postDelayed(runnableBullet, 300);
             }
@@ -162,7 +162,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             handlerNotify.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    service.onPrepare(level);
+                    gameService.onPrepare(level);
                 }
             }, 1000);
         }
@@ -172,10 +172,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.civShield:
-                service.openShield();
+                gameService.openShield();
                 break;
             case R.id.civLaser:
-                service.launchLaser();
+                gameService.launchLaser();
                 break;
             default:
                 break;

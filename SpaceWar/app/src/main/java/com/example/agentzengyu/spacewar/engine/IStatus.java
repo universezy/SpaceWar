@@ -7,9 +7,9 @@ package com.example.agentzengyu.spacewar.engine;
 import com.example.agentzengyu.spacewar.entity.single.Level;
 
 /**
- * 状态操作接口
+ * 状态接口
  */
-public interface IStatusHandle {
+public interface IStatus {
     /**
      * 准备
      */

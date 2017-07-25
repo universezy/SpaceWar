@@ -5,9 +5,9 @@ package com.example.agentzengyu.spacewar.engine;
  */
 
 /**
- * 游戏消息回调
+ * 消息回调
  */
-public interface IMessageCallback {
+public interface IMessage {
     /**
      * 通知初始化消息
      *
@@ -17,9 +17,9 @@ public interface IMessageCallback {
     void notifyInitMsg(String message, boolean status);
 
     /**
-     * 通知进度消息
+     * 通知游戏消息
      *
      * @param message 消息
      */
-    void notifyProgressMsg(String message);
+    void notifyGameMsg(String message);
 }
