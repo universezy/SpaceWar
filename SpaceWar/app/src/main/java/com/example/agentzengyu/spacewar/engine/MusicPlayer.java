@@ -51,7 +51,7 @@ public class MusicPlayer {
                 onStart();
             }
         });
-        return "Loading music successful.";
+        return "Loading music resource successful.";
     }
 
     /**

@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
 import com.example.agentzengyu.spacewar.entity.single.Level;
 import com.example.agentzengyu.spacewar.service.IGame;
 
@@ -94,6 +95,8 @@ public class SpaceWarEngine implements IStatus, IPlayer, IEvent, SensorEventList
     //子弹数组
     private List<Bullet> bulletsPlayer = Collections.synchronizedList(new ArrayList<Bullet>());
     private List<Bullet> bulletsEnemy = Collections.synchronizedList(new ArrayList<Bullet>());
+    //敌人数组
+    private List<Enemy> enemies = new ArrayList<>();
 
     /**
      * 私有构造初始化变量
@@ -204,7 +207,7 @@ public class SpaceWarEngine implements IStatus, IPlayer, IEvent, SensorEventList
         }
         levelMirror = null;
         levelMirror = (Level) MirrorBuilder.buildMirror(levelSource);
-        iMessage.notifyInitMsg("Loading enemy data successful.", false);
+        iMessage.notifyInitMsg("Loading map data successful.", false);
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -283,13 +286,17 @@ public class SpaceWarEngine implements IStatus, IPlayer, IEvent, SensorEventList
 
     /********************************* IEvent *********************************/
     @Override
-    public void updateLevelCoord(/**/) {
+    public void updateLevelCoord() {
 
+
+        iGame.updateLevelCoord();
     }
 
     @Override
     public void updateEnemyCoord() {
 
+
+        iGame.updateEnemyCoord();
     }
 
     @Override
@@ -385,6 +392,8 @@ public class SpaceWarEngine implements IStatus, IPlayer, IEvent, SensorEventList
     @Override
     public void destroyPlayer() {
 
+
+        iGame.destroyPlayer();
     }
 
     /**
@@ -424,6 +433,7 @@ public class SpaceWarEngine implements IStatus, IPlayer, IEvent, SensorEventList
         reset();
 //        musicPlayer.onStart();
 //        hCoordLevel.postDelayed(rCoordLevel, DELAY);
+//        hCoordEnemy.postDelayed(rCoordLevel, DELAY);
         hBulletPlayer.postDelayed(rBulletPlayer, DELAY);
 //        hBulletEnemy.postDelayed(rBulletEnemy, DELAY);
         listenGravitySensor = true;
@@ -447,6 +457,7 @@ public class SpaceWarEngine implements IStatus, IPlayer, IEvent, SensorEventList
         sensorManager.unregisterListener(this);
 //        musicPlayer.onStop();
 //        hCoordLevel.removeCallbacks(rCoordLevel);
+        hCoordEnemy.removeCallbacks(rCoordEnemy);
         hBulletPlayer.removeCallbacks(rBulletPlayer);
 //        hBulletEnemy.removeCallbacks(rBulletEnemy);
         hShield.removeCallbacks(rShield);

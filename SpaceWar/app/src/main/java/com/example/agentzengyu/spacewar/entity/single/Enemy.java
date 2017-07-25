@@ -18,6 +18,7 @@ public class Enemy implements Serializable {
     private int power = 0;
     private int speed = 0;
     private int range = 0;
+
     private float X = 0;
     private float Y = 0;
 
