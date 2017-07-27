@@ -19,12 +19,8 @@ import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.Level;
 import com.example.agentzengyu.spacewar.service.GameService;
-import com.example.agentzengyu.spacewar.view.BulletEnemyView;
-import com.example.agentzengyu.spacewar.view.BulletPlayerView;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
-import com.example.agentzengyu.spacewar.view.LocationEnemyView;
-import com.example.agentzengyu.spacewar.view.LocationLevelView;
-import com.example.agentzengyu.spacewar.view.LocationPlayerView;
+import com.example.agentzengyu.spacewar.view.GameSurfaceView;
 
 import java.util.List;
 
@@ -34,11 +30,7 @@ import java.util.List;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = getClass().getName();
 
-    private LocationLevelView locationLevelView;
-    private LocationPlayerView locationPlayerView;
-    private LocationEnemyView locationEnemyView;
-    private BulletPlayerView bulletPlayerView;
-    private BulletEnemyView bulletEnemyView;
+    private GameSurfaceView mGsv;
     private TextView mTvLife, mTvShield, mTvLaser, mTvLevel, mTvNotify;
     private CircleImageView mCivShield, mCivLaser, mCivShot;
 
@@ -80,11 +72,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化布局
      */
     private void initView() {
-        locationLevelView = (LocationLevelView) findViewById(R.id.lmvLevel);
-        locationPlayerView = (LocationPlayerView) findViewById(R.id.lpvPlayer);
-        locationEnemyView = (LocationEnemyView) findViewById(R.id.levEnemy);
-        bulletPlayerView = (BulletPlayerView) findViewById(R.id.bpvPlayer);
-        bulletEnemyView = (BulletEnemyView) findViewById(R.id.bevEnemy);
+        mGsv = (GameSurfaceView) findViewById(R.id.gsv);
+        mGsv.setContext(getApplicationContext());
         mTvLife = (TextView) findViewById(R.id.tvLife);
         mTvShield = (TextView) findViewById(R.id.tvShield);
         mTvLaser = (TextView) findViewById(R.id.tvLaser);
@@ -156,13 +145,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mTvLife.setText("" + playerData.getLife().getValue());
         mTvShield.setText("CD: " + playerData.getShield().getValue());
         mTvLaser.setText("CD: " + playerData.getLaser().getValue());
-        locationPlayerView.initLaser(playerData.getRange().getValue());
         if (level != null) {
             mTvLevel.setText(level.getMapName());
             handlerNotify.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    gameService.onPrepare(level);
+                    gameService.onPrepare(level, mGsv);
                 }
             }, 1000);
         }
@@ -207,46 +195,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         handlerNotify.postDelayed(runnableNotify, 600);
                     }
                     break;
-                case Constant.Game.Player.COORD:
-                    float x = intent.getFloatExtra(Constant.Game.Player.X, 0);
-                    float y = intent.getFloatExtra(Constant.Game.Player.Y, 0);
-                    locationPlayerView.setLocation(x, y);
-                    break;
-                case Constant.Game.Player.BULLET:
-                    List<Bullet> bullets = (List<Bullet>) intent.getSerializableExtra(Constant.Game.Player.BULLET);
-                    bulletPlayerView.setBullets(bullets);
-                    break;
-                case Constant.Game.Player.SHIELD_OPEN:
-                    int coldOpen = intent.getIntExtra(Constant.Game.Player.SHIELD_OPEN, 0);
-                    locationPlayerView.setShield(true);
-                    mTvShield.setText("Wait: " + coldOpen);
-                    break;
-                case Constant.Game.Player.SHIELD_CLOSE:
-                    int coldClose = intent.getIntExtra(Constant.Game.Player.SHIELD_CLOSE, 0);
-                    locationPlayerView.setShield(false);
-                    if (coldClose == playerData.getShield().getValue()) {
-                        mTvShield.setText("CD: " + playerData.getShield().getValue());
-                    } else {
-                        mTvShield.setText("Wait: " + coldClose);
-                    }
-                    break;
-                case Constant.Game.Player.LASER_START:
-                    int coldStart = intent.getIntExtra(Constant.Game.Player.LASER_START, 0);
-                    locationPlayerView.setLaser(true);
-                    mTvLaser.setText("Wait: " + coldStart);
-                    break;
-                case Constant.Game.Player.LASER_STOP:
-                    int coldStop = intent.getIntExtra(Constant.Game.Player.LASER_STOP, 0);
-                    locationPlayerView.setLaser(false);
-                    if (coldStop == playerData.getLaser().getValue()) {
-                        mTvLaser.setText("CD: " + playerData.getLaser().getValue());
-                    } else {
-                        mTvLaser.setText("Wait: " + coldStop);
-                    }
-                    break;
-                case Constant.Game.Player.DESTROY:
-                    locationPlayerView.destroy();
-                    break;
                 default:
                     break;
             }
@@ -261,7 +209,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             switch (state) {
                 case Constant.Game.Enemy.BULLET:
                     List<Bullet> bullets = (List<Bullet>) intent.getSerializableExtra(Constant.Game.Enemy.BULLET);
-                    bulletEnemyView.setBullets(bullets);
                     break;
                 default:
                     break;

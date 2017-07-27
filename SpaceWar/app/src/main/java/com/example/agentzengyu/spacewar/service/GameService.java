@@ -11,16 +11,13 @@ import com.example.agentzengyu.spacewar.engine.IMessage;
 import com.example.agentzengyu.spacewar.engine.IPlayer;
 import com.example.agentzengyu.spacewar.engine.IStatus;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
-import com.example.agentzengyu.spacewar.entity.single.Bullet;
 import com.example.agentzengyu.spacewar.entity.single.Level;
-
-import java.io.Serializable;
-import java.util.List;
+import com.example.agentzengyu.spacewar.view.GameSurfaceView;
 
 /**
  * 游戏服务，用于转发UI和引擎之间的消息
  */
-public class GameService extends Service implements IStatus, IPlayer, IMessage, IGame {
+public class GameService extends Service implements IStatus, IPlayer, IMessage {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
     private SpaceWarEngine engine = null;
@@ -69,13 +66,13 @@ public class GameService extends Service implements IStatus, IPlayer, IMessage, 
         if (engine == null) {
             engine = SpaceWarEngine.getInstance(app.getApplicationContext());
         }
-        engine.initEngineCallBack(this, this);
+        engine.initEngineCallBack(this);
     }
 
     /********************************* IStatus *********************************/
     @Override
-    public void onPrepare(Level level) {
-        engine.onPrepare(level);
+    public void onPrepare(Level level, GameSurfaceView gameSurfaceView) {
+        engine.onPrepare(level, gameSurfaceView);
     }
 
     @Override
@@ -128,81 +125,5 @@ public class GameService extends Service implements IStatus, IPlayer, IMessage, 
     @Override
     public void notifyGameMsg(String message) {
         Log.e(TAG, message);
-    }
-
-    /********************************* IEvent *********************************/
-    @Override
-    public void updateLevelCoord() {
-        Log.e(TAG, "updateMap");
-        Intent intent = new Intent(Constant.Game.Type.LEVEL);
-        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Type.LEVEL);
-        //TODO
-//        sendBroadcast(intent);
-    }
-
-    @Override
-    public void updateEnemyCoord() {
-        Log.e(TAG, "updateEnemy");
-        Intent intent = new Intent(Constant.Game.Type.ENEMY);
-        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Type.ENEMY);
-        //TODO
-//        sendBroadcast(intent);
-    }
-
-    @Override
-    public void updateEnemyBullets(List<Bullet> bullets) {
-//        Log.e(TAG, "updateEnemyBullets");
-        Intent intent = new Intent(Constant.Game.Type.ENEMY);
-        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Enemy.BULLET);
-        intent.putExtra(Constant.Game.Enemy.BULLET, (Serializable) bullets);
-        sendBroadcast(intent);
-    }
-
-    @Override
-    public void updatePlayerCoord(float x, float y) {
-        Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.COORD);
-        intent.putExtra(Constant.Game.Player.X, x);
-        intent.putExtra(Constant.Game.Player.Y, y);
-        sendBroadcast(intent);
-    }
-
-    @Override
-    public void updatePlayerBullets(List<Bullet> bullets) {
-        Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.BULLET);
-        intent.putExtra(Constant.Game.Player.BULLET, (Serializable) bullets);
-        sendBroadcast(intent);
-    }
-
-    @Override
-    public void setShield(boolean open,int cold) {
-        Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        if (open) {
-            intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.SHIELD_OPEN);
-            intent.putExtra(Constant.Game.Player.SHIELD_OPEN, cold);
-        } else {
-            intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.SHIELD_CLOSE);
-            intent.putExtra(Constant.Game.Player.SHIELD_CLOSE, cold);
-        }
-        sendBroadcast(intent);
-    }
-
-    @Override
-    public void setLaser(boolean start, int cold) {
-        Intent intent = new Intent(Constant.Game.Type.PLAYER);
-        if (start) {
-            intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.LASER_START);
-            intent.putExtra(Constant.Game.Player.LASER_START, cold);
-        } else {
-            intent.putExtra(Constant.BroadCast.TARGET, Constant.Game.Player.LASER_STOP);
-            intent.putExtra(Constant.Game.Player.LASER_STOP, cold);
-        }
-        sendBroadcast(intent);
-    }
-
-    @Override
-    public void destroyPlayer() {
-        Log.e(TAG, "destroyPlayer");
     }
 }

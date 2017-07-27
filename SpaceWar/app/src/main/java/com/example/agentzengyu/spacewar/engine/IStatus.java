@@ -5,6 +5,7 @@ package com.example.agentzengyu.spacewar.engine;
  */
 
 import com.example.agentzengyu.spacewar.entity.single.Level;
+import com.example.agentzengyu.spacewar.view.GameSurfaceView;
 
 /**
  * 状态接口
@@ -12,8 +13,10 @@ import com.example.agentzengyu.spacewar.entity.single.Level;
 public interface IStatus {
     /**
      * 准备
+     * @param level
+     * @param gameSurfaceView
      */
-    void onPrepare(Level level);
+    void onPrepare(Level level,GameSurfaceView gameSurfaceView);
 
     /**
      * 开始
