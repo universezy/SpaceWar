@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
-import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.set.LevelLibrary;
 
 /**
  * Created by Agent ZengYu on 2017/7/13.
@@ -43,7 +43,7 @@ public class LevelDaoImpl implements LevelDao {
     }
 
     @Override
-    public void insert(com.example.agentzengyu.spacewar.entity.single.Level level) {
+    public void insert(com.example.agentzengyu.spacewar.entity.basic.single.Level level) {
         ContentValues values = new ContentValues();
         values.put(Constant.Database.Level.ColumnName.LEVEL, level.getMapName());
         values.put(Constant.Database.Level.ColumnName.IMAGE, level.getImage());
@@ -53,7 +53,7 @@ public class LevelDaoImpl implements LevelDao {
     }
 
     @Override
-    public void update(com.example.agentzengyu.spacewar.entity.single.Level level) {
+    public void update(com.example.agentzengyu.spacewar.entity.basic.single.Level level) {
         ContentValues values = new ContentValues();
         values.put(Constant.Database.Level.ColumnName.LEVEL, level.getMapName());
         values.put(Constant.Database.Level.ColumnName.IMAGE, level.getImage());
@@ -64,7 +64,7 @@ public class LevelDaoImpl implements LevelDao {
     }
 
     @Override
-    public void delete(com.example.agentzengyu.spacewar.entity.single.Level level) {
+    public void delete(com.example.agentzengyu.spacewar.entity.basic.single.Level level) {
         String[] whereArgs = new String[]{String.valueOf(level.getMapName())};
         database.delete(helper.TABLE_NAME, Constant.Database.Level.ColumnName.LEVEL + "=?", whereArgs);
     }
@@ -81,7 +81,7 @@ public class LevelDaoImpl implements LevelDao {
                 int music = cursor.getInt(cursor.getColumnIndex(Constant.Database.Level.ColumnName.MUSIC));
                 String bossName = cursor.getString(cursor.getColumnIndex(Constant.Database.Level.ColumnName.BOSS));
                 if (!"".equals(mapName) && image > 0 && music > 0 && !"".equals(bossName)) {
-                    com.example.agentzengyu.spacewar.entity.single.Level level = new com.example.agentzengyu.spacewar.entity.single.Level(mapName, image, music, bossName);
+                    com.example.agentzengyu.spacewar.entity.basic.single.Level level = new com.example.agentzengyu.spacewar.entity.basic.single.Level(mapName, image, music, bossName);
                     library.getLevels().put(mapName,level);
                 }
             }

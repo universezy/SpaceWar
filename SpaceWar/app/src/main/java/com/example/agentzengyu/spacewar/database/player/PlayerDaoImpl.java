@@ -4,9 +4,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
-import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.single.Article;
-import com.example.agentzengyu.spacewar.entity.single.Player;
+import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.basic.single.Article;
+import com.example.agentzengyu.spacewar.entity.basic.single.Player;
 import com.snappydb.DB;
 import com.snappydb.SnappyDB;
 import com.snappydb.SnappydbException;

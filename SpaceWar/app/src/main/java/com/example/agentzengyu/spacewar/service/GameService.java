@@ -11,7 +11,7 @@ import com.example.agentzengyu.spacewar.engine.IMessage;
 import com.example.agentzengyu.spacewar.engine.IPlayer;
 import com.example.agentzengyu.spacewar.engine.IStatus;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
-import com.example.agentzengyu.spacewar.entity.single.Level;
+import com.example.agentzengyu.spacewar.entity.basic.single.Level;
 import com.example.agentzengyu.spacewar.view.GameSurfaceView;
 
 /**

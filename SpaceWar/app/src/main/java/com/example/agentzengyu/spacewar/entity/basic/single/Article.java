@@ -1,4 +1,4 @@
-package com.example.agentzengyu.spacewar.entity.single;
+package com.example.agentzengyu.spacewar.entity.basic.single;
 
 /**
  * Created by Agent ZengYu on 2017/6/20.

@@ -1,7 +1,7 @@
 package com.example.agentzengyu.spacewar.database.level;
 
-import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
-import com.example.agentzengyu.spacewar.entity.single.Level;
+import com.example.agentzengyu.spacewar.entity.basic.set.LevelLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.single.Level;
 
 /**
  * Created by Agent ZengYu on 2017/7/13.

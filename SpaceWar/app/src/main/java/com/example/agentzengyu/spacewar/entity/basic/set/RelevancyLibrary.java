@@ -1,6 +1,6 @@
-package com.example.agentzengyu.spacewar.entity.set;
+package com.example.agentzengyu.spacewar.entity.basic.set;
 
-import com.example.agentzengyu.spacewar.entity.single.Relevancy;
+import com.example.agentzengyu.spacewar.entity.basic.single.Relevancy;
 
 import java.util.ArrayList;
 import java.util.List;

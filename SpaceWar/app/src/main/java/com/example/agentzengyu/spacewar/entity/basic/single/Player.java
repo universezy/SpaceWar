@@ -1,4 +1,4 @@
-package com.example.agentzengyu.spacewar.entity.single;
+package com.example.agentzengyu.spacewar.entity.basic.single;
 
 import java.io.Serializable;
 
@@ -12,14 +12,18 @@ import java.io.Serializable;
 public class Player implements Serializable {
     private String name = "";
     private int money = 0;
+    private int image = 0;
+    private int crash = 0;
 
     private Player(){
 
     }
 
-    public Player(String name, int money) {
+    public Player(String name, int money,int image,int crash) {
         this.name = name;
         this.money = money;
+        this.image = image;
+        this.crash = crash;
     }
 
     public void setName(String name) {
@@ -38,4 +42,19 @@ public class Player implements Serializable {
         return money;
     }
 
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setCrash(int crash) {
+        this.crash = crash;
+    }
+
+    public int getCrash() {
+        return crash;
+    }
 }

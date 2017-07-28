@@ -8,11 +8,11 @@ import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
 import com.example.agentzengyu.spacewar.database.level.LevelDaoImpl;
 import com.example.agentzengyu.spacewar.database.player.PlayerDaoImpl;
 import com.example.agentzengyu.spacewar.database.relevancy.RelevancyDaoImpl;
-import com.example.agentzengyu.spacewar.entity.set.ArticleLibrary;
-import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
-import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
-import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.set.RelevancyLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.set.ArticleLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.set.EnemyLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.set.LevelLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.basic.set.RelevancyLibrary;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.service.LoaderService;
 

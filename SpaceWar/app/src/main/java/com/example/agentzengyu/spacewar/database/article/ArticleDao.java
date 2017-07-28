@@ -1,8 +1,8 @@
 package com.example.agentzengyu.spacewar.database.article;
 
 import com.example.agentzengyu.spacewar.application.Constant;
-import com.example.agentzengyu.spacewar.entity.set.ArticleLibrary;
-import com.example.agentzengyu.spacewar.entity.single.Article;
+import com.example.agentzengyu.spacewar.entity.basic.set.ArticleLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.single.Article;
 
 /**
  * Created by Agent ZengYu on 2017/7/13.

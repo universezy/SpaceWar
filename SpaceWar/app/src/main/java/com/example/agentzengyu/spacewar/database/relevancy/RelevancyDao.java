@@ -1,7 +1,7 @@
 package com.example.agentzengyu.spacewar.database.relevancy;
 
-import com.example.agentzengyu.spacewar.entity.set.RelevancyLibrary;
-import com.example.agentzengyu.spacewar.entity.single.Relevancy;
+import com.example.agentzengyu.spacewar.entity.basic.set.RelevancyLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.single.Relevancy;
 
 /**
  * Created by Agent ZengYu on 2017/7/20.

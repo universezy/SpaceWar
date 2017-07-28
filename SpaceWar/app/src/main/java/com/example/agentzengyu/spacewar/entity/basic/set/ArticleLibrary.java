@@ -1,6 +1,6 @@
-package com.example.agentzengyu.spacewar.entity.set;
+package com.example.agentzengyu.spacewar.entity.basic.set;
 
-import com.example.agentzengyu.spacewar.entity.single.Article;
+import com.example.agentzengyu.spacewar.entity.basic.single.Article;
 
 import java.io.Serializable;
 import java.util.List;

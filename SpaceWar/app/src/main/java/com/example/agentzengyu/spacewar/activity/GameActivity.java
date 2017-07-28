@@ -15,14 +15,11 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.single.Bullet;
-import com.example.agentzengyu.spacewar.entity.single.Level;
+import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.basic.single.Level;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 import com.example.agentzengyu.spacewar.view.GameSurfaceView;
-
-import java.util.List;
 
 /**
  * 游戏主界面
@@ -37,9 +34,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private SpaceWarApp app = null;
     private PlayerData playerData = null;
     private GameService gameService = null;
-    private LevelReceiver levelReceiver;
     private PlayerReceiver playerReceiver;
-    private EnemyReceiver enemyReceiver;
     private Handler handlerNotify = new Handler();
     private Handler handlerBullet = new Handler();
     private Runnable runnableNotify = null;
@@ -62,9 +57,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         handlerNotify.removeCallbacks(runnableNotify);
         handlerBullet.removeCallbacks(runnableBullet);
-        unregisterReceiver(levelReceiver);
         unregisterReceiver(playerReceiver);
-        unregisterReceiver(enemyReceiver);
         gameService.onStop();
     }
 
@@ -73,7 +66,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initView() {
         mGsv = (GameSurfaceView) findViewById(R.id.gsv);
-        mGsv.setContext(getApplicationContext());
         mTvLife = (TextView) findViewById(R.id.tvLife);
         mTvShield = (TextView) findViewById(R.id.tvShield);
         mTvLaser = (TextView) findViewById(R.id.tvLaser);
@@ -109,15 +101,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         app = (SpaceWarApp) getApplication();
         playerData = app.getPlayerData();
         gameService = app.getGameGameService();
-        levelReceiver = new LevelReceiver();
         playerReceiver = new PlayerReceiver();
-        enemyReceiver = new EnemyReceiver();
-        IntentFilter mapFilter = new IntentFilter(Constant.Game.Type.LEVEL);
-        registerReceiver(levelReceiver, mapFilter);
         IntentFilter playerFilter = new IntentFilter(Constant.Game.Type.PLAYER);
         registerReceiver(playerReceiver, playerFilter);
-        IntentFilter enemyFilter = new IntentFilter(Constant.Game.Type.ENEMY);
-        registerReceiver(enemyReceiver, enemyFilter);
         runnableNotify = new Runnable() {
             @Override
             public void run() {
@@ -170,17 +156,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //地图接收器
-    public class LevelReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String state = intent.getStringExtra(Constant.BroadCast.TARGET);
-            switch (state) {
-
-            }
-        }
-    }
-
     //玩家接收器
     public class PlayerReceiver extends BroadcastReceiver {
         @Override
@@ -194,21 +169,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     if (status) {
                         handlerNotify.postDelayed(runnableNotify, 600);
                     }
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    //敌人接收器
-    public class EnemyReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String state = intent.getStringExtra(Constant.BroadCast.TARGET);
-            switch (state) {
-                case Constant.Game.Enemy.BULLET:
-                    List<Bullet> bullets = (List<Bullet>) intent.getSerializableExtra(Constant.Game.Enemy.BULLET);
                     break;
                 default:
                     break;

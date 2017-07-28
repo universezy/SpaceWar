@@ -9,16 +9,16 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.set.ArticleLibrary;
-import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
-import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
-import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.set.RelevancyLibrary;
-import com.example.agentzengyu.spacewar.entity.single.Article;
-import com.example.agentzengyu.spacewar.entity.single.Enemy;
-import com.example.agentzengyu.spacewar.entity.single.Level;
-import com.example.agentzengyu.spacewar.entity.single.Player;
-import com.example.agentzengyu.spacewar.entity.single.Relevancy;
+import com.example.agentzengyu.spacewar.entity.basic.set.ArticleLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.set.EnemyLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.set.LevelLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.basic.set.RelevancyLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.single.Article;
+import com.example.agentzengyu.spacewar.entity.basic.single.Enemy;
+import com.example.agentzengyu.spacewar.entity.basic.single.Level;
+import com.example.agentzengyu.spacewar.entity.basic.single.Player;
+import com.example.agentzengyu.spacewar.entity.basic.single.Relevancy;
 
 import java.util.List;
 
@@ -177,7 +177,7 @@ public class LoaderService extends Service implements ILoader {
         Article defense1 = new Article("defense1", R.mipmap.ic_launcher, 100, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.DEFENSE, defense1);
 
-        Article velocity1 = new Article("velocity1", R.mipmap.life1, 5, 1, 1000);
+        Article velocity1 = new Article("velocity1", R.mipmap.life1, 100, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.VELOCITY, velocity1);
 
         Article shield1 = new Article("shield1", R.mipmap.ic_launcher_round, 30, 1, 1000);
@@ -208,7 +208,7 @@ public class LoaderService extends Service implements ILoader {
                 data.setSpeed(app.getArticleLibrary().getSpeeds().get(0)) &&
                 data.setRange(app.getArticleLibrary().getRanges().get(0)) &&
                 data.setLaser(app.getArticleLibrary().getLasers().get(0)) &&
-                data.setInfo(new Player("New User", 1000))) {
+                data.setInfo(new Player("New User", 1000, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher))) {
             app.getPlayerDao().update(data);
         }
     }

@@ -1,4 +1,4 @@
-package com.example.agentzengyu.spacewar.entity.single;
+package com.example.agentzengyu.spacewar.entity.basic.single;
 
 /**
  * Created by Agent ZengYu on 2017/6/28.
@@ -18,9 +18,6 @@ public class Enemy implements Serializable {
     private int power = 0;
     private int speed = 0;
     private int range = 0;
-
-    private float X = 0;
-    private float Y = 0;
 
     private Enemy() {
 
@@ -69,11 +66,6 @@ public class Enemy implements Serializable {
         this.range = range;
     }
 
-    public void setLocation(float x, float y) {
-        this.X = x;
-        this.Y = y;
-    }
-
     public String getName() {
         return name;
     }
@@ -104,13 +96,5 @@ public class Enemy implements Serializable {
 
     public int getRange() {
         return range;
-    }
-
-    public float getX() {
-        return X;
-    }
-
-    public float getY() {
-        return Y;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.agentzengyu.spacewar.database.player;
 
-import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
 
 /**
  * Created by Agent ZengYu on 2017/7/12.

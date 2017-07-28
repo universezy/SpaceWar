@@ -8,8 +8,8 @@ import android.hardware.SensorManager;
 import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.single.Level;
+import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.basic.single.Level;
 import com.example.agentzengyu.spacewar.view.GameSurfaceView;
 
 /**
@@ -46,8 +46,6 @@ public class SpaceWarEngine implements IStatus, IPlayer, SensorEventListener {
     private boolean initGravitySensor = false;
     //开始监听重力传感器
     private boolean listenGravitySensor = false;
-    //玩家坐标
-    private float playerX = 500, playerY = 1000;
 
     /**
      * 私有构造初始化变量
@@ -88,6 +86,7 @@ public class SpaceWarEngine implements IStatus, IPlayer, SensorEventListener {
         }
     }
 
+
     /**
      * 加载镜像
      *
@@ -111,7 +110,7 @@ public class SpaceWarEngine implements IStatus, IPlayer, SensorEventListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        gameSurfaceView.init(playerMirror,levelMirror);
+        gameSurfaceView.init(playerMirror, levelMirror);
     }
 
     /**
@@ -184,29 +183,32 @@ public class SpaceWarEngine implements IStatus, IPlayer, SensorEventListener {
     }
 
     public void updatePlayerCoord(float X, float Y) {
-        int velocity = playerMirror.getVelocity().getValue();
-        if (X - SX > 0.5) {        //下
-            if (playerY != 1000) {
-                playerY += velocity;
-                if (playerY > 1000) playerY = 1000;
-            }
-        } else if (SX - X > 0.5) { //上
-            if (playerY != 0) {
-                playerY -= velocity;
-                if (playerY < 0) playerY = 0;
-            }
+        //standard: x=8.0, y=0.0, offset=2
+        float acceleratedX, acceleratedY;
+        float deltaX = X - SX;
+        float deltaY = Y - SY;
+
+        if (deltaX < -2) {
+            acceleratedX = -0.2f;
+        } else if (deltaX > 2) {
+            acceleratedX = 0.2f;
+        } else if (Math.abs(deltaX) < 0.5) {
+            acceleratedX = 0.0f;
+        } else {
+            acceleratedX = deltaX / 10;
         }
-        if (Y - SY > 0.5) {        //右
-            if (playerX != 1000) {
-                playerX += velocity;
-                if (playerX > 1000) playerX = 1000;
-            }
-        } else if (SY - Y > 0.5) { //左
-            if (playerX != 0) {
-                playerX -= velocity;
-                if (playerX < 0) playerX = 0;
-            }
+
+        if (deltaY < -2) {
+            acceleratedY = -0.2f;
+        } else if (deltaY > 2) {
+            acceleratedY = 0.2f;
+        } else if (Math.abs(deltaY) < 0.5) {
+            acceleratedY = 0.0f;
+        } else {
+            acceleratedY = deltaY / 10;
         }
+
+        gameSurfaceView.setAccelerated(acceleratedX, acceleratedY);
     }
 
     /**
@@ -215,8 +217,6 @@ public class SpaceWarEngine implements IStatus, IPlayer, SensorEventListener {
     private void reset() {
         initGravitySensor = false;
         listenGravitySensor = false;
-        playerX = 500;
-        playerY = 1000;
     }
 
     /********************************* IStatus *********************************/
@@ -238,6 +238,7 @@ public class SpaceWarEngine implements IStatus, IPlayer, SensorEventListener {
     public void onStart() {
         Log.e(TAG, "onStart");
         reset();
+        gameSurfaceView.startGame();
         listenGravitySensor = true;
     }
 

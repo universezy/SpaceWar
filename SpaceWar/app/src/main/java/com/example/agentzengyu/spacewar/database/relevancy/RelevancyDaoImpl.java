@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.agentzengyu.spacewar.application.Constant;
-import com.example.agentzengyu.spacewar.entity.set.RelevancyLibrary;
-import com.example.agentzengyu.spacewar.entity.single.Relevancy;
+import com.example.agentzengyu.spacewar.entity.basic.set.RelevancyLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.single.Relevancy;
 
 /**
  * Created by Agent ZengYu on 2017/7/20.

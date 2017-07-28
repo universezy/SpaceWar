@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.activity.GameActivity;
 import com.example.agentzengyu.spacewar.activity.LevelActivity;
-import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
-import com.example.agentzengyu.spacewar.entity.single.Level;
+import com.example.agentzengyu.spacewar.entity.basic.set.LevelLibrary;
+import com.example.agentzengyu.spacewar.entity.basic.single.Level;
 
 import java.util.ArrayList;
 import java.util.List;
