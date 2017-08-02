@@ -2,18 +2,42 @@ package com.example.agentzengyu.spacewar.entity.game;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Agent ZengYu on 2017/7/28.
  */
 
-public class PlayerShip extends GameObject {
-    private boolean laser = false;
+/**
+ * 玩家飞船
+ */
+public class PlayerShip extends GameComponent {
+    private Paint paintShield, paintLaser;
+    private final static int colorShield = Color.parseColor("#881e90ff");
+    private final static int colorLaser = Color.parseColor("#bbff0000");
     private boolean shield = false;
+    private boolean laser = false;
     private float acceleratedX = 0.0f, acceleratedY = 0.0f;
+    private float radius = 1.0f;
+    private List<PlayerBullet> bullets = new ArrayList<>();
+
 
     public PlayerShip(Resources resources, int objectResId, int crashResId) {
         super(resources, objectResId, crashResId);
+
+        radius = Math.max(objectWidth, objectHeight) * 2 / 3;
+
+        paintShield = new Paint();
+        paintShield.setAntiAlias(true);
+        paintShield.setColor(colorShield);
+
+        paintLaser = new Paint();
+        paintLaser.setAntiAlias(true);
+        paintLaser.setColor(colorLaser);
     }
 
     @Override
@@ -24,8 +48,6 @@ public class PlayerShip extends GameObject {
     @Override
     public void setScreenSize(float screenWidth, float screenHeight) {
         super.setScreenSize(screenWidth, screenHeight);
-        coordX = this.screenWidth / 2;
-        coordY = this.screenHeight;
     }
 
     public void setAccelerated(float X, float Y) {
@@ -33,20 +55,21 @@ public class PlayerShip extends GameObject {
         acceleratedY = Y;
     }
 
-    public void setLaser(boolean laser) {
-        this.laser = laser;
-    }
-
-    public void setShield(boolean shield) {
-        this.shield = shield;
-    }
-
     @Override
     public void onDraw(Canvas canvas) {
         action();
         canvas.save();
-        canvas.clipRect(coordX - objectWidth / 2, coordY, coordX + objectWidth / 2, coordY + objectHeight);
-        canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY, paint);
+        canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+        canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+        canvas.restore();
+
+        canvas.save();
+        if (shield) {
+            canvas.drawCircle(coordX, coordY, radius, paintShield);
+        }
+        if (laser) {
+            canvas.drawRect(coordX - objectWidth / 3, 0.0f, coordX + objectWidth / 3, coordY - objectHeight / 2, paintLaser);
+        }
         canvas.restore();
     }
 
@@ -56,7 +79,7 @@ public class PlayerShip extends GameObject {
     }
 
     @Override
-    public boolean crash(GameObject target) {
+    public boolean crash(GameComponent target) {
         return false;
     }
 
@@ -71,8 +94,20 @@ public class PlayerShip extends GameObject {
         coordY += acceleratedY * velocity;
         if (coordY < 0) {
             coordY = 0;
-        } else if (coordY > screenHeight - objectHeight) {
-            coordY = screenHeight - objectHeight;
+        } else if (coordY > screenHeight) {
+            coordY = screenHeight;
         }
+    }
+
+    public void shotEnemy(GameComponentFactory factory, int objectResId) {
+        bullets.add(factory.createPlayerBullet(objectResId, coordX, coordY));
+    }
+
+    public void openShield(boolean shield) {
+        this.shield = shield;
+    }
+
+    public void launchLaser(boolean laser) {
+        this.laser = laser;
     }
 }

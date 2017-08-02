@@ -16,12 +16,13 @@ import com.example.agentzengyu.spacewar.application.Constant;
 public class EnemyHelper extends SQLiteOpenHelper {
     private final static String TableAttr = "("
             + Constant.Database.Enemy.ColumnName.NAME + " varchar(20) primary key,"
+            + Constant.Database.Enemy.ColumnName.RANGE + " integer,"
+            + Constant.Database.Enemy.ColumnName.CRASH + " integer,"
             + Constant.Database.Enemy.ColumnName.LIFE + " integer,"
             + Constant.Database.Enemy.ColumnName.DEFENSE + " integer,"
             + Constant.Database.Enemy.ColumnName.VELOCITY + " integer,"
             + Constant.Database.Enemy.ColumnName.POWER + " integer,"
             + Constant.Database.Enemy.ColumnName.SPEED + " integer,"
-            + Constant.Database.Enemy.ColumnName.RANGE + " integer,"
             + Constant.Database.Enemy.ColumnName.IMAGE + " integer"
             + ")";
 

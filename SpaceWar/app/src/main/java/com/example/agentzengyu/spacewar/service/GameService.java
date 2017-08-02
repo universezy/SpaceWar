@@ -8,7 +8,7 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.engine.IMessage;
-import com.example.agentzengyu.spacewar.engine.IPlayer;
+import com.example.agentzengyu.spacewar.view.IPlayer;
 import com.example.agentzengyu.spacewar.engine.IStatus;
 import com.example.agentzengyu.spacewar.engine.SpaceWarEngine;
 import com.example.agentzengyu.spacewar.entity.basic.single.Level;
@@ -17,7 +17,7 @@ import com.example.agentzengyu.spacewar.view.GameSurfaceView;
 /**
  * 游戏服务，用于转发UI和引擎之间的消息
  */
-public class GameService extends Service implements IStatus, IPlayer, IMessage {
+public class GameService extends Service implements IStatus, IMessage {
     private final String TAG = getClass().getName();
     private SpaceWarApp app = null;
     private SpaceWarEngine engine = null;
@@ -93,22 +93,6 @@ public class GameService extends Service implements IStatus, IPlayer, IMessage {
     @Override
     public void onStop() {
         engine.onStop();
-    }
-
-    /********************************* IPlayer *********************************/
-    @Override
-    public void shotEnemy() {
-        engine.shotEnemy();
-    }
-
-    @Override
-    public void openShield() {
-        engine.openShield();
-    }
-
-    @Override
-    public void launchLaser() {
-        engine.launchLaser();
     }
 
     /********************************* IMessage *********************************/

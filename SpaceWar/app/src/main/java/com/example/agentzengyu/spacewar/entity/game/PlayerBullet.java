@@ -7,7 +7,10 @@ import android.graphics.Canvas;
  * Created by Agent ZengYu on 2017/7/28.
  */
 
-public class PlayerBullet extends GameObject {
+/**
+ * 玩家子弹
+ */
+public class PlayerBullet extends GameComponent {
 
 
     public PlayerBullet(Resources resources, int objectResId, int crashResId) {
@@ -16,6 +19,7 @@ public class PlayerBullet extends GameObject {
 
     @Override
     public void onDraw(Canvas canvas) {
+        action();
 
     }
 
@@ -25,7 +29,7 @@ public class PlayerBullet extends GameObject {
     }
 
     @Override
-    public boolean crash(GameObject target) {
+    public boolean crash(GameComponent target) {
         return false;
     }
 

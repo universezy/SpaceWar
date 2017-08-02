@@ -14,16 +14,18 @@ public class Player implements Serializable {
     private int money = 0;
     private int image = 0;
     private int crash = 0;
+    private int bullet = 0;
 
-    private Player(){
+    private Player() {
 
     }
 
-    public Player(String name, int money,int image,int crash) {
+    public Player(String name, int money, int image, int crash, int bullet) {
         this.name = name;
         this.money = money;
         this.image = image;
         this.crash = crash;
+        this.bullet = bullet;
     }
 
     public void setName(String name) {
@@ -56,5 +58,13 @@ public class Player implements Serializable {
 
     public int getCrash() {
         return crash;
+    }
+
+    public void setBullet(int bullet) {
+        this.bullet = bullet;
+    }
+
+    public int getBullet() {
+        return bullet;
     }
 }

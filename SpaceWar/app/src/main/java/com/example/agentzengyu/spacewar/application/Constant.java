@@ -189,13 +189,14 @@ public @interface Constant {
             @Retention(RetentionPolicy.SOURCE)
             @interface ColumnName {
                 String NAME = "NAME";
+                String IMAGE = "IMAGE";
+                String CRASH = "CRASH";
                 String LIFE = "LIFE";
                 String DEFENSE = "DEFENSE";
                 String VELOCITY = "VELOCITY";
                 String POWER = "POWER";
                 String SPEED = "SPEED";
                 String RANGE = "RANGE";
-                String IMAGE = "IMAGE";
             }
         }
 

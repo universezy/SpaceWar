@@ -11,6 +11,7 @@ import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.basic.single.Level;
 import com.example.agentzengyu.spacewar.view.GameSurfaceView;
+import com.example.agentzengyu.spacewar.view.IPlayer;
 
 /**
  * Created by Agent ZengYu on 2017/6/29.
@@ -19,7 +20,7 @@ import com.example.agentzengyu.spacewar.view.GameSurfaceView;
 /**
  * 游戏引擎
  */
-public class SpaceWarEngine implements IStatus, IPlayer, SensorEventListener {
+public class SpaceWarEngine implements IStatus, SensorEventListener {
     private static String TAG = "";
     //引擎实例
     private static SpaceWarEngine instance = null;
@@ -258,21 +259,5 @@ public class SpaceWarEngine implements IStatus, IPlayer, SensorEventListener {
     public void onStop() {
         Log.e(TAG, "onStop");
         sensorManager.unregisterListener(this);
-    }
-
-    /********************************* IPlayer *********************************/
-    @Override
-    public void shotEnemy() {
-
-    }
-
-    @Override
-    public void openShield() {
-
-    }
-
-    @Override
-    public void launchLaser() {
-
     }
 }

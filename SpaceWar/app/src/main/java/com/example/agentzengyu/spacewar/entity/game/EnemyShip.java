@@ -7,7 +7,10 @@ import android.graphics.Canvas;
  * Created by Agent ZengYu on 2017/7/28.
  */
 
-public class EnemyShip extends GameObject {
+/**
+ * 敌人飞船
+ */
+public class EnemyShip extends GameComponent {
 
 
     public EnemyShip(Resources resources, int objectResId, int crashResId) {
@@ -25,7 +28,7 @@ public class EnemyShip extends GameObject {
     }
 
     @Override
-    public boolean crash(GameObject target) {
+    public boolean crash(GameComponent target) {
         return false;
     }
 

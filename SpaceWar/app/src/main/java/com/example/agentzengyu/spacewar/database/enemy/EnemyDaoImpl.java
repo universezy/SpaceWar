@@ -47,6 +47,7 @@ public class EnemyDaoImpl implements EnemyDao {
         ContentValues values = new ContentValues();
         values.put(Constant.Database.Enemy.ColumnName.NAME, enemy.getName());
         values.put(Constant.Database.Enemy.ColumnName.IMAGE, enemy.getImage());
+        values.put(Constant.Database.Enemy.ColumnName.CRASH, enemy.getCrash());
         values.put(Constant.Database.Enemy.ColumnName.LIFE, enemy.getLife());
         values.put(Constant.Database.Enemy.ColumnName.DEFENSE, enemy.getDefense());
         values.put(Constant.Database.Enemy.ColumnName.VELOCITY, enemy.getVelocity());
@@ -61,6 +62,7 @@ public class EnemyDaoImpl implements EnemyDao {
         ContentValues values = new ContentValues();
         values.put(Constant.Database.Enemy.ColumnName.NAME, enemy.getName());
         values.put(Constant.Database.Enemy.ColumnName.IMAGE, enemy.getImage());
+        values.put(Constant.Database.Enemy.ColumnName.CRASH, enemy.getCrash());
         values.put(Constant.Database.Enemy.ColumnName.LIFE, enemy.getLife());
         values.put(Constant.Database.Enemy.ColumnName.DEFENSE, enemy.getDefense());
         values.put(Constant.Database.Enemy.ColumnName.VELOCITY, enemy.getVelocity());
@@ -114,6 +116,7 @@ public class EnemyDaoImpl implements EnemyDao {
             while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.NAME));
                 int image = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.IMAGE));
+                int crash = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.CRASH));
                 int life = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.LIFE));
                 int defense = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.DEFENSE));
                 int velocity = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.VELOCITY));
@@ -121,8 +124,8 @@ public class EnemyDaoImpl implements EnemyDao {
                 int speed = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.SPEED));
                 int range = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.RANGE));
 
-                if (!"".equals(name) && life > 0 && defense > 0 && velocity > 0 && power > 0 && speed > 0 && range > 0 && image > 0) {
-                    Enemy item = new Enemy(name, image, life, defense, velocity, power, speed, range);
+                if (!"".equals(name)&& image > 0&& crash > 0 && life > 0 && defense > 0 && velocity > 0 && power > 0 && speed > 0 && range > 0 ) {
+                    Enemy item = new Enemy(name, image,crash, life, defense, velocity, power, speed, range);
                     enemyMap.put(name, item);
                 }
             }

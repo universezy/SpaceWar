@@ -115,7 +115,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 if (shot) {
-                    gameService.shotEnemy();
+                    mGsv.shotEnemy();
                 }
                 handlerBullet.postDelayed(runnableBullet, 300);
             }
@@ -146,10 +146,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.civShield:
-                gameService.openShield();
+                mGsv.openShield();
                 break;
             case R.id.civLaser:
-                gameService.launchLaser();
+                mGsv.launchLaser();
                 break;
             default:
                 break;

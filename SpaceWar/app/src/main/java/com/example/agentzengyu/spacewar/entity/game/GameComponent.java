@@ -10,7 +10,10 @@ import android.graphics.Paint;
  * Created by Agent ZengYu on 2017/7/28.
  */
 
-abstract public class GameObject {
+/**
+ * 游戏组件
+ */
+abstract public class GameComponent {
     protected float coordX;
     protected float coordY;
     protected float life = 0;
@@ -21,21 +24,20 @@ abstract public class GameObject {
     protected float objectHeight;
     protected float screenWidth;
     protected float screenHeight;
-    protected boolean visible;
     protected Paint paint;
     protected Bitmap objectBitmap;
     protected Bitmap crashBitmap;
 
-    public GameObject(Resources resources, int objectResId, int crashResId){
+    public GameComponent(Resources resources, int objectResId, int crashResId){
         paint= new Paint();
         if (objectResId!=0){
             objectBitmap = BitmapFactory.decodeResource(resources,objectResId);
+            objectWidth = objectBitmap.getWidth();
         }
         if (crashResId!=0){
             crashBitmap = BitmapFactory.decodeResource(resources,crashResId);
+            objectHeight =  objectBitmap.getHeight();
         }
-        objectWidth = objectBitmap.getWidth();
-        objectHeight =  objectBitmap.getHeight();
     }
 
     public void setScreenSize(float screenWidth,float screenHeight){
@@ -54,7 +56,7 @@ abstract public class GameObject {
 
     public abstract  void onDestroy();
 
-    public abstract  boolean crash(GameObject target);
+    public abstract  boolean crash(GameComponent target);
 
     protected abstract void action();
 

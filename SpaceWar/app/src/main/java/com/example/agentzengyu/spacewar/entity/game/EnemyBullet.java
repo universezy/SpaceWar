@@ -7,7 +7,10 @@ import android.graphics.Canvas;
  * Created by Agent ZengYu on 2017/7/28.
  */
 
-public class EnemyBullet extends GameObject {
+/**
+ * 敌人子弹
+ */
+public class EnemyBullet extends GameComponent {
 
 
     public EnemyBullet(Resources resources, int objectResId, int crashResId) {
@@ -25,7 +28,7 @@ public class EnemyBullet extends GameObject {
     }
 
     @Override
-    public boolean crash(GameObject target) {
+    public boolean crash(GameComponent target) {
         return false;
     }
 

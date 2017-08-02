@@ -208,7 +208,7 @@ public class LoaderService extends Service implements ILoader {
                 data.setSpeed(app.getArticleLibrary().getSpeeds().get(0)) &&
                 data.setRange(app.getArticleLibrary().getRanges().get(0)) &&
                 data.setLaser(app.getArticleLibrary().getLasers().get(0)) &&
-                data.setInfo(new Player("New User", 1000, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher))) {
+                data.setInfo(new Player("New User", 1000, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher, R.mipmap.ic_launcher_round))) {
             app.getPlayerDao().update(data);
         }
     }
@@ -216,37 +216,37 @@ public class LoaderService extends Service implements ILoader {
     @Override
     public void initEnemyData() {
         Log.e(TAG, "initEnemyData");
-        Enemy enemy1 = new Enemy("enemy1", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        Enemy enemy1 = new Enemy("enemy1",  R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy1);
 
-        Enemy enemy2 = new Enemy("enemy2", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        Enemy enemy2 = new Enemy("enemy2",  R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy2);
 
-        Enemy enemy3 = new Enemy("enemy3", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        Enemy enemy3 = new Enemy("enemy3", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy3);
 
-        Enemy enemy4 = new Enemy("enemy4", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        Enemy enemy4 = new Enemy("enemy4",  R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy4);
 
-        Enemy enemy5 = new Enemy("enemy5", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        Enemy enemy5 = new Enemy("enemy5", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy5);
 
-        Enemy enemy6 = new Enemy("enemy6", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        Enemy enemy6 = new Enemy("enemy6", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy6);
 
-        Enemy enemy7 = new Enemy("enemy7", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        Enemy enemy7 = new Enemy("enemy7", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy7);
 
-        Enemy enemy8 = new Enemy("enemy8", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher);
+        Enemy enemy8 = new Enemy("enemy8", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy8);
 
-        Enemy boss1 = new Enemy("boss1", 300, 200, 100, 100, 100, 100, R.mipmap.ic_launcher_round);
+        Enemy boss1 = new Enemy("boss1", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss1);
 
-        Enemy boss2 = new Enemy("boss2", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher_round);
+        Enemy boss2 = new Enemy("boss2", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss2);
 
-        Enemy boss3 = new Enemy("boss3", 100, 100, 100, 100, 100, 100, R.mipmap.ic_launcher_round);
+        Enemy boss3 = new Enemy("boss3", R.mipmap.ic_launcher, R.mipmap.ic_launcher_round,100, 100, 100, 100, 100, 100);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss3);
     }
 
@@ -291,7 +291,7 @@ public class LoaderService extends Service implements ILoader {
             Level level = app.getLevelLibrary().getLevels().get(relevancy.getMapName());
             Enemy enemy = app.getEnemyLibrary().getNormalEnemys().get(relevancy.getEnemyName());
             for (int i = 0; i < relevancy.getEnemyCount(); i++) {
-                level.getEnemys().add(enemy);
+                level.getEnemies().add(enemy);
             }
             level.setBoss(app.getEnemyLibrary().getBossEnemys().get(level.getBossName()));
         }

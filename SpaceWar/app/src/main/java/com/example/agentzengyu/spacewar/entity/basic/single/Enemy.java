@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class Enemy implements Serializable {
     private String name = "";
     private int image = 0;
+    private int crash = 0;
     private int life = 0;
     private int defense = 0;
     private int velocity = 0;
@@ -19,13 +20,14 @@ public class Enemy implements Serializable {
     private int speed = 0;
     private int range = 0;
 
-    private Enemy() {
+    public Enemy() {
 
     }
 
-    public Enemy(String name, int image, int life, int defense, int velocity, int power, int speed, int range) {
+    public Enemy(String name, int image, int crash,int life, int defense, int velocity, int power, int speed, int range) {
         this.name = name;
         this.image = image;
+        this.crash = crash;
         this.life = life;
         this.defense = defense;
         this.velocity = velocity;
@@ -40,6 +42,10 @@ public class Enemy implements Serializable {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public void setCrash(int crash) {
+        this.crash = crash;
     }
 
     public void setLife(int life) {
@@ -72,6 +78,10 @@ public class Enemy implements Serializable {
 
     public int getImage() {
         return image;
+    }
+
+    public int getCrash() {
+        return crash;
     }
 
     public int getLife() {
