@@ -2,7 +2,6 @@ package com.example.agentzengyu.spacewar.entity.game;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.util.Log;
 
 /**
  * Created by Agent ZengYu on 2017/7/28.
@@ -15,8 +14,6 @@ public class PlayerShip extends GameObject {
 
     public PlayerShip(Resources resources, int objectResId, int crashResId) {
         super(resources, objectResId, crashResId);
-        coordX = screenWidth / 2;
-        coordY = screenHeight;
     }
 
     @Override
@@ -27,13 +24,13 @@ public class PlayerShip extends GameObject {
     @Override
     public void setScreenSize(float screenWidth, float screenHeight) {
         super.setScreenSize(screenWidth, screenHeight);
+        coordX = this.screenWidth / 2;
+        coordY = this.screenHeight;
     }
 
     public void setAccelerated(float X, float Y) {
         acceleratedX = X;
         acceleratedY = Y;
-        Log.e("X", "  -- " + X);
-        Log.e("Y", "  -- " + Y);
     }
 
     public void setLaser(boolean laser) {
@@ -47,7 +44,10 @@ public class PlayerShip extends GameObject {
     @Override
     public void onDraw(Canvas canvas) {
         action();
+        canvas.save();
+        canvas.clipRect(coordX - objectWidth / 2, coordY, coordX + objectWidth / 2, coordY + objectHeight);
         canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY, paint);
+        canvas.restore();
     }
 
     @Override
@@ -71,10 +71,8 @@ public class PlayerShip extends GameObject {
         coordY += acceleratedY * velocity;
         if (coordY < 0) {
             coordY = 0;
-        } else if (coordY > screenHeight) {
-            coordY = screenHeight;
+        } else if (coordY > screenHeight - objectHeight) {
+            coordY = screenHeight - objectHeight;
         }
-        Log.e("coordX", "  -- " + coordX);
-        Log.e("coordX", "  -- " + coordX);
     }
 }

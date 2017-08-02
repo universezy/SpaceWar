@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
@@ -23,6 +24,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private boolean run = true;
     private float screenWidth, screenHeight;
     private float backgroundWidth, backgroundHeight;
+    private float coordX1 = 0.0f, coordY1 = 0.0f;
+    private float coordX2 = 0.0f, coordY2 = 0.0f;
     private float scaleX = 1, scaleY = 1;
     protected Paint paint;
     protected Canvas canvas;
@@ -35,32 +38,17 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     public GameSurfaceView(Context context) {
         super(context);
-        holder = this.getHolder();
-        holder.addCallback(this);
-        paint = new Paint();
+        initDefault();
     }
 
     public GameSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        holder = this.getHolder();
-        holder.addCallback(this);
-        paint = new Paint();
+        initDefault();
     }
 
     public GameSurfaceView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        holder = this.getHolder();
-        holder.addCallback(this);
-        paint = new Paint();
-    }
-
-    public void init(PlayerData playerData, Level level) {
-        this.playerData = playerData;
-        this.level = level;
-        thread = new Thread(this);
-        initLevelRes();
-        initPlayerRes();
-        initEnemyRes();
+        initDefault();
     }
 
     @Override
@@ -77,6 +65,22 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         stopGame();
+    }
+
+    private void initDefault(){
+        holder = this.getHolder();
+        holder.addCallback(this);
+        paint = new Paint();
+        paint.setAntiAlias(true);
+    }
+
+    public void init(PlayerData playerData, Level level) {
+        this.playerData = playerData;
+        this.level = level;
+        thread = new Thread(this);
+        initLevelRes();
+        initPlayerRes();
+        initEnemyRes();
     }
 
     public void startGame() {
@@ -98,16 +102,21 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     private void draw() {
-        canvas = holder.lockCanvas();
-        if (canvas!=null){
+        try {
+            canvas = holder.lockCanvas();
+            canvas.drawColor(Color.BLACK);
             canvas.save();
             canvas.scale(scaleX, scaleY);
-            canvas.drawBitmap(bitmapLevel, 0, backgroundHeight, paint);
+            canvas.drawBitmap(bitmapLevel, coordX1, coordY1, paint);
+            canvas.drawBitmap(bitmapLevel, coordX2, coordY2, paint);
             canvas.restore();
 
             playerShip.onDraw(canvas);
 
-            if (canvas!=null){
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (canvas != null) {
                 holder.unlockCanvasAndPost(canvas);
             }
         }
@@ -136,6 +145,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void onBackgroundAction() {
-
+        coordY1 += 1;
+        if (coordY1>backgroundHeight){
+            coordY1=0;
+        }
+        coordY2 = coordY1-backgroundHeight;
     }
 }
