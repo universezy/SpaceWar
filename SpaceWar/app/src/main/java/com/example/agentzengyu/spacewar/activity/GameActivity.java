@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,7 @@ import com.example.agentzengyu.spacewar.view.GameSurfaceView;
 /**
  * 游戏主界面
  */
-public class GameActivity extends AppCompatActivity implements View.OnClickListener {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
     private final String TAG = getClass().getName();
 
     private GameSurfaceView mGsv;
@@ -37,8 +38,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private PlayerReceiver playerReceiver;
     private Handler handlerNotify = new Handler();
     private Handler handlerBullet = new Handler();
+    private Handler handlerShield = new Handler();
+    private Handler handlerLaser = new Handler();
     private Runnable runnableNotify = null;
     private Runnable runnableBullet = null;
+    private Runnable runnableShield = null;
+    private Runnable runnableLaser = null;
     private boolean shot = false;
 
     @Override
@@ -57,6 +62,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         handlerNotify.removeCallbacks(runnableNotify);
         handlerBullet.removeCallbacks(runnableBullet);
+        handlerShield.removeCallbacks(runnableShield);
+        handlerLaser.removeCallbacks(runnableLaser);
         unregisterReceiver(playerReceiver);
         gameService.onStop();
     }
@@ -76,22 +83,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mCivLaser = (CircleImageView) findViewById(R.id.civLaser);
         mCivLaser.setOnClickListener(this);
         mCivShot = (CircleImageView) findViewById(R.id.civShot);
-        mCivShot.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        shot = true;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        shot = false;
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
+        mCivShot.setOnTouchListener(this);
     }
 
     /**
@@ -115,9 +107,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 if (shot) {
-                    mGsv.shotEnemy();
+                    mGsv.shootEnemy();
                 }
                 handlerBullet.postDelayed(runnableBullet, 300);
+            }
+        };
+        runnableShield = new Runnable() {
+            @Override
+            public void run() {
+                mCivShield.setClickable(true);
+                mTvShield.setTextColor(Color.parseColor("#bbffffff"));
+            }
+        };
+        runnableLaser = new Runnable() {
+            @Override
+            public void run() {
+                mCivLaser.setClickable(true);
+                mTvLaser.setTextColor(Color.parseColor("#bbffffff"));
             }
         };
     }
@@ -128,11 +134,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * @param level 地图
      */
     private void startGame(final Level level) {
-        mTvLife.setText("" + playerData.getLife().getValue());
+        mTvLife.setText("HP: " + playerData.getLife().getValue());
         mTvShield.setText("CD: " + playerData.getShield().getValue());
         mTvLaser.setText("CD: " + playerData.getLaser().getValue());
         if (level != null) {
-            mTvLevel.setText(level.getMapName());
+            mTvLevel.setText(level.getLevelName());
             handlerNotify.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -147,13 +153,34 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.civShield:
                 mGsv.openShield();
+                mCivShield.setClickable(false);
+                handlerShield.postDelayed(runnableShield, playerData.getShield().getValue() * 1000);
+                mTvShield.setTextColor(Color.parseColor("#bbff0000"));
                 break;
             case R.id.civLaser:
-                mGsv.launchLaser();
+                mGsv.openLaser();
+                mCivLaser.setClickable(false);
+                handlerLaser.postDelayed(runnableLaser, playerData.getLaser().getValue() * 1000);
+                mTvLaser.setTextColor(Color.parseColor("#bbff0000"));
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                shot = true;
+                break;
+            case MotionEvent.ACTION_UP:
+                shot = false;
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     //玩家接收器

@@ -25,11 +25,15 @@ import java.util.List;
  * Created by Agent ZengYu on 2017/7/27.
  */
 
-public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable, IPlayer {
+/**
+ * 游戏界面视图
+ */
+public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable, ISurfaceView, IPlayer {
     private SurfaceHolder holder;
     private Thread thread;
-    private Handler handlerShield, handlerLaser;
-    private Runnable runnableShield, runnableLaser;
+    private Handler handlerShield, handlerLaser, handlerEnemy;
+    private Runnable runnableShield, runnableLaser, runnableEnemy;
+
     private boolean run = true;
     private boolean shield = false;
     private boolean laser = false;
@@ -38,7 +42,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private float coordX1 = 0.0f, coordY1 = 0.0f;
     private float coordX2 = 0.0f, coordY2 = 0.0f;
     private float scaleX = 1, scaleY = 1;
-    private final static int DELAY = 5000;
+    private final static int DELAY_PLAYER = 5000;
+    private final static int DELAY_ENEMY = 1000;
+
     protected Paint paint;
     protected Canvas canvas;
     private Bitmap bitmapLevel;
@@ -81,16 +87,27 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         stopGame();
     }
 
-    private void initDefault() {
+    @Override
+    public void run() {
+        while (run) {
+
+            draw();
+            onBackgroundAction();
+        }
+    }
+
+    /************************ ISurfaceView ************************/
+    @Override
+    public void initDefault() {
         paint = new Paint();
         paint.setAntiAlias(true);
-
 
         holder = this.getHolder();
         holder.addCallback(this);
 
         handlerShield = new Handler();
         handlerLaser = new Handler();
+        handlerEnemy = new Handler();
 
         runnableShield = new Runnable() {
             @Override
@@ -103,42 +120,63 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             @Override
             public void run() {
                 laser = false;
-                playerShip.launchLaser(false);
+                playerShip.openLaser(false);
+            }
+        };
+        runnableEnemy = new Runnable() {
+            @Override
+            public void run() {
+                for (EnemyShip ship : enemyShips) {
+                    ship.shootPlayer(factory);
+                }
             }
         };
     }
 
+    @Override
     public void init(PlayerData playerData, Level level) {
         this.playerData = playerData;
         this.level = level;
-        factory = new GameComponentFactory(screenWidth, screenHeight, getResources(), playerData, level);
+        factory = new GameComponentFactory(screenWidth, screenHeight, getResources(), playerData);
         thread = new Thread(this);
         initLevelRes();
         initPlayerRes();
         initEnemyRes();
     }
 
-    public void startGame() {
-        run = true;
-        thread.start();
-    }
-
-    public void stopGame() {
-        run = false;
-        handlerShield.removeCallbacks(runnableShield);
-        handlerLaser.removeCallbacks(runnableLaser);
+    @Override
+    public void initLevelRes() {
+        bitmapLevel = BitmapFactory.decodeResource(getResources(), level.getImage());
+        backgroundWidth = bitmapLevel.getWidth();
+        backgroundHeight = bitmapLevel.getHeight();
+        scaleX = screenWidth / backgroundWidth;
+        scaleY = screenHeight / backgroundHeight;
     }
 
     @Override
-    public void run() {
-        while (run) {
-
-            draw();
-            onBackgroundAction();
-        }
+    public void initPlayerRes() {
+        playerShip = factory.createPlayerShip();
     }
 
-    private void draw() {
+    @Override
+    public void initEnemyRes() {
+        for (Enemy enemy : level.getEnemies()) {
+            enemyShips.add(factory.createEnemyShip(enemy));
+        }
+        boss = factory.createEnemyShip(level.getBoss());
+    }
+
+    @Override
+    public void onBackgroundAction() {
+        coordY1 += 1;
+        if (coordY1 > backgroundHeight) {
+            coordY1 = 0;
+        }
+        coordY2 = coordY1 - backgroundHeight;
+    }
+
+    @Override
+    public void draw() {
         try {
             canvas = holder.lockCanvas();
             canvas.drawColor(Color.BLACK);
@@ -159,40 +197,42 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    private void initLevelRes() {
-        bitmapLevel = BitmapFactory.decodeResource(getResources(), level.getImage());
-        backgroundWidth = bitmapLevel.getWidth();
-        backgroundHeight = bitmapLevel.getHeight();
-        scaleX = screenWidth / backgroundWidth;
-        scaleY = screenHeight / backgroundHeight;
+    @Override
+    public void startGame() {
+        run = true;
+        thread.start();
     }
 
-    private void initPlayerRes() {
-        playerShip = factory.createPlayerShip();
-    }
-
-    private void initEnemyRes() {
-        for (Enemy enemy : level.getEnemies()) {
-            enemyShips.add(factory.createEnemyShip(enemy));
+    @Override
+    public void stopGame() {
+        run = false;
+        handlerShield.removeCallbacks(runnableShield);
+        handlerLaser.removeCallbacks(runnableLaser);
+        handlerEnemy.removeCallbacks(runnableEnemy);
+        if (bitmapLevel != null && bitmapLevel.isRecycled()) {
+            bitmapLevel.recycle();
         }
-        boss = factory.createEnemyShip(level.getBoss());
+        if (playerShip != null) {
+            playerShip.onDestroy();
+        }
+        for (EnemyShip ship : enemyShips) {
+            ship.onDestroy();
+        }
+        if (boss != null) {
+            boss.onDestroy();
+        }
     }
 
+
+    /************************ IPlayer ************************/
+    @Override
     public void setAccelerated(float X, float Y) {
         playerShip.setAccelerated(Y, X);
     }
 
-    public void onBackgroundAction() {
-        coordY1 += 1;
-        if (coordY1 > backgroundHeight) {
-            coordY1 = 0;
-        }
-        coordY2 = coordY1 - backgroundHeight;
-    }
-
     @Override
-    public void shotEnemy() {
-        playerShip.shotEnemy(factory, playerData.getPlayer().getBullet());
+    public void shootEnemy() {
+        playerShip.shootEnemy(factory, playerData.getPlayer().getBullet());
     }
 
     @Override
@@ -200,14 +240,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         if (shield) return;
         shield = true;
         playerShip.openShield(true);
-        handlerShield.postDelayed(runnableShield, DELAY);
+        handlerShield.postDelayed(runnableShield, DELAY_PLAYER);
     }
 
     @Override
-    public void launchLaser() {
+    public void openLaser() {
         if (laser) return;
         laser = true;
-        playerShip.launchLaser(true);
-        handlerLaser.postDelayed(runnableLaser, DELAY);
+        playerShip.openLaser(true);
+        handlerLaser.postDelayed(runnableLaser, DELAY_PLAYER);
     }
 }

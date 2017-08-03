@@ -13,36 +13,36 @@ import java.util.Map;
  * 敌人库
  */
 public class EnemyLibrary implements Serializable {
-    private Map<String, Enemy> normalEnemys = null;
-    private Map<String, Enemy> bossEnemys = null;
+    private Map<String, Enemy> normalEnemies = null;
+    private Map<String, Enemy> bossEnemies = null;
 
     public EnemyLibrary() {
 
     }
 
-    public boolean setNormalEmenys(Map<String, Enemy> normalEmenys) {
+    public boolean setNormalEnemies(Map<String, Enemy> normalEmenys) {
         if (normalEmenys == null) {
             return false;
         } else {
-            this.normalEnemys = normalEmenys;
+            this.normalEnemies = normalEmenys;
             return true;
         }
     }
 
-    public boolean setBossEmenys(Map<String, Enemy> bossEmenys) {
+    public boolean setBossEnemies(Map<String, Enemy> bossEmenys) {
         if (bossEmenys == null) {
             return false;
         } else {
-            this.bossEnemys = bossEmenys;
+            this.bossEnemies = bossEmenys;
             return true;
         }
     }
 
-    public Map<String, Enemy> getNormalEnemys() {
-        return normalEnemys;
+    public Map<String, Enemy> getNormalEnemies() {
+        return normalEnemies;
     }
 
-    public Map<String, Enemy> getBossEnemys() {
-        return bossEnemys;
+    public Map<String, Enemy> getBossEnemies() {
+        return bossEnemies;
     }
 }

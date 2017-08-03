@@ -4,7 +4,6 @@ import android.content.res.Resources;
 
 import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.basic.single.Enemy;
-import com.example.agentzengyu.spacewar.entity.basic.single.Level;
 
 import java.util.Random;
 
@@ -19,17 +18,15 @@ public class GameComponentFactory {
     private float screenWidth, screenHeight;
     private Resources resources;
     private PlayerData data;
-    private Level level;
 
     private GameComponentFactory() {
     }
 
-    public GameComponentFactory(float screenWidth, float screenHeight, Resources resources, PlayerData data, Level level) {
+    public GameComponentFactory(float screenWidth, float screenHeight, Resources resources, PlayerData data) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.resources = resources;
         this.data = data;
-        this.level = level;
     }
 
     /**
@@ -41,8 +38,8 @@ public class GameComponentFactory {
         PlayerShip ship = new PlayerShip(resources, data.getPlayer().getImage(), data.getPlayer().getCrash());
         ship.setParams(data.getLife().getValue(), data.getDefense().getValue(), data.getPower().getValue(), data.getVelocity().getValue());
         ship.setScreenSize(screenWidth, screenHeight);
-        ship.setCoordX(screenWidth / 2);
-        ship.setCoordY(screenHeight);
+        ship.coordX = screenWidth / 2;
+        ship.coordY = screenHeight;
         return ship;
     }
 
@@ -52,11 +49,11 @@ public class GameComponentFactory {
      * @return
      */
     public EnemyShip createEnemyShip(Enemy enemy) {
-        EnemyShip ship = new EnemyShip(resources, enemy.getImage(), enemy.getCrash());
+        EnemyShip ship = new EnemyShip(resources, enemy.getImage(), enemy.getCrash(), enemy.getBullet());
         ship.setParams(enemy.getLife(), enemy.getDefense(), enemy.getPower(), enemy.getVelocity());
         ship.setScreenSize(screenWidth, screenHeight);
-        ship.setCoordX(new Random((long) screenWidth).nextFloat());
-        ship.setCoordY(new Random((long) (-20)).nextFloat());
+        ship.coordX = new Random((long) screenWidth).nextFloat();
+        ship.coordY = new Random((long) (-20)).nextFloat();
         return ship;
     }
 
@@ -70,8 +67,8 @@ public class GameComponentFactory {
      */
     public PlayerBullet createPlayerBullet(int objectResId, float X, float Y) {
         PlayerBullet bullet = new PlayerBullet(resources, objectResId, 0);
-        bullet.setCoordX(X);
-        bullet.setCoordY(Y);
+        bullet.coordX = X;
+        bullet.coordY = Y;
         return bullet;
     }
 
@@ -85,8 +82,8 @@ public class GameComponentFactory {
      */
     public EnemyBullet createEnemyBullet(int objectResId, float X, float Y) {
         EnemyBullet bullet = new EnemyBullet(resources, objectResId, 0);
-        bullet.setCoordX(X);
-        bullet.setCoordY(Y);
+        bullet.coordX = X;
+        bullet.coordY = Y;
         return bullet;
     }
 }

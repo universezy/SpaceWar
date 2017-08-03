@@ -50,7 +50,7 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MapViewHolde
     public void onBindViewHolder(MapViewHolder holder, int position) {
         holder.getLlMap().setBackgroundResource(levels.get(position).getImage());
         holder.getLlMap().setTag(levels.get(position));
-        holder.getTvName().setText(levels.get(position).getMapName());
+        holder.getTvName().setText(levels.get(position).getLevelName());
     }
 
     @Override

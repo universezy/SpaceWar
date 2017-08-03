@@ -28,51 +28,80 @@ abstract public class GameComponent {
     protected Bitmap objectBitmap;
     protected Bitmap crashBitmap;
 
-    public GameComponent(Resources resources, int objectResId, int crashResId){
-        paint= new Paint();
-        if (objectResId!=0){
-            objectBitmap = BitmapFactory.decodeResource(resources,objectResId);
+    private GameComponent() {
+
+    }
+
+    /**
+     * 构造方法
+     *
+     * @param resources
+     * @param objectResId
+     * @param crashResId
+     */
+    public GameComponent(Resources resources, int objectResId, int crashResId) {
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        if (objectResId != 0) {
+            objectBitmap = BitmapFactory.decodeResource(resources, objectResId);
             objectWidth = objectBitmap.getWidth();
+            objectHeight = objectBitmap.getHeight();
         }
-        if (crashResId!=0){
-            crashBitmap = BitmapFactory.decodeResource(resources,crashResId);
-            objectHeight =  objectBitmap.getHeight();
+        if (crashResId != 0) {
+            crashBitmap = BitmapFactory.decodeResource(resources, crashResId);
         }
     }
 
-    public void setScreenSize(float screenWidth,float screenHeight){
-        this.screenWidth   = screenWidth;
+    /**
+     * 设置屏幕尺寸
+     * @param screenWidth
+     * @param screenHeight
+     */
+    public void setScreenSize(float screenWidth, float screenHeight) {
+        this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
     }
 
-    public void setParams(float life,float defense,float power,float velocity){
+    /**
+     * 设置参数
+     * @param life
+     * @param defense
+     * @param power
+     * @param velocity
+     */
+    public void setParams(float life, float defense, float power, float velocity) {
         this.life = life;
         this.defense = defense;
         this.power = power;
         this.velocity = velocity;
     }
 
+    /**
+     * 绘图
+     * @param canvas
+     */
     public abstract void onDraw(Canvas canvas);
 
-    public abstract  void onDestroy();
+    /**
+     * 销毁
+     */
+    public abstract void onDestroy();
 
-    public abstract  boolean crash(GameComponent target);
+    /**
+     * 碰撞
+     * @param target
+     * @return
+     */
+    public abstract boolean crash(GameComponent target);
 
+    /**
+     * 动作
+     */
     protected abstract void action();
 
-    public void setCoordX(float coordX) {
-        this.coordX = coordX;
-    }
-
-    public void setCoordY(float coordY) {
-        this.coordY = coordY;
-    }
-
-    public float getCoordX() {
-        return coordX;
-    }
-
-    public float getCoordY() {
-        return coordY;
-    }
+    /**
+     * 超出屏幕
+     * @return
+     */
+    protected abstract boolean isOutOfScreen();
 }

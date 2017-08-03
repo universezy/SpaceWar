@@ -20,7 +20,9 @@
         android:layout_marginTop="10dp"
         android:background="#00000000"
         android:gravity="center"
-        android:text="Life" />
+        android:text="Life"
+        android:textColor="#bbffffff"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/tvShield"
@@ -31,18 +33,22 @@
         android:layout_marginTop="50dp"
         android:background="#00000000"
         android:gravity="center"
-        android:text="Shield" />
+        android:text="Shield"
+        android:textColor="#bbffffff"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/tvLaser"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="90dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvShield"
         android:background="#00000000"
         android:gravity="center"
-        android:text="Bomb" />
+        android:text="Laser"
+        android:textColor="#bbffffff"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/tvLevel"
@@ -53,7 +59,9 @@
         android:layout_marginTop="10dp"
         android:background="#00000000"
         android:gravity="center"
-        android:text="Map" />
+        android:text="Level"
+        android:textColor="#bbffffff"
+        android:textSize="20dp" />
 
     <com.example.agentzengyu.spacewar.view.CircleImageView
         android:id="@+id/civShield"

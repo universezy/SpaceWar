@@ -191,6 +191,7 @@ public @interface Constant {
                 String NAME = "NAME";
                 String IMAGE = "IMAGE";
                 String CRASH = "CRASH";
+                String BULLET = "BULLET";
                 String LIFE = "LIFE";
                 String DEFENSE = "DEFENSE";
                 String VELOCITY = "VELOCITY";

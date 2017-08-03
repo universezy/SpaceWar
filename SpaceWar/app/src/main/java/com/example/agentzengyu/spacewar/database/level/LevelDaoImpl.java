@@ -45,7 +45,7 @@ public class LevelDaoImpl implements LevelDao {
     @Override
     public void insert(com.example.agentzengyu.spacewar.entity.basic.single.Level level) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Level.ColumnName.LEVEL, level.getMapName());
+        values.put(Constant.Database.Level.ColumnName.LEVEL, level.getLevelName());
         values.put(Constant.Database.Level.ColumnName.IMAGE, level.getImage());
         values.put(Constant.Database.Level.ColumnName.MUSIC, level.getMusic());
         values.put(Constant.Database.Level.ColumnName.BOSS, level.getBossName());
@@ -55,17 +55,17 @@ public class LevelDaoImpl implements LevelDao {
     @Override
     public void update(com.example.agentzengyu.spacewar.entity.basic.single.Level level) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Level.ColumnName.LEVEL, level.getMapName());
+        values.put(Constant.Database.Level.ColumnName.LEVEL, level.getLevelName());
         values.put(Constant.Database.Level.ColumnName.IMAGE, level.getImage());
         values.put(Constant.Database.Level.ColumnName.MUSIC, level.getMusic());
         values.put(Constant.Database.Level.ColumnName.BOSS, level.getBossName());
-        String[] whereArgs = new String[]{String.valueOf(level.getMapName())};
+        String[] whereArgs = new String[]{String.valueOf(level.getLevelName())};
         database.update(helper.TABLE_NAME, values, Constant.Database.Level.ColumnName.LEVEL + "=?", whereArgs);
     }
 
     @Override
     public void delete(com.example.agentzengyu.spacewar.entity.basic.single.Level level) {
-        String[] whereArgs = new String[]{String.valueOf(level.getMapName())};
+        String[] whereArgs = new String[]{String.valueOf(level.getLevelName())};
         database.delete(helper.TABLE_NAME, Constant.Database.Level.ColumnName.LEVEL + "=?", whereArgs);
     }
 

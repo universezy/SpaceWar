@@ -11,7 +11,6 @@ import com.example.agentzengyu.spacewar.application.SpaceWarApp;
 import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.basic.single.Level;
 import com.example.agentzengyu.spacewar.view.GameSurfaceView;
-import com.example.agentzengyu.spacewar.view.IPlayer;
 
 /**
  * Created by Agent ZengYu on 2017/6/29.
@@ -259,5 +258,6 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     public void onStop() {
         Log.e(TAG, "onStop");
         sensorManager.unregisterListener(this);
+        gameSurfaceView.stopGame();
     }
 }

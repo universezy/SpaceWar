@@ -9,9 +9,17 @@ package com.example.agentzengyu.spacewar.view;
  */
 public interface IPlayer {
     /**
+     * 设置加速度
+     *
+     * @param X
+     * @param Y
+     */
+    void setAccelerated(float X, float Y);
+
+    /**
      * 射击敌人
      */
-    void shotEnemy();
+    void shootEnemy();
 
     /**
      * 开启护盾
@@ -21,5 +29,5 @@ public interface IPlayer {
     /**
      * 发射激光
      */
-    void launchLaser();
+    void openLaser();
 }

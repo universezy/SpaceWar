@@ -25,7 +25,6 @@ public class PlayerShip extends GameComponent {
     private float radius = 1.0f;
     private List<PlayerBullet> bullets = new ArrayList<>();
 
-
     public PlayerShip(Resources resources, int objectResId, int crashResId) {
         super(resources, objectResId, crashResId);
 
@@ -50,11 +49,6 @@ public class PlayerShip extends GameComponent {
         super.setScreenSize(screenWidth, screenHeight);
     }
 
-    public void setAccelerated(float X, float Y) {
-        acceleratedX = X;
-        acceleratedY = Y;
-    }
-
     @Override
     public void onDraw(Canvas canvas) {
         action();
@@ -71,11 +65,28 @@ public class PlayerShip extends GameComponent {
             canvas.drawRect(coordX - objectWidth / 3, 0.0f, coordX + objectWidth / 3, coordY - objectHeight / 2, paintLaser);
         }
         canvas.restore();
+
+        for (int i = 0; i < bullets.size(); i++) {
+            PlayerBullet bullet = bullets.get(i);
+            bullet.onDraw(canvas);
+            if (bullet.isOutOfScreen()) {
+                bullets.remove(i);
+                bullet.onDestroy();
+            }
+        }
     }
 
     @Override
     public void onDestroy() {
-
+        if (objectBitmap != null && objectBitmap.isRecycled()) {
+            objectBitmap.recycle();
+        }
+        if (crashBitmap != null && crashBitmap.isRecycled()) {
+            crashBitmap.recycle();
+        }
+        for (PlayerBullet bullet:bullets){
+            bullet.onDestroy();
+        }
     }
 
     @Override
@@ -99,15 +110,46 @@ public class PlayerShip extends GameComponent {
         }
     }
 
-    public void shotEnemy(GameComponentFactory factory, int objectResId) {
+    @Override
+    protected boolean isOutOfScreen() {
+        return false;
+    }
+
+    /**
+     * 设置加速度
+     * @param X
+     * @param Y
+     */
+    public void setAccelerated(float X, float Y) {
+        acceleratedX = X;
+        acceleratedY = Y;
+    }
+
+    /**
+     * 射击敌人
+     *
+     * @param factory
+     * @param objectResId
+     */
+    public void shootEnemy(GameComponentFactory factory, int objectResId) {
         bullets.add(factory.createPlayerBullet(objectResId, coordX, coordY));
     }
 
+    /**
+     * 开起护盾
+     *
+     * @param shield
+     */
     public void openShield(boolean shield) {
         this.shield = shield;
     }
 
-    public void launchLaser(boolean laser) {
+    /**
+     * 发射激光
+     *
+     * @param laser
+     */
+    public void openLaser(boolean laser) {
         this.laser = laser;
     }
 }
