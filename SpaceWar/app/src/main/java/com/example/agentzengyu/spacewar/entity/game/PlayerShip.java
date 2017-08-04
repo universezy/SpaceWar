@@ -16,14 +16,24 @@ import java.util.List;
  * 玩家飞船
  */
 public class PlayerShip extends GameComponent {
+    //画笔
     private Paint paintShield, paintLaser;
+    //护盾颜色
     private final static int colorShield = Color.parseColor("#881e90ff");
+    //激光颜色
     private final static int colorLaser = Color.parseColor("#bbff0000");
+    //护盾是否开启
     private boolean shield = false;
+    //激光是否开起
     private boolean laser = false;
+    //加速度
     private float acceleratedX = 0.0f, acceleratedY = 0.0f;
+    //护盾半径
     private float radius = 1.0f;
+    //子弹
     private List<PlayerBullet> bullets = new ArrayList<>();
+    //敌机
+    private List<EnemyShip> enemyShips = null;
 
     public PlayerShip(Resources resources, int objectResId, int crashResId) {
         super(resources, objectResId, crashResId);
@@ -51,27 +61,48 @@ public class PlayerShip extends GameComponent {
 
     @Override
     public void onDraw(Canvas canvas) {
-        action();
-        canvas.save();
-        canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
-        canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
-        canvas.restore();
+        if (!isCrash && life > 0) {
+            action();
+            canvas.save();
+            canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+            canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+            canvas.restore();
 
-        canvas.save();
-        if (shield) {
-            canvas.drawCircle(coordX, coordY, radius, paintShield);
+            canvas.save();
+            if (shield) {
+                canvas.drawCircle(coordX, coordY, radius, paintShield);
+            }
+            if (laser) {
+                canvas.drawRect(coordX - objectWidth / 3, 0.0f, coordX + objectWidth / 3, coordY - objectHeight / 2, paintLaser);
+                for (EnemyShip ship : enemyShips) {
+                    if (coordX + objectWidth / 3 > ship.coordX - ship.objectWidth / 2 &&
+                            coordX - objectWidth / 3 < ship.coordX + ship.objectWidth / 2) {
+                        ship.life -= 3 * power;
+                    }
+                }
+            }
+            canvas.restore();
+        } else if (!isCrash) {
+            canvas.save();
+            canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+            canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+            canvas.restore();
+            isCrash = true;
         }
-        if (laser) {
-            canvas.drawRect(coordX - objectWidth / 3, 0.0f, coordX + objectWidth / 3, coordY - objectHeight / 2, paintLaser);
-        }
-        canvas.restore();
-
         for (int i = 0; i < bullets.size(); i++) {
             PlayerBullet bullet = bullets.get(i);
-            bullet.onDraw(canvas);
-            if (bullet.isOutOfScreen()) {
+            if (bullet.isCrash){
                 bullets.remove(i);
                 bullet.onDestroy();
+            }else {
+                bullet.onDraw(canvas);
+                for (EnemyShip ship : enemyShips) {
+                    bullet.crash(ship);
+                }
+                if (bullet.isOutOfScreen()) {
+                    bullets.remove(i);
+                    bullet.onDestroy();
+                }
             }
         }
     }
@@ -84,14 +115,22 @@ public class PlayerShip extends GameComponent {
         if (crashBitmap != null && crashBitmap.isRecycled()) {
             crashBitmap.recycle();
         }
-        for (PlayerBullet bullet:bullets){
+        for (PlayerBullet bullet : bullets) {
             bullet.onDestroy();
         }
     }
 
     @Override
-    public boolean crash(GameComponent target) {
-        return false;
+    public void crash(GameComponent target) {
+        if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
+                coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
+                coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&
+                coordY - objectHeight / 2 < target.coordY + target.objectHeight / 2) {
+            target.life -= target.defense;
+        }
+        if (target.isCrash) {
+            target.onDestroy();
+        }
     }
 
     @Override
@@ -117,6 +156,7 @@ public class PlayerShip extends GameComponent {
 
     /**
      * 设置加速度
+     *
      * @param X
      * @param Y
      */
@@ -126,12 +166,22 @@ public class PlayerShip extends GameComponent {
     }
 
     /**
+     * 设置敌机
+     *
+     * @param ships
+     */
+    public void setEnemyShips(List<EnemyShip> ships) {
+        this.enemyShips = ships;
+    }
+
+    /**
      * 射击敌人
      *
      * @param factory
      * @param objectResId
      */
     public void shootEnemy(GameComponentFactory factory, int objectResId) {
+        if (isCrash) return;
         bullets.add(factory.createPlayerBullet(objectResId, coordX, coordY));
     }
 
@@ -142,6 +192,11 @@ public class PlayerShip extends GameComponent {
      */
     public void openShield(boolean shield) {
         this.shield = shield;
+        if (shield) {
+            defense += 300;
+        } else {
+            defense -= 300;
+        }
     }
 
     /**

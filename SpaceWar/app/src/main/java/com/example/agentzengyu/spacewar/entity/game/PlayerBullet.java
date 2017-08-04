@@ -33,8 +33,17 @@ public class PlayerBullet extends GameComponent {
     }
 
     @Override
-    public boolean crash(GameComponent target) {
-        return false;
+    public void crash(GameComponent target) {
+        if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
+                coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
+                coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&
+                coordY - objectHeight / 2 > target.coordY + target.objectHeight / 2) {
+            target.life -= power * 100 / target.defense;
+            isCrash = true;
+        }
+        if (target.isCrash){
+            target.onDestroy();
+        }
     }
 
     @Override

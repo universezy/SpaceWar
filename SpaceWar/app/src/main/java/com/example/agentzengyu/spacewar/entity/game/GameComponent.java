@@ -40,6 +40,8 @@ abstract public class GameComponent {
     protected Bitmap objectBitmap;
     //坠毁图片
     protected Bitmap crashBitmap;
+    //是否坠毁
+    protected boolean isCrash = false;
 
     private GameComponent() {
 
@@ -105,7 +107,7 @@ abstract public class GameComponent {
      * @param target
      * @return
      */
-    public abstract boolean crash(GameComponent target);
+    public abstract void crash(GameComponent target);
 
     /**
      * 动作

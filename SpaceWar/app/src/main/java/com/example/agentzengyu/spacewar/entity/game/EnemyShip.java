@@ -22,6 +22,8 @@ public class EnemyShip extends GameComponent {
     private float acceleratedX = 0.0f, acceleratedY = 0.0f;
     //子弹
     private List<EnemyBullet> bullets = new ArrayList<>();
+    //玩家飞船
+    private PlayerShip playerShip = null;
 
     public EnemyShip(Resources resources, int objectResId, int crashResId, int bulletResId, float bulletSpeed) {
         super(resources, objectResId, crashResId);
@@ -31,18 +33,31 @@ public class EnemyShip extends GameComponent {
 
     @Override
     public void onDraw(Canvas canvas) {
-        action();
-        canvas.save();
-        canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
-        canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
-        canvas.restore();
-
+        if (!isCrash && life > 0) {
+            action();
+            canvas.save();
+            canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+            canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+            canvas.restore();
+        } else if (!isCrash) {
+            canvas.save();
+            canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+            canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+            canvas.restore();
+            isCrash = true;
+        }
         for (int i = 0; i < bullets.size(); i++) {
             EnemyBullet bullet = bullets.get(i);
-            bullet.onDraw(canvas);
-            if (bullet.isOutOfScreen()) {
+            if (bullet.isCrash){
                 bullets.remove(i);
                 bullet.onDestroy();
+            }else {
+                bullet.onDraw(canvas);
+                bullet.crash(playerShip);
+                if (bullet.isOutOfScreen()) {
+                    bullets.remove(i);
+                    bullet.onDestroy();
+                }
             }
         }
     }
@@ -61,8 +76,16 @@ public class EnemyShip extends GameComponent {
     }
 
     @Override
-    public boolean crash(GameComponent target) {
-        return false;
+    public void crash(GameComponent target) {
+        if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
+                coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
+                coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&
+                coordY - objectHeight / 2 < target.coordY + target.objectHeight / 2) {
+            target.life -= target.defense;
+        }
+        if (target.isCrash) {
+            target.onDestroy();
+        }
     }
 
     @Override
@@ -99,11 +122,21 @@ public class EnemyShip extends GameComponent {
     }
 
     /**
+     * 设置玩家飞船
+     *
+     * @param ship
+     */
+    public void setPlayerShip(PlayerShip ship) {
+        this.playerShip = ship;
+    }
+
+    /**
      * 射击玩家
      *
      * @param factory
      */
     public void shootPlayer(GameComponentFactory factory) {
+        if (isCrash) return;
         if (coordY + objectHeight / 2 < 0) return;
         bullets.add(factory.createEnemyBullet(bulletResId, coordX, coordY, power, bulletSpeed));
     }

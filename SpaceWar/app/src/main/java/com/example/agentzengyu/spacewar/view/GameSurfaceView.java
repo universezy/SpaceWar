@@ -148,6 +148,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         initLevelRes();
         initPlayerRes();
         initEnemyRes();
+        playerShip.setEnemyShips(enemyShips);
+        for (EnemyShip ship : enemyShips) {
+            ship.setPlayerShip(playerShip);
+        }
     }
 
     @Override
