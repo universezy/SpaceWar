@@ -14,15 +14,21 @@ import java.util.List;
  */
 public class ArticleLibrary implements Serializable {
     /********** Spaceship **********/
+    //生命值
     private List<Article> lives = null;
+    //防御值
     private List<Article> defenses = null;
+    //移动速度
     private List<Article> velocities = null;
+    //护盾
     private List<Article> shields = null;
 
     /********** Weapon **********/
+    //攻击力
     private List<Article> powers = null;
+    //攻击速度
     private List<Article> speeds = null;
-    private List<Article> ranges = null;
+    //激光
     private List<Article> lasers = null;
 
     public ArticleLibrary() {
@@ -64,11 +70,11 @@ public class ArticleLibrary implements Serializable {
         }
     }
 
-    public boolean setAgilities(List<Article> agilities) {
-        if (agilities == null) {
+    public boolean setVelocities(List<Article> velocities) {
+        if (velocities == null) {
             return false;
         } else {
-            this.velocities = agilities;
+            this.velocities = velocities;
             return true;
         }
     }
@@ -91,10 +97,6 @@ public class ArticleLibrary implements Serializable {
         return speeds;
     }
 
-    public List<Article> getRanges() {
-        return ranges;
-    }
-
     public List<Article> getLasers() {
         return lasers;
     }
@@ -113,15 +115,6 @@ public class ArticleLibrary implements Serializable {
             return false;
         } else {
             this.speeds = speeds;
-            return true;
-        }
-    }
-
-    public boolean setRanges(List<Article> ranges) {
-        if (ranges == null) {
-            return false;
-        } else {
-            this.ranges = ranges;
             return true;
         }
     }

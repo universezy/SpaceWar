@@ -42,7 +42,7 @@ public class RelevancyDaoImpl implements RelevancyDao {
     @Override
     public void insert(Relevancy relevancy) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Relevancy.ColumnName.LEVEL_NAME, relevancy.getMapName());
+        values.put(Constant.Database.Relevancy.ColumnName.LEVEL_NAME, relevancy.getLevelName());
         values.put(Constant.Database.Relevancy.ColumnName.ENEMY_NAME, relevancy.getEnemyName());
         values.put(Constant.Database.Relevancy.ColumnName.ENEMY_COUNT, relevancy.getEnemyCount());
         values.put(Constant.Database.Relevancy.ColumnName.MD5, relevancy.getMD5());
@@ -52,7 +52,7 @@ public class RelevancyDaoImpl implements RelevancyDao {
     @Override
     public void update(Relevancy relevancy) {
         ContentValues values = new ContentValues();
-        values.put(Constant.Database.Relevancy.ColumnName.LEVEL_NAME, relevancy.getMapName());
+        values.put(Constant.Database.Relevancy.ColumnName.LEVEL_NAME, relevancy.getLevelName());
         values.put(Constant.Database.Relevancy.ColumnName.ENEMY_NAME, relevancy.getEnemyName());
         values.put(Constant.Database.Relevancy.ColumnName.ENEMY_COUNT, relevancy.getEnemyCount());
         values.put(Constant.Database.Relevancy.ColumnName.MD5, relevancy.getMD5());

@@ -14,12 +14,19 @@ import java.util.List;
  * 敌人飞船
  */
 public class EnemyShip extends GameComponent {
-    private List<EnemyBullet> bullets = new ArrayList<>();
+    //子弹图片ID
     private int bulletResId;
+    //子弹速度
+    private float bulletSpeed;
+    //加速度
+    private float acceleratedX = 0.0f, acceleratedY = 0.0f;
+    //子弹
+    private List<EnemyBullet> bullets = new ArrayList<>();
 
-    public EnemyShip(Resources resources, int objectResId, int crashResId,int bulletResId) {
+    public EnemyShip(Resources resources, int objectResId, int crashResId, int bulletResId, float bulletSpeed) {
         super(resources, objectResId, crashResId);
         this.bulletResId = bulletResId;
+        this.bulletSpeed = bulletSpeed;
     }
 
     @Override
@@ -60,17 +67,19 @@ public class EnemyShip extends GameComponent {
 
     @Override
     protected void action() {
-        coordX += Math.sin(coordX) + velocity;
+        coordX += acceleratedX * velocity;
         if (coordX < 0) {
             coordX = 0;
+            acceleratedX = -acceleratedX;
         } else if (coordX > screenWidth) {
             coordX = screenWidth;
+            acceleratedX = -acceleratedX;
         }
-        coordY += Math.cos(coordY) + velocity;
+        coordY += acceleratedY * velocity;
     }
 
     @Override
-    protected boolean isOutOfScreen() {
+    public boolean isOutOfScreen() {
         if (coordY + objectHeight / 2 > screenHeight) {
             return true;
         } else {
@@ -78,7 +87,24 @@ public class EnemyShip extends GameComponent {
         }
     }
 
-    public void shootPlayer(GameComponentFactory factory){
-        bullets.add(factory.createEnemyBullet(bulletResId,coordX,coordY));
+    /**
+     * 设置加速度
+     *
+     * @param X
+     * @param Y
+     */
+    public void setAccelerated(float X, float Y) {
+        acceleratedX = X;
+        acceleratedY = Y;
+    }
+
+    /**
+     * 射击玩家
+     *
+     * @param factory
+     */
+    public void shootPlayer(GameComponentFactory factory) {
+        if (coordY + objectHeight / 2 < 0) return;
+        bullets.add(factory.createEnemyBullet(bulletResId, coordX, coordY, power, bulletSpeed));
     }
 }

@@ -28,7 +28,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private TextView mTvPlayer, mTvMoney;
     private Button mBtnPlay;
     private CircleImageView mCivLife, mCivDefense, mCivVelocity, mCivShield;
-    private CircleImageView mCivPower, mCivSpeed, mCivRange, mCivLaser;
+    private CircleImageView mCivPower, mCivSpeed, mCivLaser,mCivReturn;
 
     private PopupWindow popupWindowArticle, popupWindowPlayer;
     private ImageView mIvArticle;
@@ -49,6 +49,11 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     protected void onDestroy() {
         super.onDestroy();
         overridePendingTransition(0, R.anim.activity_out);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     /**
@@ -80,12 +85,11 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         mCivSpeed = (CircleImageView) findViewById(R.id.civSpeed);
         mCivSpeed.setImageResource(app.getPlayerData().getSpeed().getImage());
         mCivSpeed.setOnClickListener(this);
-        mCivRange = (CircleImageView) findViewById(R.id.civRange);
-        mCivRange.setImageResource(app.getPlayerData().getRange().getImage());
-        mCivRange.setOnClickListener(this);
         mCivLaser = (CircleImageView) findViewById(R.id.civLaser);
         mCivLaser.setImageResource(app.getPlayerData().getLaser().getImage());
         mCivLaser.setOnClickListener(this);
+        mCivReturn = (CircleImageView)findViewById(R.id.civReturn);
+        mCivReturn.setOnClickListener(this);
 
         popupWindowArticle = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindowArticle.setBackgroundDrawable(new BitmapDrawable());
@@ -190,11 +194,11 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.civSpeed:
                 showArticle(app.getPlayerData().getSpeed());
                 break;
-            case R.id.civRange:
-                showArticle(app.getPlayerData().getRange());
-                break;
             case R.id.civLaser:
                 showArticle(app.getPlayerData().getLaser());
+                break;
+            case R.id.civReturn:
+                finish();
                 break;
             case R.id.btnPlay:
                 Intent intent = new Intent(PlayerActivity.this, LevelActivity.class);

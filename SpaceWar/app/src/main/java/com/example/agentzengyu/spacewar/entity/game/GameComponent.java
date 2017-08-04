@@ -14,18 +14,31 @@ import android.graphics.Paint;
  * 游戏组件
  */
 abstract public class GameComponent {
+    //X坐标
     protected float coordX;
+    //Y坐标
     protected float coordY;
+    //生命值
     protected float life = 0;
+    //防御值
     protected float defense = 0;
+    //攻击力
     protected float power = 0;
+    //移动速度
     protected float velocity = 0;
+    //宽
     protected float objectWidth;
+    //高
     protected float objectHeight;
+    //屏幕宽
     protected float screenWidth;
+    //屏幕高
     protected float screenHeight;
+    //画笔
     protected Paint paint;
+    //图片
     protected Bitmap objectBitmap;
+    //坠毁图片
     protected Bitmap crashBitmap;
 
     private GameComponent() {

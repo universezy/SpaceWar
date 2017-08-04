@@ -25,7 +25,7 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
     private LinearLayoutManager manager;
     private ArticleAdapter adapter;
     private RecyclerView recyclerView;
-    private ImageView mIvPower, mIvSpeed, mIvRange, mIvLaser;
+    private ImageView mIvPower, mIvSpeed, mIvLaser;
     private ArrayList<Article> playerArticles = new ArrayList<>();
     private ArrayList<Article> shopArticles = new ArrayList<>();
     private int currentPosition = 1;
@@ -70,8 +70,6 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
         mIvPower.setOnClickListener(this);
         mIvSpeed = (ImageView) view.findViewById(R.id.ivSpeed);
         mIvSpeed.setOnClickListener(this);
-        mIvRange = (ImageView) view.findViewById(R.id.ivRange);
-        mIvRange.setOnClickListener(this);
         mIvLaser = (ImageView) view.findViewById(R.id.ivLaser);
         mIvLaser.setOnClickListener(this);
     }
@@ -95,10 +93,6 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
                 shopArticles.addAll(app.getArticleLibrary().getSpeeds());
                 break;
             case 2:
-                playerArticles.add(app.getPlayerData().getRange());
-                shopArticles.addAll(app.getArticleLibrary().getRanges());
-                break;
-            case 3:
                 playerArticles.add(app.getPlayerData().getLaser());
                 shopArticles.addAll(app.getArticleLibrary().getLasers());
                 break;
@@ -119,11 +113,8 @@ public class WeaponFragment extends Fragment implements View.OnClickListener {
             case R.id.ivSpeed:
                 shift(1);
                 break;
-            case R.id.ivRange:
-                shift(2);
-                break;
             case R.id.ivLaser:
-                shift(3);
+                shift(2);
                 break;
             default:
                 break;

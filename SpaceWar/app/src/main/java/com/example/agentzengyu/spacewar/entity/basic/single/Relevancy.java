@@ -12,22 +12,25 @@ import java.io.Serializable;
  * 关联
  */
 public class Relevancy implements Serializable {
-    private String mapName = "";
+    //地图名
+    private String levelName = "";
+    //敌人名
     private String enemyName = "";
+    //敌人数量
     private int enemyCount = 0;
 
     private Relevancy() {
 
     }
 
-    public Relevancy(String mapName, String enemyName, int enemyCount) {
-        this.mapName = mapName;
+    public Relevancy(String levelName, String enemyName, int enemyCount) {
+        this.levelName = levelName;
         this.enemyName = enemyName;
         this.enemyCount = enemyCount;
     }
 
-    public String getMapName() {
-        return mapName;
+    public String getLevelName() {
+        return levelName;
     }
 
     public String getEnemyName() {
@@ -39,6 +42,6 @@ public class Relevancy implements Serializable {
     }
 
     public String getMD5() {
-        return MD5Util.getMD5FromString(mapName + enemyName);
+        return MD5Util.getMD5FromString(levelName + enemyName);
     }
 }

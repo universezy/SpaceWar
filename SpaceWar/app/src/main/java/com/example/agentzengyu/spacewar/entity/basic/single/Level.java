@@ -12,11 +12,17 @@ import java.util.List;
  * 地图
  */
 public class Level implements Serializable {
+    //地图名
     private String levelName = "";
+    //背景图片
     private int image = 0;
+    //背景音乐
     private int music = 0;
+    //boss名字
     private String bossName = "";
+    //boss
     private Enemy boss = null;
+    //普通敌人
     private List<Enemy> enemies = new ArrayList<>();
 
     private Level() {

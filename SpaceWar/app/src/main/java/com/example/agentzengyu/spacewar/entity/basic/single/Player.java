@@ -10,10 +10,15 @@ import java.io.Serializable;
  * 玩家
  */
 public class Player implements Serializable {
+    //玩家名
     private String name = "";
+    //金币
     private int money = 0;
+    //飞船图片
     private int image = 0;
+    //飞船坠毁图片
     private int crash = 0;
+    //子弹图片
     private int bullet = 0;
 
     private Player() {

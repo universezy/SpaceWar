@@ -42,6 +42,11 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         overridePendingTransition(0, R.anim.activity_out);
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     /**
      * 初始化布局
      */

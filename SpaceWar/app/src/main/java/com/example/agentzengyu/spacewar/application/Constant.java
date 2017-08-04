@@ -116,7 +116,6 @@ public @interface Constant {
                     TableName.SHIELD,
                     TableName.POWER,
                     TableName.SPEED,
-                    TableName.RANGE,
                     TableName.LASER})
             @Retention(RetentionPolicy.SOURCE)
             @interface TableName {
@@ -126,7 +125,6 @@ public @interface Constant {
                 String SHIELD = "SHIELD";
                 String POWER = "POWER";
                 String SPEED = "SPEED";
-                String RANGE = "RANGE";
                 String LASER = "LASER";
             }
 
@@ -153,7 +151,6 @@ public @interface Constant {
                     TableName.SHIELD,
                     TableName.POWER,
                     TableName.SPEED,
-                    TableName.RANGE,
                     TableName.LASER,
                     TableName.INFO})
             @Retention(RetentionPolicy.SOURCE)
@@ -164,7 +161,6 @@ public @interface Constant {
                 String SHIELD = "SHIELD";
                 String POWER = "POWER";
                 String SPEED = "SPEED";
-                String RANGE = "RANGE";
                 String LASER = "LASER";
                 String INFO = "INFO";
             }
@@ -197,7 +193,6 @@ public @interface Constant {
                 String VELOCITY = "VELOCITY";
                 String POWER = "POWER";
                 String SPEED = "SPEED";
-                String RANGE = "RANGE";
             }
         }
 

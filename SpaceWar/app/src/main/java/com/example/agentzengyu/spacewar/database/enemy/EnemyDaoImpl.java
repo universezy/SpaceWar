@@ -54,7 +54,6 @@ public class EnemyDaoImpl implements EnemyDao {
         values.put(Constant.Database.Enemy.ColumnName.VELOCITY, enemy.getVelocity());
         values.put(Constant.Database.Enemy.ColumnName.POWER, enemy.getPower());
         values.put(Constant.Database.Enemy.ColumnName.SPEED, enemy.getSpeed());
-        values.put(Constant.Database.Enemy.ColumnName.RANGE, enemy.getRange());
         database.insert(tableName, null, values);
     }
 
@@ -70,7 +69,6 @@ public class EnemyDaoImpl implements EnemyDao {
         values.put(Constant.Database.Enemy.ColumnName.VELOCITY, enemy.getVelocity());
         values.put(Constant.Database.Enemy.ColumnName.POWER, enemy.getPower());
         values.put(Constant.Database.Enemy.ColumnName.SPEED, enemy.getSpeed());
-        values.put(Constant.Database.Enemy.ColumnName.RANGE, enemy.getRange());
         String[] whereArgs = new String[]{String.valueOf(enemy.getName())};
         database.update(tableName, values, Constant.Database.Article.ColumnName.NAME + "=?", whereArgs);
     }
@@ -125,10 +123,9 @@ public class EnemyDaoImpl implements EnemyDao {
                 int velocity = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.VELOCITY));
                 int power = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.POWER));
                 int speed = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.SPEED));
-                int range = cursor.getInt(cursor.getColumnIndex(Constant.Database.Enemy.ColumnName.RANGE));
 
-                if (!"".equals(name) && image > 0 && crash > 0 && bullet > 0 && life > 0 && defense > 0 && velocity > 0 && power > 0 && speed > 0 && range > 0) {
-                    Enemy item = new Enemy(name, image, crash, bullet, life, defense, velocity, power, speed, range);
+                if (!"".equals(name) && image > 0 && crash > 0 && bullet > 0 && life > 0 && defense > 0 && velocity > 0 && power > 0 && speed > 0) {
+                    Enemy item = new Enemy(name, image, crash, bullet, life, defense, velocity, power, speed);
                     enemyMap.put(name, item);
                 }
             }

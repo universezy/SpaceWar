@@ -26,7 +26,6 @@ public class ArticleDaoImpl implements ArticleDao {
     private SQLiteDatabase database = null;
 
     private ArticleDaoImpl(Context context) {
-        Log.e("ArticleDaoImpl", "init");
         if (helper == null) {
             helper = new ArticleHelper(context, Constant.Database.Article.DatabaseName, null, 1);
             database = helper.getWritableDatabase();
@@ -40,8 +39,6 @@ public class ArticleDaoImpl implements ArticleDao {
                     instance = new ArticleDaoImpl(context);
                 }
             }
-        } else {
-            Log.e("ArticleDaoImpl", "instance");
         }
         return instance;
     }
@@ -80,11 +77,10 @@ public class ArticleDaoImpl implements ArticleDao {
         ArticleLibrary library = new ArticleLibrary();
         if (library.setLives(findEachTable(Constant.Database.Article.TableName.LIFE)) &&
                 library.setDefenses(findEachTable(Constant.Database.Article.TableName.DEFENSE)) &&
-                library.setAgilities(findEachTable(Constant.Database.Article.TableName.VELOCITY)) &&
+                library.setVelocities(findEachTable(Constant.Database.Article.TableName.VELOCITY)) &&
                 library.setShields(findEachTable(Constant.Database.Article.TableName.SHIELD)) &&
                 library.setPowers(findEachTable(Constant.Database.Article.TableName.POWER)) &&
                 library.setSpeeds(findEachTable(Constant.Database.Article.TableName.SPEED)) &&
-                library.setRanges(findEachTable(Constant.Database.Article.TableName.RANGE)) &&
                 library.setLasers(findEachTable(Constant.Database.Article.TableName.LASER))) {
             return library;
         }

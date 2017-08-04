@@ -34,7 +34,6 @@ public class ArticleHelper extends SQLiteOpenHelper {
         createTable(db, Constant.Database.Article.TableName.SHIELD);
         createTable(db, Constant.Database.Article.TableName.POWER);
         createTable(db, Constant.Database.Article.TableName.SPEED);
-        createTable(db, Constant.Database.Article.TableName.RANGE);
         createTable(db, Constant.Database.Article.TableName.LASER);
     }
 

@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.database.enemy.EnemyDaoImpl;
@@ -23,7 +22,6 @@ public class LevelDaoImpl implements LevelDao {
     private SQLiteDatabase database = null;
 
     private LevelDaoImpl(Context context) {
-        Log.e("LevelDaoImpl", "new");
         if (helper == null) {
             helper = new LevelHelper(context, Constant.Database.Level.DatabaseName, null, 1);
             database = helper.getWritableDatabase();
@@ -31,7 +29,6 @@ public class LevelDaoImpl implements LevelDao {
     }
 
     public static LevelDaoImpl getInstance(Context context) {
-        Log.e("LevelDaoImpl", "getInstance");
         if (instance == null) {
             synchronized (EnemyDaoImpl.class) {
                 if (instance == null) {

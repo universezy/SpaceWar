@@ -10,10 +10,15 @@ import java.io.Serializable;
  * 商品
  */
 public class Article implements Serializable {
+    //商品名
     private String name = "";
+    //商品图片
     private int image = 0;
+    //商品数值
     private int value = 0;
+    //商品等级
     private int grade = 0;
+    //商品价格
     private int price = 0;
 
     private Article() {

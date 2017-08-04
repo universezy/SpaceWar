@@ -59,16 +59,13 @@ public class PlayerDaoImpl implements PlayerDao {
                     data.setShield(snappyDB.getObject(Constant.Database.Player.TableName.SHIELD, Article.class)) &&
                     data.setPower(snappyDB.getObject(Constant.Database.Player.TableName.POWER, Article.class)) &&
                     data.setSpeed(snappyDB.getObject(Constant.Database.Player.TableName.SPEED, Article.class)) &&
-                    data.setRange(snappyDB.getObject(Constant.Database.Player.TableName.RANGE, Article.class)) &&
                     data.setLaser(snappyDB.getObject(Constant.Database.Player.TableName.LASER, Article.class)) &&
                     data.setInfo(snappyDB.getObject(Constant.Database.Player.TableName.INFO, Player.class))) {
-                Log.e("snappyDB", "findAll");
                 return data;
             }
         } catch (SnappydbException e) {
             e.printStackTrace();
         }
-        Log.e("snappyDB", "findAll = null");
         return null;
     }
 
@@ -81,10 +78,8 @@ public class PlayerDaoImpl implements PlayerDao {
             snappyDB.put(Constant.Database.Player.TableName.SHIELD, data.getShield());
             snappyDB.put(Constant.Database.Player.TableName.POWER, data.getPower());
             snappyDB.put(Constant.Database.Player.TableName.SPEED, data.getSpeed());
-            snappyDB.put(Constant.Database.Player.TableName.RANGE, data.getRange());
             snappyDB.put(Constant.Database.Player.TableName.LASER, data.getLaser());
             snappyDB.put(Constant.Database.Player.TableName.INFO, data.getPlayer());
-            Log.e("snappyDB", "update");
         } catch (SnappydbException e) {
             e.printStackTrace();
         }
@@ -95,7 +90,6 @@ public class PlayerDaoImpl implements PlayerDao {
         if (snappyDB != null) {
             try {
                 snappyDB.close();
-                Log.e("snappyDB", "close");
             } catch (SnappydbException e) {
                 e.printStackTrace();
             }
@@ -107,7 +101,6 @@ public class PlayerDaoImpl implements PlayerDao {
         if (snappyDB != null) {
             try {
                 snappyDB.destroy();
-                Log.e("snappyDB", "destroy");
             } catch (SnappydbException e) {
                 e.printStackTrace();
             }

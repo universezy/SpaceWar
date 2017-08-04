@@ -13,7 +13,9 @@ import java.util.Map;
  * 敌人库
  */
 public class EnemyLibrary implements Serializable {
+    //普通敌人
     private Map<String, Enemy> normalEnemies = null;
+    //boss
     private Map<String, Enemy> bossEnemies = null;
 
     public EnemyLibrary() {

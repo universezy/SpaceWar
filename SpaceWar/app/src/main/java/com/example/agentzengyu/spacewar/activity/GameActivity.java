@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -59,13 +60,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
+        Log.e(TAG, "onDestroy");
         super.onDestroy();
         handlerNotify.removeCallbacks(runnableNotify);
         handlerBullet.removeCallbacks(runnableBullet);
         handlerShield.removeCallbacks(runnableShield);
         handlerLaser.removeCallbacks(runnableLaser);
         unregisterReceiver(playerReceiver);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mGsv.stopGame();
         gameService.onStop();
+        finish();
     }
 
     /**

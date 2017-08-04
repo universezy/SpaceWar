@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -29,6 +30,8 @@ import java.util.List;
  * 游戏界面视图
  */
 public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Runnable, ISurfaceView, IPlayer {
+    private final String TAG = getClass().getName();
+
     private SurfaceHolder holder;
     private Thread thread;
     private Handler handlerShield, handlerLaser, handlerEnemy;
@@ -43,7 +46,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private float coordX2 = 0.0f, coordY2 = 0.0f;
     private float scaleX = 1, scaleY = 1;
     private final static int DELAY_PLAYER = 5000;
-    private final static int DELAY_ENEMY = 1000;
+    private final static int DELAY_ENEMY = 1500;
 
     protected Paint paint;
     protected Canvas canvas;
@@ -73,6 +76,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        Log.e(TAG, "surfaceCreated");
         screenWidth = getWidth();
         screenHeight = getHeight();
     }
@@ -84,6 +88,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        Log.e(TAG, "surfaceDestroyed");
         stopGame();
     }
 
@@ -129,6 +134,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 for (EnemyShip ship : enemyShips) {
                     ship.shootPlayer(factory);
                 }
+                handlerEnemy.postDelayed(runnableEnemy, DELAY_ENEMY);
             }
         };
     }
@@ -187,6 +193,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             canvas.restore();
 
             playerShip.onDraw(canvas);
+            for (int i = 0; i < enemyShips.size(); i++) {
+                EnemyShip ship = enemyShips.get(i);
+                ship.onDraw(canvas);
+                if (ship.isOutOfScreen()) {
+                    enemyShips.remove(i);
+                    ship.onDestroy();
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -199,12 +213,15 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void startGame() {
+        Log.e(TAG, "startGame");
         run = true;
         thread.start();
+        handlerEnemy.postDelayed(runnableEnemy, DELAY_ENEMY);
     }
 
     @Override
     public void stopGame() {
+        Log.e(TAG, "stopGame");
         run = false;
         handlerShield.removeCallbacks(runnableShield);
         handlerLaser.removeCallbacks(runnableLaser);

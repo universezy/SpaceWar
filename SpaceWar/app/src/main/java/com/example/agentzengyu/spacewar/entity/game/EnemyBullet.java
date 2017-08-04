@@ -40,7 +40,7 @@ public class EnemyBullet extends GameComponent {
 
     @Override
     protected void action() {
-        coordY += 10;
+        coordY += 3;
     }
 
     @Override

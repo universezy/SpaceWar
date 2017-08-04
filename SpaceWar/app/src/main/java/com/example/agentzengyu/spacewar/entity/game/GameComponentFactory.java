@@ -18,6 +18,8 @@ public class GameComponentFactory {
     private float screenWidth, screenHeight;
     private Resources resources;
     private PlayerData data;
+    private final static float BULLET_LIFE = 10000;
+    private final static float BULLET_DEFENSE = 10000;
 
     private GameComponentFactory() {
     }
@@ -46,14 +48,16 @@ public class GameComponentFactory {
     /**
      * 创建敌人飞船
      *
+     * @param enemy
      * @return
      */
     public EnemyShip createEnemyShip(Enemy enemy) {
-        EnemyShip ship = new EnemyShip(resources, enemy.getImage(), enemy.getCrash(), enemy.getBullet());
+        EnemyShip ship = new EnemyShip(resources, enemy.getImage(), enemy.getCrash(), enemy.getBullet(), enemy.getSpeed());
         ship.setParams(enemy.getLife(), enemy.getDefense(), enemy.getPower(), enemy.getVelocity());
         ship.setScreenSize(screenWidth, screenHeight);
-        ship.coordX = new Random((long) screenWidth).nextFloat();
-        ship.coordY = new Random((long) (-20)).nextFloat();
+        ship.coordX = (float) (screenWidth / 2 + ship.objectWidth * 3 * Math.sin(new Random().nextInt((int) ship.objectWidth)));
+        ship.coordY = (float) (-150.0f + ship.objectHeight * 3 * Math.cos(new Random().nextInt((int) ship.objectHeight)));
+        ship.setAccelerated(0.1f, 0.01f);
         return ship;
     }
 
@@ -67,6 +71,8 @@ public class GameComponentFactory {
      */
     public PlayerBullet createPlayerBullet(int objectResId, float X, float Y) {
         PlayerBullet bullet = new PlayerBullet(resources, objectResId, 0);
+        bullet.setParams(BULLET_LIFE, BULLET_DEFENSE, data.getPower().getValue(), data.getSpeed().getValue());
+        bullet.setScreenSize(screenWidth, screenHeight);
         bullet.coordX = X;
         bullet.coordY = Y;
         return bullet;
@@ -78,10 +84,14 @@ public class GameComponentFactory {
      * @param objectResId
      * @param X
      * @param Y
+     * @param power
+     * @param speed
      * @return
      */
-    public EnemyBullet createEnemyBullet(int objectResId, float X, float Y) {
+    public EnemyBullet createEnemyBullet(int objectResId, float X, float Y, float power, float speed) {
         EnemyBullet bullet = new EnemyBullet(resources, objectResId, 0);
+        bullet.setParams(BULLET_LIFE, BULLET_DEFENSE, power, speed);
+        bullet.setScreenSize(screenWidth, screenHeight);
         bullet.coordX = X;
         bullet.coordY = Y;
         return bullet;

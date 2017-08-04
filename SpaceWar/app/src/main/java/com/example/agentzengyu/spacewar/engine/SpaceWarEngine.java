@@ -258,6 +258,5 @@ public class SpaceWarEngine implements IStatus, SensorEventListener {
     public void onStop() {
         Log.e(TAG, "onStop");
         sensorManager.unregisterListener(this);
-        gameSurfaceView.stopGame();
     }
 }

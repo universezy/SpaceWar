@@ -22,7 +22,6 @@ public class PlayerData implements Serializable {
     /********** Weapon **********/
     private Article power = null;
     private Article speed = null;
-    private Article range = null;
     private Article laser = null;
 
     /********** Player **********/
@@ -104,15 +103,6 @@ public class PlayerData implements Serializable {
         }
     }
 
-    public boolean setRange(Article range) {
-        if (range == null) {
-            return false;
-        } else {
-            this.range = range;
-            return true;
-        }
-    }
-
     public boolean setLaser(Article laser) {
         if (laser == null) {
             return false;
@@ -128,10 +118,6 @@ public class PlayerData implements Serializable {
 
     public Article getSpeed() {
         return speed;
-    }
-
-    public Article getRange() {
-        return range;
     }
 
     public Article getLaser() {
