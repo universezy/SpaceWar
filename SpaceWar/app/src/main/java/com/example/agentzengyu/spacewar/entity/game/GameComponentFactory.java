@@ -55,8 +55,8 @@ public class GameComponentFactory {
         EnemyShip ship = new EnemyShip(resources, enemy.getImage(), enemy.getCrash(), enemy.getBullet(), enemy.getSpeed());
         ship.setParams(enemy.getLife(), enemy.getDefense(), enemy.getPower(), enemy.getVelocity());
         ship.setScreenSize(screenWidth, screenHeight);
-        ship.coordX = (float) (screenWidth / 2 + ship.objectWidth * 3 * Math.sin(new Random().nextInt((int) ship.objectWidth)));
-        ship.coordY = (float) (-150.0f + ship.objectHeight * 3 * Math.cos(new Random().nextInt((int) ship.objectHeight)));
+        ship.coordX = (float) (screenWidth / 2 + screenWidth / 2 * Math.sin(new Random().nextInt((int) ship.objectWidth)));
+        ship.coordY = (float) (-300.0f + 200 * Math.cos(new Random().nextInt((int) ship.objectHeight)));
         ship.setAccelerated(0.1f, 0.01f);
         return ship;
     }

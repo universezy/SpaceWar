@@ -42,6 +42,8 @@ abstract public class GameComponent {
     protected Bitmap crashBitmap;
     //是否坠毁
     protected boolean isCrash = false;
+    //坠毁持续次数
+    protected int crashTimes = 50;
 
     private GameComponent() {
 

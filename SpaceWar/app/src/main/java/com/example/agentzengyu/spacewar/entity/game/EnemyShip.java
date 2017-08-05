@@ -33,25 +33,35 @@ public class EnemyShip extends GameComponent {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if (!isCrash && life > 0) {
-            action();
-            canvas.save();
-            canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
-            canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
-            canvas.restore();
-        } else if (!isCrash) {
-            canvas.save();
-            canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
-            canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
-            canvas.restore();
-            isCrash = true;
+        if (!isCrash){
+            if (life > 0) {
+                action();
+                canvas.save();
+                canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+                canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+                canvas.restore();
+            } else if (crashTimes > 0) {
+                canvas.save();
+                canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+                canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+                canvas.restore();
+                crashTimes--;
+            } else if ( crashTimes == 0) {
+                canvas.save();
+                canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+                canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+                canvas.restore();
+                isCrash = true;
+            }
+        }else {
+            onDestroy();
         }
         for (int i = 0; i < bullets.size(); i++) {
             EnemyBullet bullet = bullets.get(i);
-            if (bullet.isCrash){
+            if (bullet.isCrash) {
                 bullets.remove(i);
                 bullet.onDestroy();
-            }else {
+            } else {
                 bullet.onDraw(canvas);
                 bullet.crash(playerShip);
                 if (bullet.isOutOfScreen()) {
@@ -83,9 +93,6 @@ public class EnemyShip extends GameComponent {
                 coordY - objectHeight / 2 < target.coordY + target.objectHeight / 2) {
             target.life -= target.defense;
         }
-        if (target.isCrash) {
-            target.onDestroy();
-        }
     }
 
     @Override
@@ -103,7 +110,7 @@ public class EnemyShip extends GameComponent {
 
     @Override
     public boolean isOutOfScreen() {
-        if (coordY + objectHeight / 2 > screenHeight) {
+        if (coordY > screenHeight + objectHeight / 2) {
             return true;
         } else {
             return false;

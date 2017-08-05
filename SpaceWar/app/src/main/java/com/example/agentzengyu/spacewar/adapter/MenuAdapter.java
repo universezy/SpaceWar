@@ -79,7 +79,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
      * 设置数据
      */
     private void setData() {
-        images = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round,R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
+        images = new int[]{R.mipmap.menuplayer, R.mipmap.menugame,R.mipmap.menuarticle, R.mipmap.ic_launcher_round};
         titles = new String[]{resources.getString(R.string.menu_player),resources.getString(R.string.menu_game), resources.getString(R.string.menu_article), resources.getString(R.string.menu_setting)};
     }
 

@@ -18,11 +18,15 @@ public class PlayerBullet extends GameComponent {
 
     @Override
     public void onDraw(Canvas canvas) {
-        canvas.save();
-        canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
-        canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
-        canvas.restore();
-        action();
+        if (!isCrash) {
+            canvas.save();
+            canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+            canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+            canvas.restore();
+            action();
+        } else {
+            onDestroy();
+        }
     }
 
     @Override
@@ -37,12 +41,9 @@ public class PlayerBullet extends GameComponent {
         if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
                 coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
                 coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&
-                coordY - objectHeight / 2 > target.coordY + target.objectHeight / 2) {
+                coordY - objectHeight / 2 < target.coordY + target.objectHeight / 2) {
             target.life -= power * 100 / target.defense;
             isCrash = true;
-        }
-        if (target.isCrash){
-            target.onDestroy();
         }
     }
 
