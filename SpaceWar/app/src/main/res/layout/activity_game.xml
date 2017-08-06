@@ -11,58 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/tvLife"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:background="#00000000"
-        android:gravity="center"
-        android:text="Life"
-        android:textColor="#bbffffff"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/tvShield"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp"
-        android:background="#00000000"
-        android:gravity="center"
-        android:text="Shield"
-        android:textColor="#bbffffff"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/tvLaser"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvShield"
-        android:background="#00000000"
-        android:gravity="center"
-        android:text="Laser"
-        android:textColor="#bbffffff"
-        android:textSize="20dp" />
-
-    <TextView
-        android:id="@+id/tvLevel"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:background="#00000000"
-        android:gravity="center"
-        android:text="Level"
-        android:textColor="#bbffffff"
-        android:textSize="20dp" />
-
     <com.example.agentzengyu.spacewar.view.CircleImageView
         android:id="@+id/civShield"
         android:layout_width="60dp"
@@ -72,7 +20,7 @@
         android:layout_marginBottom="80dp"
         android:layout_marginLeft="20dp"
         android:focusable="true"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@mipmap/playershield"
         app:border_color="#80000000"
         app:border_overlay="false"
         app:border_width="5dp" />
@@ -86,7 +34,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="80dp"
         android:focusable="true"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@mipmap/playerlaser"
         app:border_color="#80000000"
         app:border_overlay="false"
         app:border_width="5dp" />
@@ -100,7 +48,7 @@
         android:layout_marginBottom="30dp"
         android:layout_marginRight="30dp"
         android:focusable="true"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@mipmap/playershoot"
         app:border_color="#80000000"
         app:border_overlay="false"
         app:border_width="5dp" />

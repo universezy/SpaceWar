@@ -1,9 +1,9 @@
-package com.example.agentzengyu.spacewar.entity.game;
+package com.example.agentzengyu.spacewar.game;
 
 import android.content.res.Resources;
 
-import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.basic.single.Enemy;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
 
 import java.util.Random;
 
@@ -55,8 +55,25 @@ public class GameComponentFactory {
         EnemyShip ship = new EnemyShip(resources, enemy.getImage(), enemy.getCrash(), enemy.getBullet(), enemy.getSpeed());
         ship.setParams(enemy.getLife(), enemy.getDefense(), enemy.getPower(), enemy.getVelocity());
         ship.setScreenSize(screenWidth, screenHeight);
-        ship.coordX = (float) (screenWidth / 2 + screenWidth / 2 * Math.sin(new Random().nextInt((int) ship.objectWidth)));
-        ship.coordY = (float) (-300.0f + 200 * Math.cos(new Random().nextInt((int) ship.objectHeight)));
+        ship.coordX = (float) (screenWidth / 2 + screenWidth / 2 * Math.sin(new Random().nextInt(1000)));
+        ship.coordY = (float) (-5000.0f + 4000 * Math.cos(new Random().nextInt(1000)));
+        ship.setAccelerated(0.1f, 0.01f);
+        return ship;
+    }
+
+    /**
+     * 创建boss飞船
+     *
+     * @param boss
+     * @return
+     */
+    public EnemyShip createBossShip(Enemy boss) {
+        EnemyShip ship = new EnemyShip(resources, boss.getImage(), boss.getCrash(), boss.getBullet(), boss.getSpeed());
+        ship.setParams(boss.getLife(), boss.getDefense(), boss.getPower(), boss.getVelocity());
+        ship.setScreenSize(screenWidth, screenHeight);
+        ship.isBoss = true;
+        ship.coordX = screenWidth / 2;
+        ship.coordY = -3000.0f;
         ship.setAccelerated(0.1f, 0.01f);
         return ship;
     }

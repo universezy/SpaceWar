@@ -10,8 +10,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.agentzengyu.spacewar.application.Constant;
-import com.example.agentzengyu.spacewar.entity.basic.set.EnemyLibrary;
-import com.example.agentzengyu.spacewar.entity.basic.single.Enemy;
+import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
 
 import java.util.HashMap;
 import java.util.Map;

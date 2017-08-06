@@ -1,4 +1,4 @@
-package com.example.agentzengyu.spacewar.entity.basic.single;
+package com.example.agentzengyu.spacewar.entity.single;
 
 import java.io.Serializable;
 

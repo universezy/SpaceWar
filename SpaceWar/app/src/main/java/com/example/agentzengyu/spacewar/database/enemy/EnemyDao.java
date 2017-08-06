@@ -1,8 +1,8 @@
 package com.example.agentzengyu.spacewar.database.enemy;
 
 import com.example.agentzengyu.spacewar.application.Constant;
-import com.example.agentzengyu.spacewar.entity.basic.set.EnemyLibrary;
-import com.example.agentzengyu.spacewar.entity.basic.single.Enemy;
+import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
 
 /**
  * Created by Agent ZengYu on 2017/7/13.

@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.basic.single.Article;
+import com.example.agentzengyu.spacewar.entity.single.Article;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 
 /**

@@ -9,16 +9,16 @@ import android.util.Log;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.basic.set.ArticleLibrary;
-import com.example.agentzengyu.spacewar.entity.basic.set.EnemyLibrary;
-import com.example.agentzengyu.spacewar.entity.basic.set.LevelLibrary;
-import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.basic.set.RelevancyLibrary;
-import com.example.agentzengyu.spacewar.entity.basic.single.Article;
-import com.example.agentzengyu.spacewar.entity.basic.single.Enemy;
-import com.example.agentzengyu.spacewar.entity.basic.single.Level;
-import com.example.agentzengyu.spacewar.entity.basic.single.Player;
-import com.example.agentzengyu.spacewar.entity.basic.single.Relevancy;
+import com.example.agentzengyu.spacewar.entity.set.ArticleLibrary;
+import com.example.agentzengyu.spacewar.entity.set.EnemyLibrary;
+import com.example.agentzengyu.spacewar.entity.set.LevelLibrary;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.set.RelevancyLibrary;
+import com.example.agentzengyu.spacewar.entity.single.Article;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
+import com.example.agentzengyu.spacewar.entity.single.Level;
+import com.example.agentzengyu.spacewar.entity.single.Player;
+import com.example.agentzengyu.spacewar.entity.single.Relevancy;
 
 import java.util.List;
 
@@ -174,7 +174,7 @@ public class LoaderService extends Service implements ILoader {
         Article life1 = new Article("life1", R.mipmap.ic_launcher_round, 1000, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.LIFE, life1);
 
-        Article defense1 = new Article("defense1", R.mipmap.ic_launcher, 100, 1, 1000);
+        Article defense1 = new Article("defense1", R.mipmap.ic_launcher, 200, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.DEFENSE, defense1);
 
         Article velocity1 = new Article("velocity1", R.mipmap.life1, 100, 1, 1000);
@@ -183,7 +183,7 @@ public class LoaderService extends Service implements ILoader {
         Article shield1 = new Article("shield1", R.mipmap.ic_launcher_round, 30, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.SHIELD, shield1);
 
-        Article power1 = new Article("power1", R.mipmap.life1, 50, 1, 1000);
+        Article power1 = new Article("power1", R.mipmap.life1, 200, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.POWER, power1);
 
         Article speed1 = new Article("speed1", R.mipmap.life1, 50, 1, 1000);
@@ -236,13 +236,13 @@ public class LoaderService extends Service implements ILoader {
         Enemy enemy8 = new Enemy("enemy8", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 2000, 200, 50, 100, 200);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy8);
 
-        Enemy boss1 = new Enemy("boss1", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 4000, 300, 10, 200, 200);
+        Enemy boss1 = new Enemy("boss1", R.mipmap.bossship, R.mipmap.bosscrash, R.mipmap.bossbullet, 50000, 400, 30, 200, 150);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss1);
 
-        Enemy boss2 = new Enemy("boss2", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 4000, 300, 10, 200, 200);
+        Enemy boss2 = new Enemy("boss2", R.mipmap.bossship, R.mipmap.bosscrash, R.mipmap.bossbullet, 50000, 400, 30, 200, 150);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss2);
 
-        Enemy boss3 = new Enemy("boss3", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 4000, 300, 10, 200, 200);
+        Enemy boss3 = new Enemy("boss3", R.mipmap.bossship, R.mipmap.bosscrash, R.mipmap.bossbullet, 50000, 400, 30, 200, 150);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.BOSS, boss3);
     }
 
@@ -262,13 +262,13 @@ public class LoaderService extends Service implements ILoader {
     @Override
     public void initRelevancy() {
         Log.e(TAG, "initRelevancy");
-        Relevancy relevancy1 = new Relevancy("level1", "enemy1", 10);
+        Relevancy relevancy1 = new Relevancy("level1", "enemy1", 30);
         app.getRelevancyDao().insert(relevancy1);
 
-        Relevancy relevancy2 = new Relevancy("level2", "enemy2", 20);
+        Relevancy relevancy2 = new Relevancy("level2", "enemy2", 60);
         app.getRelevancyDao().insert(relevancy2);
 
-        Relevancy relevancy3 = new Relevancy("level3", "enemy3", 30);
+        Relevancy relevancy3 = new Relevancy("level3", "enemy3", 90);
         app.getRelevancyDao().insert(relevancy3);
     }
 

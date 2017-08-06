@@ -1,4 +1,4 @@
-package com.example.agentzengyu.spacewar.entity.game;
+package com.example.agentzengyu.spacewar.game;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -61,7 +61,7 @@ public class PlayerShip extends GameComponent {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if (!isCrash){
+        if (!isCrash) {
             if (life > 0) {
                 action();
                 canvas.save();
@@ -78,33 +78,33 @@ public class PlayerShip extends GameComponent {
                     for (EnemyShip ship : enemyShips) {
                         if (coordX + objectWidth / 3 > ship.coordX - ship.objectWidth / 2 &&
                                 coordX - objectWidth / 3 < ship.coordX + ship.objectWidth / 2) {
-                            ship.life -= 3 * power;
+                            ship.decreaseLife(power * 300 / ship.defense);
                         }
                     }
                 }
                 canvas.restore();
-            }else if (crashTimes>0) {
+            } else if (crashTimes > 0) {
                 canvas.save();
                 canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
                 canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
                 canvas.restore();
                 crashTimes--;
-            }else if (crashTimes==0){
+            } else if (crashTimes == 0) {
                 canvas.save();
                 canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
                 canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
                 canvas.restore();
                 isCrash = true;
             }
-        }else {
+        } else {
             onDestroy();
         }
         for (int i = 0; i < bullets.size(); i++) {
             PlayerBullet bullet = bullets.get(i);
-            if (bullet.isCrash){
+            if (bullet.isCrash) {
                 bullets.remove(i);
                 bullet.onDestroy();
-            }else {
+            } else {
                 bullet.onDraw(canvas);
                 for (EnemyShip ship : enemyShips) {
                     bullet.crash(ship);
@@ -132,12 +132,18 @@ public class PlayerShip extends GameComponent {
 
     @Override
     public void crash(GameComponent target) {
+        if (target.isCrash) return;
         if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
                 coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
                 coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&
                 coordY - objectHeight / 2 < target.coordY + target.objectHeight / 2) {
-            target.life -= target.defense;
+            target.decreaseLife(target.defense);
         }
+    }
+
+    @Override
+    public void decreaseLife(float attack) {
+        super.decreaseLife(attack);
     }
 
     @Override
@@ -159,6 +165,16 @@ public class PlayerShip extends GameComponent {
     @Override
     protected boolean isOutOfScreen() {
         return false;
+    }
+
+    /**
+     * 获取生命值
+     *
+     * @return
+     */
+    public float getLife() {
+        if (life < 0) return 0;
+        return life;
     }
 
     /**

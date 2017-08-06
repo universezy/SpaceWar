@@ -1,10 +1,10 @@
-package com.example.agentzengyu.spacewar.entity.basic.set;
+package com.example.agentzengyu.spacewar.entity.set;
 
 /**
  * Created by Agent ZengYu on 2017/6/28.
  */
 
-import com.example.agentzengyu.spacewar.entity.basic.single.Enemy;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
 
 import java.io.Serializable;
 import java.util.Map;

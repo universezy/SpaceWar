@@ -12,12 +12,12 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.basic.single.Enemy;
-import com.example.agentzengyu.spacewar.entity.basic.single.Level;
-import com.example.agentzengyu.spacewar.entity.game.EnemyShip;
-import com.example.agentzengyu.spacewar.entity.game.GameComponentFactory;
-import com.example.agentzengyu.spacewar.entity.game.PlayerShip;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
+import com.example.agentzengyu.spacewar.entity.single.Level;
+import com.example.agentzengyu.spacewar.game.EnemyShip;
+import com.example.agentzengyu.spacewar.game.GameComponentFactory;
+import com.example.agentzengyu.spacewar.game.PlayerShip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +40,16 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private boolean run = true;
     private boolean shield = false;
     private boolean laser = false;
+    private int colorText = Color.parseColor("#fffacd");
     private float screenWidth, screenHeight;
     private float backgroundWidth, backgroundHeight;
     private float coordX1 = 0.0f, coordY1 = 0.0f;
     private float coordX2 = 0.0f, coordY2 = 0.0f;
     private float scaleX = 1, scaleY = 1;
     private final static int DELAY_PLAYER = 5000;
-    private final static int DELAY_ENEMY = 1500;
+    private final static int DELAY_ENEMY = 2000;
 
-    protected Paint paint;
+    protected Paint paintBackground, paintText;
     protected Canvas canvas;
     private Bitmap bitmapLevel;
 
@@ -104,8 +105,13 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     /************************ ISurfaceView ************************/
     @Override
     public void initDefault() {
-        paint = new Paint();
-        paint.setAntiAlias(true);
+        paintBackground = new Paint();
+        paintBackground.setAntiAlias(true);
+
+        paintText = new Paint();
+        paintText.setAntiAlias(true);
+        paintText.setTextSize(50);
+        paintText.setColor(colorText);
 
         holder = this.getHolder();
         holder.addCallback(this);
@@ -173,7 +179,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         for (Enemy enemy : level.getEnemies()) {
             enemyShips.add(factory.createEnemyShip(enemy));
         }
-        boss = factory.createEnemyShip(level.getBoss());
+        enemyShips.add(factory.createBossShip(level.getBoss()));
     }
 
     @Override
@@ -191,9 +197,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             canvas = holder.lockCanvas();
             canvas.drawColor(Color.BLACK);
             canvas.save();
-            canvas.scale(scaleX, scaleY);
-            canvas.drawBitmap(bitmapLevel, coordX1, coordY1, paint);
-            canvas.drawBitmap(bitmapLevel, coordX2, coordY2, paint);
+            canvas.scale(scaleX, scaleX);
+            canvas.drawBitmap(bitmapLevel, coordX1, coordY1, paintBackground);
+            canvas.drawBitmap(bitmapLevel, coordX2, coordY2, paintBackground);
             canvas.restore();
 
             playerShip.onDraw(canvas);
@@ -205,6 +211,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                     ship.onDestroy();
                 }
             }
+
+            canvas.drawText("LV:\t" + level.getLevelName(), 10, 40, paintText);
+            canvas.drawText("HP:\t" + playerShip.getLife(), 10, 100, paintText);
 
         } catch (Exception e) {
             e.printStackTrace();

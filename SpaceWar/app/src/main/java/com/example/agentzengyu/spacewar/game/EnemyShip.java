@@ -1,4 +1,4 @@
-package com.example.agentzengyu.spacewar.entity.game;
+package com.example.agentzengyu.spacewar.game;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -24,6 +24,8 @@ public class EnemyShip extends GameComponent {
     private List<EnemyBullet> bullets = new ArrayList<>();
     //玩家飞船
     private PlayerShip playerShip = null;
+    //是否为boss
+    public boolean isBoss = false;
 
     public EnemyShip(Resources resources, int objectResId, int crashResId, int bulletResId, float bulletSpeed) {
         super(resources, objectResId, crashResId);
@@ -33,7 +35,7 @@ public class EnemyShip extends GameComponent {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if (!isCrash){
+        if (!isCrash) {
             if (life > 0) {
                 action();
                 canvas.save();
@@ -46,14 +48,14 @@ public class EnemyShip extends GameComponent {
                 canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
                 canvas.restore();
                 crashTimes--;
-            } else if ( crashTimes == 0) {
+            } else if (crashTimes == 0) {
                 canvas.save();
                 canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
                 canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
                 canvas.restore();
                 isCrash = true;
             }
-        }else {
+        } else {
             onDestroy();
         }
         for (int i = 0; i < bullets.size(); i++) {
@@ -87,17 +89,18 @@ public class EnemyShip extends GameComponent {
 
     @Override
     public void crash(GameComponent target) {
+        if (target.isCrash) return;
         if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
                 coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
                 coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&
                 coordY - objectHeight / 2 < target.coordY + target.objectHeight / 2) {
-            target.life -= target.defense;
+            target.decreaseLife(target.defense);
         }
     }
 
     @Override
     protected void action() {
-        coordX += acceleratedX * velocity;
+        coordX -= acceleratedX * velocity;
         if (coordX < 0) {
             coordX = 0;
             acceleratedX = -acceleratedX;
@@ -106,6 +109,13 @@ public class EnemyShip extends GameComponent {
             acceleratedX = -acceleratedX;
         }
         coordY += acceleratedY * velocity;
+        if (isBoss) {
+            if (coordY > objectHeight * 2) {
+                acceleratedY = (-0.01f);
+            } else if (coordY < 0) {
+                acceleratedY = 0.01f;
+            }
+        }
     }
 
     @Override

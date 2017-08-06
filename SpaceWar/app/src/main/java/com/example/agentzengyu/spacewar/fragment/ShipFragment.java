@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.adapter.ArticleAdapter;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.basic.single.Article;
+import com.example.agentzengyu.spacewar.entity.single.Article;
 
 import java.util.ArrayList;
 

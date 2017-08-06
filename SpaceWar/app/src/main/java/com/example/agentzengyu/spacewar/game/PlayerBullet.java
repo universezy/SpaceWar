@@ -1,4 +1,4 @@
-package com.example.agentzengyu.spacewar.entity.game;
+package com.example.agentzengyu.spacewar.game;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -8,12 +8,11 @@ import android.graphics.Canvas;
  */
 
 /**
- * 敌人子弹
+ * 玩家子弹
  */
-public class EnemyBullet extends GameComponent {
+public class PlayerBullet extends GameComponent {
 
-
-    public EnemyBullet(Resources resources, int objectResId, int crashResId) {
+    public PlayerBullet(Resources resources, int objectResId, int crashResId) {
         super(resources, objectResId, crashResId);
     }
 
@@ -39,23 +38,24 @@ public class EnemyBullet extends GameComponent {
 
     @Override
     public void crash(GameComponent target) {
+        if (target.isCrash) return;
         if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
                 coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
                 coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&
                 coordY - objectHeight / 2 < target.coordY + target.objectHeight / 2) {
-            target.life -= power * 100 / target.defense;
+            target.decreaseLife(power * 100 / target.defense);
             isCrash = true;
         }
     }
 
     @Override
     protected void action() {
-        coordY += 3;
+        coordY -= 10;
     }
 
     @Override
     protected boolean isOutOfScreen() {
-        if (coordY > screenHeight) {
+        if (coordY + objectHeight / 2 < 0) {
             return true;
         } else {
             return false;

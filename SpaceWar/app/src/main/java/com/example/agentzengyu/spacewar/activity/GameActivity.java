@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +16,8 @@ import android.widget.TextView;
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.Constant;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
-import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.basic.single.Level;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.single.Level;
 import com.example.agentzengyu.spacewar.service.GameService;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
 import com.example.agentzengyu.spacewar.view.GameSurfaceView;
@@ -30,7 +29,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private final String TAG = getClass().getName();
 
     private GameSurfaceView mGsv;
-    private TextView mTvLife, mTvShield, mTvLaser, mTvLevel, mTvNotify;
+    private TextView mTvNotify;
     private CircleImageView mCivShield, mCivLaser, mCivShot;
 
     private SpaceWarApp app = null;
@@ -81,10 +80,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initView() {
         mGsv = (GameSurfaceView) findViewById(R.id.gsv);
-        mTvLife = (TextView) findViewById(R.id.tvLife);
-        mTvShield = (TextView) findViewById(R.id.tvShield);
-        mTvLaser = (TextView) findViewById(R.id.tvLaser);
-        mTvLevel = (TextView) findViewById(R.id.tvLevel);
         mTvNotify = (TextView) findViewById(R.id.tvNotify);
         mCivShield = (CircleImageView) findViewById(R.id.civShield);
         mCivShield.setOnClickListener(this);
@@ -124,14 +119,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 mCivShield.setClickable(true);
-                mTvShield.setTextColor(Color.parseColor("#bbffffff"));
             }
         };
         runnableLaser = new Runnable() {
             @Override
             public void run() {
                 mCivLaser.setClickable(true);
-                mTvLaser.setTextColor(Color.parseColor("#bbffffff"));
             }
         };
     }
@@ -142,11 +135,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * @param level 地图
      */
     private void startGame(final Level level) {
-        mTvLife.setText("HP: " + playerData.getLife().getValue());
-        mTvShield.setText("CD: " + playerData.getShield().getValue());
-        mTvLaser.setText("CD: " + playerData.getLaser().getValue());
         if (level != null) {
-            mTvLevel.setText(level.getLevelName());
             handlerNotify.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -163,13 +152,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 mGsv.openShield();
                 mCivShield.setClickable(false);
                 handlerShield.postDelayed(runnableShield, playerData.getShield().getValue() * 1000);
-                mTvShield.setTextColor(Color.parseColor("#bbff0000"));
                 break;
             case R.id.civLaser:
                 mGsv.openLaser();
                 mCivLaser.setClickable(false);
                 handlerLaser.postDelayed(runnableLaser, playerData.getLaser().getValue() * 1000);
-                mTvLaser.setTextColor(Color.parseColor("#bbff0000"));
                 break;
             default:
                 break;

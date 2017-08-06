@@ -1,4 +1,4 @@
-package com.example.agentzengyu.spacewar.entity.game;
+package com.example.agentzengyu.spacewar.game;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -71,6 +71,7 @@ abstract public class GameComponent {
 
     /**
      * 设置屏幕尺寸
+     *
      * @param screenWidth
      * @param screenHeight
      */
@@ -81,6 +82,7 @@ abstract public class GameComponent {
 
     /**
      * 设置参数
+     *
      * @param life
      * @param defense
      * @param power
@@ -95,6 +97,7 @@ abstract public class GameComponent {
 
     /**
      * 绘图
+     *
      * @param canvas
      */
     public abstract void onDraw(Canvas canvas);
@@ -106,10 +109,20 @@ abstract public class GameComponent {
 
     /**
      * 碰撞
+     *
      * @param target
      * @return
      */
     public abstract void crash(GameComponent target);
+
+    /**
+     * 减血
+     *
+     * @param attack
+     */
+    public void decreaseLife(float attack) {
+        life -= attack;
+    }
 
     /**
      * 动作
@@ -118,6 +131,7 @@ abstract public class GameComponent {
 
     /**
      * 超出屏幕
+     *
      * @return
      */
     protected abstract boolean isOutOfScreen();

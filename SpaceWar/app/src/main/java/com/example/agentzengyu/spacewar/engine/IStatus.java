@@ -4,7 +4,7 @@ package com.example.agentzengyu.spacewar.engine;
  * Created by Agent ZengYu on 2017/6/29.
  */
 
-import com.example.agentzengyu.spacewar.entity.basic.single.Level;
+import com.example.agentzengyu.spacewar.entity.single.Level;
 import com.example.agentzengyu.spacewar.view.GameSurfaceView;
 
 /**

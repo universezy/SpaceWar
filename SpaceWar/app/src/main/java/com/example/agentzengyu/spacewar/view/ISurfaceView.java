@@ -1,7 +1,7 @@
 package com.example.agentzengyu.spacewar.view;
 
-import com.example.agentzengyu.spacewar.entity.basic.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.basic.single.Level;
+import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.single.Level;
 
 /**
  * Created by Agent ZengYu on 2017/8/3.
