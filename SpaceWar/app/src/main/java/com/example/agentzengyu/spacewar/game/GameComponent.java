@@ -30,6 +30,10 @@ abstract public class GameComponent {
     protected float objectWidth;
     //高
     protected float objectHeight;
+    //坠机宽
+    protected float crashWidth;
+    //坠机高
+    protected float crashHeight;
     //屏幕宽
     protected float screenWidth;
     //屏幕高
@@ -66,6 +70,8 @@ abstract public class GameComponent {
         }
         if (crashResId != 0) {
             crashBitmap = BitmapFactory.decodeResource(resources, crashResId);
+            crashWidth = crashBitmap.getWidth();
+            crashHeight = crashBitmap.getHeight();
         }
     }
 

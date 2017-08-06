@@ -44,14 +44,14 @@ public class EnemyShip extends GameComponent {
                 canvas.restore();
             } else if (crashTimes > 0) {
                 canvas.save();
-                canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
-                canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+                canvas.clipRect(coordX - crashWidth / 2, coordY - crashHeight / 2, coordX + crashWidth / 2, coordY + crashHeight / 2);
+                canvas.drawBitmap(crashBitmap, coordX - crashWidth / 2, coordY - crashHeight / 2, paint);
                 canvas.restore();
                 crashTimes--;
             } else if (crashTimes == 0) {
                 canvas.save();
-                canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
-                canvas.drawBitmap(crashBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+                canvas.clipRect(coordX - crashWidth / 2, coordY - crashHeight / 2, coordX + crashWidth / 2, coordY +crashHeight / 2);
+                canvas.drawBitmap(crashBitmap, coordX - crashWidth / 2, coordY - crashHeight / 2, paint);
                 canvas.restore();
                 isCrash = true;
             }

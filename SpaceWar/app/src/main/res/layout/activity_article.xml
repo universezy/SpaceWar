@@ -53,7 +53,7 @@
             android:layout_width="80dp"
             android:layout_height="0dp"
             android:layout_weight="28"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@mipmap/button_return"
             app:border_color="#80000000"
             app:border_overlay="false"
             app:border_width="5dp" />
