@@ -48,14 +48,14 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MapViewHolde
 
     @Override
     public void onBindViewHolder(MapViewHolder holder, int position) {
-        holder.getLlMap().setBackgroundResource(levels.get(position).getImage());
-        holder.getLlMap().setTag(levels.get(position));
-        holder.getTvName().setText(levels.get(position).getLevelName());
+        holder.getLlMap().setBackgroundResource(levels.get(position % levels.size()).getImage());
+        holder.getLlMap().setTag(levels.get(position % levels.size()));
+        holder.getTvName().setText(levels.get(position % levels.size()).getLevelName());
     }
 
     @Override
     public int getItemCount() {
-        return levels.size();
+        return Integer.MAX_VALUE;
     }
 
     /**

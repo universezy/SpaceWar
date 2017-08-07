@@ -23,4 +23,8 @@
     <string name="spaceship_velocity">Velocity</string>
     <string name="spaceship_shield">Shield</string>
 
+    <string name="popupwindow_upgrade">Are you sure to upgrade?</string>
+    <string name="popupwindow_upgrade_fail">No enough money.</string>
+    <string name="popupwindow_upgrade_success">Upgrade successful!</string>
+
 </resources>

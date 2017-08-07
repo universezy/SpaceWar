@@ -1,6 +1,7 @@
 package com.example.agentzengyu.spacewar.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         initFragment();
         initVariable();
         initView();
+        onFragment(weaponFragment);
     }
 
     @Override
@@ -77,17 +79,20 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
         fragmentManager = getSupportFragmentManager();
     }
 
+    private void onFragment(Fragment fragment) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.flContainer, fragment);
+        transaction.commit();
+    }
+
     @Override
     public void onClick(View v) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
         switch (v.getId()) {
             case R.id.civWeapon:
-                transaction.replace(R.id.flContainer, weaponFragment);
-                transaction.commit();
+                onFragment(weaponFragment);
                 break;
             case R.id.civShip:
-                transaction.replace(R.id.flContainer, shipFragment);
-                transaction.commit();
+                onFragment(shipFragment);
                 break;
             case R.id.civReturn:
                 finish();

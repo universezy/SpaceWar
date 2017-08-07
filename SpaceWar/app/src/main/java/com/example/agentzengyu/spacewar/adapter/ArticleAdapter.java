@@ -5,13 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.entity.single.Article;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,15 +23,12 @@ import java.util.List;
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ShopViewHolder> {
     private LayoutInflater inflater;
-    private List<Article> userItem = null;
-    private List<Article> articles = null;
-    private int[] upgrade = null;
+    private IArticle iArticle = null;
+    private List<Article> articles = new ArrayList<>();
 
-    public ArticleAdapter(Activity context, List<Article> userItem, List<Article> articles) {
-        this.userItem = userItem;
-        this.articles = articles;
+    public ArticleAdapter(Activity context,IArticle iArticle) {
         inflater = LayoutInflater.from(context);
-        setData();
+        this.iArticle = iArticle;
     }
 
     @Override
@@ -43,24 +40,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ShopView
 
     @Override
     public void onBindViewHolder(ShopViewHolder holder, int position) {
-        if (userItem.size() == 1) {
-            holder.getmIvPlayer().setImageResource(userItem.get(0).getImage());
-            holder.getmTvPlayerName().setText(userItem.get(0).getName());
-            holder.getmTvPlayerLevel().setText(String.valueOf(userItem.get(0).getGrade()));
-            holder.getmTvPlayerValue().setText(String.valueOf(userItem.get(0).getValue()));
-            if (userItem.get(0).getGrade() < articles.get(position).getGrade()) {
-                holder.getmIvUpgrade().setImageResource(upgrade[0]);
-                holder.getmBtnUpgrade().setClickable(true);
-            } else {
-                holder.getmIvUpgrade().setImageResource(upgrade[1]);
-                holder.getmBtnUpgrade().setClickable(false);
-            }
-        }
-        holder.getmIvUpgraded().setImageResource(articles.get(0).getImage());
-        holder.getmTvUpgradedName().setText(articles.get(position).getName());
-        holder.getmTvUpgradedLevel().setText(String.valueOf(articles.get(position).getGrade()));
-        holder.getmTvUpgradedValue().setText(String.valueOf(articles.get(position).getValue()));
-        holder.getmTvUpgradedPrice().setText(String.valueOf(articles.get(position).getPrice()));
+        holder.getIvPicture().setImageResource(articles.get(0).getImage());
+        holder.getTvUpgradedName().setText(articles.get(position).getName());
+        holder.getTvUpgradedLevel().setText(String.valueOf(articles.get(position).getGrade()));
+        holder.getTvUpgradedValue().setText(String.valueOf(articles.get(position).getValue()));
+        iArticle.select(articles.get(0));
     }
 
     @Override
@@ -69,94 +53,45 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ShopView
     }
 
     /**
-     * 设置数据
+     * 更新
+     *
+     * @param articles
      */
-    private void setData() {
-        upgrade = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher};
+    public void update(List<Article> articles) {
+        this.articles.clear();
+        this.articles.addAll(articles);
+        notifyDataSetChanged();
     }
 
     /**
      * 商店布局容器
      */
-    public class ShopViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView mIvPlayer, mIvUpgraded, mIvUpgrade;
-        private TextView mTvUpgradedPrice;
-        private TextView mTvPlayerLevel, mTvPlayerName, mTvPlayerValue;
+    public class ShopViewHolder extends RecyclerView.ViewHolder {
+        private ImageView mIvPicture;
         private TextView mTvUpgradedLevel, mTvUpgradedName, mTvUpgradedValue;
-        private Button mBtnUpgrade;
 
         public ShopViewHolder(View itemView) {
             super(itemView);
-            mTvUpgradedPrice = (TextView) itemView.findViewById(R.id.tvUpgradedPrice);
-            mIvUpgrade = (ImageView) itemView.findViewById(R.id.ivUpgrade);
-
-            mIvPlayer = (ImageView) itemView.findViewById(R.id.ivArticle);
-            mTvPlayerLevel = (TextView) itemView.findViewById(R.id.tvPlayerLevel);
-            mTvPlayerName = (TextView) itemView.findViewById(R.id.tvPlayerName);
-            mTvPlayerValue = (TextView) itemView.findViewById(R.id.tvPlayerValue);
-
-            mIvUpgraded = (ImageView) itemView.findViewById(R.id.ivUpgraded);
+            mIvPicture = (ImageView) itemView.findViewById(R.id.ivPicture);
             mTvUpgradedLevel = (TextView) itemView.findViewById(R.id.tvUpgradedLevel);
             mTvUpgradedName = (TextView) itemView.findViewById(R.id.tvUpgradedName);
             mTvUpgradedValue = (TextView) itemView.findViewById(R.id.tvUpgradedValue);
-
-            mBtnUpgrade = (Button) itemView.findViewById(R.id.btnUpgrade);
-            mBtnUpgrade.setOnClickListener(this);
         }
 
-        public TextView getmTvUpgradedPrice() {
-            return mTvUpgradedPrice;
+        public ImageView getIvPicture() {
+            return mIvPicture;
         }
 
-        public ImageView getmIvUpgrade() {
-            return mIvUpgrade;
-        }
-
-        public ImageView getmIvPlayer() {
-            return mIvPlayer;
-        }
-
-        public TextView getmTvPlayerLevel() {
-            return mTvPlayerLevel;
-        }
-
-        public TextView getmTvPlayerName() {
-            return mTvPlayerName;
-        }
-
-        public TextView getmTvPlayerValue() {
-            return mTvPlayerValue;
-        }
-
-        public ImageView getmIvUpgraded() {
-            return mIvUpgraded;
-        }
-
-        public TextView getmTvUpgradedLevel() {
+        public TextView getTvUpgradedLevel() {
             return mTvUpgradedLevel;
         }
 
-        public TextView getmTvUpgradedName() {
+        public TextView getTvUpgradedName() {
             return mTvUpgradedName;
         }
 
-        public TextView getmTvUpgradedValue() {
+        public TextView getTvUpgradedValue() {
             return mTvUpgradedValue;
-        }
-
-        public Button getmBtnUpgrade() {
-            return mBtnUpgrade;
-        }
-
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btnUpgrade:
-
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }

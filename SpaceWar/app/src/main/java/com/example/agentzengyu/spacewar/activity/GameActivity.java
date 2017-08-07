@@ -44,6 +44,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Runnable runnableBullet = null;
     private Runnable runnableShield = null;
     private Runnable runnableLaser = null;
+    private boolean init = true;
     private boolean shot = false;
 
     @Override
@@ -70,6 +71,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
+        if (init) return;
         mGsv.stopGame();
         gameService.onStop();
         finish();
@@ -102,6 +104,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         runnableNotify = new Runnable() {
             @Override
             public void run() {
+                init = false;
                 mTvNotify.setVisibility(View.GONE);
                 handlerBullet.postDelayed(runnableBullet, 500);
             }

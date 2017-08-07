@@ -50,7 +50,7 @@ public class EnemyShip extends GameComponent {
                 crashTimes--;
             } else if (crashTimes == 0) {
                 canvas.save();
-                canvas.clipRect(coordX - crashWidth / 2, coordY - crashHeight / 2, coordX + crashWidth / 2, coordY +crashHeight / 2);
+                canvas.clipRect(coordX - crashWidth / 2, coordY - crashHeight / 2, coordX + crashWidth / 2, coordY + crashHeight / 2);
                 canvas.drawBitmap(crashBitmap, coordX - crashWidth / 2, coordY - crashHeight / 2, paint);
                 canvas.restore();
                 isCrash = true;
@@ -72,10 +72,12 @@ public class EnemyShip extends GameComponent {
                 }
             }
         }
+        crash(playerShip);
     }
 
     @Override
     public void onDestroy() {
+        isCrash = true;
         if (objectBitmap != null && objectBitmap.isRecycled()) {
             objectBitmap.recycle();
         }
@@ -89,12 +91,13 @@ public class EnemyShip extends GameComponent {
 
     @Override
     public void crash(GameComponent target) {
-        if (target.isCrash) return;
+        if (isCrash||target.isCrash)return;
         if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
                 coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
                 coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&
                 coordY - objectHeight / 2 < target.coordY + target.objectHeight / 2) {
-            target.decreaseLife(target.defense);
+            if (defense > target.defense)
+                target.decreaseLife(defense / target.defense);
         }
     }
 

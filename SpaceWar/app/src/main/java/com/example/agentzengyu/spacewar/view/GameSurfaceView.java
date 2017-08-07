@@ -48,6 +48,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private float scaleX = 1, scaleY = 1;
     private final static int DELAY_PLAYER = 5000;
     private final static int DELAY_ENEMY = 2000;
+    private int totalCount;
 
     protected Paint paintBackground, paintText;
     protected Canvas canvas;
@@ -58,7 +59,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private Level level;
     private PlayerShip playerShip;
     private List<EnemyShip> enemyShips = new ArrayList<>();
-    private EnemyShip boss;
 
     public GameSurfaceView(Context context) {
         super(context);
@@ -96,7 +96,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void run() {
         while (run) {
-
             draw();
             onBackgroundAction();
         }
@@ -158,6 +157,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         for (EnemyShip ship : enemyShips) {
             ship.setPlayerShip(playerShip);
         }
+        totalCount = enemyShips.size();
     }
 
     @Override
@@ -214,7 +214,21 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
             canvas.drawText("LV:\t" + level.getLevelName(), 10, 40, paintText);
             canvas.drawText("HP:\t" + playerShip.getLife(), 10, 100, paintText);
-
+            int crashCount = 0;
+            for (EnemyShip ship : enemyShips) {
+                if (ship.isCrash) {
+                    crashCount++;
+                }
+            }
+            if (crashCount == totalCount) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        stopGame();
+                        //show
+                    }
+                }, 2000);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -247,9 +261,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
         for (EnemyShip ship : enemyShips) {
             ship.onDestroy();
-        }
-        if (boss != null) {
-            boss.onDestroy();
         }
     }
 

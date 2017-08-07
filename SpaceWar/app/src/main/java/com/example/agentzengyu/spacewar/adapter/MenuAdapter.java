@@ -49,9 +49,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     @Override
     public void onBindViewHolder(MenuViewHolder holder, int position) {
-        holder.getmIvMenu().setImageResource(images[position % images.length]);
-        holder.getmBtnEnter().setTag(position % titles.length);
-        holder.getmBtnEnter().setText(titles[position % titles.length]);
+        holder.getIvMenu().setImageResource(images[position % images.length]);
+        holder.getBtnEnter().setTag(position % titles.length);
+        holder.getBtnEnter().setText(titles[position % titles.length]);
     }
 
     @Override
@@ -97,11 +97,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             mBtnEnter.setOnClickListener(this);
         }
 
-        public ImageView getmIvMenu() {
+        public ImageView getIvMenu() {
             return mIvMenu;
         }
 
-        public Button getmBtnEnter() {
+        public Button getBtnEnter() {
             return mBtnEnter;
         }
 

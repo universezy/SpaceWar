@@ -111,7 +111,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void showArticle(Article article) {
         View view = getLayoutInflater().inflate(R.layout.popupwindow_article, null);
-        mIvArticle = (ImageView) view.findViewById(R.id.ivArticle);
+        mIvArticle = (ImageView) view.findViewById(R.id.ivPlayer);
         mIvArticle.setImageResource(article.getImage());
         mTvName = (TextView) view.findViewById(R.id.tvName);
         mTvName.setText(article.getName());

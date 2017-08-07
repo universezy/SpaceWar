@@ -3,22 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:activity="com.example.agentzengyu.spacewar.fragment.WeaponFragment">
+    tools:activity="com.example.agentzengyu.spacewar.fragment.ShipFragment">
 
     <LinearLayout
         android:layout_width="80dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight="0.5"/>
-
         <ImageView
-            android:id="@+id/ivPower"
+            android:id="@+id/ivLife"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
@@ -27,7 +20,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <ImageView
-            android:id="@+id/ivSpeed"
+            android:id="@+id/ivDefense"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
@@ -36,7 +29,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <ImageView
-            android:id="@+id/ivLaser"
+            android:id="@+id/ivVelocity"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
@@ -44,12 +37,15 @@
             android:layout_weight="1"
             android:src="@mipmap/ic_launcher" />
 
-        <View
+        <ImageView
+            android:id="@+id/ivShield"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight="0.5"/>
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -126,7 +122,7 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvWeapon"
+                android:id="@+id/rvShip"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -146,5 +142,4 @@
             android:text="@string/article_upgrade" />
 
     </LinearLayout>
-
 </LinearLayout>
