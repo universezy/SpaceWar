@@ -227,7 +227,7 @@ public class LoaderService extends Service implements ILoader {
                 data.setPower(app.getArticleLibrary().getPowers().get(0)) &&
                 data.setSpeed(app.getArticleLibrary().getSpeeds().get(0)) &&
                 data.setLaser(app.getArticleLibrary().getLasers().get(0)) &&
-                data.setInfo(new Player("New User", 1000, R.mipmap.playership, R.mipmap.playercrash, R.mipmap.playerbullet))) {
+                data.setInfo(new Player("New User", 2000, R.mipmap.playership, R.mipmap.playercrash, R.mipmap.playerbullet))) {
             app.getPlayerDao().update(data);
         }
     }
@@ -235,28 +235,28 @@ public class LoaderService extends Service implements ILoader {
     @Override
     public void initEnemyData() {
         Log.e(TAG, "initEnemyData");
-        Enemy enemy1 = new Enemy("enemy1", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 500, 100, 200, 80, 100);
+        Enemy enemy1 = new Enemy("enemy1", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 200, 40, 300, 20, 300);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy1);
 
-        Enemy enemy2 = new Enemy("enemy2", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 1000, 200, 150, 80, 100);
+        Enemy enemy2 = new Enemy("enemy2", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 400, 80, 250, 30, 280);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy2);
 
-        Enemy enemy3 = new Enemy("enemy3", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 1500, 300, 150, 80, 100);
+        Enemy enemy3 = new Enemy("enemy3", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 600, 160, 200, 40, 260);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy3);
 
-        Enemy enemy4 = new Enemy("enemy4", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 2000, 300, 150, 80, 200);
+        Enemy enemy4 = new Enemy("enemy4", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 800, 200, 150, 50, 240);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy4);
 
-        Enemy enemy5 = new Enemy("enemy5", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 2500, 300, 150, 90, 200);
+        Enemy enemy5 = new Enemy("enemy5", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 1000, 240, 150, 60, 220);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy5);
 
-        Enemy enemy6 = new Enemy("enemy6", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 3000, 300, 150, 90, 200);
+        Enemy enemy6 = new Enemy("enemy6", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 2000, 280, 150, 70, 200);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy6);
 
-        Enemy enemy7 = new Enemy("enemy7", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 3500, 300, 100, 100, 200);
+        Enemy enemy7 = new Enemy("enemy7", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 4000, 320, 100, 80, 180);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy7);
 
-        Enemy enemy8 = new Enemy("enemy8", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 4000, 400, 50, 150, 300);
+        Enemy enemy8 = new Enemy("enemy8", R.mipmap.enemyship, R.mipmap.enemycrash, R.mipmap.enemybullet, 8000, 360, 50, 90, 160);
         app.getEnemyDao().insert(Constant.Database.Enemy.TableName.NORMAL, enemy8);
 
         Enemy boss1 = new Enemy("boss1", R.mipmap.bossship, R.mipmap.bosscrash, R.mipmap.bossbullet, 50000, 400, 30, 200, 150);
@@ -291,28 +291,28 @@ public class LoaderService extends Service implements ILoader {
         Relevancy relevancy2 = new Relevancy("level2", "enemy2", 50);
         app.getRelevancyDao().insert(relevancy2);
 
-        Relevancy relevancy3 = new Relevancy("level3", "enemy1", 10);
+        Relevancy relevancy3 = new Relevancy("level3", "enemy1", 16);
         app.getRelevancyDao().insert(relevancy3);
 
-        Relevancy relevancy4 = new Relevancy("level3", "enemy2", 10);
+        Relevancy relevancy4 = new Relevancy("level3", "enemy2", 14);
         app.getRelevancyDao().insert(relevancy4);
 
-        Relevancy relevancy5 = new Relevancy("level3", "enemy3", 10);
+        Relevancy relevancy5 = new Relevancy("level3", "enemy3", 12);
         app.getRelevancyDao().insert(relevancy5);
 
         Relevancy relevancy6 = new Relevancy("level3", "enemy4", 10);
         app.getRelevancyDao().insert(relevancy6);
 
-        Relevancy relevancy7 = new Relevancy("level3", "enemy5", 10);
+        Relevancy relevancy7 = new Relevancy("level3", "enemy5", 8);
         app.getRelevancyDao().insert(relevancy7);
 
-        Relevancy relevancy8 = new Relevancy("level3", "enemy6", 10);
+        Relevancy relevancy8 = new Relevancy("level3", "enemy6", 6);
         app.getRelevancyDao().insert(relevancy8);
 
-        Relevancy relevancy9 = new Relevancy("level3", "enemy7", 10);
+        Relevancy relevancy9 = new Relevancy("level3", "enemy7", 4);
         app.getRelevancyDao().insert(relevancy9);
 
-        Relevancy relevancy10 = new Relevancy("level3", "enemy8", 10);
+        Relevancy relevancy10 = new Relevancy("level3", "enemy8", 2);
         app.getRelevancyDao().insert(relevancy10);
     }
 

@@ -29,7 +29,7 @@ public class ShipFragment extends ArticleFragment {
     }
 
     @Override
-    public void setCallback(IUpdateMoney updateMoney) {
+    public void setCallback(IUpdatePlayer updateMoney) {
         super.setCallback(updateMoney);
     }
 

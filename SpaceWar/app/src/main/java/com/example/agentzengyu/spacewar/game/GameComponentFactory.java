@@ -1,7 +1,6 @@
 package com.example.agentzengyu.spacewar.game;
 
 import android.content.res.Resources;
-import android.util.Log;
 
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Enemy;
@@ -50,14 +49,15 @@ public class GameComponentFactory {
      * 创建敌人飞船
      *
      * @param enemy
+     * @param distribution
      * @return
      */
-    public EnemyShip createEnemyShip(Enemy enemy) {
+    public EnemyShip createEnemyShip(Enemy enemy, int distribution) {
         EnemyShip ship = new EnemyShip(resources, enemy.getImage(), enemy.getCrash(), enemy.getBullet(), enemy.getSpeed());
         ship.setParams(enemy.getLife(), enemy.getDefense(), enemy.getPower(), enemy.getVelocity());
         ship.setScreenSize(screenWidth, screenHeight);
         ship.coordX = (float) (screenWidth / 2 + screenWidth / 2 * Math.sin(new Random().nextInt(1000)));
-        ship.coordY = new Random().nextInt(4600) - 5000.0f;
+        ship.coordY = new Random().nextInt(distribution * 80) - distribution * 80.0f - 200.0f;
         ship.setAccelerated(0.1f, 0.01f);
         return ship;
     }

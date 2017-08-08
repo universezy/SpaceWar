@@ -7,7 +7,7 @@ package com.example.agentzengyu.spacewar.fragment;
 /**
  * 更新金币
  */
-public interface IUpdateMoney {
+public interface IUpdatePlayer {
     /**
      * 更新
      */

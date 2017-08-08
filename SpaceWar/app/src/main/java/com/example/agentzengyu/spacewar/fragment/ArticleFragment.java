@@ -29,8 +29,8 @@ import java.util.List;
 
 public abstract class ArticleFragment extends Fragment implements View.OnClickListener, IArticle {
     protected SpaceWarApp app = null;
-    protected Article playerArticle = null, upgradeArticle;
-    protected IUpdateMoney updateMoney = null;
+    protected Article playerArticle = null, upgradeArticle = null;
+    protected IUpdatePlayer updateMoney = null;
 
     protected LinearLayoutManager manager;
     protected ArticleAdapter adapter;
@@ -44,7 +44,7 @@ public abstract class ArticleFragment extends Fragment implements View.OnClickLi
     protected ArticleFragment() {
     }
 
-    public void setCallback(IUpdateMoney updateMoney) {
+    public void setCallback(IUpdatePlayer updateMoney) {
         this.updateMoney = updateMoney;
     }
 
@@ -129,7 +129,11 @@ public abstract class ArticleFragment extends Fragment implements View.OnClickLi
      */
     protected void result() {
         if (app.getPlayerData().getPlayer().getMoney() >= upgradeArticle.getPrice()) {
-            playerArticle = upgradeArticle;
+            playerArticle.setImage(upgradeArticle.getImage());
+            playerArticle.setGrade(upgradeArticle.getGrade());
+            playerArticle.setName(upgradeArticle.getName());
+            playerArticle.setPrice(upgradeArticle.getPrice());
+            playerArticle.setValue(upgradeArticle.getValue());
             app.getPlayerData().getPlayer().addMoney(-upgradeArticle.getPrice());
             updateMoney.update();
             Toast.makeText(getContext(), R.string.popupwindow_upgrade_success, Toast.LENGTH_SHORT).show();

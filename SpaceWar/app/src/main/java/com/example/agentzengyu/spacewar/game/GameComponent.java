@@ -140,5 +140,5 @@ abstract public class GameComponent {
      *
      * @return
      */
-    protected abstract boolean isOutOfScreen();
+    protected abstract boolean checkOutOfScreen();
 }

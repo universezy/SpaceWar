@@ -19,11 +19,15 @@ public class PlayerBullet extends GameComponent {
     @Override
     public void onDraw(Canvas canvas) {
         if (!isCrash) {
-            canvas.save();
-            canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
-            canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
-            canvas.restore();
             action();
+            if (checkOutOfScreen()){
+                isCrash = true;
+            }else {
+                canvas.save();
+                canvas.clipRect(coordX - objectWidth / 2, coordY - objectHeight / 2, coordX + objectWidth / 2, coordY + objectHeight / 2);
+                canvas.drawBitmap(objectBitmap, coordX - objectWidth / 2, coordY - objectHeight / 2, paint);
+                canvas.restore();
+            }
         } else {
             onDestroy();
         }
@@ -31,7 +35,7 @@ public class PlayerBullet extends GameComponent {
 
     @Override
     public void onDestroy() {
-        if (objectBitmap != null && objectBitmap.isRecycled()) {
+        if (objectBitmap != null && !objectBitmap.isRecycled()) {
             objectBitmap.recycle();
         }
     }
@@ -54,7 +58,7 @@ public class PlayerBullet extends GameComponent {
     }
 
     @Override
-    protected boolean isOutOfScreen() {
+    protected boolean checkOutOfScreen() {
         if (coordY + objectHeight / 2 < 0) {
             return true;
         } else {

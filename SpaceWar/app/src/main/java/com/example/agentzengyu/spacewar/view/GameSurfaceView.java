@@ -13,6 +13,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
+import com.example.agentzengyu.spacewar.entity.single.Enemy;
 import com.example.agentzengyu.spacewar.entity.single.Level;
 import com.example.agentzengyu.spacewar.game.EnemyShip;
 import com.example.agentzengyu.spacewar.game.GameComponentFactory;
@@ -20,6 +21,7 @@ import com.example.agentzengyu.spacewar.game.PlayerShip;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Agent ZengYu on 2017/7/27.
@@ -177,8 +179,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void initEnemyRes() {
+        Random random = new Random();
         for (int i = 0; i < level.getEnemies().size(); i++) {
-            enemyShips.add(factory.createEnemyShip(level.getEnemies().get(i)));
+            Enemy enemy = level.getEnemies().get(i);
+            level.getEnemies().remove(i);
+            level.getEnemies().add(random.nextInt(level.getEnemies().size()), enemy);
+        }
+        for (int i = 0; i < level.getEnemies().size(); i++) {
+            enemyShips.add(factory.createEnemyShip(level.getEnemies().get(i), level.getEnemies().size()));
         }
         enemyShips.add(factory.createBossShip(level.getBoss()));
     }
@@ -196,6 +204,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void draw() {
         try {
             canvas = holder.lockCanvas();
+            //绘制背景
             canvas.drawColor(Color.BLACK);
             canvas.save();
             canvas.scale(scaleX, scaleX);
@@ -203,25 +212,23 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             canvas.drawBitmap(bitmapLevel, coordX2, coordY2, paintBackground);
             canvas.restore();
 
+            //绘制玩家飞船
             playerShip.onDraw(canvas);
+
+            //绘制敌人飞船
             for (int i = 0; i < enemyShips.size(); i++) {
-                EnemyShip ship = enemyShips.get(i);
-                ship.onDraw(canvas);
-                if (ship.isOutOfScreen()) {
+                enemyShips.get(i).onDraw(canvas);
+                if (enemyShips.get(i).isCrash && enemyShips.get(i).bullets.size() == 0) {
                     enemyShips.remove(i);
-                    ship.onDestroy();
                 }
             }
 
+            //绘制文字
             canvas.drawText("LV:\t" + level.getLevelName(), 10, 40, paintText);
-            canvas.drawText("HP:\t" + playerShip.getLife(), 10, 100, paintText);
-            int crashCount = 0;
-            for (int i = 0; i < enemyShips.size(); i++) {
-                if (enemyShips.get(i).isCrash) {
-                    crashCount++;
-                }
-            }
-            if (crashCount == totalCount||playerShip.getLife() == 0) {
+            canvas.drawText("HP:\t" + (int)playerShip.getLife(), 10, 100, paintText);
+
+            //判断游戏是否结束
+            if (enemyShips.size() == 0 || playerShip.getLife() == 0) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -254,7 +261,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         handlerShield.removeCallbacks(runnableShield);
         handlerLaser.removeCallbacks(runnableLaser);
         handlerEnemy.removeCallbacks(runnableEnemy);
-        if (bitmapLevel != null && bitmapLevel.isRecycled()) {
+        if (bitmapLevel != null && !bitmapLevel.isRecycled()) {
             bitmapLevel.recycle();
         }
         if (playerShip != null) {
