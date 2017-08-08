@@ -7,8 +7,8 @@
         android:bottomLeftRadius="15dp"
         android:bottomRightRadius="15dp"/><!-- 设置圆角半径 -->
     <size
-        android:width="300dp"
-        android:height="300dp"/><!-- 宽度和高度 -->
+        android:width="200dp"
+        android:height="200dp"/><!-- 宽度和高度 -->
     <solid
         android:color="#efeff4"/><!-- 填充的颜色 -->
 </shape>

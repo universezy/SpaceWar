@@ -75,10 +75,11 @@ public class PlayerShip extends GameComponent {
                 }
                 if (laser) {
                     canvas.drawRect(coordX - objectWidth / 3, 0.0f, coordX + objectWidth / 3, coordY - objectHeight / 2, paintLaser);
-                    for (EnemyShip ship : enemyShips) {
+                    for (int i = 0; i < enemyShips.size(); i++) {
+                        EnemyShip ship = enemyShips.get(i);
                         if (coordX + objectWidth / 3 > ship.coordX - ship.objectWidth / 2 &&
                                 coordX - objectWidth / 3 < ship.coordX + ship.objectWidth / 2) {
-                            ship.decreaseLife(power * 300 / ship.defense);
+                            ship.decreaseLife(power * 100 / ship.defense);
                         }
                     }
                 }
@@ -106,8 +107,8 @@ public class PlayerShip extends GameComponent {
                 bullet.onDestroy();
             } else {
                 bullet.onDraw(canvas);
-                for (EnemyShip ship : enemyShips) {
-                    bullet.crash(ship);
+                for (int k = 0; k < enemyShips.size(); k++) {
+                    bullet.crash(enemyShips.get(k));
                 }
                 if (bullet.isOutOfScreen()) {
                     bullets.remove(i);
@@ -115,28 +116,27 @@ public class PlayerShip extends GameComponent {
                 }
             }
         }
-        for (EnemyShip ship : enemyShips){
-            crash(ship);
+        for (int j = 0; j < enemyShips.size(); j++) {
+            crash(enemyShips.get(j));
         }
     }
 
     @Override
     public void onDestroy() {
-        isCrash = true;
         if (objectBitmap != null && objectBitmap.isRecycled()) {
             objectBitmap.recycle();
         }
         if (crashBitmap != null && crashBitmap.isRecycled()) {
             crashBitmap.recycle();
         }
-        for (PlayerBullet bullet : bullets) {
-            bullet.onDestroy();
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).onDestroy();
         }
     }
 
     @Override
     public void crash(GameComponent target) {
-        if (isCrash||target.isCrash)return;
+        if (isCrash || target.isCrash) return;
         if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
                 coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
                 coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&

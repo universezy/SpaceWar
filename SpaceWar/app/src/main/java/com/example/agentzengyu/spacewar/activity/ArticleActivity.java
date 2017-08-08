@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.agentzengyu.spacewar.R;
 import com.example.agentzengyu.spacewar.application.SpaceWarApp;
+import com.example.agentzengyu.spacewar.fragment.IUpdateMoney;
 import com.example.agentzengyu.spacewar.fragment.ShipFragment;
 import com.example.agentzengyu.spacewar.fragment.WeaponFragment;
 import com.example.agentzengyu.spacewar.view.CircleImageView;
@@ -18,11 +19,12 @@ import com.example.agentzengyu.spacewar.view.CircleImageView;
 /**
  * 商店界面
  */
-public class ArticleActivity extends AppCompatActivity implements View.OnClickListener {
+public class ArticleActivity extends AppCompatActivity implements View.OnClickListener ,IUpdateMoney{
     private SpaceWarApp app = null;
     private FragmentManager fragmentManager;
     private WeaponFragment weaponFragment;
     private ShipFragment shipFragment;
+    private IUpdateMoney updateMoney;
 
     private TextView mTvMoney;
     private CircleImageView mCivWeapon, mCivShip, mCivReturn;
@@ -68,7 +70,9 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
      */
     private void initFragment() {
         shipFragment = new ShipFragment();
+        shipFragment.setCallback(this);
         weaponFragment = new WeaponFragment();
+        weaponFragment.setCallback(this);
     }
 
     /**
@@ -100,5 +104,10 @@ public class ArticleActivity extends AppCompatActivity implements View.OnClickLi
             default:
                 break;
         }
+    }
+
+    @Override
+    public void update() {
+        mTvMoney.setText("$" + app.getPlayerData().getPlayer().getMoney());
     }
 }

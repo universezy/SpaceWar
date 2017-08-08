@@ -33,6 +33,7 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MapViewHolde
     public LevelAdapter(LevelActivity activity, LevelLibrary library) {
         this.activity = activity;
         this.inflater = LayoutInflater.from(activity);
+        if (library == null) return;
         for (Object object : library.getLevels().entrySet()) {
             Map.Entry<String, Level> entry = (Map.Entry<String, Level>) object;
             levels.add(0, entry.getValue());

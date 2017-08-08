@@ -68,7 +68,6 @@ public class LevelActivity extends AppCompatActivity {
             }
         });
         mRvLevels = (RecyclerView) findViewById(R.id.rvMap);
-        new PagerSnapHelper().attachToRecyclerView(mRvLevels);
         mRvLevels.setLayoutManager(manager);
         mRvLevels.setAdapter(adapter);
         mRvLevels.scrollToPosition(0);

@@ -29,6 +29,11 @@ public class WeaponFragment extends ArticleFragment {
     }
 
     @Override
+    public void setCallback(IUpdateMoney updateMoney) {
+        super.setCallback(updateMoney);
+    }
+
+    @Override
     protected void initView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.rvWeapon);
         super.initView(view);
@@ -43,6 +48,7 @@ public class WeaponFragment extends ArticleFragment {
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.ivPower:
                 shiftArticle(app.getPlayerData().getPower(), app.getArticleLibrary().getPowers());
@@ -52,9 +58,6 @@ public class WeaponFragment extends ArticleFragment {
                 break;
             case R.id.ivLaser:
                 shiftArticle(app.getPlayerData().getLaser(), app.getArticleLibrary().getLasers());
-                break;
-            case R.id.btnUpgrade:
-                upgrade();
                 break;
             default:
                 break;

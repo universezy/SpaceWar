@@ -193,7 +193,7 @@ public class LoaderService extends Service implements ILoader {
         Article laser1 = new Article("laser1", R.mipmap.life1, 30, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.LASER, laser1);
 
-        /************************ Grade 1 ************************/
+        /************************ Grade 2 ************************/
         Article life2 = new Article("life2", R.mipmap.ic_launcher_round, 1200, 2, 1200);
         app.getArticleDao().insert(Constant.Database.Article.TableName.LIFE, life2);
 
@@ -327,7 +327,8 @@ public class LoaderService extends Service implements ILoader {
             sendNotify(Constant.Init.Type.ERROR);
             return false;
         }
-        for (Relevancy relevancy : relevancies) {
+        for (int j = 0; j < relevancies.size(); j++) {
+            Relevancy relevancy = relevancies.get(j);
             Level level = app.getLevelLibrary().getLevels().get(relevancy.getLevelName());
             Enemy enemy = app.getEnemyLibrary().getNormalEnemies().get(relevancy.getEnemyName());
             for (int i = 0; i < relevancy.getEnemyCount(); i++) {

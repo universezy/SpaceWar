@@ -23,7 +23,7 @@ import com.example.agentzengyu.spacewar.service.LoaderService;
 public class LoadActivity extends AppCompatActivity {
     private SpaceWarApp app = null;
     private LoadingReceiver receiver;
-    private Handler handler = new Handler();
+    private Handler handler ;
     private Runnable runnable;
 
     private ProgressBar mPbLoad;
@@ -44,6 +44,12 @@ public class LoadActivity extends AppCompatActivity {
         super.onDestroy();
         unregisterReceiver(receiver);
         app.destroyInitService();
+        handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     /**
@@ -62,6 +68,7 @@ public class LoadActivity extends AppCompatActivity {
         receiver = new LoadingReceiver();
         IntentFilter filter = new IntentFilter(Constant.Init.TAG);
         registerReceiver(receiver, filter);
+        handler= new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {

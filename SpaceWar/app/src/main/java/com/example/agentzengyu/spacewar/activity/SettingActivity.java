@@ -23,4 +23,9 @@ public class SettingActivity extends AppCompatActivity {
         super.onDestroy();
         overridePendingTransition(0, R.anim.activity_out);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

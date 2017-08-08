@@ -28,6 +28,11 @@ public class ShipFragment extends ArticleFragment {
         return view;
     }
 
+    @Override
+    public void setCallback(IUpdateMoney updateMoney) {
+        super.setCallback(updateMoney);
+    }
+
     /**
      * 初始化布局
      *
@@ -49,6 +54,7 @@ public class ShipFragment extends ArticleFragment {
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.ivLife:
                 shiftArticle(app.getPlayerData().getLife(), app.getArticleLibrary().getLives());
@@ -61,9 +67,6 @@ public class ShipFragment extends ArticleFragment {
                 break;
             case R.id.ivShield:
                 shiftArticle(app.getPlayerData().getShield(), app.getArticleLibrary().getShields());
-                break;
-            case R.id.btnUpgrade:
-                upgrade();
                 break;
             default:
                 break;

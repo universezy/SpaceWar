@@ -72,4 +72,8 @@ public class Player implements Serializable {
     public int getBullet() {
         return bullet;
     }
+
+    public void addMoney(int money) {
+        this.money += money;
+    }
 }

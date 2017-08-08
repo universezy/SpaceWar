@@ -31,7 +31,6 @@ public class PlayerBullet extends GameComponent {
 
     @Override
     public void onDestroy() {
-        isCrash = true;
         if (objectBitmap != null && objectBitmap.isRecycled()) {
             objectBitmap.recycle();
         }
@@ -39,7 +38,7 @@ public class PlayerBullet extends GameComponent {
 
     @Override
     public void crash(GameComponent target) {
-        if (isCrash||target.isCrash)return;
+        if (isCrash || target.isCrash) return;
         if (coordX + objectWidth / 2 > target.coordX - target.objectWidth / 2 &&
                 coordX - objectWidth / 2 < target.coordX + target.objectWidth / 2 &&
                 coordY + objectHeight / 2 > target.coordY - target.objectHeight / 2 &&

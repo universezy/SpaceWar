@@ -30,18 +30,22 @@ import java.util.List;
 public abstract class ArticleFragment extends Fragment implements View.OnClickListener, IArticle {
     protected SpaceWarApp app = null;
     protected Article playerArticle = null, upgradeArticle;
+    protected IUpdateMoney updateMoney = null;
 
     protected LinearLayoutManager manager;
     protected ArticleAdapter adapter;
     protected RecyclerView recyclerView;
-    protected ImageView mIvPlayer, mIvPrice;
-    protected TextView mTvPlayerGrade, mTvPlayerName, mTvPlayerValue, mTvPrice;
-    protected Button mBtnUpgrade;
+    protected ImageView mIvPlayer;
+    protected TextView mTvPlayerGrade, mTvPlayerName, mTvPlayerValue;
 
     protected PopupWindow popupWindow;
     protected Button mBtnYes, mBtnNo;
 
-    public ArticleFragment() {
+    protected ArticleFragment() {
+    }
+
+    public void setCallback(IUpdateMoney updateMoney) {
+        this.updateMoney = updateMoney;
     }
 
     /**
@@ -66,13 +70,9 @@ public abstract class ArticleFragment extends Fragment implements View.OnClickLi
         recyclerView.scrollToPosition(0);
 
         mIvPlayer = (ImageView) view.findViewById(R.id.ivPlayer);
-        mIvPrice = (ImageView) view.findViewById(R.id.ivPrice);
         mTvPlayerGrade = (TextView) view.findViewById(R.id.tvPlayerGrade);
         mTvPlayerName = (TextView) view.findViewById(R.id.tvPlayerName);
         mTvPlayerValue = (TextView) view.findViewById(R.id.tvPlayerValue);
-        mTvPrice = (TextView) view.findViewById(R.id.tvPrice);
-        mBtnUpgrade = (Button) view.findViewById(R.id.btnUpgrade);
-        mBtnUpgrade.setOnClickListener(this);
 
         popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -95,7 +95,7 @@ public abstract class ArticleFragment extends Fragment implements View.OnClickLi
         mTvPlayerName.setText("" + article.getName());
         mTvPlayerValue.setText("" + article.getValue());
 
-        adapter.update(articles);
+        adapter.update(article, articles);
         recyclerView.scrollToPosition(0);
     }
 
@@ -110,7 +110,7 @@ public abstract class ArticleFragment extends Fragment implements View.OnClickLi
         mBtnNo.setOnClickListener(this);
 
         popupWindow.setContentView(view);
-        popupWindow.showAtLocation(mTvPrice, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(mIvPlayer, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getActivity().getWindow().getAttributes();
         layoutParams.alpha = 0.2f;
         getActivity().getWindow().setAttributes(layoutParams);
@@ -124,17 +124,25 @@ public abstract class ArticleFragment extends Fragment implements View.OnClickLi
         });
     }
 
+    /**
+     * 升级结果
+     */
+    protected void result() {
+        if (app.getPlayerData().getPlayer().getMoney() >= upgradeArticle.getPrice()) {
+            playerArticle = upgradeArticle;
+            app.getPlayerData().getPlayer().addMoney(-upgradeArticle.getPrice());
+            updateMoney.update();
+            Toast.makeText(getContext(), R.string.popupwindow_upgrade_success, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), R.string.popupwindow_upgrade_fail, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnYes:
-                if (app.getPlayerData().getPlayer().getMoney() >= upgradeArticle.getPrice()) {
-                    playerArticle = upgradeArticle;
-                    app.getPlayerData().getPlayer().setMoney(app.getPlayerData().getPlayer().getMoney() - upgradeArticle.getPrice());
-                    Toast.makeText(getContext(), R.string.popupwindow_upgrade_success, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), R.string.popupwindow_upgrade_fail, Toast.LENGTH_SHORT).show();
-                }
+                result();
             case R.id.btnNo:
                 popupWindow.dismiss();
                 break;
@@ -146,13 +154,6 @@ public abstract class ArticleFragment extends Fragment implements View.OnClickLi
     @Override
     public void select(Article article) {
         upgradeArticle = article;
-        mTvPrice.setText("" + article.getPrice());
-        if (playerArticle.getGrade() < article.getGrade()) {
-            mIvPrice.setImageResource(R.mipmap.ic_launcher);
-            mBtnUpgrade.setClickable(true);
-        } else {
-            mIvPrice.setImageResource(R.mipmap.ic_launcher_round);
-            mBtnUpgrade.setClickable(false);
-        }
+        upgrade();
     }
 }

@@ -13,7 +13,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
-import com.example.agentzengyu.spacewar.entity.single.Enemy;
 import com.example.agentzengyu.spacewar.entity.single.Level;
 import com.example.agentzengyu.spacewar.game.EnemyShip;
 import com.example.agentzengyu.spacewar.game.GameComponentFactory;
@@ -80,6 +79,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         Log.e(TAG, "surfaceCreated");
         screenWidth = getWidth();
         screenHeight = getHeight();
+        Log.e("screenWidth", "" + screenWidth);
+        Log.e("screenHeight", "" + screenHeight);
     }
 
     @Override
@@ -136,8 +137,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         runnableEnemy = new Runnable() {
             @Override
             public void run() {
-                for (EnemyShip ship : enemyShips) {
-                    ship.shootPlayer(factory);
+                for (int i = 0; i < enemyShips.size(); i++) {
+                    enemyShips.get(i).shootPlayer(factory);
                 }
                 handlerEnemy.postDelayed(runnableEnemy, DELAY_ENEMY);
             }
@@ -154,8 +155,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         initPlayerRes();
         initEnemyRes();
         playerShip.setEnemyShips(enemyShips);
-        for (EnemyShip ship : enemyShips) {
-            ship.setPlayerShip(playerShip);
+        for (int i = 0; i < enemyShips.size(); i++) {
+            enemyShips.get(i).setPlayerShip(playerShip);
         }
         totalCount = enemyShips.size();
     }
@@ -176,8 +177,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void initEnemyRes() {
-        for (Enemy enemy : level.getEnemies()) {
-            enemyShips.add(factory.createEnemyShip(enemy));
+        for (int i = 0; i < level.getEnemies().size(); i++) {
+            enemyShips.add(factory.createEnemyShip(level.getEnemies().get(i)));
         }
         enemyShips.add(factory.createBossShip(level.getBoss()));
     }
@@ -215,12 +216,12 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             canvas.drawText("LV:\t" + level.getLevelName(), 10, 40, paintText);
             canvas.drawText("HP:\t" + playerShip.getLife(), 10, 100, paintText);
             int crashCount = 0;
-            for (EnemyShip ship : enemyShips) {
-                if (ship.isCrash) {
+            for (int i = 0; i < enemyShips.size(); i++) {
+                if (enemyShips.get(i).isCrash) {
                     crashCount++;
                 }
             }
-            if (crashCount == totalCount) {
+            if (crashCount == totalCount||playerShip.getLife() == 0) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -259,8 +260,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         if (playerShip != null) {
             playerShip.onDestroy();
         }
-        for (EnemyShip ship : enemyShips) {
-            ship.onDestroy();
+        for (int i = 0; i < enemyShips.size(); i++) {
+            enemyShips.get(i).onDestroy();
         }
     }
 

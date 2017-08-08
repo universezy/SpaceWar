@@ -1,6 +1,7 @@
 package com.example.agentzengyu.spacewar.game;
 
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.example.agentzengyu.spacewar.entity.set.PlayerData;
 import com.example.agentzengyu.spacewar.entity.single.Enemy;
@@ -56,7 +57,7 @@ public class GameComponentFactory {
         ship.setParams(enemy.getLife(), enemy.getDefense(), enemy.getPower(), enemy.getVelocity());
         ship.setScreenSize(screenWidth, screenHeight);
         ship.coordX = (float) (screenWidth / 2 + screenWidth / 2 * Math.sin(new Random().nextInt(1000)));
-        ship.coordY = (float) (-1500.0f + 1300 * Math.cos(new Random().nextInt(1000)));
+        ship.coordY = new Random().nextInt(4600) - 5000.0f;
         ship.setAccelerated(0.1f, 0.01f);
         return ship;
     }
@@ -73,7 +74,7 @@ public class GameComponentFactory {
         ship.setScreenSize(screenWidth, screenHeight);
         ship.isBoss = true;
         ship.coordX = screenWidth / 2;
-        ship.coordY = -1300.0f;
+        ship.coordY = -1800.0f;
         ship.setAccelerated(0.1f, 0.01f);
         return ship;
     }

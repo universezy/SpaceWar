@@ -24,6 +24,17 @@ public class WelcomeActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 2000);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     /**
      * 初始化变量
      */
