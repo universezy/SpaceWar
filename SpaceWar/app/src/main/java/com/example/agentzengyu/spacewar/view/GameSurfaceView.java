@@ -49,7 +49,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private float scaleX = 1, scaleY = 1;
     private final static int DELAY_PLAYER = 5000;
     private final static int DELAY_ENEMY = 2000;
-    private int totalCount;
 
     protected Paint paintBackground, paintText;
     protected Canvas canvas;
@@ -82,7 +81,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         screenWidth = getWidth();
         screenHeight = getHeight();
         Log.e("screenWidth", "" + screenWidth);
-        Log.e("screenHeight", "" + screenHeight);
+        Log.e("screenHeight", "" + screenHeight);new String("");
     }
 
     @Override
@@ -102,6 +101,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             draw();
             onBackgroundAction();
         }
+        Log.e(TAG,"thread stop");
     }
 
     /************************ ISurfaceView ************************/
@@ -160,7 +160,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         for (int i = 0; i < enemyShips.size(); i++) {
             enemyShips.get(i).setPlayerShip(playerShip);
         }
-        totalCount = enemyShips.size();
     }
 
     @Override
@@ -258,6 +257,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void stopGame() {
         Log.e(TAG, "stopGame");
         run = false;
+        thread.stop();
         handlerShield.removeCallbacks(runnableShield);
         handlerLaser.removeCallbacks(runnableLaser);
         handlerEnemy.removeCallbacks(runnableEnemy);

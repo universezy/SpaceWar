@@ -74,7 +74,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (init) return;
         mGsv.stopGame();
         gameService.onStop();
-       super.onBackPressed();
+        super.onBackPressed();
     }
 
     /**

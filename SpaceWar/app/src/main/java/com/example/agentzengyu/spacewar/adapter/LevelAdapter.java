@@ -76,6 +76,7 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.MapViewHolde
                     Intent intent = new Intent(activity, GameActivity.class);
                     intent.putExtra("Level", (Level) mLlLevel.getTag());
                     activity.startActivity(intent);
+                    activity.finish();
                 }
             });
         }

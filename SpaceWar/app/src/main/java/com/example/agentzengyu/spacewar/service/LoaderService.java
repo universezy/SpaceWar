@@ -172,47 +172,47 @@ public class LoaderService extends Service implements ILoader {
     public void initArticleData() {
         Log.e(TAG, "initArticleData");
         /************************ Grade 1 ************************/
-        Article life1 = new Article("life1", R.mipmap.ic_launcher_round, 1000, 1, 1000);
+        Article life1 = new Article("life1", R.mipmap.life1, 1000, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.LIFE, life1);
 
-        Article defense1 = new Article("defense1", R.mipmap.ic_launcher, 200, 1, 1000);
+        Article defense1 = new Article("defense1", R.mipmap.defense1, 200, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.DEFENSE, defense1);
 
-        Article velocity1 = new Article("velocity1", R.mipmap.life1, 100, 1, 1000);
+        Article velocity1 = new Article("velocity1", R.mipmap.velocity1, 100, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.VELOCITY, velocity1);
 
-        Article shield1 = new Article("shield1", R.mipmap.ic_launcher_round, 30, 1, 1000);
+        Article shield1 = new Article("shield1", R.mipmap.shield1, 30, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.SHIELD, shield1);
 
-        Article power1 = new Article("power1", R.mipmap.life1, 200, 1, 1000);
+        Article power1 = new Article("power1", R.mipmap.power1, 200, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.POWER, power1);
 
-        Article speed1 = new Article("speed1", R.mipmap.life1, 50, 1, 1000);
+        Article speed1 = new Article("speed1", R.mipmap.speed1, 50, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.SPEED, speed1);
 
-        Article laser1 = new Article("laser1", R.mipmap.life1, 30, 1, 1000);
+        Article laser1 = new Article("laser1", R.mipmap.laser1, 30, 1, 1000);
         app.getArticleDao().insert(Constant.Database.Article.TableName.LASER, laser1);
 
         /************************ Grade 2 ************************/
-        Article life2 = new Article("life2", R.mipmap.ic_launcher_round, 1200, 2, 1200);
+        Article life2 = new Article("life2", R.mipmap.life1, 1200, 2, 1200);
         app.getArticleDao().insert(Constant.Database.Article.TableName.LIFE, life2);
 
-        Article defense2 = new Article("defense2", R.mipmap.ic_launcher, 220, 2, 1200);
+        Article defense2 = new Article("defense2", R.mipmap.defense1, 220, 2, 1200);
         app.getArticleDao().insert(Constant.Database.Article.TableName.DEFENSE, defense2);
 
-        Article velocity2 = new Article("velocity2", R.mipmap.life1, 120, 2, 1200);
+        Article velocity2 = new Article("velocity2", R.mipmap.velocity1, 120, 2, 1200);
         app.getArticleDao().insert(Constant.Database.Article.TableName.VELOCITY, velocity2);
 
-        Article shield2 = new Article("shield2", R.mipmap.ic_launcher_round, 28, 2, 1200);
+        Article shield2 = new Article("shield2", R.mipmap.shield1, 28, 2, 1200);
         app.getArticleDao().insert(Constant.Database.Article.TableName.SHIELD, shield2);
 
-        Article power2 = new Article("power2", R.mipmap.life1, 250, 2, 1200);
+        Article power2 = new Article("power2", R.mipmap.power1, 250, 2, 1200);
         app.getArticleDao().insert(Constant.Database.Article.TableName.POWER, power2);
 
-        Article speed2 = new Article("speed2", R.mipmap.life1, 55, 2, 1200);
+        Article speed2 = new Article("speed2", R.mipmap.speed1, 55, 2, 1200);
         app.getArticleDao().insert(Constant.Database.Article.TableName.SPEED, speed2);
 
-        Article laser2 = new Article("laser2", R.mipmap.life1, 28, 2, 1200);
+        Article laser2 = new Article("laser2", R.mipmap.laser1, 28, 2, 1200);
         app.getArticleDao().insert(Constant.Database.Article.TableName.LASER, laser2);
     }
 
