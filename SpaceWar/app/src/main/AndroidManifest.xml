@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.agentzengyu.spacewar">
+    package="com.zengyu.spacewar">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".application.SpaceWarApp"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,52 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.WelcomeActivity"
+            android:name=".ui.MainActivity"
             android:screenOrientation="landscape">
+        </activity>
+        <activity
+            android:name=".ui.GameActivity"
+            android:screenOrientation="landscape" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".activity.MenuActivity"
-            android:screenOrientation="landscape" />
-
-        <activity
-            android:name=".activity.GameActivity"
-            android:screenOrientation="landscape" />
-
-        <activity
-            android:name=".activity.ArticleActivity"
-            android:screenOrientation="landscape" />
-
-        <activity
-            android:name=".activity.SettingActivity"
-            android:screenOrientation="landscape" />
-
-        <activity
-            android:name=".activity.PlayerActivity"
-            android:screenOrientation="landscape" />
-
-        <activity
-            android:name=".activity.LoadActivity"
-            android:screenOrientation="landscape" />
-
-        <activity
-            android:name=".activity.LevelActivity"
-            android:screenOrientation="landscape" />
-
-        <service
-            android:name=".service.LoaderService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <service
-            android:name=".service.GameService"
-            android:enabled="true"
-            android:exported="true" />
     </application>
 
 </manifest>

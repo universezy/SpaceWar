@@ -1,30 +1,3 @@
 <resources>
     <string name="app_name">SpaceWar</string>
-
-    <string name="load_start">Loading...</string>
-    <string name="load_end">Loading successful.</string>
-    <string name="load_error">Data file damaged. Please reinstall.</string>
-
-    <string name="article_money">Money</string>
-    <string name="article_upgrade">Upgrade</string>
-
-    <string name="menu_player">Player</string>
-    <string name="menu_game">Game</string>
-    <string name="menu_article">Article</string>
-    <string name="menu_setting">Setting</string>
-
-    <string name="weapon_power">Power</string>
-    <string name="weapon_speed">Speed</string>
-    <string name="weapon_range">Range</string>
-    <string name="weapon_laser">Laser</string>
-
-    <string name="spaceship_life">Life</string>
-    <string name="spaceship_defense">Defense</string>
-    <string name="spaceship_velocity">Velocity</string>
-    <string name="spaceship_shield">Shield</string>
-
-    <string name="popupwindow_upgrade">Are you sure to upgrade?</string>
-    <string name="popupwindow_upgrade_fail">No enough money.</string>
-    <string name="popupwindow_upgrade_success">Upgrade successful!</string>
-
 </resources>

@@ -1,64 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:activity="com.example.agentzengyu.spacewar.activity.GameActivity">
+    tools:context=".ui.GameActivity">
 
-    <com.example.agentzengyu.spacewar.view.GameSurfaceView
-        android:id="@+id/gsv"
+    <com.zengyu.spacewar.view.widget.GameSurfaceView
+        android:id="@+id/svGame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.example.agentzengyu.spacewar.view.CircleImageView
-        android:id="@+id/civShield"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <ImageButton
+        android:id="@+id/ibNuclear"
+        android:layout_width="@dimen/game_btn_width"
+        android:layout_height="@dimen/game_btn_height"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="80dp"
-        android:layout_marginLeft="20dp"
-        android:focusable="true"
-        android:src="@mipmap/playershield"
-        app:border_color="#80000000"
-        app:border_overlay="false"
-        app:border_width="5dp" />
+        android:layout_marginStart="@dimen/game_btn_side_margin_start"
+        android:layout_marginBottom="@dimen/game_btn_side_margin_bottom"
+        android:alpha="0.6"
+        android:background="@drawable/ic_skill_nuclear" />
 
-    <com.example.agentzengyu.spacewar.view.CircleImageView
-        android:id="@+id/civLaser"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+    <ImageButton
+        android:id="@+id/ibLaser"
+        android:layout_width="@dimen/game_btn_width"
+        android:layout_height="@dimen/game_btn_height"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="80dp"
-        android:focusable="true"
-        android:src="@mipmap/playerlaser"
-        app:border_color="#80000000"
-        app:border_overlay="false"
-        app:border_width="5dp" />
+        android:layout_marginStart="@dimen/game_btn_bottom_margin_start"
+        android:layout_marginBottom="@dimen/game_btn_bottom_margin_bottom"
+        android:alpha="0.6"
+        android:background="@drawable/ic_skill_laser" />
 
-    <com.example.agentzengyu.spacewar.view.CircleImageView
-        android:id="@+id/civShot"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+    <ImageButton
+        android:id="@+id/ibShield"
+        android:layout_width="@dimen/game_btn_width"
+        android:layout_height="@dimen/game_btn_height"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"
-        android:focusable="true"
-        android:src="@mipmap/playershoot"
-        app:border_color="#80000000"
-        app:border_overlay="false"
-        app:border_width="5dp" />
+        android:layout_marginEnd="@dimen/game_btn_side_margin_start"
+        android:layout_marginBottom="@dimen/game_btn_side_margin_bottom"
+        android:alpha="0.6"
+        android:background="@drawable/ic_skill_shield" />
 
-    <TextView
-        android:id="@+id/tvNotify"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#cc050505"
-        android:gravity="center"
-        android:textColor="#ffffff" />
-
+    <ImageButton
+        android:id="@+id/ibBullet"
+        android:layout_width="@dimen/game_btn_width"
+        android:layout_height="@dimen/game_btn_height"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/game_btn_bottom_margin_start"
+        android:layout_marginBottom="@dimen/game_btn_bottom_margin_bottom"
+        android:alpha="0.6"
+        android:background="@drawable/ic_skill_bullet" />
 </RelativeLayout>
