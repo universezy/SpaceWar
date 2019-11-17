@@ -29,35 +29,44 @@ public abstract class AbsBean {
     protected int hp;
     @Direction
     protected int direction = Direction.UPWARD;
-    protected boolean valid = true;
+    public boolean visible = true;
+    public boolean alive = true;
 
-    public void init(Point border) {
+    public AbsBean(Point border) {
         this.border = border;
         paint = new Paint();
         paint.setAntiAlias(true);
-        update();
     }
 
-    protected void update() {
+    void initGraphic() {
         bitmap = BitmapManager.getInstance().getSrc(src);
         width = bitmap.getWidth();
         height = bitmap.getHeight();
     }
 
-    protected abstract void updateCoordinate();
+    protected boolean updateCoordinate() {
+        if (alive) {
+            return true;
+        } else {
+            visible = false;
+            return false;
+        }
+    }
 
-    public void draw(Canvas canvas) {
-        if (!valid) return;
+    public boolean draw(Canvas canvas) {
+        if (!visible) return false;
         updateCoordinate();
         canvas.save();
         Rect beanRect = getBeanRect();
         canvas.clipRect(beanRect);
         canvas.drawBitmap(getBitmap(), beanRect.left, beanRect.top, paint);
         canvas.restore();
+        return true;
     }
 
     public void activate() {
-        valid = true;
+        visible = true;
+        alive = true;
     }
 
     private Rect getBeanRect() {

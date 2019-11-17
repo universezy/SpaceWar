@@ -3,6 +3,7 @@ package com.zengyu.spacewar.ui;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageButton;
 
 import com.zengyu.spacewar.R;
@@ -21,6 +22,22 @@ public class GameActivity extends AppCompatActivity {
 
     private SkillHandler mAttackHandler;
     private IProcess mProcess;
+    private View.OnTouchListener mBulletListener = (v, event) -> {
+        if (mAttackHandler == null) return false;
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                mAttackHandler.onBullet(true);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                mAttackHandler.onBullet(false);
+            default:
+                return false;
+        }
+        return true;
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,21 +81,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void initComponent() {
         mAttackHandler = new SkillHandler(mProcess, mIbBullet, mIbNuclear, mIbLaser, mIbShield);
-        mIbBullet.setOnTouchListener((view, event) -> {
-            switch (event.getActionMasked()) {
-                case MotionEvent.ACTION_DOWN:
-                    mAttackHandler.onBullet(true);
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    mAttackHandler.onBullet(false);
-                default:
-                    return false;
-            }
-            return true;
-        });
+        mIbBullet.setOnTouchListener(mBulletListener);
         mIbShield.setOnClickListener(view -> mAttackHandler.onShield());
         mIbLaser.setOnClickListener(view -> mAttackHandler.onLaser());
         mIbNuclear.setOnClickListener(view -> mAttackHandler.onNuclear());

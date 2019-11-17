@@ -12,14 +12,14 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Player extends AbsBean implements IPlane {
+public class Player extends AbsEntityBean<PlayerModel> implements IPlane, Destructible, IPlayer {
     private static final float RATIO_ACCELERATE_RATE = 1.4F;
     private static final int MAX_VELOCITY = 15;
-    @PlayerModel.Shield
+    @PlayerModel.ShieldSrc
     private int shieldSrc;
-    @PlayerModel.Nuclear
+    @PlayerModel.NuclearSrc
     private int nuclearSrc;
-    @PlayerModel.Bullet
+    @PlayerModel.BulletSrc
     private int bulletSrc;
     @PlayerModel.BulletVelocity
     private int bulletVelocity;
@@ -27,7 +27,14 @@ public class Player extends AbsBean implements IPlane {
     private boolean useLaser;
     private Bitmap shieldBitmap;
 
-    public Player(PlayerModel model) {
+    public Player(Point border) {
+        super(border);
+        x = border.x / 2;
+        y = border.y - height / 2;
+    }
+
+    @Override
+    public void init(PlayerModel model) {
         src = model.getSrc();
         shieldSrc = model.getShieldSrc();
         nuclearSrc = model.getNuclearSrc();
@@ -35,18 +42,13 @@ public class Player extends AbsBean implements IPlane {
         bulletVelocity = model.getBulletVelocity();
         hp = model.getHp();
         damage = model.getDamage();
-    }
-
-    @Override
-    public void init(Point border) {
-        super.init(border);
-        x = border.x / 2;
-        y = border.y - height / 2;
         shieldBitmap = BitmapManager.getInstance().getSrc(shieldSrc);
+        initGraphic();
     }
 
     @Override
-    protected void updateCoordinate() {
+    protected boolean updateCoordinate() {
+        if (!super.updateCoordinate()) return false;
         if (x > border.x) {
             x = border.x;
         } else if (x < 0) {
@@ -71,6 +73,7 @@ public class Player extends AbsBean implements IPlane {
                 y = border.y;
             }
         }
+        return true;
     }
 
     @Override
@@ -79,11 +82,13 @@ public class Player extends AbsBean implements IPlane {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
+    public boolean draw(Canvas canvas) {
+        if (!super.draw(canvas)) return false;
         // TODO
+        return true;
     }
 
+    @Override
     public void updateVelocity(float acceleratedX, float acceleratedY) {
         if (Float.compare(velocityX, -MAX_VELOCITY) < 0) {
             velocityX = -MAX_VELOCITY;
@@ -101,10 +106,21 @@ public class Player extends AbsBean implements IPlane {
         }
     }
 
+    @Override
+    public void decreaseHp(int damage) {
+        if (useShield) return;
+        hp -= damage;
+//        if (hp <= 0) {
+//            alive = false;
+//        }
+    }
+
+    @Override
     public void setShieldState(boolean useShield) {
         this.useShield = useShield;
     }
 
+    @Override
     public void setLaserState(boolean useLaser) {
         this.useLaser = useLaser;
     }

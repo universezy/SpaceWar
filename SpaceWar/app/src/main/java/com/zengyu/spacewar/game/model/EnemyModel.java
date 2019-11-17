@@ -10,14 +10,14 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class EnemyModel {
+public class EnemyModel implements IModel {
     @Type
     private int type;
     @Src
     private int src;
     @Velocity
     private int velocity;
-    @Bullet
+    @BulletSrc
     private int bulletSrc;
     @BulletVelocity
     private int bulletVelocity;
@@ -60,7 +60,7 @@ public class EnemyModel {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Bullet {
+    public @interface BulletSrc {
         int BULLET1 = R.drawable.ic_enemy_bullet1;
         int BULLET2 = R.drawable.ic_enemy_bullet2;
         int BULLET3 = R.drawable.ic_enemy_bullet3;
@@ -82,9 +82,9 @@ public class EnemyModel {
 
     @Retention(RetentionPolicy.SOURCE)
     public @interface Hp {
-        int HP1 = 300;
-        int HP2 = 500;
-        int HP3 = 800;
-        int HP4 = 1000;
+        int HP1 = 100;
+        int HP2 = 300;
+        int HP3 = 500;
+        int HP4 = 800;
     }
 }

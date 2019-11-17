@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class BlockModel {
+public class BlockModel implements IModel{
     @Src
     private int src;
     @Velocity

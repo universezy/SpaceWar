@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlayerModel {
+public class PlayerModel implements IModel {
     @Src
     private int src;
-    @Shield
+    @ShieldSrc
     private int shieldSrc;
-    @Bullet
+    @BulletSrc
     private int bulletSrc;
     @BulletVelocity
     private int bulletVelocity;
@@ -25,17 +25,17 @@ public class PlayerModel {
     private int damage;
     @Hp
     private int hp;
-    @Nuclear
+    @NuclearSrc
     private int nuclearSrc;
 
     public void test() {
         src = Src.PLANE1;
-        shieldSrc = Shield.PLANE1_SHIELD;
-        bulletSrc = Bullet.BULLET1;
+        shieldSrc = ShieldSrc.PLANE1_SHIELD;
+        bulletSrc = BulletSrc.BULLET1;
         bulletVelocity = BulletVelocity.VELOCITY1;
         damage = Damage.DAMAGE1;
         hp = Hp.HP1;
-        nuclearSrc = Nuclear.NUCLEAR1;
+        nuclearSrc = NuclearSrc.NUCLEAR1;
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -45,20 +45,20 @@ public class PlayerModel {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Shield {
+    public @interface ShieldSrc {
         int PLANE1_SHIELD = R.drawable.ic_plane1_shield;
         int PLANE2_SHIELD = R.drawable.ic_plane2_shield;
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Nuclear {
+    public @interface NuclearSrc {
         int NUCLEAR1 = R.drawable.ic_nuclear1;
         int NUCLEAR2 = R.drawable.ic_nuclear2;
         int NUCLEAR3 = R.drawable.ic_nuclear3;
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Bullet {
+    public @interface BulletSrc {
         int BULLET1 = R.drawable.ic_bullet1;
         int BULLET2 = R.drawable.ic_bullet2;
         int BULLET3 = R.drawable.ic_bullet3;

@@ -1,5 +1,7 @@
 package com.zengyu.spacewar.game.bean;
 
+import android.graphics.Point;
+
 import com.zengyu.spacewar.game.model.BlockModel;
 
 import lombok.Data;
@@ -7,31 +9,28 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Block extends AbsBean {
+public class Block extends AbsModelBean<BlockModel> {
     private static final int VELOCITY = 1;
 
-    public Block(int x, int y, BlockModel model) {
-        init(x, y, model);
-        direction = Direction.DOWNWARD;
-    }
-
-    private void init(int x, int y, BlockModel model) {
-        this.x = x;
-        this.y = y;
-        src = model.getSrc();
-        velocityY = model.getVelocity();
-        update();
+    public Block(Point border) {
+        super(border);
     }
 
     @Override
-    protected void updateCoordinate() {
-        y += velocityY;
-        if (y > border.y + height) {
-            valid = false;
-        }
+    public void init(int x, int y, BlockModel model) {
+        super.init(x, y, model);
+        velocityY = model.getVelocity();
+        hp = model.getHp();
+        direction = Direction.DOWNWARD;
     }
 
-    public void from(int x, int y, BlockModel model) {
-        init(x, y, model);
+    @Override
+    protected boolean updateCoordinate() {
+        if (!super.updateCoordinate()) return false;
+        y += velocityY;
+        if (y > border.y + height) {
+            visible = false;
+        }
+        return true;
     }
 }

@@ -3,6 +3,7 @@ package com.zengyu.spacewar.game.manager;
 import android.graphics.Canvas;
 import android.graphics.Point;
 
+import com.zengyu.spacewar.game.bean.AbsBean;
 import com.zengyu.spacewar.game.model.BlockModel;
 import com.zengyu.spacewar.game.model.EnemyModel;
 import com.zengyu.spacewar.game.model.PlayerModel;
@@ -78,7 +79,7 @@ public class RuntimeManager {
         if (mNuclear == null) {
             mNuclear = NuclearFactory.build(mBorder, mPlayer);
         } else {
-            mNuclear.from(mPlayer);
+            mNuclear.init(mPlayer);
             mNuclear.activate();
         }
     }
@@ -89,7 +90,7 @@ public class RuntimeManager {
         if (enemy == null) {
             enemy = EnemyFactory.build(mBorder, model);
         } else {
-            enemy.from(new Random().nextInt(mBorder.x), 0, model);
+            enemy.init(new Random().nextInt(mBorder.x), 0, model);
             enemy.activate();
         }
         mEnemies.add(enemy);
@@ -101,7 +102,7 @@ public class RuntimeManager {
         if (block == null) {
             block = BlockFactory.build(mBorder, model);
         } else {
-            block.from(new Random().nextInt(mBorder.x), 0, model);
+            block.init(new Random().nextInt(mBorder.x), 0, model);
             block.activate();
         }
         mBlocks.add(block);
@@ -112,7 +113,7 @@ public class RuntimeManager {
         if (bullet == null) {
             bullet = BulletFactory.build(mBorder, mPlayer);
         } else {
-            bullet.from(mPlayer);
+            bullet.init(mPlayer);
             bullet.activate();
         }
         mPlayerBullets.add(bullet);
@@ -123,7 +124,7 @@ public class RuntimeManager {
         if (bullet == null) {
             bullet = BulletFactory.build(mBorder, enemy);
         } else {
-            bullet.from(enemy);
+            bullet.init(enemy);
             bullet.activate();
         }
         mEnemyBullets.add(bullet);
@@ -144,7 +145,7 @@ public class RuntimeManager {
         Iterator<Enemy> iterator = mEnemies.iterator();
         while (iterator.hasNext()) {
             Enemy enemy = iterator.next();
-            if (enemy.isValid()) {
+            if (enemy.isVisible()) {
                 enemy.draw(canvas);
             } else {
                 iterator.remove();
@@ -153,11 +154,11 @@ public class RuntimeManager {
         }
     }
 
-    public void drawBlocks(Canvas canvas){
+    public void drawBlocks(Canvas canvas) {
         Iterator<Block> iterator = mBlocks.iterator();
         while (iterator.hasNext()) {
             Block block = iterator.next();
-            if (block.isValid()) {
+            if (block.isVisible()) {
                 block.draw(canvas);
             } else {
                 iterator.remove();
@@ -170,7 +171,7 @@ public class RuntimeManager {
         Iterator<Bullet> iterator = mPlayerBullets.iterator();
         while (iterator.hasNext()) {
             Bullet bullet = iterator.next();
-            if (bullet.isValid()) {
+            if (bullet.isVisible()) {
                 bullet.draw(canvas);
             } else {
                 iterator.remove();
@@ -183,7 +184,7 @@ public class RuntimeManager {
         Iterator<Bullet> iterator = mEnemyBullets.iterator();
         while (iterator.hasNext()) {
             Bullet bullet = iterator.next();
-            if (bullet.isValid()) {
+            if (bullet.isVisible()) {
                 bullet.draw(canvas);
             } else {
                 iterator.remove();
@@ -192,49 +193,87 @@ public class RuntimeManager {
         }
     }
 
-    private void checkCollision() {
+    public void checkCollision() {
+        mPlayerBullets.parallelStream().forEach(bullet -> {
+            mEnemies.parallelStream().anyMatch(enemy -> {
+                if (bullet.isAlive() && isCollision(enemy, bullet)) {
+                    enemy.decreaseHp(bullet.getDamage());
+                    bullet.setAlive(false);
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            mBlocks.parallelStream().anyMatch(block -> {
+                if (bullet.isAlive() && isCollision(block, bullet)) {
+                    block.decreaseHp(bullet.getDamage());
+                    bullet.setAlive(false);
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        });
+        mEnemyBullets.parallelStream().forEach(bullet -> {
+            if (bullet.isAlive() && isCollision(mPlayer, bullet)) {
+                mPlayer.decreaseHp(bullet.getDamage());
+                bullet.setAlive(false);
+            }
+        });
+    }
 
+    private boolean isCollision(AbsBean bean1, AbsBean bean2) {
+        int distanceX, distanceY;
+        if (bean2 instanceof Bullet) {
+            distanceX = bean1.getWidth() / 2;
+            distanceY = bean1.getHeight() / 2;
+        } else {
+            distanceX = (bean1.getWidth() + bean2.getWidth()) / 2;
+            distanceY = (bean1.getHeight() + bean2.getHeight()) / 2;
+        }
+        return (Math.abs(bean1.getX() - bean2.getX()) < distanceX)
+                && (Math.abs(bean1.getY() - bean2.getY()) < distanceY);
     }
 
     /******************************* Factory *********************************/
 
     private static class PlayerFactory {
         private static Player build(Point border, PlayerModel model) {
-            Player player = new Player(model);
-            player.init(border);
+            Player player = new Player(border);
+            player.init(model);
             return player;
-        }
-    }
-
-    private static class NuclearFactory {
-        private static Nuclear build(Point border, Player player) {
-            Nuclear nuclear = new Nuclear(player);
-            nuclear.init(border);
-            return nuclear;
         }
     }
 
     private static class EnemyFactory {
         private static Enemy build(Point border, EnemyModel model) {
-            Enemy enemy = new Enemy(new Random().nextInt(border.x), 0, model);
-            enemy.init(border);
+            Enemy enemy = new Enemy(border);
+            enemy.init(new Random().nextInt(border.x), 0, model);
             return enemy;
-        }
-    }
-
-    private static class BulletFactory {
-        private static Bullet build(Point border, IPlane plane) {
-            Bullet bullet = new Bullet(plane);
-            bullet.init(border);
-            return bullet;
         }
     }
 
     private static class BlockFactory {
         private static Block build(Point border, BlockModel model) {
-            Block block = new Block(new Random().nextInt(border.x), 0, model);
-            block.init(border);
+            Block block = new Block(border);
+            block.init(new Random().nextInt(border.x), 0, model);
             return block;
+        }
+    }
+
+    private static class BulletFactory {
+        private static Bullet build(Point border, IPlane plane) {
+            Bullet bullet = new Bullet(border);
+            bullet.init(plane);
+            return bullet;
+        }
+    }
+
+    private static class NuclearFactory {
+        private static Nuclear build(Point border, Player player) {
+            Nuclear nuclear = new Nuclear(border);
+            nuclear.init(player);
+            return nuclear;
         }
     }
 }

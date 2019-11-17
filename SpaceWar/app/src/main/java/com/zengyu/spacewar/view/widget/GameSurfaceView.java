@@ -67,6 +67,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 RuntimeManager.getInstance().drawEnemies(mCanvas);
                 // Player
                 RuntimeManager.getInstance().drawPlayer(mCanvas);
+                // Collision
+                RuntimeManager.getInstance().checkCollision();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

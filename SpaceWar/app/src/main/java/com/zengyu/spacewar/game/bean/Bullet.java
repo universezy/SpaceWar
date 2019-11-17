@@ -1,37 +1,38 @@
 package com.zengyu.spacewar.game.bean;
 
-public class Bullet extends AbsBean {
+import android.graphics.Point;
 
-    public Bullet(IPlane plane) {
-        init(plane);
+public class Bullet extends AbsEntityBean<IPlane> {
+
+    public Bullet(Point border) {
+        super(border);
     }
 
-    private void init(IPlane plane) {
+    @Override
+    public void init(IPlane plane) {
         x = plane.getX();
         y = plane.getY();
         src = plane.getBulletSrc();
         velocityY = plane.getBulletVelocity();
         damage = plane.getDamage();
         direction = plane.getDirection();
-        update();
+        initGraphic();
     }
 
     @Override
-    protected void updateCoordinate() {
+    protected boolean updateCoordinate() {
+        if (!super.updateCoordinate()) return false;
         if (direction == Direction.UPWARD) {
             y -= velocityY;
             if (y + height < 0) {
-                valid = false;
+                visible = false;
             }
         } else {
             y += velocityY;
             if (y > border.y + height) {
-                valid = false;
+                visible = false;
             }
         }
-    }
-
-    public void from(IPlane plane) {
-        init(plane);
+        return true;
     }
 }

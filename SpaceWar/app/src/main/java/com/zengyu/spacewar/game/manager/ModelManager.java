@@ -1,6 +1,5 @@
 package com.zengyu.spacewar.game.manager;
 
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.zengyu.spacewar.game.model.BlockModel;
@@ -88,7 +87,7 @@ public class ModelManager {
                 EnemyModel.Type.NORMAL,
                 EnemyModel.Src.ENEMY1,
                 EnemyModel.Velocity.VELOCITY3,
-                EnemyModel.Bullet.BULLET1,
+                EnemyModel.BulletSrc.BULLET1,
                 EnemyModel.BulletVelocity.VELOCITY3,
                 EnemyModel.Damage.DAMAGE1,
                 EnemyModel.Hp.HP1
@@ -97,7 +96,7 @@ public class ModelManager {
                 EnemyModel.Type.NORMAL,
                 EnemyModel.Src.ENEMY2,
                 EnemyModel.Velocity.VELOCITY3,
-                EnemyModel.Bullet.BULLET1,
+                EnemyModel.BulletSrc.BULLET1,
                 EnemyModel.BulletVelocity.VELOCITY2,
                 EnemyModel.Damage.DAMAGE2,
                 EnemyModel.Hp.HP2
@@ -106,7 +105,7 @@ public class ModelManager {
                 EnemyModel.Type.NORMAL,
                 EnemyModel.Src.ENEMY3,
                 EnemyModel.Velocity.VELOCITY2,
-                EnemyModel.Bullet.BULLET2,
+                EnemyModel.BulletSrc.BULLET2,
                 EnemyModel.BulletVelocity.VELOCITY3,
                 EnemyModel.Damage.DAMAGE2,
                 EnemyModel.Hp.HP3
@@ -115,7 +114,7 @@ public class ModelManager {
                 EnemyModel.Type.NORMAL,
                 EnemyModel.Src.ENEMY4,
                 EnemyModel.Velocity.VELOCITY2,
-                EnemyModel.Bullet.BULLET2,
+                EnemyModel.BulletSrc.BULLET2,
                 EnemyModel.BulletVelocity.VELOCITY2,
                 EnemyModel.Damage.DAMAGE2,
                 EnemyModel.Hp.HP3
@@ -124,7 +123,7 @@ public class ModelManager {
                 EnemyModel.Type.NORMAL,
                 EnemyModel.Src.ENEMY5,
                 EnemyModel.Velocity.VELOCITY2,
-                EnemyModel.Bullet.BULLET2,
+                EnemyModel.BulletSrc.BULLET2,
                 EnemyModel.BulletVelocity.VELOCITY3,
                 EnemyModel.Damage.DAMAGE2,
                 EnemyModel.Hp.HP3
@@ -133,7 +132,7 @@ public class ModelManager {
                 EnemyModel.Type.NORMAL,
                 EnemyModel.Src.ENEMY6,
                 EnemyModel.Velocity.VELOCITY2,
-                EnemyModel.Bullet.BULLET2,
+                EnemyModel.BulletSrc.BULLET2,
                 EnemyModel.BulletVelocity.VELOCITY2,
                 EnemyModel.Damage.DAMAGE2,
                 EnemyModel.Hp.HP3
@@ -142,7 +141,7 @@ public class ModelManager {
                 EnemyModel.Type.BOSS,
                 EnemyModel.Src.BOSS1,
                 EnemyModel.Velocity.VELOCITY1,
-                EnemyModel.Bullet.BULLET3,
+                EnemyModel.BulletSrc.BULLET3,
                 EnemyModel.BulletVelocity.VELOCITY1,
                 EnemyModel.Damage.DAMAGE3,
                 EnemyModel.Hp.HP4
@@ -151,7 +150,7 @@ public class ModelManager {
                 EnemyModel.Type.BOSS,
                 EnemyModel.Src.BOSS2,
                 EnemyModel.Velocity.VELOCITY1,
-                EnemyModel.Bullet.BULLET3,
+                EnemyModel.BulletSrc.BULLET3,
                 EnemyModel.BulletVelocity.VELOCITY1,
                 EnemyModel.Damage.DAMAGE3,
                 EnemyModel.Hp.HP4
@@ -160,7 +159,7 @@ public class ModelManager {
                 EnemyModel.Type.BOSS,
                 EnemyModel.Src.BOSS3,
                 EnemyModel.Velocity.VELOCITY1,
-                EnemyModel.Bullet.BULLET3,
+                EnemyModel.BulletSrc.BULLET3,
                 EnemyModel.BulletVelocity.VELOCITY1,
                 EnemyModel.Damage.DAMAGE3,
                 EnemyModel.Hp.HP4
@@ -169,7 +168,7 @@ public class ModelManager {
                 EnemyModel.Type.BOSS,
                 EnemyModel.Src.BOSS4,
                 EnemyModel.Velocity.VELOCITY1,
-                EnemyModel.Bullet.BULLET3,
+                EnemyModel.BulletSrc.BULLET3,
                 EnemyModel.BulletVelocity.VELOCITY1,
                 EnemyModel.Damage.DAMAGE3,
                 EnemyModel.Hp.HP4
@@ -178,7 +177,7 @@ public class ModelManager {
                 EnemyModel.Type.BOSS,
                 EnemyModel.Src.BOSS5,
                 EnemyModel.Velocity.VELOCITY1,
-                EnemyModel.Bullet.BULLET3,
+                EnemyModel.BulletSrc.BULLET3,
                 EnemyModel.BulletVelocity.VELOCITY1,
                 EnemyModel.Damage.DAMAGE3,
                 EnemyModel.Hp.HP4
